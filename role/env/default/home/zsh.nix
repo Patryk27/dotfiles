@@ -28,7 +28,7 @@ in
     };
   };
 
-  home-manager.users.pwy = { pkgs, ... }: {
+  home-manager.users.pwy = {
     home = {
       file = {
         ".p10k.zsh".source = ./zsh/p10k.zsh;

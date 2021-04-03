@@ -14,7 +14,7 @@ let
 
 in
 {
-  home-manager.users.pwy = { pkgs, ... }: {
+  home-manager.users.pwy = {
     home = {
       file = {
         ".cargo/config".text = ''

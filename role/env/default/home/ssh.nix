@@ -1,5 +1,5 @@
 { ... }: {
-  home-manager.users.pwy = { ... }: {
+  home-manager.users.pwy = {
     programs = {
       ssh = {
         enable = true;

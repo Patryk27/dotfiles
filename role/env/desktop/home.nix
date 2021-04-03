@@ -13,7 +13,7 @@
     ./home/wofi.nix
   ];
 
-  home-manager.users.pwy = { ... }: {
+  home-manager.users.pwy = {
     fonts = {
       fontconfig = {
         enable = true;

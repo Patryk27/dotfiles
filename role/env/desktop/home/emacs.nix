@@ -5,7 +5,7 @@
     ];
   };
 
-  home-manager.users.pwy = { ... }:
+  home-manager.users.pwy =
     let
       doom-sync = pkgs.writeShellScriptBin "doom-sync" ''
         set -ex

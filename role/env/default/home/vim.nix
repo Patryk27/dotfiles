@@ -1,5 +1,5 @@
-{ ... }: {
-  home-manager.users.pwy = { pkgs, ... }:
+{ pkgs, ... }: {
+  home-manager.users.pwy =
     let
       firenvim = {
         plugin = pkgs.vimUtils.buildVimPlugin {

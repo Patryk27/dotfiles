@@ -6,7 +6,7 @@
     };
   };
 
-  home-manager.users.pwy = { ... }: {
+  home-manager.users.pwy = {
     programs = {
       gpg = {
         enable = true;

@@ -20,7 +20,7 @@
     ];
   };
 
-  home-manager.users.pwy = { ... }: {
+  home-manager.users.pwy = {
     home = {
       sessionVariables = {
         SSH_AUTH_SOCK = "/run/user/1000/gnupg/S.gpg-agent.ssh";

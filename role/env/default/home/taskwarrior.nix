@@ -1,5 +1,5 @@
 { config, ... }: {
-  home-manager.users.pwy = { pkgs, ... }: {
+  home-manager.users.pwy = {
     programs = {
       taskwarrior = {
         enable = true;

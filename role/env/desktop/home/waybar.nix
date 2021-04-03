@@ -6,7 +6,7 @@
     ];
   };
 
-  home-manager.users.pwy = { ... }: {
+  home-manager.users.pwy = {
     programs = {
       waybar = {
         enable = true;

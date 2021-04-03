@@ -1,5 +1,5 @@
 { ... }: {
-  home-manager.users.pwy = { pkgs, ... }: {
+  home-manager.users.pwy = {
     programs = {
       mako = {
         enable = true;

@@ -17,7 +17,7 @@
     };
   };
 
-  home-manager.users.pwy = { pkgs, ... }: {
+  home-manager.users.pwy = {
     home = {
       file = {
         ".xkb/symbols/custom".text = ''
