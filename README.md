@@ -38,6 +38,10 @@ Because [nix-doom-emacs](https://github.com/vlaci/nix-doom-emacs) doesn't work w
 - [nix](role/env/desktop/home/waybar.nix)
 - [style](role/env/desktop/home/waybar/style.css)
 
+## Vim
+
+- [nix](role/env/default/home/vim.nix)
+
 ## ZSH
 
 - [nix](role/env/default/home/zsh.nix)
