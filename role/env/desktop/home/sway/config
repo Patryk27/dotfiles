@@ -1,0 +1,170 @@
+set $mod Mod4
+floating_modifier $mod
+popup_during_fullscreen smart
+workspace_layout tabbed
+
+## ----- ##
+## theme ##
+
+font pango:Fira Code 9
+title_align center
+titlebar_padding 1 1
+
+client.background       #222222
+client.focused          #222222 #222222 #c9545d #222222 #222222
+client.unfocused        #222222 #222222 #dfdfdf #222222 #222222
+client.focused_inactive #222222 #222222 #dfdfdf #222222 #222222
+client.urgent           #222222 #dc3545 #ffffff #222222 #222222
+client.placeholder      #222222 #222222 #dfdfdf #222222 #222222
+
+## ------ ##
+## inputs ##
+
+input type:keyboard {
+    xkb_layout "custom"
+    xkb_options caps:escape
+    repeat_delay 200
+    repeat_rate 25
+}
+
+input type:mouse {
+    scroll_factor 0.6
+}
+
+## ------- ##
+## outputs ##
+
+output "*" background "@@wallpaper@@" fill
+
+## ---- ##
+## main ##
+
+seat * hide_cursor 2000
+
+bindsym Super_L mode "~"
+bindsym Print mode "~"
+
+bindsym --release XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym --release XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym --release XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym --release XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym --release XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym --release XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym --release XF86Mail exec "swaylock -c 000000 -d && swaymsg mode default"
+
+mode "~" {
+    bindsym Super_L mode "default"
+
+    bindsym Tab mode "~/workspace"
+    bindsym w mode "~/container"
+    bindsym q mode "~/window"
+
+    bindsym y exec "@@launcher@@"; mode "default"
+    bindsym h exec "alacritty"; mode "default"
+    bindsym n exec "emacs"; mode "default"
+
+    bindsym bracketleft focus left; mode "default"
+    bindsym bracketright focus right; mode "default"
+
+    bindsym Print exec grim -g "$(slurp)" -t png - | wl-copy -t image/png; mode "default"
+    bindsym Shift+Print exec grim -g "$(slurp)" -t png /tmp/screenshot.png; mode "default"
+}
+
+mode "~/container" {
+    bindsym Super_L mode "default"
+
+    bindsym h split h; mode "default"
+    bindsym j split v; mode "default"
+
+    bindsym y layout stacking; mode "default"
+    bindsym u layout tabbed; mode "default"
+    bindsym i layout toggle split; mode "default"
+
+    bindsym Shift+h move container left; mode "default"
+    bindsym Shift+j move container down; mode "default"
+    bindsym Shift+k move container up; mode "default"
+    bindsym Shift+l move container right; mode "default"
+
+    bindsym Shift+q move container to workspace 1; mode "default"
+    bindsym Shift+w move container to workspace 2; mode "default"
+    bindsym Shift+e move container to workspace 3; mode "default"
+    bindsym Shift+a move container to workspace 4; mode "default"
+    bindsym Shift+s move container to workspace 5; mode "default"
+    bindsym Shift+d move container to workspace 6; mode "default"
+    bindsym Shift+z move container to workspace 7; mode "default"
+    bindsym Shift+x move container to workspace 8; mode "default"
+    bindsym Shift+c move container to workspace 9; mode "default"
+
+    bindsym Ctrl+Shift+h move container to output left; mode "default"
+    bindsym Ctrl+Shift+j move container to output down; mode "default"
+    bindsym Ctrl+Shift+k move container to output up; mode "default"
+    bindsym Ctrl+Shift+l move container to output right; mode "default"
+}
+
+mode "~/window" {
+    bindsym Super_L mode "default"
+
+    bindsym Tab floating toggle; mode "default"
+    bindsym a fullscreen toggle; mode "default"
+    bindsym q kill; mode "default"
+
+    bindsym y focus parent; mode "default"
+    bindsym n focus child; mode "default"
+
+    bindsym h focus left; mode "default"
+    bindsym j focus down; mode "default"
+    bindsym k focus up; mode "default"
+    bindsym l focus right; mode "default"
+
+    bindsym Shift+h move left; mode "default"
+    bindsym Shift+j move down; mode "default"
+    bindsym Shift+k move up; mode "default"
+    bindsym Shift+l move right; mode "default"
+
+    bindsym Shift+q move window to workspace 1; mode "default"
+    bindsym Shift+w move window to workspace 2; mode "default"
+    bindsym Shift+e move window to workspace 3; mode "default"
+    bindsym Shift+a move window to workspace 4; mode "default"
+    bindsym Shift+s move window to workspace 5; mode "default"
+    bindsym Shift+d move window to workspace 6; mode "default"
+    bindsym Shift+z move window to workspace 7; mode "default"
+    bindsym Shift+x move window to workspace 8; mode "default"
+    bindsym Shift+c move window to workspace 9; mode "default"
+
+    bindsym Ctrl+Shift+h move window to output left; mode "default"
+    bindsym Ctrl+Shift+j move window to output down; mode "default"
+    bindsym Ctrl+Shift+k move window to output up; mode "default"
+    bindsym Ctrl+Shift+l move window to output right; mode "default"
+}
+
+mode "~/workspace" {
+    bindsym Super_L mode "default"
+
+    bindsym q workspace 1; mode "default"
+    bindsym w workspace 2; mode "default"
+    bindsym e workspace 3; mode "default"
+    bindsym a workspace 4; mode "default"
+    bindsym s workspace 5; mode "default"
+    bindsym d workspace 6; mode "default"
+    bindsym z workspace 7; mode "default"
+    bindsym x workspace 8; mode "default"
+    bindsym c workspace 9; mode "default"
+
+    bindsym Ctrl+Shift+h move workspace to output left; mode "default"
+    bindsym Ctrl+Shift+j move workspace to output down; mode "default"
+    bindsym Ctrl+Shift+k move workspace to output up; mode "default"
+    bindsym Ctrl+Shift+l move workspace to output right; mode "default"
+}
+
+## ----- ##
+## rules ##
+
+for_window [urgent=latest] focus
+for_window [window_role="pop-up"] floating enable
+
+assign [title="Google Chrome"] 2
+assign [title="Mozilla Firefox"] 2
+assign [title="Doom Emacs"] 3
+assign [title="Slack"] 4
+assign [title="Keybase"] 8
+assign [title="Thunderbird"] 9

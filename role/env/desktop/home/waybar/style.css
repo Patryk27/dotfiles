@@ -1,0 +1,64 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "Font Awesome", "Fira Code";
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: #222222;
+    color: #ffffff;
+}
+
+#window {
+    font-weight: bold;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    background: transparent;
+    color: #ffffff;
+}
+
+#workspaces button.focused {
+    color: #c9545d;
+}
+
+#mode {
+    color: #17a2b8;
+    font-weight: bold;
+}
+
+#pulseaudio, #cpu, #memory, #temperature, #battery, #clock, #tray {
+    padding: 0 2px;
+    margin: 0 8px;
+}
+
+#pulseaudio.muted {
+    color: #6c757d;
+}
+
+#battery.discharging {
+    color: #17a2b8;
+}
+
+#battery.discharging.warning {
+    color: #ffc107;
+    animation: battery-blink 1s infinite alternate;
+}
+
+#battery.discharging.critical {
+    color: #dc3545;
+    animation: battery-blink 0.5s infinite alternate;
+}
+
+@keyframes battery-blink {
+    from {
+        opacity: 1.0;
+    }
+
+    to {
+        opacity: 0.0;
+    }
+}
