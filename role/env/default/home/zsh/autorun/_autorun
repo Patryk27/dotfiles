@@ -1,7 +1,0 @@
-#!/usr/bin/env zsh
-
-dir=$(dirname $0)
-
-for f in $dir/*.zsh; do
-    source "$f"
-done

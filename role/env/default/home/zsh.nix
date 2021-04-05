@@ -1,25 +1,7 @@
-{ pkgs, ... }:
-let
-  autorun = ./zsh/autorun;
-  p10k-config = ./zsh/p10k.zsh;
-
-  k = builtins.fetchGit {
-    url = "https://github.com/supercrabtree/k.git";
-    rev = "e2bfbaf3b8ca92d6ffc4280211805ce4b8a8c19e";
-  };
-
-in
-{
+{ pkgs, ... }: {
   environment = {
     # For autosuggestions
     pathsToLink = [ "/share/zsh" ];
-  };
-
-  fonts = {
-    fonts = with pkgs; [
-      # For powerlevel10k
-      powerline-fonts
-    ];
   };
 
   programs = {
@@ -30,10 +12,6 @@ in
 
   home-manager.users.pwy = {
     home = {
-      file = {
-        ".p10k.zsh".source = ./zsh/p10k.zsh;
-      };
-
       packages = with pkgs; [
         # For fzf-history-widget
         perl
@@ -43,19 +21,8 @@ in
     programs = {
       zsh = {
         enable = true;
-        autocd = true;
         enableAutosuggestions = true;
         enableCompletion = true;
-
-        initExtraBeforeCompInit = ''
-          if [[ "$TERM" == "dumb" ]]; then
-              unsetopt zle
-              unsetopt prompt_cr
-              unsetopt prompt_subst
-              PS1='$ '
-              return
-          fi
-        '';
 
         history = {
           share = false;
@@ -63,37 +30,54 @@ in
 
         oh-my-zsh = {
           enable = true;
+          theme = "custom";
 
           plugins = [
             "autojump"
-            "docker"
-            "docker-compose"
             "extract"
             "fzf"
             "git"
           ];
 
           extraConfig = ''
-            DISABLE_AUTO_TITLE="true"
-            COMPLETION_WAITING_DOTS="true"
             FZF_BASE="$(fzf-share)"
+            ZSH_CUSTOM="${./zsh/custom}"
 
-            # Initialize hook for lorri
+            COMPLETION_WAITING_DOTS="true"
+            DISABLE_MAGIC_FUNCTIONS="true"
+
             eval "$(direnv hook zsh)"
 
-            # Initialize theme
-            source ${p10k-config}
-            source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-
-            # Initialize other plugins
-            source ${k}/k.sh
-            source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
             ${pkgs.any-nix-shell}/bin/any-nix-shell zsh --info-right | source /dev/stdin
-
-            # Launch autorun scripts
-            source ${autorun}/_autorun
+            source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+            source ${./zsh/autorun.zsh}
           '';
+        };
+
+        shellAliases = {
+          c = "docker-compose";
+          ca = "clear && cargo";
+          cab = "clear && cargo build";
+          cabr = "clear && cargo build --release";
+          cac = "clear && cargo check";
+          caf = "clear && cargo fmt";
+          car = "clear && cargo run";
+          carb = "clear && RUST_BACKTRACE=1 cargo run";
+          carr = "clear && cargo run --release";
+          carrb = "clear && RUST_BACKTRACE=1 cargo run --release";
+          cate = "clear && cargo test --quiet";
+          cateb = "clear && RUST_BACKTRACE=1 cargo test";
+          catew = "clear && cargo test --quiet --workspace";
+          catewb = "clear && RUST_BACKTRACE=1 cargo test --workspace";
+          catewf = "clear && cargo test --all-features --quiet --workspace";
+          catewfb = "clear && RUST_BACKTRACE=1 cargo test --all-features --workspace";
+          cau = "clear && cargo update";
+          caup = "clear && cargo update --package";
+          d = "docker";
+          jcl = "journalctl";
+          jclu = "journalctl --user";
+          scl = "systemctl";
+          sclu = "systemctl --user";
         };
       };
     };
