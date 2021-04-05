@@ -20,10 +20,6 @@ Configurations for some of my NixOS machines.
 - [nix](role/env/desktop/home/emacs.nix)
 - [doom.d](role/env/desktop/home/emacs/doom.d)
 
-I'm using GccEmacs + Pure Gtk from [emacs-overlay](https://github.com/nix-community/emacs-overlay); as for the configuration itself, it's [Doom Emacs](https://github.com/hlissner/doom-emacs).
-
-Because [nix-doom-emacs](https://github.com/vlaci/nix-doom-emacs) doesn't work with GccEmacs yet, as a temporary solution I'm building a script called [`doom-sync`](https://github.com/Patryk27/dotfiles/blob/4ae3d7dab9bb474c7d0afab328544abbf7f32da9/role/env/desktop/home/emacs.nix#L10) that runs `git checkout ... && doom sync -up` - I launch that script manually after `nixos-rebuild switch`.
-
 ## Rust
 
 - [nix](role/env/default/home/rust.nix) (with sccache!)
