@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   environment = {
     loginShellInit = ''
       [[ "$(tty)" == /dev/tty1 ]] && sway
@@ -75,6 +75,7 @@
             export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
             export SDL_VIDEODRIVER=wayland
             export _JAVA_AWT_WM_NONREPARENTING=1
+            export DOOMLOCALDIR="${config.home-manager.users.pwy.home.sessionVariables.DOOMLOCALDIR}"
           '';
 
           wrapperFeatures = {

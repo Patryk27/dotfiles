@@ -28,6 +28,9 @@
       (:prefix ("f" . "file")
        :desc "Locate files matching given name" "L" #'find-dired))
 
+(use-package! ranger
+  :config (setq ranger-override-dired 'ranger))
+
 ;; ispell
 (setq ispell-dictionary "en")
 

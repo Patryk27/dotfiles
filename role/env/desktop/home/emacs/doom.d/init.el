@@ -13,7 +13,6 @@
        modeline
        ophints
        (popup +defaults)
-       (treemacs +treemacs-git-mode 'deferred)
        vc-gutter
        vi-tilde-fringe
        window-select
@@ -29,7 +28,7 @@
        word-wrap
 
        :emacs
-       dired
+       (dired +ranger +icons)
        electric
        ibuffer
        (undo +tree)

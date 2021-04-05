@@ -10,12 +10,12 @@ font pango:Fira Code 9
 title_align center
 titlebar_padding 1 1
 
-client.background       #222222
-client.focused          #222222 #222222 #c9545d #222222 #222222
-client.unfocused        #222222 #222222 #dfdfdf #222222 #222222
-client.focused_inactive #222222 #222222 #dfdfdf #222222 #222222
-client.urgent           #222222 #dc3545 #ffffff #222222 #222222
-client.placeholder      #222222 #222222 #dfdfdf #222222 #222222
+client.background       #282828
+client.focused          #282828 #282828 #b8bb26 #282828 #282828
+client.unfocused        #282828 #282828 #dfdfdf #282828 #282828
+client.focused_inactive #282828 #282828 #dfdfdf #282828 #282828
+client.urgent           #282828 #dc3545 #ffffff #282828 #282828
+client.placeholder      #282828 #282828 #dfdfdf #282828 #282828
 
 ## ------ ##
 ## inputs ##

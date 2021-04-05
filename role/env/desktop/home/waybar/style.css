@@ -7,7 +7,7 @@
 }
 
 window#waybar {
-    background: #222222;
+    background: #282828;
     color: #ffffff;
 }
 
@@ -22,11 +22,11 @@ window#waybar {
 }
 
 #workspaces button.focused {
-    color: #c9545d;
+    color: #b8bb26;
 }
 
 #mode {
-    color: #17a2b8;
+    color: #b8bb26;
     font-weight: bold;
 }
 
@@ -36,20 +36,20 @@ window#waybar {
 }
 
 #pulseaudio.muted {
-    color: #6c757d;
+    color: #504945;
 }
 
 #battery.discharging {
-    color: #17a2b8;
+    color: #d3869b;
 }
 
 #battery.discharging.warning {
-    color: #ffc107;
+    color: #fabd2f;
     animation: battery-blink 1s infinite alternate;
 }
 
 #battery.discharging.critical {
-    color: #dc3545;
+    color: #fb4934;
     animation: battery-blink 0.5s infinite alternate;
 }
 

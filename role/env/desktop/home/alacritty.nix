@@ -7,7 +7,7 @@
         settings = {
           colors = {
             primary = {
-              background = "#282828";
+              background = "#1d2021";
               foreground = "#ebdbb2";
             };
 
