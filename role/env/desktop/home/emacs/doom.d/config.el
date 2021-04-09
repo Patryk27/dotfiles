@@ -23,14 +23,6 @@
       doom-theme 'doom-gruvbox
       doom-themes-treemacs-theme "doom-colors")
 
-;; dired
-(map! :leader
-      (:prefix ("f" . "file")
-       :desc "Locate files matching given name" "L" #'find-dired))
-
-(use-package! ranger
-  :config (setq ranger-override-dired 'ranger))
-
 ;; ispell
 (setq ispell-dictionary "en")
 
@@ -59,6 +51,9 @@
 ;; projectile
 (setq projectile-project-search-path '("~/Projects" "~/Projects/anixe")
       projectile-track-known-projects-automatically nil)
+
+;; ranger
+(setq ranger-override-dired 'ranger)
 
 ;; treemacs
 (setq treemacs-read-string-input 'from-minibuffer)
