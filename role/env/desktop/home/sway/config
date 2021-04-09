@@ -65,6 +65,8 @@ mode "~" {
 
     bindsym bracketleft focus left; mode "default"
     bindsym bracketright focus right; mode "default"
+    bindsym parenleft move left; mode "default"
+    bindsym parenright move right; mode "default"
 
     bindsym Print exec grim -g "$(slurp)" -t png - | wl-copy -t image/png; mode "default"
     bindsym Shift+Print exec grim -g "$(slurp)" -t png /tmp/screenshot.png; mode "default"
@@ -74,10 +76,10 @@ mode "~/container" {
     bindsym Super_L mode "default"
 
     bindsym h split h; mode "default"
-    bindsym j split v; mode "default"
+    bindsym n split v; mode "default"
 
-    bindsym y layout stacking; mode "default"
-    bindsym u layout tabbed; mode "default"
+    bindsym y layout tabbed; mode "default"
+    bindsym u layout stacking; mode "default"
     bindsym i layout toggle split; mode "default"
 
     bindsym Shift+h move container left; mode "default"
