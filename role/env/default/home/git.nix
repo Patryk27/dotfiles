@@ -20,6 +20,10 @@
         };
 
         extraConfig = {
+          fetch = {
+            prune = true;
+          };
+
           merge = {
             conflictStyle = "diff3";
           };
