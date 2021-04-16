@@ -53,7 +53,12 @@
       projectile-track-known-projects-automatically nil)
 
 ;; ranger
-(setq ranger-override-dired 'ranger)
+(map! :leader
+      :desc "Dired"
+      "j" #'dired-jump)
+
+(use-package! ranger
+  :config (setq ranger-override-dired 'ranger))
 
 ;; treemacs
 (setq treemacs-read-string-input 'from-minibuffer)
