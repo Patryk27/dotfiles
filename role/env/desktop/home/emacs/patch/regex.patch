@@ -1,0 +1,35 @@
+diff --git a/lib/regex.h b/lib/regex.h
+index d291e38793..1b7aac8f56 100644
+--- a/lib/regex.h
++++ b/lib/regex.h
+@@ -299,7 +299,7 @@ extern reg_syntax_t re_syntax_options;
+    However, there would be a huge performance problem if someone
+    actually used a pattern like a\{214748363\}, so RE_DUP_MAX retains
+    its historical value.  */
+-# define RE_DUP_MAX (0x7fff)
++# define RE_DUP_MAX (1 << 16)
+ #endif
+
+
+diff --git a/src/regex-emacs.c b/src/regex-emacs.c
+index 8350e54b54..5573376737 100644
+--- a/src/regex-emacs.c
++++ b/src/regex-emacs.c
+@@ -41,7 +41,7 @@
+ #ifdef RE_DUP_MAX
+ # undef RE_DUP_MAX
+ #endif
+-#define RE_DUP_MAX (0xffff)
++#define RE_DUP_MAX (1 << 16)
+
+ /* Make syntax table lookup grant data in gl_state.  */
+ #define SYNTAX(c) syntax_property (c, 1)
+@@ -1230,7 +1230,7 @@ static int analyze_first (re_char *p, re_char *pend,
+ /* This is not an arbitrary limit: the arguments which represent offsets
+    into the pattern are two bytes long.  So if 2^15 bytes turns out to
+    be too small, many things would have to change.  */
+-# define MAX_BUF_SIZE (1 << 15)
++# define MAX_BUF_SIZE (1 << 16)
+
+ /* Extend the buffer by at least N bytes via realloc and
+    reset the pointers that pointed into the old block to point to the

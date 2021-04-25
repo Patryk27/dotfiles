@@ -27,21 +27,30 @@
         };
       };
 
-      packages = with pkgs; [
-        ((emacsPackagesNgGen emacsPgtkGcc).emacsWithPackages (epkgs: [
-          epkgs.vterm
-        ]))
+      packages =
+        let
+          emacs' = pkgs.emacsPgtkGcc.overrideAttrs (attrs: {
+            patches = [
+              ./emacs/patch/regex.patch
+            ];
+          });
 
-        (aspellWithDicts (dicts: with dicts; [
-          en
-          en-computers
-          en-science
-          pl
-        ]))
+        in
+        with pkgs; [
+          ((emacsPackagesGen emacs').emacsWithPackages (epkgs: [
+            epkgs.vterm
+          ]))
 
-        python3
-        rust-analyzer
-      ];
+          (aspellWithDicts (dicts: with dicts; [
+            en
+            en-computers
+            en-science
+            pl
+          ]))
+
+          python3
+          rust-analyzer
+        ];
 
       sessionVariables = {
         DOOMLOCALDIR = "${config.xdg.cacheHome}/.doom.local";
