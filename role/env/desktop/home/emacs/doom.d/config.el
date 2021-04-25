@@ -18,6 +18,11 @@
 ;; emacs (internal)
 (setq read-process-output-max (* 1024 1024))
 
+;; dired
+(map! :leader
+      :desc "Dired"
+      "j" #'dired-jump)
+
 ;; doom
 (setq doom-font (font-spec :family "Fira Code" :size 16 :weight 'light)
       doom-theme 'doom-gruvbox
@@ -51,14 +56,6 @@
 ;; projectile
 (setq projectile-project-search-path '("~/Projects" "~/Projects/anixe")
       projectile-track-known-projects-automatically nil)
-
-;; ranger
-(map! :leader
-      :desc "Dired"
-      "j" #'dired-jump)
-
-(use-package! ranger
-  :config (setq ranger-override-dired 'ranger))
 
 ;; treemacs
 (setq treemacs-read-string-input 'from-minibuffer)
