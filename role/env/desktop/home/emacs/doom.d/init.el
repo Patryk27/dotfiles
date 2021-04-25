@@ -9,7 +9,6 @@
        doom-dashboard
        (emoji +unicode)
        hl-todo
-       ligatures
        modeline
        ophints
        (popup +defaults)
