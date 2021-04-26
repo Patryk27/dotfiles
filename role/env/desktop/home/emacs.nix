@@ -54,6 +54,7 @@
 
       sessionVariables = {
         DOOMLOCALDIR = "${config.xdg.cacheHome}/.doom.local";
+        VSCODE_LLDB = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}";
       };
     };
   };

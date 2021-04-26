@@ -1,5 +1,9 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
+(setq dap-auto-configure-features '(sessions locals controls tooltip))
+(setq dap-lldb-debug-program `(,(concat (getenv "VSCODE_LLDB") "/share/vscode/extensions/vadimcn.vscode-lldb/lldb/bin/lldb-vscode")))
+(require 'dap-lldb)
+
 ;; ace-window
 (require 'ace-window)
 

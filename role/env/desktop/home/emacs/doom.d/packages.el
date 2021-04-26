@@ -2,3 +2,4 @@
 ;;; $DOOMDIR/packages.el
 
 (package! z3-mode)
+(package! dap-mode)
