@@ -1,21 +1,21 @@
 {
   inputs = {
     doom-emacs = {
-      url = github:hlissner/doom-emacs;
+      url = "github:hlissner/doom-emacs";
       flake = false;
     };
 
     emacs-overlay = {
-      url = github:nix-community/emacs-overlay;
+      url = "github:nix-community/emacs-overlay";
     };
 
     firenvim = {
-      url = github:glacambre/firenvim;
+      url = "github:glacambre/firenvim";
       flake = false;
     };
 
     home-manager = {
-      url = github:rycee/home-manager;
+      url = "github:rycee/home-manager";
 
       inputs = {
         nixpkgs = {
@@ -25,11 +25,11 @@
     };
 
     nixpkgs = {
-      url = github:nixos/nixpkgs/nixos-unstable;
+      url = "github:nixos/nixpkgs"; # TODO go back to /nixos-unstable after neovim works again
     };
 
     sops-nix = {
-      url = github:Mic92/sops-nix;
+      url = "github:Mic92/sops-nix";
 
       inputs = {
         nixpkgs = {
