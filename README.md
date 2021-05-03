@@ -41,8 +41,6 @@ Configurations for some of my NixOS machines.
 ## ZSH
 
 - [nix](role/env/default/home/zsh.nix)
-- [p10k](role/env/default/home/zsh/p10k.zsh)
-- [miscellaneous stuff](role/env/default/home/zsh/autorun)
 
 # Structure
 
