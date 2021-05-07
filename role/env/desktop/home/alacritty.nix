@@ -38,7 +38,8 @@
             size = 12;
 
             normal = {
-              family = "Fira Code Light";
+              family = "Fira Code";
+              style = "Light";
             };
           };
         };
