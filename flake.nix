@@ -25,7 +25,7 @@
     };
 
     nixpkgs = {
-      url = "github:nixos/nixpkgs"; # TODO go back to /nixos-unstable after neovim works again
+      url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
     sops-nix = {
