@@ -3,12 +3,8 @@
 ;; emacs
 (setq user-full-name "Patryk Wychowaniec"
       user-mail-address "pwychowaniec@pm.me"
-      display-line-numbers-type 'relative)
-
-(define-key input-decode-map "\e[1;5A" [C-up])
-(define-key input-decode-map "\e[1;5B" [C-down])
-(define-key input-decode-map "\e[1;5C" [C-right])
-(define-key input-decode-map "\e[1;5D" [C-left])
+      display-line-numbers-type 'relative
+      read-process-output-max (* 1024 1024))
 
 (map! :leader
       (:prefix ("TAB" . "workspace")
@@ -16,9 +12,6 @@
        :desc "Swap right" ")" #'+workspace/swap-right))
 
 (global-display-fill-column-indicator-mode +1)
-
-;; emacs (internal)
-(setq read-process-output-max (* 1024 1024))
 
 ;; dired
 (map! :leader
@@ -44,9 +37,8 @@
       lsp-signature-auto-activate nil
       lsp-signature-render-documentation nil)
 
-(map! :leader
-      (:prefix ("c" . "code")
-       :desc "Jump to type definition" "v" #'lsp-goto-type-definition))
+(define-key evil-normal-state-map (kbd "gsd") 'lsp-goto-type-definition)
+(define-key evil-normal-state-map (kbd "gsp") 'lsp-rust-find-parent-module)
 
 ;; lsp-ui
 (setq lsp-ui-doc-show-with-cursor nil
@@ -59,8 +51,35 @@
 (setq projectile-project-search-path '("~/Projects" "~/Projects/anixe")
       projectile-track-known-projects-automatically nil)
 
-;; treemacs
-(setq treemacs-read-string-input 'from-minibuffer)
-
 ;; undo-tree
 (setq undo-tree-visualizer-timestamps t)
+
+;; --- ;;
+
+(define-key input-decode-map "\e[1;2A" [S-up])
+(define-key input-decode-map "\e[1;2B" [S-down])
+(define-key input-decode-map "\e[1;2C" [S-right])
+(define-key input-decode-map "\e[1;2D" [S-left])
+
+(define-key input-decode-map "\e[1;3A" [M-up])
+(define-key input-decode-map "\e[1;3B" [M-down])
+(define-key input-decode-map "\e[1;3C" [M-right])
+(define-key input-decode-map "\e[1;3D" [M-left])
+
+(define-key input-decode-map "\e[1;5A" [C-up])
+(define-key input-decode-map "\e[1;5B" [C-down])
+(define-key input-decode-map "\e[1;5C" [C-right])
+(define-key input-decode-map "\e[1;5D" [C-left])
+
+(define-key input-decode-map "\e[1;6A" [C-S-up])
+(define-key input-decode-map "\e[1;6B" [C-S-down])
+(define-key input-decode-map "\e[1;6C" [C-S-right])
+(define-key input-decode-map "\e[1;6D" [C-S-left])
+
+(defun xterm-title-update ()
+  (send-string-to-terminal (concat "\033]1; " (buffer-name) "\007")
+                           (if buffer-file-name
+                               (send-string-to-terminal (concat "\033]2; " (buffer-file-name) "\007"))
+                             (send-string-to-terminal (concat "\033]2; " (buffer-name) "\007")))))
+
+(add-hook 'post-command-hook 'xterm-title-update)
