@@ -49,7 +49,6 @@
        (lsp +peek)
        magit
        make
-       pdf
        rgb
 
        :os
