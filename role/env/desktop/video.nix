@@ -7,16 +7,33 @@
     };
 
     systemPackages = with pkgs; [
-      breeze-icons
-      kde-gtk-config
-      plasma5Packages.ark
-      plasma5Packages.dolphin
-      plasma5Packages.dolphin-plugins
-      plasma5Packages.okular
-      plasma5Packages.kconfig
-      plasma5Packages.kconfigwidgets
+      gnome3.adwaita-icon-theme
+      gnome3.evince
+      gnome3.nautilus
+      gnomeExtensions.appindicator
+      gsettings-desktop-schemas
+      gtk-engine-murrine
+      gtk_engines
       lxappearance
       pavucontrol
     ];
+  };
+
+  programs = {
+    dconf = {
+      enable = true;
+    };
+  };
+
+  services = {
+    gvfs = {
+      enable = true;
+    };
+
+    udev = {
+      packages = with pkgs; [
+        gnome3.gnome-settings-daemon
+      ];
+    };
   };
 }
