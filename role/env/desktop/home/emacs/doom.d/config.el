@@ -1,12 +1,14 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; ace-window
-(require 'ace-window)
-
 ;; emacs
 (setq user-full-name "Patryk Wychowaniec"
       user-mail-address "pwychowaniec@pm.me"
       display-line-numbers-type 'relative)
+
+(define-key input-decode-map "\e[1;5A" [C-up])
+(define-key input-decode-map "\e[1;5B" [C-down])
+(define-key input-decode-map "\e[1;5C" [C-right])
+(define-key input-decode-map "\e[1;5D" [C-left])
 
 (map! :leader
       (:prefix ("TAB" . "workspace")
