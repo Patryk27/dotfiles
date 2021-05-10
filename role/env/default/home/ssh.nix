@@ -3,6 +3,8 @@
     programs = {
       ssh = {
         enable = true;
+        controlMaster = "yes";
+        controlPersist = "10m";
 
         matchBlocks = {
           eric = {
