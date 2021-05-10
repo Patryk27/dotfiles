@@ -46,6 +46,12 @@
     font = "latarcyrheb-sun32";
   };
 
+  environment = {
+    systemPackages = with pkgs; [
+      mullvad-vpn
+    ];
+  };
+
   fonts = {
     fontconfig = {
       dpi = 160;
@@ -115,6 +121,10 @@
   };
 
   services = {
+    mullvad-vpn = {
+      enable = true;
+    };
+
     throttled = {
       enable = true;
     };
