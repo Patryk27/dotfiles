@@ -45,7 +45,7 @@
        direnv
        docker
        (eval +overlay)
-       lookup
+       (lookup +dictionary +offline)
        (lsp +peek)
        magit
        make
