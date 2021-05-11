@@ -10,6 +10,14 @@
       file = {
         ".doom.d" = {
           source = ./emacs/doom.d;
+
+          onChange = ''
+            export DOOMLOCALDIR="${sessionVariables.DOOMLOCALDIR}"
+
+            if [ -d "$DOOMLOCALDIR" ]; then
+              ~/.emacs.d/bin/doom sync
+            fi
+          '';
         };
 
         ".emacs.d" = {

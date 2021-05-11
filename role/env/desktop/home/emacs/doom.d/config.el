@@ -56,6 +56,8 @@
 
 ;; --- ;;
 
+(bracketed-paste-enable)
+
 (define-key input-decode-map "\e[1;2A" [S-up])
 (define-key input-decode-map "\e[1;2B" [S-down])
 (define-key input-decode-map "\e[1;2C" [S-right])
