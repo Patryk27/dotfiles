@@ -15,7 +15,7 @@
 
   environment = {
     systemPackages = with pkgs; [
-      byobu
+      alacritty
       tmux
     ];
   };
@@ -49,6 +49,10 @@
         wg-fort = {
           address = [ "10.10.0.3/24" ];
           privateKeyFile = "/secrets/wg-fort/private.key";
+
+          postUp = ''
+            /run/wrappers/bin/ping -c60 10.10.0.1
+          '';
 
           peers = [
             {
