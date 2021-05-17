@@ -37,7 +37,7 @@
 
       packages =
         let
-          emacs' = pkgs.emacsPgtkGcc.overrideAttrs (attrs: {
+          emacs' = pkgs.emacsGcc.overrideAttrs (attrs: {
             patches = [
               ./emacs/patch/regex.patch
             ];
