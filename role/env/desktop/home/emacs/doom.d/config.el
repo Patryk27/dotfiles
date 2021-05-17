@@ -51,6 +51,9 @@
 (setq projectile-project-search-path '("~/Projects" "~/Projects/anixe")
       projectile-track-known-projects-automatically nil)
 
+;; rainbow-delimeters
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
 ;; undo-tree
 (setq undo-tree-visualizer-timestamps t)
 
