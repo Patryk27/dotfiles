@@ -27,22 +27,17 @@
 (setq ispell-dictionary "en")
 
 ;; lsp
-(setq lsp-completion-provider :capf
-      lsp-file-watch-threshold 5000
+(setq lsp-file-watch-threshold 5000
       lsp-rust-all-features t
-      lsp-rust-analyzer-cargo-load-out-dirs-from-check t
       lsp-rust-analyzer-proc-macro-enable t
       lsp-rust-analyzer-server-display-inlay-hints t
-      lsp-rust-analyzer-completion-postfix-enable nil
       lsp-signature-auto-activate nil
-      lsp-signature-render-documentation nil)
+      lsp-signature-render-documentation nil
+      lsp-ui-doc-show-with-cursor nil
+      lsp-ui-doc-show-with-mouse nil)
 
 (define-key evil-normal-state-map (kbd "gsd") 'lsp-goto-type-definition)
 (define-key evil-normal-state-map (kbd "gsp") 'lsp-rust-find-parent-module)
-
-;; lsp-ui
-(setq lsp-ui-doc-show-with-cursor nil
-      lsp-ui-doc-show-with-mouse nil)
 
 ;; org
 (setq org-directory "~/org/")
