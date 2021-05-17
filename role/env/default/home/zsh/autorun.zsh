@@ -11,3 +11,12 @@ zstyle :zle:backward-kill-bash-word word-style bash
 function dip() {
     docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$@"
 }
+
+function scr-save() {
+    if [[ -f "$1" ]]; then
+        echo "error: file already exists: $1"
+        return
+    fi
+
+    mv /tmp/screenshot.png "$1"
+}
