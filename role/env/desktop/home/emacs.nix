@@ -15,7 +15,7 @@
             export DOOMLOCALDIR="${sessionVariables.DOOMLOCALDIR}"
 
             if [ -d "$DOOMLOCALDIR" ]; then
-              ~/.emacs.d/bin/doom sync
+              ~/.emacs.d/bin/doom -y sync -u
             fi
           '';
         };
