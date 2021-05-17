@@ -8,6 +8,7 @@
 
     systemPackages = with pkgs; [
       gnome3.adwaita-icon-theme
+      gnome3.eog
       gnome3.evince
       gnome3.nautilus
       gnomeExtensions.appindicator
