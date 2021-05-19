@@ -35,6 +35,7 @@
 
         openconnect
         vagrant
+        virt-manager
       ];
     };
   };
