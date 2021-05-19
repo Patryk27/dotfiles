@@ -8,8 +8,8 @@
 
 (map! :leader
       (:prefix ("TAB" . "workspace")
-       :desc "Swap left" "(" #'+workspace/swap-left
-       :desc "Swap right" ")" #'+workspace/swap-right))
+       :desc "Swap left" "{" #'+workspace/swap-left
+       :desc "Swap right" "}" #'+workspace/swap-right))
 
 (global-display-fill-column-indicator-mode +1)
 
