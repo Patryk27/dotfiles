@@ -22,6 +22,14 @@
       builders-use-substitutes = true
     '';
 
+    binaryCachePublicKeys = [
+      "eric-builder:vj2KhujwD56FS5m1E/MNfUjlBGFLzWEc+ESHbiTJQ18="
+    ];
+
+    trustedBinaryCaches = [
+      "ssh://eric-builder"
+    ];
+
     buildMachines = [
       {
         hostName = "eric-builder";
