@@ -22,7 +22,7 @@
        fold
        format
        multiple-cursors
-       parinfer
+       (parinfer +rust)
        snippets
        word-wrap
 
