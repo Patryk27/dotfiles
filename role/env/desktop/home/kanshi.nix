@@ -6,6 +6,15 @@
 
         profiles = {
           anixe = {
+            outputs = [
+              {
+                criteria = "eDP-1";
+                status = "enable";
+              }
+            ];
+          };
+
+          anixe-office = {
             exec = "${pkgs.sway}/bin/swaymsg workspace 1, move workspace to DP-5, workspace 3, move workspace to DP-4";
 
             outputs = [
