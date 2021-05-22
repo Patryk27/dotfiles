@@ -12,6 +12,10 @@
         enable = true;
         style = builtins.readFile ./waybar/style.css;
 
+        systemd = {
+          enable = true;
+        };
+
         settings = [
           {
             layer = "top";
@@ -61,30 +65,6 @@
             };
           }
         ];
-      };
-    };
-
-    systemd = {
-      user = {
-        services = {
-          waybar = {
-            Unit = {
-              PartOf = "sway-session.target";
-              Requires = "sway-session.target";
-              After = "sway-session.target";
-            };
-
-            Service = {
-              Type = "simple";
-              ExecStart = "${pkgs.waybar}/bin/waybar";
-              Restart = "always";
-            };
-
-            Install = {
-              WantedBy = [ "sway-session.target" ];
-            };
-          };
-        };
       };
     };
   };
