@@ -40,6 +40,7 @@
         qt5.qtwayland
         slurp
         swaylock
+        wf-recorder
         wl-clipboard
       ];
     };

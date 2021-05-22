@@ -24,9 +24,25 @@
 
             modules-left = [ "sway/workspaces" ];
             modules-center = [ "sway/mode" ];
-            modules-right = [ "pulseaudio" "cpu" "memory" "temperature" "battery" "clock" "tray" ];
+            modules-right = [ "custom/screen-recorder" "pulseaudio" "cpu" "memory" "temperature" "battery" "clock" "tray" ];
 
             modules = {
+              "custom/screen-recorder" = {
+                exec = pkgs.writeShellScript "script" ''
+                  export PATH="$PATH:${pkgs.dbus}/bin/dbus-monitor"
+
+                  dbus-monitor "interface=io.pwy.ScreenRecorder" | while read event; do
+                    if [[ "$event" =~ "Started"  ]]; then
+                      echo "*recording* "
+                    fi
+
+                    if [[ "$event" =~ "Stopped"  ]]; then
+                      echo ""
+                    fi
+                  done
+                '';
+              };
+
               battery = {
                 format = "{icon} {capacity}%";
                 format-icons = [ "" "" "" "" "" ];

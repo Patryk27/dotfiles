@@ -58,6 +58,7 @@ mode "~" {
     bindsym Tab mode "~/workspace"
     bindsym w mode "~/container"
     bindsym q mode "~/window"
+    bindsym p mode "~/screen"
 
     bindsym y exec "@@launcher@@"; mode "default"
     bindsym h exec "alacritty"; mode "default"
@@ -67,9 +68,6 @@ mode "~" {
     bindsym bracketright focus right; mode "default"
     bindsym braceleft move left; mode "default"
     bindsym braceright move right; mode "default"
-
-    bindsym Print exec grim -g "$(slurp)" -t png - | wl-copy -t image/png; mode "default"
-    bindsym Shift+Print exec grim -g "$(slurp)" -t png /tmp/screenshot.png; mode "default"
 }
 
 mode "~/container" {
@@ -101,6 +99,23 @@ mode "~/container" {
     bindsym Ctrl+Shift+j move container to output down; mode "default"
     bindsym Ctrl+Shift+k move container to output up; mode "default"
     bindsym Ctrl+Shift+l move container to output right; mode "default"
+}
+
+mode "~/screen" {
+    bindsym Super_L mode "default"
+
+    bindsym p exec grim -g "$(slurp)" -t png /tmp/screen.png; mode "default"
+    bindsym Shift+p exec grim -g "$(slurp)" -t png - | wl-copy -t image/png; mode "default"
+
+    bindsym r exec \
+        dbus-send /io/pwy/ScreenRecorder io.pwy.ScreenRecorder.Started \
+     && wf-recorder -g "$(slurp)" -f /tmp/screen.mp4 \
+      ; mode "default"
+
+    bindsym Shift+R exec \
+        dbus-send /io/pwy/ScreenRecorder io.pwy.ScreenRecorder.Stopped \
+     && pkill -SIGINT wf-recorder \
+      ; mode "default"
 }
 
 mode "~/window" {

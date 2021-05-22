@@ -34,20 +34,62 @@ function madison-new {
     TERM=xterm-24bit ssh madison -t tmux new -s "$session"
 }
 
-function src-save() {
-    file="$1"
+function ss-save() {
+    output="$1"
 
-    if [[ -z "$file" ]]; then
-        echo "usage: scr-save <file>"
+    if [[ -z "$output" ]]; then
+        echo "usage: ss-save <output>"
         return
     fi
 
-    if [[ -f "$file" ]]; then
-        echo "error: file already exists: $file"
+    if [[ -f "$output" ]]; then
+        echo "error: file already exists: $output"
         return
     fi
 
-    mv /tmp/screenshot.png "$file"
+    mv /tmp/screen.png "$output"
+}
+
+function sr-save() {
+    output="$1"
+    cut_start="$2"
+    cut_len="$3"
+
+    if [[ -z "$output" ]]; then
+        echo "usage: sr-save <output> [<cut-start> <cut-len>]"
+        return
+    fi
+
+    if [[ -f "$output" ]]; then
+        echo "error: file already exists: $output"
+        return
+    fi
+
+    pkill wf-recorder
+
+    if [[ -z "$cut_start" ]]; then
+        ffmpeg -i /tmp/screen.mp4 "$output"
+    else
+        ffmpeg -i /tmp/screen.mp4 -ss "$cut_start" -t "$cut_len" "$output"
+    fi
+}
+
+function to-gif() {
+    input="$1"
+    output="$2"
+    fps="$3"
+    scale="$4"
+
+    if [[ -z "$input" || -z "$output" || -z "$fps" || -z "$scale" ]]; then
+        echo "usage: to-gif <input> <output> <fps> <scale>"
+        return
+    fi
+
+    ffmpeg \
+        -y \
+        -i "$input" \
+        -filter_complex "fps=$fps,scale=$scale:-1:flags=lanczos[x];[x]split[x1][x2]; [x1]palettegen[p];[x2][p]paletteuse" \
+        "$output"
 }
 
 function pg-rust {
