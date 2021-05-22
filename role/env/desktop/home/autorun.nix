@@ -13,9 +13,8 @@
         services = {
           autorun = {
             Unit = {
-              PartOf = "sway-session.target";
-              Requires = "sway-session.target";
-              After = "sway-session.target";
+              PartOf = [ "graphical-session.target" ];
+              After = [ "graphical-session.target" ];
             };
 
             Service = {
@@ -25,7 +24,7 @@
             };
 
             Install = {
-              WantedBy = [ "sway-session.target" ];
+              WantedBy = [ "graphical-session.target" ];
             };
           };
         };
