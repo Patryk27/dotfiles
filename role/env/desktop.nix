@@ -13,8 +13,6 @@
       gimp
       google-chrome
       libreoffice
-      qalculate-gtk
-      simplescreenrecorder
       slack
       vlc
     ];
