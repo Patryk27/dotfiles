@@ -58,6 +58,17 @@
     };
   };
 
+  hardware = {
+    opengl = {
+      extraPackages = with pkgs; [
+        intel-media-driver
+        libvdpau-va-gl
+        vaapiIntel
+        vaapiVdpau
+      ];
+    };
+  };
+
   home-manager.users.pwy = {
     home = {
       packages = with pkgs; [
