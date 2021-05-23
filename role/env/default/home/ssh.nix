@@ -40,13 +40,6 @@
             user = "pwy";
           };
 
-          eric-mac = {
-            hostname = "192.168.122.6";
-            proxyJump = "eric";
-            port = 22;
-            user = "pwychowaniec";
-          };
-
           eric-nas = {
             hostname = "192.168.122.8";
             proxyJump = "eric";
@@ -59,6 +52,12 @@
             proxyJump = "eric";
             port = 33000;
             user = "pwy";
+          };
+
+          mac = {
+            hostname = "10.10.0.4";
+            port = 22;
+            user = "pwychowaniec";
           };
 
           madison = {
