@@ -26,8 +26,9 @@ window#waybar {
 }
 
 #mode {
-    color: #c86b85;
+    background: #c86b85;
     font-weight: bold;
+    padding: 0 25px;
 }
 
 #pulseaudio, #cpu, #memory, #temperature, #battery, #clock, #tray {
