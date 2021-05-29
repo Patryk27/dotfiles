@@ -4,6 +4,55 @@
     ../role/target/physical.nix
   ];
 
+  containers = {
+    website = {
+      autoStart = true;
+
+      config = { ... }: {
+        networking = {
+          firewall = {
+            allowedTCPPorts = [
+              80
+              443
+            ];
+          };
+        };
+
+        security = {
+          acme = {
+            acceptTerms = true;
+            email = "pwychowaniec@pm.me";
+          };
+        };
+
+        services = {
+          nginx = {
+            enable = true;
+            recommendedGzipSettings = true;
+            recommendedOptimisation = true;
+            recommendedProxySettings = true;
+            recommendedTlsSettings = true;
+
+            virtualHosts = {
+              "pwy.io" = {
+                default = true;
+                forceSSL = true;
+                enableACME = true;
+
+                root =
+                  let
+                    ref = "fdcadc9442feae42e4fd76dcf44ce0616535b870";
+
+                  in
+                  (builtins.getFlake "github:Patryk27/website/${ref}").defaultPackage.x86_64-linux;
+              };
+            };
+          };
+        };
+      };
+    };
+  };
+
   boot = {
     blacklistedKernelModules = [
       "nouveau"
@@ -98,6 +147,8 @@
 
     firewall = {
       allowedTCPPorts = [
+        80
+        443
         1313 # Hugo
       ];
     };
