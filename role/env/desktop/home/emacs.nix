@@ -10,28 +10,10 @@
       file = {
         ".doom.d" = {
           source = ./emacs/doom.d;
-
-          onChange = ''
-            export DOOMLOCALDIR="${sessionVariables.DOOMLOCALDIR}"
-
-            if [ -d "$DOOMLOCALDIR" ]; then
-              ~/.emacs.d/bin/doom -y sync -u
-            fi
-          '';
         };
 
         ".emacs.d" = {
           source = pkgs.doom-emacs;
-
-          onChange = ''
-            export DOOMLOCALDIR="${sessionVariables.DOOMLOCALDIR}"
-
-            if [ -d "$DOOMLOCALDIR" ]; then
-              ~/.emacs.d/bin/doom -y sync -u
-            else
-              ~/.emacs.d/bin/doom -y install
-            fi
-          '';
         };
       };
 
