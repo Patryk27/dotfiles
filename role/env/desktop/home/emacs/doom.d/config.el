@@ -24,6 +24,9 @@
       doom-theme 'doom-gruvbox
       doom-themes-treemacs-theme "doom-colors")
 
+;; evil
+(setq evil-want-fine-undo t)
+
 ;; ispell
 (setq ispell-dictionary "en")
 
