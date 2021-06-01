@@ -24,6 +24,10 @@
       doom-theme 'doom-gruvbox
       doom-themes-treemacs-theme "doom-colors")
 
+(map! :leader
+      :desc "Raise popup"
+      "w P" #'+popup/raise)
+
 ;; evil
 (setq evil-want-fine-undo t)
 
