@@ -4,7 +4,8 @@
 (setq user-full-name "Patryk Wychowaniec"
       user-mail-address "pwychowaniec@pm.me"
       display-line-numbers-type 'relative
-      read-process-output-max (* 1024 1024))
+      read-process-output-max (* 1024 1024)
+      truncate-string-ellipsis "…")
 
 (map! :leader
       (:prefix ("TAB" . "workspace")
