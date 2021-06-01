@@ -15,7 +15,7 @@
 
 ;; dired
 (map! :leader
-      :desc "Dired"
+      :desc "Open Dired here"
       "j" #'dired-jump)
 
 ;; doom
