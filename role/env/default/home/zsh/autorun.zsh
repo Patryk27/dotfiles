@@ -107,3 +107,24 @@ function pg-rust {
         -f "split-window-vertically" \
         "$dir/Cargo.toml"
 }
+
+function rename-uuid {
+    if [[ -z "$1" ]]; then
+        echo "usage: rename-uuid <file>"
+        return
+    fi
+
+    for file in "$@"; do
+        if [[ ! -f "$file" ]]; then
+            echo "error: file doesn't exist: $file"
+            return
+        fi
+    done
+
+    for file in "$@"; do
+        dst="$(uuidgen).${file#*.}"
+
+        echo "$file -> $dst"
+        mv "$file" "$dst"
+    done
+}
