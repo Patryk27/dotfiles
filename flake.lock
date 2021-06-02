@@ -3,11 +3,11 @@
     "doom-emacs": {
       "flake": false,
       "locked": {
-        "lastModified": 1621996769,
-        "narHash": "sha256-zGbq6n9V14lg4nPLZSz5dMEDKeY86+4XOviyqyTAdNM=",
+        "lastModified": 1622485374,
+        "narHash": "sha256-UcJd50sNqJIrNC7IosvzzaaL66wYCTsGNIijkAMzHJA=",
         "owner": "hlissner",
         "repo": "doom-emacs",
-        "rev": "6c2ff3791a7475e1145b63461c5dc392b71fdb44",
+        "rev": "805810b95f21327a3144baaa8cf536660d2a17ac",
         "type": "github"
       },
       "original": {
@@ -18,11 +18,11 @@
     },
     "emacs-overlay": {
       "locked": {
-        "lastModified": 1621740021,
-        "narHash": "sha256-uLu8Zgrkbsq8mnl6LjbcMvItFyAaLH45Iik5qMmb9T0=",
+        "lastModified": 1622548235,
+        "narHash": "sha256-qhA0cC4iAa5jOG8RbcrMEQOwdVSxO8BqGYUNcN3/v3g=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "5df3462dda05d8e44669cf374776274e1bc47d0a",
+        "rev": "050d7a805a9eaff4183f3405968db47105824516",
         "type": "github"
       },
       "original": {
