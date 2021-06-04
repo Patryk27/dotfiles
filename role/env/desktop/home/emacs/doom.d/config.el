@@ -28,6 +28,8 @@
       :desc "Raise popup"
       "w P" #'+popup/raise)
 
+(remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)
+
 ;; evil
 (setq evil-want-fine-undo t)
 
