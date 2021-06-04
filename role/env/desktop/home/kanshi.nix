@@ -19,12 +19,6 @@
 
             outputs = [
               {
-                criteria = "DP-5";
-                mode = "1920x1080";
-                position = "0,0";
-                transform = "270";
-              }
-              {
                 criteria = "DP-4";
                 mode = "1920x1080";
                 position = "1920,0";
