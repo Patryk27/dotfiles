@@ -25,7 +25,7 @@
     };
 
     nixpkgs = {
-      url = "github:nixos/nixpkgs";
+      url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
     sops-nix = {

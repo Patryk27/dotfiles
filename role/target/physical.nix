@@ -23,6 +23,10 @@
     supportedFilesystems = [
       "zfs"
     ];
+
+    zfs = {
+      enableUnstable = true;
+    };
   };
 
   environment = {
