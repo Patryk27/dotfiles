@@ -8,20 +8,23 @@
 
     systemPackages = with pkgs; [
       gnome3.adwaita-icon-theme
-      gnome3.eog
-      gnome3.evince
       gnome3.nautilus
       gnomeExtensions.appindicator
       gsettings-desktop-schemas
       gtk-engine-murrine
       gtk_engines
       lxappearance
+      okular
       pavucontrol
     ];
   };
 
   programs = {
     dconf = {
+      enable = true;
+    };
+
+    file-roller = {
       enable = true;
     };
   };
