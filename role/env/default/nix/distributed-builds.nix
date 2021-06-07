@@ -1,5 +1,5 @@
-{ ... }: {
-  home-manager.users.root = { pkgs, ... }: {
+{ pkgs, ... }: {
+  home-manager.users.root = {
     programs = {
       ssh = {
         enable = true;
