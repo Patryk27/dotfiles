@@ -46,6 +46,7 @@
       lsp-ui-doc-show-with-cursor nil
       lsp-ui-doc-show-with-mouse nil)
 
+(define-key evil-normal-state-map (kbd "g:") 'sort-lines)
 (define-key evil-normal-state-map (kbd "gsd") 'lsp-goto-type-definition)
 (define-key evil-normal-state-map (kbd "gsp") 'lsp-rust-find-parent-module)
 
