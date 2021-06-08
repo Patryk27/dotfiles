@@ -47,8 +47,12 @@
       lsp-ui-doc-show-with-mouse nil)
 
 (define-key evil-normal-state-map (kbd "g:") 'sort-lines)
-(define-key evil-normal-state-map (kbd "gsd") 'lsp-goto-type-definition)
-(define-key evil-normal-state-map (kbd "gsp") 'lsp-rust-find-parent-module)
+(define-key evil-normal-state-map (kbd "ghh") 'lsp-goto-type-definition)
+(define-key evil-normal-state-map (kbd "ghj") 'lsp-rust-find-parent-module)
+(define-key evil-normal-state-map (kbd "ghk") 'lsp-rust-analyzer-open-cargo-toml)
+(define-key evil-normal-state-map (kbd "ghl") 'lsp-rust-analyzer-expand-macro)
+(define-key evil-normal-state-map (kbd "gsC") 'avy-goto-char)
+(define-key evil-normal-state-map (kbd "gsc") 'avy-goto-char-in-line)
 
 ;; org
 (setq org-directory "~/org/")
