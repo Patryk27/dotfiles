@@ -38,12 +38,8 @@
 ;; lsp
 (setq lsp-file-watch-threshold 5000
       lsp-rust-all-features t
-      lsp-rust-analyzer-proc-macro-enable t
-      lsp-rust-analyzer-server-display-inlay-hints t
       lsp-signature-auto-activate nil
-      lsp-signature-render-documentation nil
-      lsp-ui-doc-show-with-cursor nil
-      lsp-ui-doc-show-with-mouse nil)
+      lsp-ui-sideline-enable nil)
 
 (define-key evil-normal-state-map (kbd "g:") 'sort-lines)
 (define-key evil-normal-state-map (kbd "ghh") 'lsp-goto-type-definition)
