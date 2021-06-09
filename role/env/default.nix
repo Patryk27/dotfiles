@@ -46,6 +46,7 @@
       tree
       unrar
       unzip
+      valgrind
       vim
       wget
       z3
