@@ -1,4 +1,29 @@
-{ ... }: {
+{ pkgs, ... }: {
+  fonts = {
+    fonts =
+      let
+        iosevka-custom = pkgs.iosevka.override {
+          set = "custom";
+
+          privateBuildPlan = ''
+            [buildPlans.iosevka-custom]
+            family = "Iosevka Custom"
+            spacing = "term"
+            serifs = "sans"
+            no-cv-ss = true
+            no-ligation = true
+
+            [buildPlans.iosevka-custom.variants]
+            inherits = "ss14"
+          '';
+        };
+
+      in
+      [
+        iosevka-custom
+      ];
+  };
+
   home-manager.users.pwy = {
     programs = {
       alacritty = {
@@ -38,7 +63,7 @@
             size = 12;
 
             normal = {
-              family = "Fira Code";
+              family = "Iosevka Custom";
               style = "Light";
             };
           };

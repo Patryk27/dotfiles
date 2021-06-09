@@ -20,8 +20,7 @@
       "j" #'dired-jump)
 
 ;; doom
-(setq doom-font (font-spec :family "Fira Code" :size 16 :weight 'light)
-      doom-theme 'doom-gruvbox
+(setq doom-theme 'doom-gruvbox
       doom-themes-treemacs-theme "doom-colors")
 
 (map! :leader
