@@ -19,12 +19,34 @@
   };
 
   fonts = {
-    fonts = with pkgs; [
-      corefonts
-      fira-code
-      fira-code-symbols
-      roboto
-    ];
+    fonts =
+      let
+        iosevka-custom = pkgs.iosevka.override {
+          set = "custom";
+
+          privateBuildPlan = {
+            family = "Iosevka Custom";
+            spacing = "term";
+            serifs = "sans";
+            no-cv-ss = true;
+            no-ligation = true;
+
+            metric-override = {
+              leading = 1100;
+            };
+
+            variants = {
+              inherits = "ss14";
+            };
+          };
+        };
+
+      in
+      with pkgs; [
+        corefonts
+        iosevka-custom
+        roboto
+      ];
   };
 
   hardware = {

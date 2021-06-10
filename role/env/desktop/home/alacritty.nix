@@ -1,29 +1,4 @@
 { pkgs, ... }: {
-  fonts = {
-    fonts =
-      let
-        iosevka-custom = pkgs.iosevka.override {
-          set = "custom";
-
-          privateBuildPlan = ''
-            [buildPlans.iosevka-custom]
-            family = "Iosevka Custom"
-            spacing = "term"
-            serifs = "sans"
-            no-cv-ss = true
-            no-ligation = true
-
-            [buildPlans.iosevka-custom.variants]
-            inherits = "ss14"
-          '';
-        };
-
-      in
-      [
-        iosevka-custom
-      ];
-  };
-
   home-manager.users.pwy = {
     programs = {
       alacritty = {
@@ -60,7 +35,7 @@
           };
 
           font = {
-            size = 12;
+            size = 13;
 
             normal = {
               family = "Iosevka Custom";

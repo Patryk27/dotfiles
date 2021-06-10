@@ -6,7 +6,7 @@ workspace_layout tabbed
 ## ----- ##
 ## theme ##
 
-font pango:Fira Code 9
+font pango:Iosevka Custom 10
 title_align center
 titlebar_padding 1 1
 
