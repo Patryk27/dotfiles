@@ -57,11 +57,12 @@
        :lang
        data
        emacs-lisp
-       json
        javascript
+       json
        (markdown +grip)
        nix
        org
+       (php +lsp)
        rest
        (rust +lsp)
        sh

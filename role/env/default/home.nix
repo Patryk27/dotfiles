@@ -3,6 +3,7 @@
     ./home/git.nix
     ./home/gpg.nix
     ./home/lorri.nix
+    ./home/php.nix
     ./home/rust.nix
     ./home/ssh.nix
     ./home/taskwarrior.nix
