@@ -16,12 +16,6 @@
 
     home-manager = {
       url = "github:rycee/home-manager";
-
-      inputs = {
-        nixpkgs = {
-          follows = "nixpkgs";
-        };
-      };
     };
 
     nixpkgs = {
@@ -30,12 +24,6 @@
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
-
-      inputs = {
-        nixpkgs = {
-          follows = "nixpkgs";
-        };
-      };
     };
   };
 
@@ -64,9 +52,10 @@
         };
       };
 
-      build-check = system: name: config: self.nixosConfigurations."${name}".config.system.build.toplevel;
+      buildCheck = name: config:
+        self.nixosConfigurations."${name}".config.system.build.toplevel;
 
-      build-system = name: config: nixpkgs.lib.nixosSystem {
+      buildSystem = name: config: nixpkgs.lib.nixosSystem {
         system = config.system;
 
         modules = [
@@ -112,8 +101,10 @@
     in
     {
       checks = {
-        "x86_64-linux" = builtins.mapAttrs (build-check "x86_64-linux") nodes;
+        "x86_64-linux" = builtins.mapAttrs buildCheck nodes;
       };
+
+      nixosConfigurations = builtins.mapAttrs buildSystem nodes;
 
       devShell = {
         "x86_64-linux" =
@@ -129,12 +120,25 @@
               "./key/user"
             ];
 
-            nativeBuildInputs = with pkgs; [
+            buildInputs = with pkgs; [
               (callPackage sops-nix { }).sops-pgp-hook
+
+              (pkgs.writeShellScriptBin "do-deploy-madison" ''
+                action="$1"
+
+                if [[ -z "$action" ]]; then
+                    action="switch"
+                fi
+
+                nixos-rebuild \
+                    --flake .#madison \
+                    --target-host madison \
+                    --build-host localhost \
+                    --use-remote-sudo \
+                    "$action"
+              '')
             ];
           };
       };
-
-      nixosConfigurations = builtins.mapAttrs build-system nodes;
     };
 }
