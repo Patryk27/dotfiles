@@ -38,6 +38,8 @@
     }:
 
     let
+      inherit (nixpkgs) lib;
+
       nodes = {
         anixe = {
           system = "x86_64-linux";
@@ -55,7 +57,7 @@
       buildCheck = name: config:
         self.nixosConfigurations."${name}".config.system.build.toplevel;
 
-      buildSystem = name: config: nixpkgs.lib.nixosSystem {
+      buildSystem = name: config: lib.nixosSystem {
         system = config.system;
 
         modules = [
@@ -87,12 +89,15 @@
             sops = {
               defaultSopsFile = ./secrets.yaml;
 
-              secrets = {
-                backup-passphrase--anixe = { };
-                backup-passphrase--lenovo = { };
-                sccache-endpoint = { };
-                sccache-key = { };
-              };
+              secrets = lib.genAttrs [
+                "backup-passphrase--anixe"
+                "backup-passphrase--lenovo"
+                "sccache-endpoint"
+                "sccache-key"
+              ]
+                (k: {
+                  owner = "pwy";
+                });
             };
           })
         ];

@@ -1,4 +1,4 @@
-export BORG_PASSPHRASE=$(sudo cat /run/secrets/backup-passphrase)
+export BORG_PASSPHRASE=$(cat /run/secrets/backup-passphrase)
 
 case "$1" in
     "" | "-h" | "help")

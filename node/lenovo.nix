@@ -194,6 +194,7 @@
     secrets = {
       backup-passphrase = {
         key = "backup-passphrase--lenovo";
+        owner = "pwy";
       };
     };
   };

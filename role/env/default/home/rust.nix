@@ -4,10 +4,10 @@ let
     sccache="${pkgs.sccache}/bin/sccache"
 
     export SCCACHE_BUCKET=sccache
-    export SCCACHE_ENDPOINT=$(sudo cat /run/secrets/sccache-endpoint)
+    export SCCACHE_ENDPOINT=$(cat /run/secrets/sccache-endpoint)
     export SCCACHE_S3_USE_SSL=true
-    export AWS_ACCESS_KEY_ID=$(sudo cat /run/secrets/sccache-key)
-    export AWS_SECRET_ACCESS_KEY=$(sudo cat /run/secrets/sccache-key)
+    export AWS_ACCESS_KEY_ID=$(cat /run/secrets/sccache-key)
+    export AWS_SECRET_ACCESS_KEY=$(cat /run/secrets/sccache-key)
 
     "$sccache" "$@"
   '';
