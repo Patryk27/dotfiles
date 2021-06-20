@@ -43,24 +43,6 @@
   networking = {
     hostId = "c00c043f";
     hostName = "anixe";
-
-    wg-quick = {
-      interfaces = {
-        wg-fort = {
-          address = [ "10.10.0.201/24" ];
-          privateKeyFile = "/secrets/wg-fort/private.key";
-
-          peers = [
-            {
-              publicKey = "YqaSjTecpYwlYUX2Y6kUbNq4pV34QCr4GbOqMDMS0T0=";
-              allowedIPs = [ "10.10.0.0/24" ];
-              endpoint = "188.122.2.73:59999";
-              persistentKeepalive = 25;
-            }
-          ];
-        };
-      };
-    };
   };
 
   services = {

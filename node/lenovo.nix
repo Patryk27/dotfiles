@@ -101,24 +101,6 @@
         1313 # Hugo
       ];
     };
-
-    wg-quick = {
-      interfaces = {
-        wg-fort = {
-          address = [ "10.10.0.200/24" ];
-          privateKeyFile = "/secrets/wg-fort/private.key";
-
-          peers = [
-            {
-              endpoint = "188.122.2.73:59999";
-              publicKey = "YqaSjTecpYwlYUX2Y6kUbNq4pV34QCr4GbOqMDMS0T0=";
-              allowedIPs = [ "10.10.0.0/24" ];
-              persistentKeepalive = 25;
-            }
-          ];
-        };
-      };
-    };
   };
 
   nixpkgs = {

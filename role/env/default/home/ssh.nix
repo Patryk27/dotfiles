@@ -20,13 +20,6 @@
             user = "pwy";
           };
 
-          eric-fort = {
-            hostname = "192.168.122.3";
-            proxyJump = "eric";
-            port = 33000;
-            user = "pwy";
-          };
-
           eric-glacier = {
             hostname = "192.168.122.5";
             proxyJump = "eric";
@@ -61,8 +54,8 @@
           };
 
           madison = {
-            hostname = "10.10.0.3";
-            port = 33000;
+            hostname = "188.122.2.73";
+            port = 33002;
             user = "pwy";
 
             remoteForwards = [

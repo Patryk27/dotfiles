@@ -63,10 +63,6 @@
       enable = true;
     };
 
-    hosts = {
-      "10.10.0.1" = [ "fort" ];
-    };
-
     firewall = {
       enable = true;
       allowPing = true;

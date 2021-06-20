@@ -43,28 +43,6 @@
         useDHCP = true;
       };
     };
-
-    wg-quick = {
-      interfaces = {
-        wg-fort = {
-          address = [ "10.10.0.3/24" ];
-          privateKeyFile = "/secrets/wg-fort/private.key";
-
-          postUp = ''
-            /run/wrappers/bin/ping -c60 10.10.0.1
-          '';
-
-          peers = [
-            {
-              publicKey = "YqaSjTecpYwlYUX2Y6kUbNq4pV34QCr4GbOqMDMS0T0=";
-              allowedIPs = [ "10.10.0.0/24" ];
-              endpoint = "188.122.2.73:59999";
-              persistentKeepalive = 25;
-            }
-          ];
-        };
-      };
-    };
   };
 
   services = {
