@@ -77,9 +77,10 @@
           repo = "pwy@eric-glacier:/home/pwy/backup-lenovo";
         })
 
-        anki
+        anki-bin
         darktable
         geeqie
+        mpv
         obs-studio
         rawtherapee
         signal-desktop
