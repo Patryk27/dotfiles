@@ -16,6 +16,12 @@
 
     home-manager = {
       url = "github:rycee/home-manager";
+
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
     };
 
     nixpkgs = {
