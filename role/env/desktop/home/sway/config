@@ -62,7 +62,7 @@ mode "~" {
 
     bindsym a exec "@@launcher@@"; mode "default"
     bindsym s exec "alacritty"; mode "default"
-    bindsym d exec "alacritty -e bash -c 'emacs -nw'"; mode "default"
+    bindsym d exec "emacs"; mode "default"
 
     bindsym bracketleft focus left; mode "default"
     bindsym bracketright focus right; mode "default"

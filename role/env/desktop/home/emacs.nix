@@ -19,7 +19,7 @@
 
       packages =
         let
-          emacs' = pkgs.emacsGcc.overrideAttrs (attrs: {
+          emacs' = pkgs.emacsPgtkGcc.overrideAttrs (attrs: {
             patches = [
               ./emacs/patch/regex.patch
             ];
