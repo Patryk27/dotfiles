@@ -98,7 +98,7 @@ function pg-rust {
 
     cargo init --name playground
 
-    emacs -nw \
+    emacs \
         -f "+vterm/here" \
         --eval '(vterm-send-string "watch -n1 cargo run")' \
         --eval "(vterm-send-return)" \
