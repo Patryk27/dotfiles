@@ -55,6 +55,10 @@
 ;; org
 (setq org-directory "~/org/")
 
+;; point-history
+(point-history-mode t)
+(global-set-key (kbd "M-s M-s") 'ivy-point-history)
+
 ;; projectile
 (setq projectile-project-search-path '("~/Projects" "~/Projects/anixe")
       projectile-track-known-projects-automatically nil)
