@@ -35,6 +35,11 @@
 ;; ispell
 (setq ispell-dictionary "en")
 
+;; ivy
+(after! (:and evil-collection ivy)
+  (evil-define-key 'normal 'ivy-occur-mode-map
+    "gr" 'ivy-occur-revert-buffer))
+
 ;; lsp
 (setq lsp-file-watch-threshold 5000
       lsp-rust-all-features t
