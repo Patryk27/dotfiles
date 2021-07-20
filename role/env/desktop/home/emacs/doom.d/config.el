@@ -32,6 +32,16 @@
 ;; evil
 (setq evil-want-fine-undo t)
 
+;; evil-surround
+(defun evil-surround-word ()
+  (let ((word (evil-surround-read-from-minibuffer "" "")))
+    (cons (format "%s(" word) ")")))
+
+(add-hook 'rustic-mode-hook
+  (lambda ()
+    (with-eval-after-load 'evil-surround
+      (push '(?\( . evil-surround-word) evil-surround-pairs-alist))))
+
 ;; ispell
 (setq ispell-dictionary "en")
 
