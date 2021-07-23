@@ -32,7 +32,15 @@
             no-ligation = true;
 
             metric-override = {
-              leading = 1100;
+              leading = 1050;
+            };
+
+            widths = {
+              normal = {
+                menu = 5;
+                css = "normal";
+                shape = 480;
+              };
             };
 
             variants = {
