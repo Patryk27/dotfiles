@@ -13,17 +13,15 @@
             user = "pwy";
           };
 
-          eric-builder = {
-            hostname = "192.168.122.7";
-            proxyJump = "eric";
-            port = 33000;
+          eric-archive = {
+            hostname = "188.122.2.73";
+            port = 33002;
             user = "pwy";
           };
 
-          eric-glacier = {
-            hostname = "192.168.122.5";
-            proxyJump = "eric";
-            port = 33000;
+          eric-builder = {
+            hostname = "188.122.2.73";
+            port = 33001;
             user = "pwy";
           };
 

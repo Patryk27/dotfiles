@@ -8,11 +8,31 @@ bindkey '^[^H' backward-kill-bash-word
 zle -N backward-kill-bash-word backward-kill-word-match
 zstyle :zle:backward-kill-bash-word word-style bash
 
-function d-ip() {
+d-ip() {
     docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$@"
 }
 
-function madison-attach {
+cn-attach() {
+    ssh eric -t "sudo machinectl shell $1"
+}
+
+cn-down() {
+    ssh eric -t "sudo systemctl stop container@$1"
+}
+
+cn-restart() {
+    ssh eric -t "sudo systemctl stop container@$1 && sudo systemctl start container@$1"
+}
+
+cn-status() {
+    ssh eric -t "sudo systemctl status container@$1"
+}
+
+cn-up() {
+    ssh eric -t "sudo systemctl start container@$1"
+}
+
+madison-attach() {
     session="$1"
 
     if [[ -z "$session" ]]; then
@@ -23,7 +43,7 @@ function madison-attach {
     TERM=xterm-24bit ssh madison -t tmux attach -t "$session"
 }
 
-function madison-new {
+madison-new() {
     session="$1"
 
     if [[ -z "$session" ]]; then
@@ -34,7 +54,7 @@ function madison-new {
     TERM=xterm-24bit ssh madison -t tmux new -s "$session"
 }
 
-function ss-save() {
+ss-save() {
     output="$1"
 
     if [[ -z "$output" ]]; then
@@ -50,7 +70,7 @@ function ss-save() {
     mv /tmp/screen.png "$output"
 }
 
-function sr-save() {
+sr-save() {
     output="$1"
     cut_start="$2"
     cut_len="$3"
@@ -74,7 +94,7 @@ function sr-save() {
     fi
 }
 
-function to-gif() {
+to-gif() {
     input="$1"
     output="$2"
     fps="$3"
@@ -92,7 +112,7 @@ function to-gif() {
         "$output"
 }
 
-function pg-rust {
+pg-rust() {
     dir=$(mktemp -d -t pg-XXXXXXXXXX)
     cd "$dir"
 
@@ -108,7 +128,7 @@ function pg-rust {
         "$dir/Cargo.toml"
 }
 
-function rename-uuid {
+rename-uuid() {
     if [[ -z "$1" ]]; then
         echo "usage: rename-uuid <file>"
         return

@@ -30,7 +30,7 @@
       packages = with pkgs; [
         (import ../role/app/backup.nix {
           inherit pkgs;
-          repo = "pwy@eric-glacier:/home/pwy/backup-anixe";
+          repo = "pwy@eric-archive:/home/pwy/backup-anixe";
         })
 
         openconnect

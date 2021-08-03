@@ -74,7 +74,7 @@
       packages = with pkgs; [
         (import ../role/app/backup.nix {
           inherit pkgs;
-          repo = "pwy@eric-glacier:/home/pwy/backup-lenovo";
+          repo = "pwy@eric-archive:/home/pwy/backup-lenovo";
         })
 
         anki-bin
