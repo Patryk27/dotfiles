@@ -68,7 +68,8 @@
 (define-key evil-normal-state-map (kbd "gsi") 'avy-goto-char-in-line)
 
 ;; org
-(setq org-directory "~/org/")
+(setq org-agenda-files '("~/org/")
+      org-directory "~/org/")
 
 ;; point-history
 (point-history-mode t)
