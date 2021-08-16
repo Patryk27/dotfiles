@@ -95,12 +95,11 @@
       storageDriver = "zfs";
     };
 
-    # TODO (seem not to work at the moment)
-    # virtualbox = {
-    #   host = {
-    #     enable = true;
-    #     headless = true;
-    #   };
-    # };
+    virtualbox = {
+      host = {
+        enable = true;
+        headless = true;
+      };
+    };
   };
 }
