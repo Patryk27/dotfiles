@@ -41,6 +41,10 @@
     (with-eval-after-load 'evil-surround
       (push '(?\( . evil-surround-word) evil-surround-pairs-alist))))
 
+;; gcmh
+(setq gcmh-high-cons-threshold (* 128 1024 1024)
+      gcmh-idle-delay 10.0)
+
 ;; ispell
 (setq ispell-dictionary "en")
 
