@@ -4,7 +4,6 @@
 (setq user-full-name "Patryk Wychowaniec"
       user-mail-address "pwychowaniec@pm.me"
       display-line-numbers-type nil
-      read-process-output-max (* 1024 1024)
       truncate-string-ellipsis "…")
 
 (map! :leader
