@@ -27,7 +27,7 @@
        word-wrap
 
        :emacs
-       (dired +icons)
+       dired
        electric
        ibuffer
        (undo +tree)
