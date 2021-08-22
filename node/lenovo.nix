@@ -62,8 +62,10 @@
     opengl = {
       extraPackages = with pkgs; [
         intel-media-driver
+        libglvnd
         libvdpau-va-gl
         vaapiIntel
+        mesa
         vaapiVdpau
       ];
     };
