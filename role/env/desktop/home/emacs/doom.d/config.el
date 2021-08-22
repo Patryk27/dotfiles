@@ -1,32 +1,31 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; emacs
-(setq user-full-name "Patryk Wychowaniec"
-      user-mail-address "pwychowaniec@pm.me"
-      display-line-numbers-type nil
-      truncate-string-ellipsis "…")
-
-(map! :leader
-      (:prefix ("TAB" . "workspace")
-       :desc "Swap left" "{" #'+workspace/swap-left
-       :desc "Swap right" "}" #'+workspace/swap-right))
-
-(global-display-fill-column-indicator-mode +1)
-
 ;; dired
-(map! :leader
-      :desc "Open Dired here"
-      "j" #'dired-jump)
+(map! :leader "j" #'dired-jump)
 
 ;; doom
 (setq doom-font (font-spec :family "Iosevka Custom" :size 17 :weight 'light)
       doom-theme 'doom-gruvbox)
 
-(map! :leader
-      :desc "Raise popup"
-      "w P" #'+popup/raise)
-
 (remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)
+
+(map! :leader "w P" #'+popup/raise)
+
+(map! :leader
+      (:prefix "TAB"
+       "{" #'+workspace/swap-left
+       "}" #'+workspace/swap-right))
+
+;; emacs
+(setq calendar-week-start-day 1
+      display-line-numbers-type nil
+      truncate-string-ellipsis "…"
+      user-full-name "Patryk Wychowaniec"
+      user-mail-address "pwychowaniec@pm.me")
+
+(global-display-fill-column-indicator-mode +1)
+
+(map! :leader "C" #'calendar)
 
 ;; evil
 (setq evil-want-fine-undo t)
@@ -71,7 +70,7 @@
 (define-key evil-normal-state-map (kbd "gsi") 'avy-goto-char-in-line)
 
 ;; org
-(setq org-agenda-files '("~/org/")
+(setq org-agenda-files '("~/org/" "~/org/praca" "~/org/wycieczki")
       org-directory "~/org/")
 
 ;; point-history
