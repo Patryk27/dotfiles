@@ -32,6 +32,55 @@ cn-up() {
     ssh eric -t "sudo systemctl start container@$1"
 }
 
+tr-find() {
+    query="$1"
+
+    if [[ -z "$query" ]]; then
+        echo "usage: tr-find <query>"
+        return
+    fi
+
+    ssh eric -- \
+        echo "/torrent/**/$query"
+}
+
+tr-video-play() {
+    src="$1"
+
+    if [[ -z "$src" ]]; then
+        echo "usage: tr-video-play <src>"
+        return
+    fi
+
+    ssh eric -- \
+        nix run nixpkgs#ffmpeg -- \
+            -i "${src:q}" \
+            -vcodec libx265 \
+            -crf 28 \
+            -preset ultrafast \
+            -f nut pipe:1 \
+            | vlc -
+}
+
+tr-video-pull() {
+    src="$1"
+    dst="$2"
+
+    if [[ -z "$src" || -z "$dst" ]]; then
+        echo "usage: tr-video-pull <src> <dst>"
+        return
+    fi
+
+    ssh eric -- \
+        nix run nixpkgs#ffmpeg -- \
+            -i "${src:q}" \
+            -vcodec libx265 \
+            -crf 28 \
+            -preset ultrafast \
+            -f nut pipe:1 \
+            > "$dst"
+}
+
 madison-attach() {
     session="$1"
 
