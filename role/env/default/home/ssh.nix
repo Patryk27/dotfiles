@@ -53,7 +53,7 @@
 
           madison = {
             hostname = "188.122.2.73";
-            port = 33002;
+            port = 33003;
             user = "pwy";
 
             remoteForwards = [
