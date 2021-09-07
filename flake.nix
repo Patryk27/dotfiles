@@ -14,6 +14,13 @@
       flake = false;
     };
 
+    # The newest version supports Wayland, but hasn't been released yet.
+    # TODO revisit when geeqie gets a release
+    geeqie = {
+      url = "github:BestImageViewer/geeqie";
+      flake = false;
+    };
+
     home-manager = {
       url = "github:rycee/home-manager";
 
@@ -38,6 +45,7 @@
     , doom-emacs
     , emacs-overlay
     , firenvim
+    , geeqie
     , home-manager
     , nixpkgs
     , sops-nix
@@ -88,6 +96,14 @@
 
                 (self: super: {
                   inherit doom-emacs firenvim;
+
+                  geeqie = super.geeqie.overrideAttrs (superAttrs: {
+                    src = geeqie;
+
+                    postPatch = ''
+                      echo > doc/create-doxygen-lua-api.sh
+                    '';
+                  });
                 })
               ];
             };
