@@ -52,12 +52,6 @@
     ];
   };
 
-  fonts = {
-    fontconfig = {
-      dpi = 160;
-    };
-  };
-
   hardware = {
     opengl = {
       extraPackages = with pkgs; [
