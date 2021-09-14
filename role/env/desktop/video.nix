@@ -1,4 +1,8 @@
 { pkgs, ... }: {
+  imports = [
+    ./video/screensharing.nix
+  ];
+
   environment = {
     sessionVariables = {
       MOZ_ENABLE_WAYLAND = "1";
