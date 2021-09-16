@@ -1,8 +1,4 @@
 { pkgs, ... }: {
-  imports = [
-    ./video/screensharing.nix
-  ];
-
   environment = {
     sessionVariables = {
       MOZ_ENABLE_WAYLAND = "1";
@@ -44,10 +40,27 @@
       enable = true;
     };
 
+    pipewire = {
+      enable = true;
+    };
+
     udev = {
       packages = with pkgs; [
         gnome3.gnome-settings-daemon
       ];
+    };
+  };
+
+  xdg = {
+    portal = {
+      enable = true;
+
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-wlr
+        xdg-desktop-portal-gtk
+      ];
+
+      gtkUsePortal = true;
     };
   };
 }
