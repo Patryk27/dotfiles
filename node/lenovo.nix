@@ -49,6 +49,7 @@
   environment = {
     systemPackages = with pkgs; [
       mullvad-vpn
+      screen
     ];
   };
 
