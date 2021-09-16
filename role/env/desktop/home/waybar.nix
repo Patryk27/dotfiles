@@ -43,7 +43,7 @@
               };
 
               battery = {
-                format = "{icon} {capacity}%";
+                format = "{icon} {capacity}";
                 format-icons = [ "" "" "" "" "" ];
                 tooltip = false;
                 interval = 1;
@@ -59,21 +59,22 @@
               };
 
               cpu = {
-                format = " {}%";
+                format = " {usage}";
+                interval = 1;
               };
 
               memory = {
-                format = " {used:0.1f}G/{total:0.1f}G";
+                format = " {used:0.1f}/{total:0.1f}";
               };
 
               pulseaudio = {
-                format = " {volume}%";
-                format-muted = " {volume}%";
-                format-bluetooth = "  {volume}%";
+                format = " {volume}";
+                format-muted = " {volume}";
+                format-bluetooth = "  {volume}";
               };
 
               temperature = {
-                format = " {temperatureC}°C";
+                format = " {temperatureC}";
                 thermal-zone = 1;
                 interval = 1;
               };
