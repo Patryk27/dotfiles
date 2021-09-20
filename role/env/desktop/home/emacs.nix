@@ -6,7 +6,7 @@
   };
 
   home-manager.users.pwy = { config, ... }: {
-    home = rec {
+    home = {
       file = {
         ".doom.d" = {
           source = ./emacs/doom.d;
@@ -38,7 +38,6 @@
             pl
           ]))
 
-          python3
           rust-analyzer
         ];
 
