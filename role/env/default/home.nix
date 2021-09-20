@@ -3,8 +3,7 @@
     ./home/git.nix
     ./home/gpg.nix
     ./home/lorri.nix
-    ./home/php.nix
-    ./home/rust.nix
+    ./home/programming.nix
     ./home/ssh.nix
     ./home/taskwarrior.nix
     ./home/vim.nix

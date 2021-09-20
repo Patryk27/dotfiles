@@ -20,10 +20,6 @@ Configurations for some of my NixOS machines.
 - [nix](role/env/desktop/home/emacs.nix)
 - [doom.d](role/env/desktop/home/emacs/doom.d)
 
-## Rust
-
-- [nix](role/env/default/home/rust.nix) (with sccache!)
-
 ## Sway
 
 - [nix](role/env/desktop/home/sway.nix)
