@@ -132,13 +132,13 @@
     in
     {
       checks = {
-        "x86_64-linux" = builtins.mapAttrs buildCheck nodes;
+        x86_64-linux = builtins.mapAttrs buildCheck nodes;
       };
 
       nixosConfigurations = builtins.mapAttrs buildSystem nodes;
 
       devShell = {
-        "x86_64-linux" =
+        x86_64-linux =
           let
             pkgs = (import nixpkgs) {
               system = "x86_64-linux";
