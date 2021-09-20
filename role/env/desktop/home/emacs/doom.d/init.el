@@ -1,5 +1,3 @@
-;;; init.el -*- lexical-binding: t; -*-
-
 (doom! :completion
        (company +childframe)
        (ivy +childframe +prescient)
@@ -50,9 +48,6 @@
        magit
        make
        rgb
-
-       :os
-       (tty +osc)
 
        :lang
        data

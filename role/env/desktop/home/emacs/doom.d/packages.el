@@ -1,7 +1,6 @@
-;; -*- no-byte-compile: t; -*-
-;;; $DOOMDIR/packages.el
-
-(package! bracketed-paste)
+(package! parrot
+  :recipe (:host github :repo "dp12/parrot")
+  :pin "29265d118267e524453aaa9121c4eae213a63164")
 
 (package! point-history
   :recipe (:host github :repo "blue0513/point-history")
