@@ -114,12 +114,6 @@
               secrets = lib.genAttrs [
                 "backup-passphrase--anixe"
                 "backup-passphrase--lenovo"
-                "sccache-endpoint"
-                "sccache-key"
-                "taskd-certificate"
-                "taskd-ca"
-                "taskd-key"
-                "taskrc"
               ]
                 (k: {
                   owner = "pwy";
