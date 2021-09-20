@@ -152,7 +152,7 @@
             ];
 
             buildInputs = with pkgs; [
-              (callPackage sops-nix { }).sops-pgp-hook
+              (callPackage sops-nix { }).sops-import-keys-hook
 
               (pkgs.writeShellScriptBin "do-deploy-madison" ''
                 action="$1"
