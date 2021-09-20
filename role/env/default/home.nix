@@ -5,7 +5,6 @@
     ./home/lorri.nix
     ./home/programming.nix
     ./home/ssh.nix
-    ./home/taskwarrior.nix
     ./home/vim.nix
     ./home/zsh.nix
   ];

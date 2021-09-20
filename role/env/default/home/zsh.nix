@@ -78,7 +78,6 @@
           jclu = "journalctl --user";
           scl = "systemctl";
           sclu = "systemctl --user";
-          t = "task";
         };
       };
     };
