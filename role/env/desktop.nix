@@ -9,9 +9,9 @@
   environment = {
     systemPackages = with pkgs; [
       audacity
+      chromium
       firefox-wayland
       gimp
-      google-chrome
       libreoffice
       slack
       vlc
