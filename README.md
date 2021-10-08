@@ -10,11 +10,6 @@ Configurations for some of my NixOS machines.
 
 - [nix](role/env/desktop/home/alacritty.nix)
 
-## Backup
-
-- [nix](role/app/backup.nix)
-- [script](role/app/backup/backup.sh)
-
 ## Emacs
 
 - [nix](role/env/desktop/home/emacs.nix)
