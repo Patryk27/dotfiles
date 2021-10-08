@@ -61,7 +61,7 @@ mode "~" {
     bindsym p mode "~/screen"
 
     bindsym a exec "@@launcher@@"; mode "default"
-    bindsym s exec "alacritty"; mode "default"
+    bindsym s exec "kitty"; mode "default"
     bindsym d exec "emacs"; mode "default"
 
     bindsym bracketleft focus left; mode "default"

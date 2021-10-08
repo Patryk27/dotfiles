@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-swaymsg "workspace 1; exec alacritty"
+swaymsg "workspace 1; exec kitty"
 swaymsg "workspace 2; exec firefox"
 swaymsg "workspace 3; exec emacs"
 swaymsg "workspace 4; exec slack"

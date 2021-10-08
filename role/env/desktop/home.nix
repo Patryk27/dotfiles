@@ -1,10 +1,10 @@
 { ... }: {
   imports = [
-    ./home/alacritty.nix
     ./home/autorun.nix
     ./home/emacs.nix
     ./home/kanshi.nix
     ./home/keybase.nix
+    ./home/kitty.nix
     ./home/mako.nix
     ./home/redshift.nix
     ./home/sway.nix

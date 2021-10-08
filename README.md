@@ -6,14 +6,14 @@ Configurations for some of my NixOS machines.
 
 # Notable parts
 
-## Alacritty
-
-- [nix](role/env/desktop/home/alacritty.nix)
-
 ## Emacs
 
 - [nix](role/env/desktop/home/emacs.nix)
 - [doom.d](role/env/desktop/home/emacs/doom.d)
+
+## Kitty
+
+- [nix](role/env/desktop/home/kitty.nix)
 
 ## Sway
 
