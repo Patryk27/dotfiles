@@ -21,7 +21,7 @@
            # Better to use compgen, but stdenv bash doesn't have it.
            __vars="$(declare -p)"
            __functions="$(declare -F)"
-         '')
+        '')
       ];
     };
 
