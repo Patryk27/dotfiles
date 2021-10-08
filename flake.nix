@@ -9,11 +9,6 @@
       url = "github:nix-community/emacs-overlay";
     };
 
-    firenvim = {
-      url = "github:glacambre/firenvim";
-      flake = false;
-    };
-
     # The newest version supports Wayland, but hasn't been released yet.
     # TODO revisit when geeqie gets a release
     geeqie = {
@@ -44,7 +39,6 @@
     { self
     , doom-emacs
     , emacs-overlay
-    , firenvim
     , geeqie
     , home-manager
     , nixpkgs
