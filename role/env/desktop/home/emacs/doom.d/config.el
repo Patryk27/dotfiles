@@ -11,7 +11,7 @@
 ;; avy
 (setq avy-keys '(?a ?s ?d ?h ?j ?k ?l))
 
-(define-key evil-normal-state-map (kbd "ga") 'evil-avy-goto-char-timer)
+(define-key evil-normal-state-map (kbd "go") 'evil-avy-goto-char-timer)
 
 ;; dired
 (map! :leader "j" #'dired-jump)
@@ -23,9 +23,10 @@
 (map! :leader "w P" #'+popup/raise)
 
 (map! :leader
-      (:prefix "TAB"
-       "{" #'+workspace/swap-left
-       "}" #'+workspace/swap-right))
+      "[" #'+workspace/switch-left
+      "]" #'+workspace/switch-right
+      "{" #'+workspace/swap-left
+      "}" #'+workspace/swap-right)
 
 ;; emacs
 (setq calendar-week-start-day 1
@@ -40,6 +41,7 @@
 
 ;; evil
 (setq evil-want-fine-undo t)
+(setq +evil-want-o/O-to-continue-comments nil)
 
 ;; evil-numbers
 (define-key evil-normal-state-map (kbd "g+") 'evil-numbers/inc-at-pt)
@@ -64,8 +66,8 @@
 
 ;; ivy
 (after! (:and evil-collection ivy)
-  (evil-define-key 'normal 'ivy-occur-mode-map
-    "gr" 'ivy-occur-revert-buffer))
+  (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-immediate-done)
+  (evil-define-key 'normal 'ivy-occur-mode-map "gr" 'ivy-occur-revert-buffer))
 
 ;; lsp
 (setq lsp-file-watch-threshold 5000
@@ -73,14 +75,16 @@
       lsp-rust-analyzer-proc-macro-enable t
       lsp-rust-analyzer-server-display-inlay-hints t
       lsp-signature-auto-activate nil
+      lsp-ui-doc-show-with-cursor nil
       lsp-ui-sideline-enable nil)
 
+(define-key evil-normal-state-map (kbd "ga") 'lsp-execute-code-action)
 (define-key evil-normal-state-map (kbd "ghc") 'lsp-rust-analyzer-open-cargo-toml)
 (define-key evil-normal-state-map (kbd "ghe") 'lsp-rust-analyzer-expand-macro)
 (define-key evil-normal-state-map (kbd "ghp") 'lsp-rust-find-parent-module)
-(define-key evil-normal-state-map (kbd "gj") '+lookup/type-definition)
-(define-key evil-normal-state-map (kbd "gk") '+lookup/references)
-(define-key evil-normal-state-map (kbd "gt") 'sort-lines)
+(define-key evil-normal-state-map (kbd "gj") '+lookup/references)
+(define-key evil-normal-state-map (kbd "gss") 'sort-lines)
+(define-key evil-normal-state-map (kbd "gt") '+lookup/type-definition)
 
 ;; org
 (setq org-agenda-files '("~/org/" "~/org/praca" "~/org/wycieczki")
@@ -110,10 +114,6 @@
 (define-key evil-normal-state-map (kbd "[q") 'parrot-rotate-prev-word-at-point)
 (define-key evil-normal-state-map (kbd "]q") 'parrot-rotate-next-word-at-point)
 
-;; point-history
-(point-history-mode t)
-(global-set-key (kbd "M-s M-s") 'ivy-point-history)
-
 ;; projectile
 (setq projectile-project-search-path '("~/Projects" "~/Projects/anixe")
       projectile-track-known-projects-automatically nil)
@@ -127,3 +127,38 @@
 
 ;; undo-tree
 (setq undo-tree-visualizer-timestamps t)
+
+;; vterm
+(map! :leader "a" #'+vterm/toggle)
+
+;; ---------------- ;;
+;; CLI improvements ;;
+
+(unless (display-graphic-p)
+  (when (getenv "WAYLAND_DISPLAY")
+    (setq wl-copy-process nil)
+
+    (defun wl-copy (text)
+      (setq wl-copy-process (make-process :name "wl-copy"
+                                          :buffer nil
+                                          :command '("wl-copy" "-n")
+                                          :connection-type 'pipe))
+      (process-send-string wl-copy-process text)
+      (process-send-eof wl-copy-process))
+
+    (defun wl-paste ()
+      (if (and wl-copy-process (process-live-p wl-copy-process))
+          nil
+        (shell-command-to-string "wl-paste -n | tr -d \r")))
+
+    (setq interprogram-cut-function 'wl-copy)
+    (setq interprogram-paste-function 'wl-paste))
+
+  (defun term-title-update ()
+    (send-string-to-terminal
+     (concat "\033]1;" (buffer-name) "\007")
+     (if buffer-file-name
+         (send-string-to-terminal (concat "\033]2;" (buffer-file-name) "\007"))
+       (send-string-to-terminal (concat "\033]2;" (buffer-name) "\007")))))
+
+  (add-hook 'post-command-hook 'term-title-update))

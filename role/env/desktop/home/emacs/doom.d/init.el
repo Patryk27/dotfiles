@@ -49,6 +49,9 @@
        make
        rgb
 
+       :os
+       (tty +osc)
+
        :lang
        data
        emacs-lisp

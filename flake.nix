@@ -5,6 +5,11 @@
       flake = false;
     };
 
+    emacs = {
+      url = "github:emacs-mirror/emacs";
+      flake = false;
+    };
+
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";
     };
@@ -38,6 +43,7 @@
   outputs =
     { self
     , doom-emacs
+    , emacs
     , emacs-overlay
     , geeqie
     , home-manager
@@ -89,7 +95,8 @@
                 emacs-overlay.overlay
 
                 (self: super: {
-                  inherit doom-emacs firenvim;
+                  doom-emacs' = doom-emacs;
+                  emacs' = emacs;
 
                   geeqie = super.geeqie.overrideAttrs (superAttrs: {
                     src = geeqie;

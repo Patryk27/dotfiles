@@ -1,0 +1,38 @@
+diff --git a/src/term.c b/src/term.c
+index 0858f81685..4e6c134acf 100644
+--- a/src/term.c
++++ b/src/term.c
+@@ -227,7 +227,14 @@ tty_reset_terminal_modes (struct terminal *terminal)
+     }
+ }
+ 
+-/* Flag the end of a display update on a termcap terminal. */
++static void
++tty_update_begin (struct frame *f)
++{
++  struct tty_display_info *tty = FRAME_TTY (f);
++
++  fputs ("\033P=1s\033\\", tty->output);
++  fflush (tty->output);
++}
+ 
+ static void
+ tty_update_end (struct frame *f)
+@@ -239,6 +246,9 @@ tty_update_end (struct frame *f)
+   tty_turn_off_insert (tty);
+   tty_background_highlight (tty);
+   fflush (tty->output);
++
++  fputs ("\033P=2s\033\\", tty->output);
++  fflush (tty->output);
+ }
+ 
+ /* The implementation of set_terminal_window for termcap frames. */
+@@ -3862,6 +3872,7 @@ set_tty_hooks (struct terminal *terminal)
+   terminal->ring_bell_hook = &tty_ring_bell;
+   terminal->reset_terminal_modes_hook = &tty_reset_terminal_modes;
+   terminal->set_terminal_modes_hook = &tty_set_terminal_modes;
++  terminal->update_begin_hook = &tty_update_begin;
+   terminal->update_end_hook = &tty_update_end;
+ #ifdef MSDOS
+   terminal->menu_show_hook = &x_menu_show;

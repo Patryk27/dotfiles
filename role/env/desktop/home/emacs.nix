@@ -13,15 +13,18 @@
         };
 
         ".emacs.d" = {
-          source = pkgs.doom-emacs;
+          source = pkgs.doom-emacs';
         };
       };
 
       packages =
         let
-          emacs' = pkgs.emacsPgtkGcc.overrideAttrs (attrs: {
+          emacs' = pkgs.emacsGcc.overrideAttrs (attrs: {
+            src = pkgs.emacs';
+
             patches = [
               ./emacs/patch/regex.patch
+              ./emacs/patch/synchronized-updates.patch
             ];
           });
 
