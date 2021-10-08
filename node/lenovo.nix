@@ -125,10 +125,6 @@
       drivers = [ pkgs.hplip ];
     };
 
-    throttled = {
-      enable = true;
-    };
-
     tlp = {
       enable = true;
 
@@ -168,12 +164,6 @@
         # USBasp
         ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05dc", MODE="0666"
       '';
-    };
-
-    undervolt = {
-      enable = true;
-      coreOffset = -140;
-      gpuOffset = -100;
     };
   };
 
