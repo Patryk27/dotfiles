@@ -4,12 +4,6 @@
   ];
 
   boot = {
-    kernel = {
-      sysctl = {
-        "vm.swappiness" = 1;
-      };
-    };
-
     loader = {
       grub = {
         copyKernels = true;
