@@ -18,5 +18,19 @@
         canTouchEfiVariables = true;
       };
     };
+
+    supportedFilesystems = [
+      "zfs"
+    ];
+
+    zfs = {
+      enableUnstable = true;
+    };
+  };
+
+  environment = {
+    systemPackages = with pkgs; [
+      zfs
+    ];
   };
 }
