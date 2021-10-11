@@ -18,10 +18,26 @@
   hardware = {
     enableAllFirmware = true;
 
+    bluetooth = {
+      enable = true;
+
+      settings = {
+        General = {
+          Enable = "Source,Sink,Media,Socket";
+        };
+      };
+    };
+
     cpu = {
       intel = {
         updateMicrocode = true;
       };
+    };
+
+    pulseaudio = {
+      enable = true;
+      extraModules = [ pkgs.pulseaudio-modules-bt ];
+      package = pkgs.pulseaudioFull;
     };
   };
 
@@ -36,6 +52,12 @@
       enable = true;
     };
 
+    hardware = {
+      bolt = {
+        enable = true;
+      };
+    };
+
     zfs = {
       autoSnapshot = {
         enable = true;
@@ -44,5 +66,9 @@
         monthly = 1;
       };
     };
+  };
+
+  sound = {
+    enable = true;
   };
 }
