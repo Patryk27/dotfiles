@@ -181,7 +181,6 @@ for_window [window_role="pop-up"] floating enable
 
 assign [title="Google Chrome"] 2
 assign [title="Mozilla Firefox"] 2
-assign [title="Doom Emacs"] 3
+assign [title="Thunderbird"] 3
 assign [title="Slack"] 4
 assign [title="Keybase"] 8
-assign [title="Thunderbird"] 9

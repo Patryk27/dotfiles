@@ -2,8 +2,7 @@
 
 swaymsg "workspace 1; exec kitty"
 swaymsg "workspace 2; exec firefox"
-swaymsg "workspace 3; exec emacs"
+swaymsg "workspace 3; exec thunderbird"
 swaymsg "workspace 4; exec slack"
 swaymsg "workspace 8; exec keybase-gui"
-swaymsg "workspace 9; exec thunderbird"
 swaymsg "workspace 2"
