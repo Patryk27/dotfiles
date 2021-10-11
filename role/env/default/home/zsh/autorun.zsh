@@ -13,23 +13,23 @@ d-ip() {
 }
 
 cn-attach() {
-    ssh eric -t "sudo machinectl shell $1"
+    TERM=xterm ssh eric -t "sudo machinectl shell $1"
 }
 
 cn-down() {
-    ssh eric -t "sudo systemctl stop container@$1"
+    TERM=xterm ssh eric -t "sudo systemctl stop container@$1"
 }
 
 cn-restart() {
-    ssh eric -t "sudo systemctl stop container@$1 && sudo systemctl start container@$1"
+    TERM=xterm ssh eric -t "sudo systemctl stop container@$1 && sudo systemctl start container@$1"
 }
 
 cn-status() {
-    ssh eric -t "sudo systemctl status container@$1"
+    TERM=xterm ssh eric -t "sudo systemctl status container@$1"
 }
 
 cn-up() {
-    ssh eric -t "sudo systemctl start container@$1"
+    TERM=xterm ssh eric -t "sudo systemctl start container@$1"
 }
 
 tr-find() {
