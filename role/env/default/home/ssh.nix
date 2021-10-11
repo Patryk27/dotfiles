@@ -38,6 +38,12 @@
             user = "pwy";
           };
 
+          glacier = {
+            hostname = "zh1258.rsync.net";
+            port = 22;
+            user = "zh1258";
+          };
+
           mac = {
             hostname = "10.10.0.4";
             port = 22;
