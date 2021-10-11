@@ -12,7 +12,6 @@
   environment = {
     systemPackages = with pkgs; [
       aria
-      bat
       bmon
       curl
       debianutils
@@ -21,41 +20,27 @@
       ffmpeg-full
       file
       fzf
-      gdb
-      git
-      gnupg
       htop
-      httpie
       i7z
       iotop
-      jq
       libnotify
-      linuxPackages.perf
-      lsd
       ncat
       ncdu
-      nix-index
-      nixpkgs-fmt
       openvpn
-      pciutils
       powertop
       ripgrep
       rsync
       sshfs
-      tldr
       tree
       unrar
       unzip
-      valgrind
-      vim
       wget
-      z3
       zsh
     ];
   };
 
   i18n = {
-    defaultLocale = "pl_PL.UTF-8";
+    defaultLocale = "en_US.UTF-8";
   };
 
   networking = {

@@ -3,6 +3,13 @@
     ./nix/distributed-builds.nix
   ];
 
+  environment = {
+    systemPackages = with pkgs; [
+      nix-index
+      nixpkgs-fmt
+    ];
+  };
+
   nix = {
     package = pkgs.nixUnstable.override {
       patches = [

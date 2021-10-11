@@ -14,9 +14,13 @@
         binutils
         cmake
         gcc
+        gdb
         gnumake
+        jq
+        linuxPackages.perf
         lld
         rustup
+        valgrind
       ];
     };
   };
