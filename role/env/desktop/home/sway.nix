@@ -58,13 +58,11 @@
 
               vars-from = [
                 "@@autorun@@"
-                "@@launcher@@"
                 "@@wallpaper@@"
               ];
 
               vars-to = [
                 (toString ./sway/autorun/autorun)
-                (toString ./sway/launcher)
                 (toString ./sway/wallpaper.jpg)
               ];
 

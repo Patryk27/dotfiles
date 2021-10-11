@@ -60,7 +60,7 @@ mode "~" {
     bindsym q mode "~/window"
     bindsym p mode "~/screen"
 
-    bindsym a exec "@@launcher@@"; mode "default"
+    bindsym a exec "wofi --show drun"; mode "default"
     bindsym s exec "kitty"; mode "default"
     bindsym d exec "emacs"; mode "default"
 

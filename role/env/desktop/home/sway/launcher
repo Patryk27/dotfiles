@@ -1,3 +1,0 @@
-#!/usr/bin/env zsh
-
-LANG=en_US.UTF-8 wofi --show drun
