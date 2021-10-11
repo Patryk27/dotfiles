@@ -53,7 +53,6 @@
       with pkgs; [
         corefonts
         iosevka-custom
-        roboto
       ];
   };
 
