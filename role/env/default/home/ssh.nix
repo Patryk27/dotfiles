@@ -31,13 +31,6 @@
             user = "pwy";
           };
 
-          eric-nas = {
-            hostname = "192.168.122.8";
-            proxyJump = "eric";
-            port = 33000;
-            user = "pwy";
-          };
-
           eric-public = {
             hostname = "192.168.122.2";
             proxyJump = "eric";
