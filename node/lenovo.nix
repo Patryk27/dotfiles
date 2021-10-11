@@ -133,26 +133,24 @@
         TLP_DEFAULT_MODE = "AC";
 
         CPU_SCALING_GOVERNOR_ON_AC = "performance";
-        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-
+        CPU_HWP_ON_AC = "performance";
+        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+        CPU_MAX_PERF_ON_AC = 100;
         CPU_SCALING_MIN_FREQ_ON_AC = 2400000;
         CPU_SCALING_MAX_FREQ_ON_AC = 5000000;
-        CPU_SCALING_MIN_FREQ_ON_BAT = 1500000;
-        CPU_SCALING_MAX_FREQ_ON_BAT = 4000000;
-
-        CPU_HWP_ON_AC = "performance";
-        CPU_HWP_ON_BAT = "balance_power";
-
         CPU_BOOST_ON_AC = 1;
-        CPU_BOOST_ON_BAT = 0;
-
-        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-        CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
-
         SCHED_POWERSAVE_ON_AC = 0;
+
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+        CPU_HWP_ON_BAT = "balance_power";
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
+        CPU_MAX_PERF_ON_BAT = 50;
+        CPU_SCALING_MIN_FREQ_ON_BAT = 1000000;
+        CPU_SCALING_MAX_FREQ_ON_BAT = 3500000;
+        CPU_BOOST_ON_BAT = 0;
         SCHED_POWERSAVE_ON_BAT = 1;
 
-        RUNTIME_PM_DRIVER_BLACKLIST = "nouveau nvidia";
+        RUNTIME_PM_DRIVER_BLACKLIST = "mei_me";
 
         START_CHARGE_THRESH_BAT0 = 90;
         STOP_CHARGE_THRESH_BAT0 = 100;
