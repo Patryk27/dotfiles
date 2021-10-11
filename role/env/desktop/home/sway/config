@@ -62,7 +62,7 @@ mode "~" {
 
     bindsym a exec "wofi --show drun"; mode "default"
     bindsym s exec "kitty"; mode "default"
-    bindsym d exec "emacs"; mode "default"
+    bindsym d exec "kitty -- emacs -nw"; mode "default"
 
     bindsym bracketleft focus left; mode "default"
     bindsym bracketright focus right; mode "default"
