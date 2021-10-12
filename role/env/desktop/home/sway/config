@@ -44,13 +44,13 @@ seat * hide_cursor 2000
 bindsym Super_L mode "~"
 bindsym Print mode "~"
 
-bindsym --release XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym --release XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym --release XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym --release XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-bindsym --release XF86MonBrightnessDown exec brightnessctl set 5%-
-bindsym --release XF86MonBrightnessUp exec brightnessctl set +5%
-bindsym --release XF86Mail exec "swaylock -c 000000 -d && swaymsg mode default"
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym XF86Mail exec "swaylock -c 000000 -d && swaymsg mode default"
 
 mode "~" {
     bindsym Super_L mode "default"
