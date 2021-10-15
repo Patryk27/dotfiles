@@ -3,11 +3,11 @@
     "doom-emacs": {
       "flake": false,
       "locked": {
-        "lastModified": 1633521496,
-        "narHash": "sha256-6VXziFy4KlfWxD9X3f5w2penC02IeKECoV4MKlwr5lM=",
+        "lastModified": 1634073852,
+        "narHash": "sha256-i2d37lXhnFS3hruc3cNwR0Co1VgbPjRdmG1tA6t50Y4=",
         "owner": "hlissner",
         "repo": "doom-emacs",
-        "rev": "4549b275f2b3abf7622ee7e7e739ccfeae758eaf",
+        "rev": "06dc65f906a199ebeeb3cf00b5a5b806e6c6ebcb",
         "type": "github"
       },
       "original": {
@@ -19,11 +19,11 @@
     "emacs": {
       "flake": false,
       "locked": {
-        "lastModified": 1633531833,
-        "narHash": "sha256-FPI+a4rhx3gRCDuF7TJCgpOvzHNMsvi5ATtcUzKjl+8=",
+        "lastModified": 1634263322,
+        "narHash": "sha256-a8/1nvDqA5guG20g5GCivR/2pVdbJKljHGDnGP3o1SY=",
         "owner": "emacs-mirror",
         "repo": "emacs",
-        "rev": "1b11fcae92e583621e6ef90fe777b15a34ac2623",
+        "rev": "88bd6fccf15065defd7b9e9afdf44a61c5c6eee7",
         "type": "github"
       },
       "original": {
@@ -34,11 +34,11 @@
     },
     "emacs-overlay": {
       "locked": {
-        "lastModified": 1633515705,
-        "narHash": "sha256-VLCg/A4yuvvc/wiC8CBtwZ6bo6u7QD0rsm06r20x4Ms=",
+        "lastModified": 1634263047,
+        "narHash": "sha256-OiJmWttLa92BI6YsvtNvtEPsCC6vUVeCWSN0I39KhYU=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "8a47765478628f684b09d7f7aa5960e697309c74",
+        "rev": "dcdb2e20a30c851b204cd0ab7a7d4745c6af7ff6",
         "type": "github"
       },
       "original": {
