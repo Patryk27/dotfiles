@@ -60,7 +60,6 @@
        (markdown +grip)
        nix
        org
-       (php +lsp)
        rest
        (rust +lsp)
        sh
