@@ -116,17 +116,6 @@
 ;; rainbow-delimeters
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-;; rustic-mode
-(advice-add
-  'rustic-lsp-mode-setup
-  :override
-  #'(lambda ()
-      (require 'lsp-rust)
-      (require 'lsp-modeline)
-      (setq lsp-rust-server rustic-lsp-server)
-      (setq lsp-rust-analyzer-server-command rustic-analyzer-command)
-      (lsp-rust-switch-server rustic-lsp-server)))
-
 ;; subword-mode
 (define-key evil-normal-state-map (kbd "g'") 'subword-mode)
 (define-key evil-normal-state-map (kbd "g\"") 'global-subword-mode)
