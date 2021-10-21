@@ -129,20 +129,20 @@
 
 (unless (display-graphic-p)
   (when (getenv "WAYLAND_DISPLAY")
-    (setq wl-copy-process nil)
+    (setq wl-latest-text "")
 
     (defun wl-copy (text)
-      (setq wl-copy-process (make-process :name "wl-copy"
-                                          :buffer nil
-                                          :command '("wl-copy" "-n")
-                                          :connection-type 'pipe))
-      (process-send-string wl-copy-process text)
-      (process-send-eof wl-copy-process))
+      (let ((proc
+             (make-process :name "wl-copy"
+                           :command '("wl-copy")
+                           :connection-type 'pipe)))
+        (process-send-string proc text)
+        (process-send-eof proc))
+      (setq wl-latest-text text))
 
     (defun wl-paste ()
-      (if (and wl-copy-process (process-live-p wl-copy-process))
-          nil
-        (shell-command-to-string "wl-paste -n | tr -d \r")))
+      (let ((text (shell-command-to-string "wl-paste -t text -n 2>/dev/null")))
+        (unless (string= text wl-latest-text) text)))
 
     (setq interprogram-cut-function 'wl-copy)
     (setq interprogram-paste-function 'wl-paste))
