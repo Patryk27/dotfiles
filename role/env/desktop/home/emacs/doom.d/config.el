@@ -17,12 +17,10 @@
 (map! :leader "j" #'dired-jump)
 
 ;; doom
-(setq doom-font (font-spec :family "Iosevka Custom" :size 17 :weight 'light)
-      doom-theme 'doom-gruvbox)
-
-(map! :leader "w P" #'+popup/raise)
+(setq doom-theme 'doom-gruvbox)
 
 (map! :leader
+      "w P" #'+popup/raise
       "[" #'+workspace/switch-left
       "]" #'+workspace/switch-right
       "{" #'+workspace/swap-left
