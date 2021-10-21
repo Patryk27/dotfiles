@@ -98,7 +98,7 @@
                   doom-emacs' = doom-emacs;
                   emacs' = emacs;
 
-                  geeqie = super.geeqie.overrideAttrs (superAttrs: {
+                  geeqie = super.geeqie.overrideAttrs (old: {
                     src = geeqie;
 
                     postPatch = ''
