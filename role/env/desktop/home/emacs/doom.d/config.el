@@ -106,8 +106,8 @@
         (:rot ("1" "2" "3" "4" "5" "6" "7" "8" "9" "10"))
         (:rot ("1st" "2nd" "3rd" "4th" "5th" "6th" "7th" "8th" "9th" "10th"))))
 
-(define-key evil-normal-state-map (kbd "[q") 'parrot-rotate-prev-word-at-point)
-(define-key evil-normal-state-map (kbd "]q") 'parrot-rotate-next-word-at-point)
+(define-key evil-normal-state-map (kbd "-") 'parrot-rotate-prev-word-at-point)
+(define-key evil-normal-state-map (kbd "+") 'parrot-rotate-next-word-at-point)
 
 ;; projectile
 (setq projectile-project-search-path '("~/Projects" "~/Projects/anixe")
