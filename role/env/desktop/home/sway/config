@@ -55,30 +55,46 @@ bindsym XF86Mail exec "swaylock -c 000000 -d && swaymsg mode default"
 mode "~" {
     bindsym Super_L mode "default"
 
-    bindsym Tab mode "~/workspace"
-    bindsym w mode "~/container"
-    bindsym q mode "~/window"
-    bindsym p mode "~/screen"
+    bindsym q workspace 1; mode "default"
+    bindsym w workspace 2; mode "default"
+    bindsym e workspace 3; mode "default"
+    bindsym a workspace 4; mode "default"
+    bindsym s workspace 5; mode "default"
+    bindsym d workspace 6; mode "default"
+    bindsym z workspace 7; mode "default"
+    bindsym x workspace 8; mode "default"
+    bindsym c workspace 9; mode "default"
 
-    bindsym a exec "wofi --show drun"; mode "default"
-    bindsym s exec "kitty"; mode "default"
-    bindsym d exec "kitty -- emacs -nw"; mode "default"
+    bindsym h focus left; mode "default"
+    bindsym j focus down; mode "default"
+    bindsym k focus up; mode "default"
+    bindsym l focus right; mode "default"
+    bindsym y focus parent; mode "default"
+    bindsym n focus child; mode "default"
 
-    bindsym bracketleft focus left; mode "default"
-    bindsym bracketright focus right; mode "default"
-    bindsym braceleft move left; mode "default"
-    bindsym braceright move right; mode "default"
+    bindsym Shift+h move left; mode "default"
+    bindsym Shift+j move down; mode "default"
+    bindsym Shift+k move up; mode "default"
+    bindsym Shift+l move right; mode "default"
+
+    bindsym u mode "~/screen"
+    bindsym i mode "~/workspace"
+    bindsym o mode "~/container"
+    bindsym p mode "~/window"
+
+    bindsym Tab exec "wofi --show drun"; mode "default"
+    bindsym Escape exec "kitty"; mode "default"
 }
 
 mode "~/container" {
     bindsym Super_L mode "default"
 
     bindsym h split h; mode "default"
-    bindsym n split v; mode "default"
+    bindsym j split v; mode "default"
 
-    bindsym y layout tabbed; mode "default"
-    bindsym u layout stacking; mode "default"
-    bindsym i layout toggle split; mode "default"
+    bindsym r layout tabbed; mode "default"
+    bindsym f layout stacking; mode "default"
+    bindsym v layout toggle split; mode "default"
 
     bindsym Shift+h move container left; mode "default"
     bindsym Shift+j move container down; mode "default"
@@ -121,22 +137,9 @@ mode "~/screen" {
 mode "~/window" {
     bindsym Super_L mode "default"
 
-    bindsym Tab floating toggle; mode "default"
-    bindsym a fullscreen toggle; mode "default"
+    bindsym f floating toggle; mode "default"
+    bindsym g fullscreen toggle; mode "default"
     bindsym q kill; mode "default"
-
-    bindsym y focus parent; mode "default"
-    bindsym n focus child; mode "default"
-
-    bindsym h focus left; mode "default"
-    bindsym j focus down; mode "default"
-    bindsym k focus up; mode "default"
-    bindsym l focus right; mode "default"
-
-    bindsym Shift+h move left; mode "default"
-    bindsym Shift+j move down; mode "default"
-    bindsym Shift+k move up; mode "default"
-    bindsym Shift+l move right; mode "default"
 
     bindsym Shift+q move window to workspace 1; mode "default"
     bindsym Shift+w move window to workspace 2; mode "default"
@@ -157,16 +160,6 @@ mode "~/window" {
 mode "~/workspace" {
     bindsym Super_L mode "default"
 
-    bindsym q workspace 1; mode "default"
-    bindsym w workspace 2; mode "default"
-    bindsym e workspace 3; mode "default"
-    bindsym a workspace 4; mode "default"
-    bindsym s workspace 5; mode "default"
-    bindsym d workspace 6; mode "default"
-    bindsym z workspace 7; mode "default"
-    bindsym x workspace 8; mode "default"
-    bindsym c workspace 9; mode "default"
-
     bindsym Ctrl+Shift+h move workspace to output left; mode "default"
     bindsym Ctrl+Shift+j move workspace to output down; mode "default"
     bindsym Ctrl+Shift+k move workspace to output up; mode "default"
@@ -181,6 +174,6 @@ for_window [window_role="pop-up"] floating enable
 
 assign [title="Google Chrome"] 2
 assign [title="Mozilla Firefox"] 2
-assign [title="Thunderbird"] 3
-assign [title="Slack"] 4
+assign [title="Slack"] 3
+assign [title="Thunderbird"] 4
 assign [title="Keybase"] 8
