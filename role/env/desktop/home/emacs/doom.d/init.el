@@ -1,6 +1,6 @@
 (doom! :completion
-       (company +childframe)
-       (ivy +childframe +prescient)
+       company
+       vertico
 
        :ui
        doom
