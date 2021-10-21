@@ -19,6 +19,7 @@
         jq
         linuxPackages.perf
         lld
+        python
         rustup
         valgrind
       ];
