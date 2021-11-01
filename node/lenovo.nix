@@ -161,6 +161,9 @@
       extraRules = ''
         # USBasp
         ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05dc", MODE="0666"
+
+        # Bus Pirate
+        ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", MODE="0666"
       '';
     };
   };
