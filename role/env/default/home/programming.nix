@@ -19,7 +19,9 @@
         jq
         linuxPackages.perf
         lld
+        ninja
         python
+        python3
         rustup
         valgrind
       ];
