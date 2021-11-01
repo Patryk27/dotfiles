@@ -67,6 +67,11 @@
             ];
           };
 
+          sienna = {
+            hostname = "192.168.1.220";
+            user = "pi";
+          };
+
           # --- #
 
           "gitlab.pwy.io" = {
