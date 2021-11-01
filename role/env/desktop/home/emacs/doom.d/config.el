@@ -1,30 +1,58 @@
 ;; ace-window
 (custom-set-faces!
   '(aw-leading-char-face
-    :foreground "white" :background "red"
-    :weight bold :height 1.5))
+    :foreground "white"
+    :background "red"
+    :weight bold))
 
 (setq aw-keys '(?a ?s ?d ?h ?j ?k ?l))
-
-(map! :leader "k" #'ace-window)
+(map! :leader "k" 'ace-window)
 
 ;; avy
 (setq avy-keys '(?a ?s ?d ?h ?j ?k ?l))
-
-(define-key evil-normal-state-map (kbd "go") 'evil-avy-goto-char-timer)
+(map! :n "go" 'evil-avy-goto-char-timer)
 
 ;; dired
-(map! :leader "j" #'dired-jump)
+(map! :leader "j" 'dired-jump)
+(add-hook 'dired-after-readin-hook 'hl-line-mode)
+
+(defun dired-diff-dwim ()
+  (interactive)
+  (let ((files (dired-get-marked-files))
+        (wnd (current-window-configuration)))
+    (if (<= (length files) 2)
+        (let ((file1 (car files))
+              (file2 (if (cdr files)
+                         (cadr files)
+                       (read-file-name
+                        "file: "
+                        (dired-dwim-target-directory)))))
+          (if (file-newer-than-file-p file1 file2)
+              (ediff-files file2 file1)
+            (ediff-files file1 file2))
+          (add-hook 'ediff-after-quit-hook-internal
+                    (lambda ()
+                      (setq ediff-after-quit-hook-internal nil)
+                      (set-window-configuration wnd))))
+      (error "no more than 2 files should be marked"))))
+
+(after! (:and evil dired)
+  (map! :map dired-mode-map
+        :n "=" 'dired-diff-dwim))
 
 ;; doom
 (setq doom-theme 'doom-gruvbox)
 
+(custom-set-faces!
+  '(mode-line-inactive
+    :background "#282828"))
+
 (map! :leader
-      "w P" #'+popup/raise
-      "[" #'+workspace/switch-left
-      "]" #'+workspace/switch-right
-      "{" #'+workspace/swap-left
-      "}" #'+workspace/swap-right)
+      "w P" '+popup/raise
+      "[" '+workspace/switch-left
+      "]" '+workspace/switch-right
+      "{" '+workspace/swap-left
+      "}" '+workspace/swap-right)
 
 ;; emacs
 (setq calendar-week-start-day 1
@@ -35,15 +63,18 @@
 
 (global-display-fill-column-indicator-mode +1)
 
-(map! :leader "C" #'calendar)
+(map! :leader
+      :prefix "e"
+      "e" 'calc
+      "d" 'calendar)
 
 ;; evil
 (setq evil-want-fine-undo t)
 (setq +evil-want-o/O-to-continue-comments nil)
 
 ;; evil-numbers
-(define-key evil-normal-state-map (kbd "g+") 'evil-numbers/inc-at-pt)
-(define-key evil-normal-state-map (kbd "g-") 'evil-numbers/dec-at-pt)
+(map! :n "g+" 'evil-numbers/inc-at-pt
+      :n "g-" 'evil-numbers/dec-at-pt)
 
 ;; evil-surround
 (defun evil-surround-word ()
@@ -59,8 +90,19 @@
 (setq gcmh-high-cons-threshold (* 128 1024 1024)
       gcmh-idle-delay 10.0)
 
+;; hl-line
+(setq hl-line-sticky-flag nil
+      global-hl-line-sticky-flag nil)
+
 ;; ispell
 (setq ispell-dictionary "en")
+
+;; json-mode
+(after! json-mode
+  (map! :map json-mode-map
+        :leader
+        :prefix "c"
+        "f" 'json-pretty-print-buffer))
 
 ;; lsp
 (setq lsp-file-watch-threshold 5000
@@ -71,13 +113,10 @@
       lsp-ui-doc-show-with-cursor nil
       lsp-ui-sideline-enable nil)
 
-(define-key evil-normal-state-map (kbd "ga") 'lsp-execute-code-action)
-(define-key evil-normal-state-map (kbd "ghc") 'lsp-rust-analyzer-open-cargo-toml)
-(define-key evil-normal-state-map (kbd "ghe") 'lsp-rust-analyzer-expand-macro)
-(define-key evil-normal-state-map (kbd "ghp") 'lsp-rust-find-parent-module)
-(define-key evil-normal-state-map (kbd "gj") '+lookup/references)
-(define-key evil-normal-state-map (kbd "gss") 'sort-lines)
-(define-key evil-normal-state-map (kbd "gt") '+lookup/type-definition)
+(map! :n "ga" 'lsp-execute-code-action
+      :n "gj" '+lookup/references
+      :n "gss" 'sort-lines
+      :n "gt" '+lookup/type-definition)
 
 ;; org
 (setq org-agenda-files '("~/org/" "~/org/praca" "~/org/wycieczki")
@@ -104,8 +143,8 @@
         (:rot ("1" "2" "3" "4" "5" "6" "7" "8" "9" "10"))
         (:rot ("1st" "2nd" "3rd" "4th" "5th" "6th" "7th" "8th" "9th" "10th"))))
 
-(define-key evil-normal-state-map (kbd "-") 'parrot-rotate-prev-word-at-point)
-(define-key evil-normal-state-map (kbd "+") 'parrot-rotate-next-word-at-point)
+(map! :n "-" 'parrot-rotate-prev-word-at-point
+      :n "+" 'parrot-rotate-next-word-at-point)
 
 ;; projectile
 (setq projectile-project-search-path '("~/Projects" "~/Projects/anixe")
@@ -114,20 +153,65 @@
 ;; rainbow-delimeters
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
+;; rustic-mode
+(defun rustic-rerun-shell-command ()
+  (interactive)
+  (rustic-run-cargo-command
+   (car compile-history)
+   (list :mode 'rustic-cargo-run-mode)))
+
+(after! rustic
+  (map! :map rustic-mode-map
+        :n "ghc" 'lsp-rust-analyzer-open-cargo-toml
+        :n "ghe" 'lsp-rust-analyzer-expand-macro
+        :n "ghp" 'lsp-rust-find-parent-module)
+
+  (map! :map rustic-mode-map
+        :localleader
+        "r" 'rustic-run-shell-command
+        "f" 'rustic-rerun-shell-command))
+
 ;; subword-mode
-(define-key evil-normal-state-map (kbd "g'") 'subword-mode)
-(define-key evil-normal-state-map (kbd "g\"") 'global-subword-mode)
+(map! :n "g'" 'subword-mode
+      :n "g\"" 'global-subword-mode)
 
 ;; undo-tree
 (setq undo-tree-visualizer-timestamps t)
 
+;; vertico
+(after! vertico
+  (map! :map vertico-map
+        "M-." 'embark-act))
+
 ;; vterm
-(map! :leader "a" #'+vterm/toggle)
+(map! :leader "d" '+vterm/toggle)
 
 ;; ---------------- ;;
 ;; CLI improvements ;;
 
-(unless (display-graphic-p)
+(defun term-init-keyboard ()
+  (xterm--init-modify-other-keys)
+
+  (when (and (boundp 'xterm-extra-capabilities) (boundp 'xterm-function-map))
+    (define-key xterm-function-map "\e\[27u" [(escape)])
+    (define-key xterm-function-map "\e\[H" [(home)])
+    (define-key xterm-function-map "\e\[F" [(end)])
+
+    (let ((c 32))
+      (while (<= c 127)
+        (mapc (lambda (x)
+                (define-key xterm-function-map (format (car x) c)
+                  (vector (append (cdr x) (cons c '())))))
+              '(("\e\[%d;2u" shift)
+                ("\e\[%d;3u" meta)
+                ("\e\[%d;4u" shift meta)
+                ("\e\[%d;5u" control)
+                ("\e\[%d;6u" shift control)
+                ("\e\[%d;7u" meta control)
+                ("\e\[%d;8u" shift meta control)))
+        (setq c (1+ c))))))
+
+(defun term-init-clipboard ()
   (when (getenv "WAYLAND_DISPLAY")
     (setq wl-latest-text "")
 
@@ -145,13 +229,20 @@
         (unless (string= text wl-latest-text) text)))
 
     (setq interprogram-cut-function 'wl-copy)
-    (setq interprogram-paste-function 'wl-paste))
+    (setq interprogram-paste-function 'wl-paste)))
 
-  (defun term-title-update ()
-    (send-string-to-terminal
-     (concat "\033]1;" (buffer-name) "\007")
-     (if buffer-file-name
-         (send-string-to-terminal (concat "\033]2;" (buffer-file-name) "\007"))
-       (send-string-to-terminal (concat "\033]2;" (buffer-name) "\007")))))
+(defun term-init-cursor ()
+  (send-string-to-terminal "\x1b]30001\x1b\\")
+  (send-string-to-terminal "\x1b]12;green\x1b\\")
 
-  (add-hook 'post-command-hook 'term-title-update))
+  (add-hook 'kill-emacs-hook
+            (lambda ()
+              (send-string-to-terminal "\x1b]30101\x1b\\"))))
+
+(defun term-init ()
+  (term-init-keyboard)
+  (term-init-clipboard)
+  (term-init-cursor))
+
+(unless (display-graphic-p)
+  (eval-after-load "xterm" '(term-init)))
