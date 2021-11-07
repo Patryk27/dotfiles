@@ -45,7 +45,8 @@
           };
 
           mac = {
-            hostname = "10.10.0.4";
+            hostname = "192.168.122.15";
+            proxyJump = "eric";
             port = 22;
             user = "pwychowaniec";
           };
