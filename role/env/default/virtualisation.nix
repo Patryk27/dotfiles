@@ -16,6 +16,12 @@
       enable = true;
     };
 
+    lxc = {
+      lxcfs = {
+        enable = true;
+      };
+    };
+
     lxd = {
       enable = true;
       zfsSupport = true;
