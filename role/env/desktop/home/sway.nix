@@ -51,22 +51,16 @@
           enable = true;
           config = null;
 
-          extraConfig =
-            let
-              config = builtins.readFile ./sway/config;
-
-              vars-from = [
-                "@@autorun@@"
-                "@@wallpaper@@"
-              ];
-
-              vars-to = [
-                (toString ./sway/autorun/autorun)
-                (toString ./sway/wallpaper.jpg)
-              ];
-
-            in
-            builtins.replaceStrings vars-from vars-to config;
+          extraConfig = builtins.replaceStrings
+            [
+              "@@autorun@@"
+              "@@wallpaper@@"
+            ]
+            [
+              (toString ./sway/autorun/autorun)
+              (toString ./sway/wallpaper.jpg)
+            ]
+            (builtins.readFile ./sway/config);
 
           extraSessionCommands = ''
             export DOOMLOCALDIR="${config.home-manager.users.pwy.home.sessionVariables.DOOMLOCALDIR}"
@@ -81,5 +75,19 @@
         };
       };
     };
+  };
+
+  nixpkgs = {
+    overlays = [
+      (self: super: {
+        sway = super.sway.override {
+          sway-unwrapped = super.sway-unwrapped.overrideAttrs (old: {
+            patches = old.patches ++ [
+              ./sway/patch/bottom-titlebars.patch
+            ];
+          });
+        };
+      })
+    ];
   };
 }

@@ -120,8 +120,9 @@ mode "~/container" {
 mode "~/screen" {
     bindsym Super_L mode "default"
 
-    bindsym p exec grim -g "$(slurp)" -t png /tmp/screen.png; mode "default"
-    bindsym Shift+p exec grim -g "$(slurp)" -t png - | wl-copy -t image/png; mode "default"
+    bindsym o exec bash -c 'geo="$(slurp)"; sleep 1; grim -g "$geo" -t png - | wl-copy -t image/png'; mode "default"
+    bindsym p exec grim -g "$(slurp)" -t png - | wl-copy -t image/png; mode "default"
+    bindsym Shift+p exec grim -g "$(slurp)" -t png /tmp/screen.png; mode "default"
 
     bindsym r exec \
         dbus-send /io/pwy/ScreenRecorder io.pwy.ScreenRecorder.Started \
@@ -172,8 +173,8 @@ mode "~/workspace" {
 for_window [urgent=latest] focus
 for_window [window_role="pop-up"] floating enable
 
+assign [title="Slack"] 1
 assign [title="Google Chrome"] 2
 assign [title="Mozilla Firefox"] 2
-assign [title="Slack"] 3
 assign [title="Thunderbird"] 4
 assign [title="Keybase"] 8
