@@ -163,6 +163,12 @@
         ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", MODE="0666"
       '';
     };
+
+    undervolt = {
+      enable = true;
+      coreOffset = -140;
+      gpuOffset = -100;
+    };
   };
 
   sops = {
