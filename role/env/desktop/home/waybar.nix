@@ -1,10 +1,4 @@
 { pkgs, ... }: {
-  fonts = {
-    fonts = with pkgs; [
-      font-awesome-ttf
-    ];
-  };
-
   home-manager.users.pwy = {
     programs = {
       waybar = {
@@ -18,12 +12,12 @@
         settings = [
           {
             layer = "top";
-            position = "top";
+            position = "bottom";
             height = 25;
 
             modules-left = [ "sway/workspaces" ];
             modules-center = [ "sway/mode" ];
-            modules-right = [ "custom/screen-recorder" "pulseaudio" "cpu" "memory" "temperature" "battery" "clock" "tray" ];
+            modules-right = [ "tray" "custom/screen-recorder" "pulseaudio" "cpu" "memory" "temperature" "battery" "clock" ];
 
             modules = {
               "custom/screen-recorder" = {
@@ -43,8 +37,7 @@
               };
 
               battery = {
-                format = "{icon} {capacity}";
-                format-icons = [ "" "" "" "" "" ];
+                format = "bat[{capacity}]";
                 tooltip = false;
                 interval = 1;
 
@@ -59,22 +52,22 @@
               };
 
               cpu = {
-                format = " {usage}";
+                format = "cpu[{usage}]";
                 interval = 1;
               };
 
               memory = {
-                format = " {used:0.1f}/{total:0.1f}";
+                format = "mem[{used:0.2f}]";
               };
 
               pulseaudio = {
-                format = " {volume}";
-                format-muted = " {volume}";
-                format-bluetooth = "  {volume}";
+                format = "vol[{volume}]";
+                format-muted = "vol[{volume}]";
+                format-bluetooth = "vol[{volume}]";
               };
 
               temperature = {
-                format = " {temperatureC}";
+                format = "temp[{temperatureC}]";
                 thermal-zone = 1;
                 interval = 1;
               };

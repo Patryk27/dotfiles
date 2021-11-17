@@ -1,7 +1,7 @@
 * {
     border: none;
     border-radius: 0;
-    font-family: "Font Awesome", "Iosevka Custom";
+    font-family: "Iosevka Custom";
     font-size: 14px;
     min-height: 0;
 }
@@ -33,11 +33,15 @@ window#waybar {
 
 #pulseaudio, #cpu, #memory, #temperature, #battery, #clock, #tray {
     padding: 0 2px;
-    margin: 0 8px;
+    margin: 0 2px;
 }
 
 #pulseaudio.muted {
     color: #504945;
+}
+
+#pulseaudio.bluetooth {
+    color: #2f6cfa;
 }
 
 #battery.discharging {
