@@ -7,15 +7,25 @@
     };
 
     systemPackages = with pkgs; [
-      gnome3.adwaita-icon-theme
-      gnome3.nautilus
-      gnomeExtensions.appindicator
-      gsettings-desktop-schemas
-      gtk-engine-murrine
-      gtk_engines
-      lxappearance
+      # Apps from https://github.com/NixOS/nixpkgs/blob/c935f5e0add2cf0ae650d072c8357533e21b0c35/nixos/modules/services/x11/desktop-managers/xfce.nix#L72
+      glib
+      gtk3.out
+      gnome.gnome-themes-extra
+      gnome.adwaita-icon-theme
+      desktop-file-utils
+      shared-mime-info
+      polkit_gnome
+      xfce.xfconf
+
+      # Custom apps
       okular
       pavucontrol
+
+      (xfce.thunar.override {
+        thunarPlugins = [
+          pkgs.xfce.thunar-archive-plugin
+        ];
+      })
     ];
   };
 
