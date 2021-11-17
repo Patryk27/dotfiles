@@ -95,8 +95,9 @@
                 emacs-overlay.overlay
 
                 (self: super: {
-                  doom-emacs' = doom-emacs;
-                  emacs' = emacs;
+                  sources = {
+                    inherit doom-emacs emacs;
+                  };
 
                   geeqie = super.geeqie.overrideAttrs (old: {
                     src = geeqie;

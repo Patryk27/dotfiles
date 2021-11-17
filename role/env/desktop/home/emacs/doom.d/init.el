@@ -43,7 +43,7 @@
        docker
        (eval +overlay)
        (lookup +dictionary +offline)
-       (lsp +peek)
+       lsp
        magit
        make
        rgb

@@ -13,14 +13,14 @@
         };
 
         ".emacs.d" = {
-          source = pkgs.doom-emacs';
+          source = pkgs.sources.doom-emacs;
         };
       };
 
       packages =
         let
           emacs' = pkgs.emacsGcc.overrideAttrs (attrs: {
-            src = pkgs.emacs';
+            src = pkgs.sources.emacs;
 
             patches = [
               ./emacs/patch/regex.patch

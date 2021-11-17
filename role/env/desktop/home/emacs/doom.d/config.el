@@ -6,14 +6,29 @@
     :weight bold))
 
 (setq aw-keys '(?a ?s ?d ?h ?j ?k ?l))
+
 (map! :leader "k" 'ace-window)
 
 ;; avy
 (setq avy-keys '(?a ?s ?d ?h ?j ?k ?l))
+
 (map! :n "go" 'evil-avy-goto-char-timer)
 
+;; dimmer
+(setq dimmer-fraction 0.30)
+
+(dimmer-configure-hydra)
+(dimmer-configure-magit)
+(dimmer-configure-org)
+(dimmer-configure-which-key)
+
+(map! :leader "DEL" 'dimmer-mode)
+
 ;; dired
-(map! :leader "j" 'dired-jump)
+(map! :leader
+      "j" 'dired-jump
+      "J" 'dired-jump-other-window)
+
 (add-hook 'dired-after-readin-hook 'hl-line-mode)
 
 (defun dired-diff-dwim ()
@@ -45,7 +60,7 @@
 
 (custom-set-faces!
   '(mode-line-inactive
-    :background "#282828"))
+    :background "#202020"))
 
 (map! :leader
       "w P" '+popup/raise
@@ -53,6 +68,13 @@
       "]" '+workspace/switch-right
       "{" '+workspace/swap-left
       "}" '+workspace/swap-right)
+
+;; doom-modeline
+(after! doom-modeline
+  (defun empty-modeline ()
+    nil)
+
+  (advice-add 'doom-modeline-segment--vcs :override 'empty-modeline))
 
 ;; emacs
 (setq calendar-week-start-day 1
@@ -65,8 +87,8 @@
 
 (map! :leader
       :prefix "e"
-      "e" 'calc
-      "d" 'calendar)
+      "c" 'calc
+      "r" 'calendar)
 
 ;; evil
 (setq evil-want-fine-undo t)
@@ -98,11 +120,13 @@
 (setq ispell-dictionary "en")
 
 ;; json-mode
-(after! json-mode
-  (map! :map json-mode-map
-        :leader
-        :prefix "c"
-        "f" 'json-pretty-print-buffer))
+(defun +format--buffer-maybe-json (orig)
+  (if (eq major-mode 'json-mode)
+      (json-pretty-print-buffer)
+    (funcall orig)))
+
+(after! json
+  (advice-add '+format--buffer :around '+format--buffer-maybe-json))
 
 ;; lsp
 (setq lsp-file-watch-threshold 5000
@@ -114,13 +138,13 @@
       lsp-ui-sideline-enable nil)
 
 (map! :n "ga" 'lsp-execute-code-action
+      :n "gh" 'sort-lines
       :n "gj" '+lookup/references
-      :n "gss" 'sort-lines
       :n "gt" '+lookup/type-definition)
 
 ;; org
-(setq org-agenda-files '("~/org/" "~/org/praca" "~/org/wycieczki")
-      org-directory "~/org/")
+(setq org-agenda-files '("/share/org/" "/share/org/praca" "/share/org/wycieczki")
+      org-directory "/share/org/")
 
 ;; parrot
 (parrot-mode -1)
@@ -160,20 +184,42 @@
    (car compile-history)
    (list :mode 'rustic-cargo-run-mode)))
 
+(defun rustic-cargo-check-workspace ()
+  (interactive)
+  (let ((cmd "cargo check --workspace --tests --all-features"))
+    (push cmd compile-history)
+    (rustic-run-cargo-command cmd (list :mode 'rustic-cargo-run-mode))))
+
+(defun rustic-cargo-test-workspace ()
+  (interactive)
+  (let ((cmd "cargo test --workspace --tests --all-features"))
+    (push cmd compile-history)
+    (rustic-run-cargo-command cmd (list :mode 'rustic-cargo-run-mode))))
+
 (after! rustic
-  (map! :map rustic-mode-map
-        :n "ghc" 'lsp-rust-analyzer-open-cargo-toml
-        :n "ghe" 'lsp-rust-analyzer-expand-macro
-        :n "ghp" 'lsp-rust-find-parent-module)
+  (map! :map comint-mode-map
+        :localleader
+        "r"
+        'rustic-rerun-shell-command)
 
   (map! :map rustic-mode-map
         :localleader
-        "r" 'rustic-run-shell-command
-        "f" 'rustic-rerun-shell-command))
+        "r" 'rustic-rerun-shell-command
+        "h" 'lsp-rust-analyzer-inlay-hints-mode
+        "m" 'lsp-rust-analyzer-expand-macro
+        "p" 'lsp-rust-find-parent-module
+        "s" 'rustic-run-shell-command
+        "SPC" 'lsp-rust-analyzer-open-cargo-toml)
+
+  (map! :map rustic-mode-map
+        :localleader
+        :prefix ("w" . "workspace")
+        :desc "cargo check" "c" 'rustic-cargo-check-workspace
+        :desc "cargo test" "t" 'rustic-cargo-test-workspace))
 
 ;; subword-mode
-(map! :n "g'" 'subword-mode
-      :n "g\"" 'global-subword-mode)
+(map! :n "gb" 'subword-mode
+      :n "gB" 'global-subword-mode)
 
 ;; undo-tree
 (setq undo-tree-visualizer-timestamps t)
