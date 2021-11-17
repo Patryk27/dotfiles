@@ -49,7 +49,6 @@
       windowManager = {
         sway = {
           enable = true;
-          systemdIntegration = true;
           config = null;
 
           extraConfig =
