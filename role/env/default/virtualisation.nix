@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ lib, pkgs, ... }: {
   boot = {
     kernelModules = [
       "kvm-intel"
@@ -9,6 +9,16 @@
     systemPackages = with pkgs; [
       docker-compose
     ];
+  };
+
+  systemd = {
+    services = {
+      lxd = {
+        serviceConfig = {
+          TimeoutStopSec = lib.mkForce "5s";
+        };
+      };
+    };
   };
 
   virtualisation = {
