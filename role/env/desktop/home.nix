@@ -1,5 +1,6 @@
 { ... }: {
   imports = [
+    ./home/anki.nix
     ./home/autorun.nix
     ./home/emacs.nix
     ./home/keybase.nix
