@@ -2,7 +2,10 @@
 
 Configurations for some of my NixOS machines.
 
-[#flakes](https://nixos.wiki/wiki/Flakes), [#home-manager](https://github.com/nix-community/home-manager), [#wayland](https://nixos.wiki/wiki/Sway), [#sops](https://github.com/Mic92/sops-nix)
+[#flakes](https://nixos.wiki/wiki/Flakes),
+[#home-manager](https://github.com/nix-community/home-manager),
+[#sway](https://nixos.wiki/wiki/Sway),
+[#sops](https://github.com/Mic92/sops-nix)
 
 # Notable parts
 
@@ -24,10 +27,6 @@ Configurations for some of my NixOS machines.
 
 - [nix](role/env/desktop/home/waybar.nix)
 - [style](role/env/desktop/home/waybar/style.css)
-
-## Vim
-
-- [nix](role/env/default/home/vim.nix)
 
 ## ZSH
 
