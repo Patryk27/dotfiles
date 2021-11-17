@@ -78,7 +78,6 @@
         geeqie
         obs-studio
         rawtherapee
-        signal-desktop
         virt-manager
       ];
 
