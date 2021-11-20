@@ -53,7 +53,14 @@
 
 (after! (:and evil dired)
   (map! :map dired-mode-map
-        :n "=" 'dired-diff-dwim))
+        :n "q" 'kill-current-buffer
+        :n "Q" '+dired/quit-all
+        :n "=" 'dired-diff-dwim
+        :n "C-<return>" 'dired-find-file-other-window)
+
+  (map! :map dired-mode-map
+        :localleader
+        :n "f" 'find-name-dired))
 
 ;; doom
 (setq doom-theme 'doom-gruvbox)
@@ -142,9 +149,15 @@
       :n "gj" '+lookup/references
       :n "gt" '+lookup/type-definition)
 
+(after! markdown-mode
+  (map! :map markdown-mode-map
+        :localleader
+        :prefix ("t" . "table")
+        :desc "align" "a" 'markdown-table-align))
+
 ;; org
-(setq org-agenda-files '("/share/org/" "/share/org/praca" "/share/org/wycieczki")
-      org-directory "/share/org/")
+(setq org-agenda-files '("~/org/" "~/org/praca" "~/org/wycieczki")
+      org-directory "~/org/")
 
 ;; parrot
 (parrot-mode -1)
