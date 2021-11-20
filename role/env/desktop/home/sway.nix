@@ -53,11 +53,9 @@
 
           extraConfig = builtins.replaceStrings
             [
-              "@@autorun@@"
               "@@wallpaper@@"
             ]
             [
-              (toString ./sway/autorun/autorun)
               (toString ./sway/wallpaper.jpg)
             ]
             (builtins.readFile ./sway/config);

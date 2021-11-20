@@ -50,7 +50,6 @@ bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 bindsym XF86MonBrightnessUp exec brightnessctl set +5%
-bindsym XF86Mail exec "swaylock -c 000000 -d && swaymsg mode default"
 
 mode "~" {
     bindsym Super_L mode "default"
@@ -77,6 +76,7 @@ mode "~" {
     bindsym Shift+k move up; mode "default"
     bindsym Shift+l move right; mode "default"
 
+    bindsym Backspace mode "~/system"
     bindsym u mode "~/screen"
     bindsym i mode "~/workspace"
     bindsym o mode "~/container"
@@ -133,6 +133,17 @@ mode "~/screen" {
         dbus-send /io/pwy/ScreenRecorder io.pwy.ScreenRecorder.Stopped \
      && pkill -SIGINT wf-recorder \
       ; mode "default"
+}
+
+mode "~/system" {
+    bindsym Super_L mode "default"
+
+    bindsym d exec "makoctl set-mode dnd"; mode "default"
+    bindsym Shift+d exec "makoctl set-mode default"; mode "default"
+
+    bindsym l exec "swaylock -c 000000 -d && swaymsg mode default"
+    bindsym p exec "poweroff"
+    bindsym r exec "reboot"
 }
 
 mode "~/window" {
