@@ -11,6 +11,7 @@
       };
 
       packages = with pkgs; [
+        arcanist
         binutils
         clang-tools
         cmake
