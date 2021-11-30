@@ -6,7 +6,7 @@
     };
 
     emacs = {
-      url = "github:emacs-mirror/emacs";
+      url = "git+https://git.savannah.gnu.org/git/emacs.git?ref=feature/pgtk";
       flake = false;
     };
 
@@ -35,6 +35,10 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
+    nixpkgs-latest = {
+      url = "github:nixos/nixpkgs";
+    };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
     };
@@ -48,90 +52,95 @@
     , geeqie
     , home-manager
     , nixpkgs
+    , nixpkgs-latest
     , sops-nix
     }:
 
     let
       inherit (nixpkgs) lib;
 
-      nodes = {
-        anixe = {
-          system = "x86_64-linux";
-        };
+      mkNixosConfiguration = { name, system }:
+        let
+          pkgs-latest = import nixpkgs-latest {
+            inherit system;
+          };
 
-        lenovo = {
-          system = "x86_64-linux";
-        };
+        in
+        lib.nixosSystem {
+          inherit system;
 
-        madison = {
-          system = "x86_64-linux";
-        };
-      };
+          modules = [
+            (import (./node + "/${name}.nix"))
+            (import (./node + "/${name}/hardware-configuration.nix"))
 
-      buildCheck = name: config:
-        self.nixosConfigurations."${name}".config.system.build.toplevel;
+            home-manager.nixosModules.home-manager
+            sops-nix.nixosModules.sops
 
-      buildSystem = name: config: lib.nixosSystem {
-        system = config.system;
-
-        modules = [
-          (import (./node + "/${name}.nix"))
-          (import (./node + "/${name}/hardware-configuration.nix"))
-
-          home-manager.nixosModules.home-manager
-          sops-nix.nixosModules.sops
-
-          ({ ... }: {
-            nix = {
-              registry = {
-                nixpkgs = {
-                  flake = nixpkgs;
+            ({ ... }: {
+              nix = {
+                registry = {
+                  nixpkgs = {
+                    flake = nixpkgs;
+                  };
                 };
               };
-            };
 
-            nixpkgs = {
-              overlays = [
-                emacs-overlay.overlay
+              nixpkgs = {
+                overlays = [
+                  emacs-overlay.overlay
 
-                (self: super: {
-                  sources = {
-                    inherit doom-emacs emacs;
-                  };
+                  (self: super: {
+                    sources = {
+                      inherit doom-emacs emacs;
+                    };
 
-                  geeqie = super.geeqie.overrideAttrs (old: {
-                    src = geeqie;
+                    geeqie = super.geeqie.overrideAttrs (old: {
+                      src = geeqie;
 
-                    postPatch = ''
-                      echo > doc/create-doxygen-lua-api.sh
-                    '';
+                      postPatch = ''
+                        echo > doc/create-doxygen-lua-api.sh
+                      '';
+                    });
+
+                    rust-analyzer = pkgs-latest.rust-analyzer;
+                    vscode-extensions = pkgs-latest.vscode-extensions;
+                  })
+                ];
+              };
+
+              sops = {
+                defaultSopsFile = ./secrets.yaml;
+
+                secrets = lib.genAttrs [
+                  "backup-passphrase--anixe"
+                  "backup-passphrase--lenovo"
+                ]
+                  (k: {
+                    owner = "pwy";
                   });
-                })
-              ];
-            };
-
-            sops = {
-              defaultSopsFile = ./secrets.yaml;
-
-              secrets = lib.genAttrs [
-                "backup-passphrase--anixe"
-                "backup-passphrase--lenovo"
-              ]
-                (k: {
-                  owner = "pwy";
-                });
-            };
-          })
-        ];
-      };
+              };
+            })
+          ];
+        };
 
     in
     {
-      checks = {
-        x86_64-linux = builtins.mapAttrs buildCheck nodes;
-      };
+      nixosConfigurations = {
+        anixe = mkNixosConfiguration {
+          name = "anixe";
+          system = "x86_64-linux";
+        };
 
-      nixosConfigurations = builtins.mapAttrs buildSystem nodes;
+        lenovo = mkNixosConfiguration {
+          name = "lenovo";
+          system = "x86_64-linux";
+        };
+
+        madison = mkNixosConfiguration {
+          name = "madison";
+          system = "x86_64-linux";
+        };
+      };
 
       devShell = {
         x86_64-linux =
@@ -160,7 +169,7 @@
                 nixos-rebuild \
                     --flake .#madison \
                     --target-host madison \
-                    --build-host localhost \
+                    --build-host madison \
                     --use-remote-sudo \
                     "$action"
               '')
