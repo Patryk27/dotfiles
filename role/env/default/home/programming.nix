@@ -12,6 +12,7 @@
 
       packages = with pkgs; [
         binutils
+        clang-tools
         cmake
         gcc
         gdb
