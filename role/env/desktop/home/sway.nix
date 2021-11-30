@@ -50,15 +50,7 @@
         sway = {
           enable = true;
           config = null;
-
-          extraConfig = builtins.replaceStrings
-            [
-              "@@wallpaper@@"
-            ]
-            [
-              (toString ./sway/wallpaper.jpg)
-            ]
-            (builtins.readFile ./sway/config);
+          extraConfig = builtins.readFile ./sway/config;
 
           extraSessionCommands = ''
             export DOOMLOCALDIR="${config.home-manager.users.pwy.home.sessionVariables.DOOMLOCALDIR}"

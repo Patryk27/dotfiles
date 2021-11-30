@@ -31,11 +31,6 @@ input type:mouse {
     scroll_factor 0.6
 }
 
-## ------- ##
-## outputs ##
-
-output "*" background "@@wallpaper@@" fill
-
 ## ---- ##
 ## main ##
 
