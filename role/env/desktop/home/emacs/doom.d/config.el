@@ -14,6 +14,18 @@
 
 (map! :n "go" 'evil-avy-goto-char-timer)
 
+;; dap
+(setq dap-auto-configure-features '(sessions locals controls tooltip)
+      dap-lldb-debug-program `(,(getenv "EMACS_LLDB")))
+
+(require 'dap-lldb)
+
+(map! :leader
+      :prefix "r"
+      "a" 'dap-breakpoint-add
+      "e" 'dap-breakpoint-delete
+      "SPC" 'dap-debug)
+
 ;; dimmer
 (setq dimmer-fraction 0.30)
 
@@ -63,7 +75,8 @@
         :n "f" 'find-name-dired))
 
 ;; doom
-(setq doom-theme 'doom-gruvbox)
+(setq doom-font (font-spec :family "Iosevka Custom" :size 18 :weight 'light)
+      doom-theme 'doom-gruvbox)
 
 (custom-set-faces!
   '(mode-line-inactive
@@ -74,7 +87,17 @@
       "[" '+workspace/switch-left
       "]" '+workspace/switch-right
       "{" '+workspace/swap-left
-      "}" '+workspace/swap-right)
+      "}" '+workspace/swap-right
+      "1" '+workspace/switch-to-0
+      "2" '+workspace/switch-to-1
+      "3" '+workspace/switch-to-2
+      "4" '+workspace/switch-to-3
+      "5" '+workspace/switch-to-4
+      "6" '+workspace/switch-to-5
+      "7" '+workspace/switch-to-6
+      "8" '+workspace/switch-to-7
+      "9" '+workspace/switch-to-8
+      "0" '+workspace/switch-to-final)
 
 ;; doom-modeline
 (after! doom-modeline
@@ -82,6 +105,11 @@
     nil)
 
   (advice-add 'doom-modeline-segment--vcs :override 'empty-modeline))
+
+;; ediff
+(map! :leader
+      :prefix "b"
+      :desc "ediff" "=" 'ediff-buffers)
 
 ;; emacs
 (setq calendar-week-start-day 1
@@ -92,14 +120,22 @@
 
 (global-display-fill-column-indicator-mode +1)
 
+(map! "C-x d" 'toggle-debug-on-error)
+
 (map! :leader
       :prefix "e"
       "c" 'calc
       "r" 'calendar)
 
 ;; evil
-(setq evil-want-fine-undo t)
-(setq +evil-want-o/O-to-continue-comments nil)
+(setq evil-want-fine-undo t
+      +evil-want-o/O-to-continue-comments nil)
+
+(setq evil-normal-state-cursor '(box "#00ff00")
+      evil-insert-state-cursor '(bar "#00ff00")
+      evil-visual-state-cursor '(hollow "#00ff00"))
+
+(map! :n "gF" 'ffap-other-window)
 
 ;; evil-numbers
 (map! :n "g+" 'evil-numbers/inc-at-pt
@@ -137,6 +173,7 @@
 
 ;; lsp
 (setq lsp-file-watch-threshold 5000
+      lsp-lens-enable nil
       lsp-rust-all-features t
       lsp-rust-analyzer-proc-macro-enable t
       lsp-rust-analyzer-server-display-inlay-hints t
@@ -217,12 +254,14 @@
 
   (map! :map rustic-mode-map
         :localleader
-        "r" 'rustic-rerun-shell-command
+        "SPC" 'lsp-rust-analyzer-open-cargo-toml
         "h" 'lsp-rust-analyzer-inlay-hints-mode
+        "j" 'lsp-rust-analyzer-move-item-down
+        "k" 'lsp-rust-analyzer-move-item-up
         "m" 'lsp-rust-analyzer-expand-macro
         "p" 'lsp-rust-find-parent-module
-        "s" 'rustic-run-shell-command
-        "SPC" 'lsp-rust-analyzer-open-cargo-toml)
+        "r" 'rustic-rerun-shell-command
+        "s" 'rustic-run-shell-command)
 
   (map! :map rustic-mode-map
         :localleader
@@ -231,8 +270,8 @@
         :desc "cargo test" "t" 'rustic-cargo-test-workspace))
 
 ;; subword-mode
-(map! :n "gb" 'subword-mode
-      :n "gB" 'global-subword-mode)
+(map! "C-x s" 'subword-mode
+      "C-x S" 'global-subword-mode)
 
 ;; undo-tree
 (setq undo-tree-visualizer-timestamps t)
@@ -270,38 +309,9 @@
                 ("\e\[%d;8u" shift meta control)))
         (setq c (1+ c))))))
 
-(defun term-init-clipboard ()
-  (when (getenv "WAYLAND_DISPLAY")
-    (setq wl-latest-text "")
-
-    (defun wl-copy (text)
-      (let ((proc
-             (make-process :name "wl-copy"
-                           :command '("wl-copy")
-                           :connection-type 'pipe)))
-        (process-send-string proc text)
-        (process-send-eof proc))
-      (setq wl-latest-text text))
-
-    (defun wl-paste ()
-      (let ((text (shell-command-to-string "wl-paste -t text -n 2>/dev/null")))
-        (unless (string= text wl-latest-text) text)))
-
-    (setq interprogram-cut-function 'wl-copy)
-    (setq interprogram-paste-function 'wl-paste)))
-
-(defun term-init-cursor ()
-  (send-string-to-terminal "\x1b]30001\x1b\\")
-  (send-string-to-terminal "\x1b]12;green\x1b\\")
-
-  (add-hook 'kill-emacs-hook
-            (lambda ()
-              (send-string-to-terminal "\x1b]30101\x1b\\"))))
 
 (defun term-init ()
-  (term-init-keyboard)
-  (term-init-clipboard)
-  (term-init-cursor))
+  (term-init-keyboard))
 
 (unless (display-graphic-p)
   (eval-after-load "xterm" '(term-init)))

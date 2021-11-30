@@ -1,10 +1,11 @@
 (doom! :completion
-       company
+       (company +childframe)
        vertico
 
        :ui
        doom
        doom-dashboard
+       (emoji +unicode)
        hl-todo
        modeline
        ophints
@@ -38,7 +39,7 @@
        (spell +flyspell +aspell +everywhere)
 
        :tools
-       debugger
+       (debugger +lsp)
        direnv
        docker
        (eval +overlay)
@@ -52,6 +53,7 @@
        (tty +osc)
 
        :lang
+       (cc +lsp)
        data
        emacs-lisp
        javascript

@@ -19,10 +19,8 @@
 
       packages =
         let
-          emacs' = pkgs.emacsGcc.overrideAttrs (attrs: {
-            src = pkgs.sources.emacs;
-
-            patches = [
+          emacs' = pkgs.emacsPgtkGcc.overrideAttrs (attrs: {
+            patches = attrs.patches ++ [
               ./emacs/patch/regex.patch
               ./emacs/patch/synchronized-updates.patch
             ];
@@ -46,6 +44,7 @@
 
       sessionVariables = {
         DOOMLOCALDIR = "${config.xdg.cacheHome}/.doom.local";
+        EMACS_LLDB = "${pkgs.llvmPackages_12.lldb}/bin/lldb-vscode";
       };
     };
   };
