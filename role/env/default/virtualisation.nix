@@ -11,16 +11,6 @@
     ];
   };
 
-  systemd = {
-    services = {
-      lxd = {
-        serviceConfig = {
-          TimeoutStopSec = lib.mkForce "5s";
-        };
-      };
-    };
-  };
-
   virtualisation = {
     docker = {
       enable = true;
