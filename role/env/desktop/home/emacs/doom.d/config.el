@@ -246,6 +246,8 @@
     (push cmd compile-history)
     (rustic-run-cargo-command cmd (list :mode 'rustic-cargo-run-mode))))
 
+(setq rustic-compile-directory-method 'rustic-buffer-workspace)
+
 (after! rustic
   (map! :map comint-mode-map
         :localleader
