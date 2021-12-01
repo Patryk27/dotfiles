@@ -141,16 +141,6 @@
 (map! :n "g+" 'evil-numbers/inc-at-pt
       :n "g-" 'evil-numbers/dec-at-pt)
 
-;; evil-surround
-(defun evil-surround-word ()
-  (let ((word (evil-surround-read-from-minibuffer "" "")))
-    (cons (format "%s(" word) ")")))
-
-(add-hook 'rustic-mode-hook
-          (lambda ()
-            (with-eval-after-load 'evil-surround
-              (push '(?\( . evil-surround-word) evil-surround-pairs-alist))))
-
 ;; gcmh
 (setq gcmh-high-cons-threshold (* 128 1024 1024)
       gcmh-idle-delay 10.0)
