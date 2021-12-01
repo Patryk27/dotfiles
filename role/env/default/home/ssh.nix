@@ -32,8 +32,8 @@
           };
 
           eric-public = {
-            hostname = "192.168.122.2";
             proxyJump = "eric";
+            hostname = "192.168.122.2";
             port = 33000;
             user = "pwy";
           };
@@ -45,15 +45,16 @@
           };
 
           mac = {
-            hostname = "192.168.122.15";
             proxyJump = "eric";
+            hostname = "192.168.122.15";
             port = 22;
             user = "pwychowaniec";
           };
 
           madison = {
-            hostname = "188.122.2.73";
-            port = 33003;
+            proxyJump = "eric";
+            hostname = "192.168.122.4";
+            port = 33000;
             user = "pwy";
 
             remoteForwards = [
