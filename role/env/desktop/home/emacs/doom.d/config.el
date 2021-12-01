@@ -123,9 +123,9 @@
 (map! "C-x d" 'toggle-debug-on-error)
 
 (map! :leader
-      :prefix "e"
-      "c" 'calc
-      "r" 'calendar)
+      :prefix "o"
+      "c" 'calendar
+      "x" 'calc)
 
 ;; evil
 (setq evil-want-fine-undo t
