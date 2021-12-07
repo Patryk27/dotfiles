@@ -26,16 +26,6 @@
       "e" 'dap-breakpoint-delete
       "SPC" 'dap-debug)
 
-;; dimmer
-(setq dimmer-fraction 0.30)
-
-(dimmer-configure-hydra)
-(dimmer-configure-magit)
-(dimmer-configure-org)
-(dimmer-configure-which-key)
-
-(map! :leader "DEL" 'dimmer-mode)
-
 ;; dired
 (map! :leader
       "j" 'dired-jump
