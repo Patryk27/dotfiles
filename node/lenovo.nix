@@ -76,6 +76,7 @@
 
         darktable
         geeqie
+        gocryptfs
         obs-studio
         rawtherapee
         virt-manager
