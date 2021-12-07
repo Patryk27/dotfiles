@@ -100,17 +100,33 @@
         "type": "github"
       }
     },
-    "nixpkgs-latest": {
+    "nixpkgs-master": {
       "locked": {
-        "lastModified": 1637827954,
-        "narHash": "sha256-XyhUKkgU+aENGkVF4do2Sz42VOTiouiiUCRwxc66t2s=",
+        "lastModified": 1638378908,
+        "narHash": "sha256-MGYs/LU6HuJbDjI+yeWTCQkC9qpsri6fsSHy4e+3Rbw=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "7c4bbc7cd008fb3802e3b5ea44118ebfc013578d",
+        "rev": "fd58133e8e526cf12cc2a8e23d22a1c81ce3f21b",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-staging": {
+      "locked": {
+        "lastModified": 1638316948,
+        "narHash": "sha256-/jKf9pxM9/Nl5TQQr5O4+nceOVFaoYJ7BMNrBbaTe1A=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "b58b9075cd795fd738396380767986d6103f8869",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "staging",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -139,7 +155,8 @@
         "geeqie": "geeqie",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-latest": "nixpkgs-latest",
+        "nixpkgs-master": "nixpkgs-master",
+        "nixpkgs-staging": "nixpkgs-staging",
         "sops-nix": "sops-nix"
       }
     },
