@@ -19,6 +19,7 @@
         gdb
         gnumake
         jq
+        kcachegrind
         linuxPackages.perf
         lld
         ninja
