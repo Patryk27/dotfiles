@@ -36,7 +36,7 @@
 
        :checkers
        syntax
-       (spell +flyspell +aspell +everywhere)
+       (spell +everywhere)
 
        :tools
        (debugger +lsp)
