@@ -61,4 +61,12 @@
       driSupport32Bit = true;
     };
   };
+
+  nixpkgs = {
+    config = {
+      chromium = {
+        enableWideVine = true;
+      };
+    };
+  };
 }
