@@ -21,10 +21,10 @@
 (require 'dap-lldb)
 
 (map! :leader
-      :prefix "r"
+      :prefix "e"
       "a" 'dap-breakpoint-add
-      "e" 'dap-breakpoint-delete
-      "SPC" 'dap-debug)
+      "d" 'dap-breakpoint-delete
+      "r" 'dap-debug)
 
 ;; dired
 (map! :leader
