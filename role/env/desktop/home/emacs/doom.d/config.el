@@ -109,8 +109,6 @@
 
 (global-display-fill-column-indicator-mode +1)
 
-(map! "C-x d" 'toggle-debug-on-error)
-
 (map! :leader
       :prefix "o"
       "c" 'calendar
