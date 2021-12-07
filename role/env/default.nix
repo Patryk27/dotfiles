@@ -28,6 +28,7 @@
       ncdu
       openvpn
       powertop
+      psmisc
       ripgrep
       rsync
       sshfs
