@@ -114,6 +114,18 @@
       "c" 'calendar
       "x" 'calc)
 
+(defun toggle-line-numbers ()
+  (interactive)
+  (if (eq display-line-numbers-type nil)
+      (progn
+        (setq display-line-numbers-type 'relative)
+        (global-display-line-numbers-mode +1))
+    (progn
+      (setq display-line-numbers-type nil)
+      (global-display-line-numbers-mode -1))))
+
+(map! :leader :prefix "t" "l" 'toggle-line-numbers)
+
 ;; evil
 (setq evil-want-fine-undo t
       +evil-want-o/O-to-continue-comments nil)
