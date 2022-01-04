@@ -1,4 +1,12 @@
 { pkgs, ... }: {
+  boot = {
+    kernel = {
+      sysctl = {
+        "kernel.perf_event_paranoid" = -1;
+      };
+    };
+  };
+
   home-manager.users.pwy = {
     home = {
       file = {
@@ -25,6 +33,7 @@
         ninja
         python
         python3
+        rr
         rustup
         valgrind
       ];
