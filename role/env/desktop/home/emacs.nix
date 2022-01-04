@@ -44,7 +44,6 @@
 
       sessionVariables = {
         DOOMLOCALDIR = "${config.xdg.cacheHome}/.doom.local";
-        EMACS_LLDB = "${pkgs.llvmPackages_12.lldb}/bin/lldb-vscode";
       };
     };
   };

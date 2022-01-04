@@ -14,18 +14,6 @@
 
 (map! :n "go" 'evil-avy-goto-char-timer)
 
-;; dap
-(setq dap-auto-configure-features '(sessions locals controls tooltip)
-      dap-lldb-debug-program `(,(getenv "EMACS_LLDB")))
-
-(require 'dap-lldb)
-
-(map! :leader
-      :prefix "e"
-      "a" 'dap-breakpoint-add
-      "d" 'dap-breakpoint-delete
-      "r" 'dap-debug)
-
 ;; dired
 (map! :leader
       "j" 'dired-jump

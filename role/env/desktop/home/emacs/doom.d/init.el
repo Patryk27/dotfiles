@@ -39,7 +39,7 @@
        (spell +everywhere)
 
        :tools
-       (debugger +lsp)
+       debugger
        direnv
        docker
        (eval +overlay)
