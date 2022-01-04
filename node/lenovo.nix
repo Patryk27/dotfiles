@@ -156,6 +156,9 @@
 
         # Bus Pirate
         ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", MODE="0666"
+
+        # Arduino
+        KERNEL=="ttyACM[0-9]*", MODE="0666"
       '';
     };
 
