@@ -1,6 +1,3 @@
-(package! doom-modeline
-  :pin "2834e9913ca69398b0533e35c8543171df047c0b")
-
 (package! parrot
   :recipe (:host github :repo "dp12/parrot")
   :pin "29265d118267e524453aaa9121c4eae213a63164")

@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   boot = {
     tmpOnTmpfs = true;
-    kernelPackages = pkgs.linuxPackages_5_14; # TODO move to latest after ZFS catches up
+    kernelPackages = pkgs.linuxPackages_latest;
 
     kernelParams = [
       "mitigations=off"

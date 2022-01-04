@@ -35,12 +35,8 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
-    nixpkgs-staging = {
-      url = "github:nixos/nixpkgs/staging";
-    };
-
-    nixpkgs-master = {
-      url = "github:nixos/nixpkgs";
+    nixpkgs-rust-analyzer = {
+      url = "github:nixos/nixpkgs/fd58133e8e526cf12cc2a8e23d22a1c81ce3f21b";
     };
 
     sops-nix = {
@@ -56,8 +52,7 @@
     , geeqie
     , home-manager
     , nixpkgs
-    , nixpkgs-staging
-    , nixpkgs-master
+    , nixpkgs-rust-analyzer
     , sops-nix
     }:
 
@@ -66,11 +61,7 @@
 
       mkNixosConfiguration = { name, system }:
         let
-          pkgs-staging = import nixpkgs-staging {
-            inherit system;
-          };
-
-          pkgs-master = import nixpkgs-master {
+          pkgs-rust-analyzer = import nixpkgs-rust-analyzer {
             inherit system;
           };
 
@@ -111,9 +102,7 @@
                       '';
                     });
 
-                    clang-tools = pkgs-staging.clang-tools;
-                    rust-analyzer = pkgs-master.rust-analyzer;
-                    vscode-extensions = pkgs-master.vscode-extensions;
+                    rust-analyzer = pkgs-rust-analyzer.rust-analyzer;
                   })
                 ];
               };

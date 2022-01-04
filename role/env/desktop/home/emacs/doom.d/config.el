@@ -65,7 +65,7 @@
         :n "f" 'find-name-dired))
 
 ;; doom
-(setq doom-font (font-spec :family "Iosevka Custom" :size 18 :weight 'light)
+(setq doom-font (font-spec :family "Iosevka Custom Light" :size 18)
       doom-theme 'doom-gruvbox)
 
 (custom-set-faces!

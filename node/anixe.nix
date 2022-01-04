@@ -61,9 +61,6 @@
         CPU_SCALING_MIN_FREQ_ON_BAT = 800000;
         CPU_SCALING_MAX_FREQ_ON_BAT = 3000000;
 
-        CPU_HWP_ON_AC = "performance";
-        CPU_HWP_ON_BAT = "balance_power";
-
         CPU_BOOST_ON_AC = 1;
         CPU_BOOST_ON_BAT = 0;
 
