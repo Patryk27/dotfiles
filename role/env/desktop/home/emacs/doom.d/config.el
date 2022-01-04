@@ -264,35 +264,3 @@
 
 ;; vterm
 (map! :leader "d" '+vterm/toggle)
-
-;; ---------------- ;;
-;; CLI improvements ;;
-
-(defun term-init-keyboard ()
-  (xterm--init-modify-other-keys)
-
-  (when (and (boundp 'xterm-extra-capabilities) (boundp 'xterm-function-map))
-    (define-key xterm-function-map "\e\[27u" [(escape)])
-    (define-key xterm-function-map "\e\[H" [(home)])
-    (define-key xterm-function-map "\e\[F" [(end)])
-
-    (let ((c 32))
-      (while (<= c 127)
-        (mapc (lambda (x)
-                (define-key xterm-function-map (format (car x) c)
-                  (vector (append (cdr x) (cons c '())))))
-              '(("\e\[%d;2u" shift)
-                ("\e\[%d;3u" meta)
-                ("\e\[%d;4u" shift meta)
-                ("\e\[%d;5u" control)
-                ("\e\[%d;6u" shift control)
-                ("\e\[%d;7u" meta control)
-                ("\e\[%d;8u" shift meta control)))
-        (setq c (1+ c))))))
-
-
-(defun term-init ()
-  (term-init-keyboard))
-
-(unless (display-graphic-p)
-  (eval-after-load "xterm" '(term-init)))
