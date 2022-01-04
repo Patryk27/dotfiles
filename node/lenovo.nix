@@ -79,6 +79,7 @@
         gocryptfs
         obs-studio
         rawtherapee
+        spotify
         virt-manager
       ];
 
