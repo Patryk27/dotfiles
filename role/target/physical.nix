@@ -62,8 +62,11 @@
       autoSnapshot = {
         enable = true;
         flags = "-k -p --utc";
-        frequent = 8;
-        monthly = 1;
+        frequent = 12;
+        hourly = 24;
+        daily = 3;
+        monthly = 0;
+        weekly = 0;
       };
     };
   };
