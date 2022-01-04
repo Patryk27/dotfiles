@@ -78,6 +78,7 @@
           jclu = "journalctl --user";
           scl = "systemctl";
           sclu = "systemctl --user";
+          vg-cg = "valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes --collect-jumps=yes -- ";
         };
       };
     };
