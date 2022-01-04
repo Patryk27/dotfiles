@@ -1,3 +1,5 @@
+(load "/home/pwy/.doom.d/config/ion-mode.el")
+
 ;; ace-window
 (custom-set-faces!
   '(aw-leading-char-face
