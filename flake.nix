@@ -89,6 +89,10 @@
                     flake = nixpkgs;
                   };
                 };
+
+                nixPath = [
+                  "nixpkgs=${nixpkgs}"
+                ];
               };
 
               nixpkgs = {
