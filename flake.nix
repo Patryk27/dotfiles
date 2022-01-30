@@ -6,7 +6,7 @@
     };
 
     emacs = {
-      url = "git+https://git.savannah.gnu.org/git/emacs.git?ref=feature/pgtk";
+      url = "git+https://git.savannah.gnu.org/git/emacs.git";
       flake = false;
     };
 
@@ -41,7 +41,7 @@
     };
 
     nixpkgs-rust-analyzer = {
-      url = "github:nixos/nixpkgs/fd58133e8e526cf12cc2a8e23d22a1c81ce3f21b";
+      url = "github:nixos/nixpkgs";
     };
 
     sops-nix = {

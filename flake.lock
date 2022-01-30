@@ -3,11 +3,11 @@
     "doom-emacs": {
       "flake": false,
       "locked": {
-        "lastModified": 1639786417,
-        "narHash": "sha256-UgrbF/cNv2qJxK2jwrAsPdgeVTRrjCyU40xeMbyi1sI=",
+        "lastModified": 1642119065,
+        "narHash": "sha256-zpfcLvsmYjJklZiZFzIyn6b3XsAosCSeV88Fd/W81aE=",
         "owner": "hlissner",
         "repo": "doom-emacs",
-        "rev": "af7c1d79bd63d78410aafc410d52ee5c1109ec26",
+        "rev": "94c38f289c5bbebd8158dd24ed222c707423a7d5",
         "type": "github"
       },
       "original": {
@@ -19,32 +19,47 @@
     "emacs": {
       "flake": false,
       "locked": {
-        "lastModified": 1639835643,
-        "narHash": "sha256-5k6BETdyUQqe/JruGG3J3iDO7Y9vihd3Hcu3JzopdD4=",
-        "ref": "feature/pgtk",
-        "rev": "8627f735425c8bc97f57a1b7915e36221873862f",
-        "revCount": 152980,
+        "lastModified": 1641310983,
+        "narHash": "sha256-wCZkigHmmPZYgF+YQI5GQK/hqK7Z01gKSy8TyZTBajc=",
+        "ref": "master",
+        "rev": "a0263cfee3cf64f4a77f90591af7ef7d8d78d8db",
+        "revCount": 153372,
         "type": "git",
         "url": "https://git.savannah.gnu.org/git/emacs.git"
       },
       "original": {
-        "ref": "feature/pgtk",
         "type": "git",
         "url": "https://git.savannah.gnu.org/git/emacs.git"
       }
     },
     "emacs-overlay": {
       "locked": {
-        "lastModified": 1640021600,
-        "narHash": "sha256-Qi6j942SpdXuigcY2e9yhiksuYzAcuiKJ1hXu67sFo8=",
+        "lastModified": 1641322011,
+        "narHash": "sha256-E8tf4BCgwBd60XCi83vZA7ROZar3HSmNpV6ou8sSlcw=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "83b82b876fb2c7d0a30befedb980f1088931ddfa",
+        "rev": "3134c80d79072371eee0fd24a9ec9bf1d24c9f4a",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
         "repo": "emacs-overlay",
+        "type": "github"
+      }
+    },
+    "firenvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1640955967,
+        "narHash": "sha256-3zdrcvncYUkWNrlUaKe128+AaNYLV+RUjXDX92K5G0k=",
+        "owner": "glacambre",
+        "repo": "firenvim",
+        "rev": "d316afedbdf4173a9c8eecf71273827921150424",
+        "type": "github"
+      },
+      "original": {
+        "owner": "glacambre",
+        "repo": "firenvim",
         "type": "github"
       }
     },
@@ -102,17 +117,16 @@
     },
     "nixpkgs-rust-analyzer": {
       "locked": {
-        "lastModified": 1638378908,
-        "narHash": "sha256-MGYs/LU6HuJbDjI+yeWTCQkC9qpsri6fsSHy4e+3Rbw=",
+        "lastModified": 1641281642,
+        "narHash": "sha256-SBKsnInJYGz/YwfN4Fc5/NOJJJXowLol956XNKgVZdM=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "fd58133e8e526cf12cc2a8e23d22a1c81ce3f21b",
+        "rev": "a96c4d1474e011e746c203cf5697ee86a8f0d6d0",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "fd58133e8e526cf12cc2a8e23d22a1c81ce3f21b",
         "type": "github"
       }
     },
@@ -137,6 +151,7 @@
         "doom-emacs": "doom-emacs",
         "emacs": "emacs",
         "emacs-overlay": "emacs-overlay",
+        "firenvim": "firenvim",
         "geeqie": "geeqie",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
