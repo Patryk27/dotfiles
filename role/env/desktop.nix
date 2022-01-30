@@ -52,6 +52,7 @@
       with pkgs; [
         corefonts
         iosevka-custom
+        openmoji-color
       ];
   };
 
