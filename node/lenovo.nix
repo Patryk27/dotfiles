@@ -77,6 +77,7 @@
         darktable
         geeqie
         gocryptfs
+        kicad
         obs-studio
         rawtherapee
         spotify
