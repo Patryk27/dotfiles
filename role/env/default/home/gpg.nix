@@ -17,6 +17,7 @@
       gpg-agent = {
         enable = true;
         enableExtraSocket = true;
+        pinentryFlavor = "qt";
 
         defaultCacheTtl = 14400;
         maxCacheTtl = 14400;
@@ -24,10 +25,6 @@
         enableSshSupport = true;
         defaultCacheTtlSsh = 14400;
         maxCacheTtlSsh = 14400;
-
-        extraConfig = ''
-          pinentry-program ${pkgs.pinentry.qt}/bin/pinentry
-        '';
       };
     };
   };
