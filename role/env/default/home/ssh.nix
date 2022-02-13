@@ -7,6 +7,12 @@
         controlPersist = "10m";
 
         matchBlocks = {
+          edge = {
+            hostname = "185.238.72.182";
+            port = 33000;
+            user = "pwy";
+          };
+
           eric = {
             hostname = "188.122.2.73";
             port = 33000;
