@@ -20,6 +20,8 @@
       packages =
         let
           emacs' = pkgs.emacsPgtkGcc.overrideAttrs (attrs: {
+            src = pkgs.sources.emacs;
+
             patches = attrs.patches ++ [
               ./emacs/patch/regex.patch
               ./emacs/patch/synchronized-updates.patch

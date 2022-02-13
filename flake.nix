@@ -6,7 +6,7 @@
     };
 
     emacs = {
-      url = "git+https://git.savannah.gnu.org/git/emacs.git";
+      url = "git+https://git.savannah.gnu.org/git/emacs.git?rev=a0263cfee3cf64f4a77f90591af7ef7d8d78d8db"; # TODO upgrade after Emacs 29 stabilizes a bit
       flake = false;
     };
 
@@ -16,13 +16,6 @@
 
     firenvim = {
       url = "github:glacambre/firenvim";
-      flake = false;
-    };
-
-    # The newest version supports Wayland, but hasn't been released yet.
-    # TODO revisit when geeqie gets a release
-    geeqie = {
-      url = "github:BestImageViewer/geeqie";
       flake = false;
     };
 
@@ -55,7 +48,6 @@
     , emacs
     , emacs-overlay
     , firenvim
-    , geeqie
     , home-manager
     , nixpkgs
     , nixpkgs-rust-analyzer
@@ -105,14 +97,6 @@
                     sources = {
                       inherit doom-emacs emacs;
                     };
-
-                    geeqie = super.geeqie.overrideAttrs (old: {
-                      src = geeqie;
-
-                      postPatch = ''
-                        echo > doc/create-doxygen-lua-api.sh
-                      '';
-                    });
 
                     rust-analyzer = pkgs-rust-analyzer.rust-analyzer;
                   })

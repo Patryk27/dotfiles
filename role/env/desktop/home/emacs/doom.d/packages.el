@@ -10,4 +10,4 @@
   :pin "03a276086795faad46a142454fc3e28cab058b70")
 
 (package! rustic
-  :pin "79960f971172c63b3de38ffeac1f634370ddca78")
+  :pin "b976c2a66416312393dc4359ea18e5705375cbc2")
