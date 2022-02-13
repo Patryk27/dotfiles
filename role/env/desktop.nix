@@ -31,7 +31,7 @@
             no-ligation = true;
 
             metric-override = {
-              leading = 1050;
+              leading = 1100;
             };
 
             widths = {
@@ -43,7 +43,7 @@
             };
 
             variants = {
-              inherits = "ss14";
+              inherits = "ss08";
             };
           };
         };
