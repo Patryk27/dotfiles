@@ -84,7 +84,7 @@ mode "~" {
     bindsym o mode "~/container"
     bindsym p mode "~/window"
 
-    bindsym Escape exec "wofi --show drun"; mode "default"
+    bindsym Return exec "wofi --show drun"; mode "default"
     bindsym Space exec "kitty"; mode "default"
 }
 
