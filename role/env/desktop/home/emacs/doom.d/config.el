@@ -176,11 +176,23 @@
 
 (global-display-fill-column-indicator-mode +1)
 
+(defun calc-eval-region (arg beg end)
+  "Calculate region and replace it with the result."
+  (interactive "P\nr")
+  (let* ((expr (buffer-substring-no-properties beg end))
+         (result (calc-eval expr)))
+    (kill-region beg end)
+    (insert result)))
+
+(map! :leader
+      :prefix ("=" . "calc")
+      :desc "eval" "RET" 'calc-eval-region
+      :desc "grab" "g" 'calc-grab-rectangle
+      :desc "dispatch" "=" 'calc-dispatch)
+
 (map! :leader
       :prefix "o"
-      :desc "Calendar" "c" 'calendar
-      :desc "Calculator" "x" 'calc
-      :desc "Quick Calculator" "z" 'quick-calc)
+      :desc "Calendar" "c" 'calendar)
 
 (defun toggle-line-numbers ()
   (interactive)
@@ -192,7 +204,25 @@
       (setq display-line-numbers-type nil)
       (global-display-line-numbers-mode -1))))
 
-(map! :leader :prefix "t" "l" 'toggle-line-numbers)
+(map! :leader
+      :prefix "t"
+      :desc "Line numbers" "l" 'toggle-line-numbers)
+
+(defun buffer-fresh-p (buffer)
+  (let ((backing-file (buffer-file-name buffer)))
+    (if (buffer-modified-p buffer)
+        t
+      (if backing-file
+          (file-exists-p (buffer-file-name buffer))
+        t))))
+
+(defun kill-stale-buffers ()
+  (interactive)
+  (mapc 'kill-buffer (-remove 'buffer-fresh-p (buffer-list))))
+
+(map! :leader
+      :prefix "b"
+      :desc "Kill stale buffers" "DEL" 'kill-stale-buffers)
 
 ;; evil
 (setq evil-want-fine-undo t
@@ -202,9 +232,7 @@
       evil-insert-state-cursor '(bar "#00ff00")
       evil-visual-state-cursor '(hollow "#00ff00"))
 
-(map! :n "gF" 'ffap-other-window
-      :n "gJ" 'drag-stuff-down
-      :n "gK" 'drag-stuff-up)
+(map! :n "gF" 'ffap-other-window)
 
 ;; evil-numbers
 (map! :n "g+" 'evil-numbers/inc-at-pt
@@ -247,9 +275,11 @@
       lsp-ui-sideline-enable nil)
 
 (map! :n "g'" 'sort-lines
-      :n "ga" 'lsp-execute-code-action
+      :n "ga" '+lookup/references
+      :n "gD" nil
       :n "gt" '+lookup/type-definition)
 
+;; markdown-mode
 (after! markdown-mode
   (map! :map markdown-mode-map
         :localleader
@@ -294,40 +324,35 @@
 ;; rustic-mode
 (setq rustic-compile-directory-method 'rustic-buffer-workspace)
 
-(defun rustic-rerun-shell-command ()
-  "Run previous 'cargo' command."
-  (interactive)
-  (rustic-run-cargo-command
-   (car compile-history)
-   (list :mode 'rustic-cargo-run-mode)))
-
 (defun rustic-cargo-check-crate ()
   "Run 'cargo check' on current crate."
   (interactive)
-  (let ((cmd "cargo check --tests --all-features"))
-    (push cmd compile-history)
-    (rustic-run-cargo-command cmd (list :mode 'rustic-cargo-run-mode))))
+  (rustic-run-cargo-command
+   "cargo check --tests --all-features"
+   (list :mode 'rustic-cargo-run-mode
+         :directory (rustic-buffer-crate))))
 
 (defun rustic-cargo-test-crate ()
   "Run 'cargo test' on current crate."
   (interactive)
-  (let ((cmd "cargo test --tests --all-features"))
-    (push cmd compile-history)
-    (rustic-run-cargo-command cmd (list :mode 'rustic-cargo-run-mode))))
+  (rustic-run-cargo-command
+   "cargo test --all-features"
+   (list :mode 'rustic-cargo-run-mode
+         :directory (rustic-buffer-crate))))
 
 (defun rustic-cargo-check-workspace ()
   "Run 'cargo check' on current workspace."
   (interactive)
-  (let ((cmd "cargo check --workspace --tests --all-features"))
-    (push cmd compile-history)
-    (rustic-run-cargo-command cmd (list :mode 'rustic-cargo-run-mode))))
+  (rustic-run-cargo-command
+   "cargo check --workspace --tests --all-features"
+   (list :mode 'rustic-cargo-run-mode)))
 
 (defun rustic-cargo-test-workspace ()
-  "Run 'cargo check' on current workspace."
+  "Run 'cargo test' on current workspace."
   (interactive)
-  (let ((cmd "cargo test --workspace --tests --all-features"))
-    (push cmd compile-history)
-    (rustic-run-cargo-command cmd (list :mode 'rustic-cargo-run-mode))))
+  (rustic-run-cargo-command
+   "cargo test --workspace --all-features"
+   (list :mode 'rustic-cargo-run-mode)))
 
 (after! rustic
   (map! :map rustic-mode-map
