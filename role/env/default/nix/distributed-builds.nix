@@ -6,7 +6,7 @@
 
         matchBlocks = {
           eric-builder = {
-            hostname = "188.122.2.73";
+            hostname = "10.24.1.2";
             port = 33001;
             user = "builder";
           };

@@ -14,33 +14,20 @@
           };
 
           eric = {
-            hostname = "188.122.2.73";
+            hostname = "10.24.1.2";
             port = 33000;
             user = "pwy";
           };
 
           eric-archive = {
-            hostname = "188.122.2.73";
+            hostname = "10.24.1.2";
             port = 33002;
             user = "pwy";
           };
 
           eric-builder = {
-            hostname = "188.122.2.73";
+            hostname = "10.24.1.2";
             port = 33001;
-            user = "pwy";
-          };
-
-          eric-home = {
-            hostname = "192.168.1.201";
-            port = 33000;
-            user = "pwy";
-          };
-
-          eric-public = {
-            proxyJump = "eric";
-            hostname = "192.168.122.2";
-            port = 33000;
             user = "pwy";
           };
 

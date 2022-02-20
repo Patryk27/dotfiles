@@ -93,10 +93,24 @@
     hostId = "8be46994";
     hostName = "lenovo";
 
-    firewall = {
-      allowedTCPPorts = [
-        1313 # Hugo
-      ];
+    wireguard = {
+      interfaces = {
+        wg-fort = {
+          ips = [ "10.24.1.10/24" ];
+          listenPort = 51820;
+          privateKeyFile = "/run/secrets/wg-fort:private-key";
+
+          peers = [
+            # edge
+            {
+              publicKey = "GwhWP0DClVw9fY7PJidPuZfOzBhxhcnjTnO+8i1Z50w=";
+              allowedIPs = [ "10.24.1.0/24" ];
+              endpoint = "185.238.72.182:51820";
+              persistentKeepalive = 10;
+            }
+          ];
+        };
+      };
     };
   };
 
@@ -167,9 +181,12 @@
 
   sops = {
     secrets = {
-      backup-passphrase = {
-        key = "backup-passphrase--lenovo";
-        owner = "pwy";
+      "backup:passphrase" = {
+        key = "backup:passphrase:lenovo";
+      };
+
+      "wg-fort:private-key" = {
+        key = "wg-fort:private-key:lenovo";
       };
     };
   };

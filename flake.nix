@@ -107,8 +107,9 @@
                 defaultSopsFile = ./secrets.yaml;
 
                 secrets = lib.genAttrs [
-                  "backup-passphrase--anixe"
-                  "backup-passphrase--lenovo"
+                  "backup:passphrase:anixe"
+                  "backup:passphrase:lenovo"
+                  "wg-fort:private-key:lenovo"
                 ]
                   (k: {
                     owner = "pwy";

@@ -80,9 +80,8 @@
 
   sops = {
     secrets = {
-      backup-passphrase = {
-        key = "backup-passphrase--anixe";
-        owner = "pwy";
+      "backup:passphrase" = {
+        key = "backup:passphrase:anixe";
       };
     };
   };
