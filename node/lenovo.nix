@@ -48,7 +48,6 @@
 
   environment = {
     systemPackages = with pkgs; [
-      mullvad-vpn
       screen
     ];
   };
@@ -113,10 +112,6 @@
 
   services = {
     davfs2 = {
-      enable = true;
-    };
-
-    mullvad-vpn = {
       enable = true;
     };
 
