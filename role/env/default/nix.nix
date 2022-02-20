@@ -11,17 +11,15 @@
   };
 
   nix = {
+    trustedUsers = [
+      "builder"
+      "root"
+      "@wheel"
+    ];
+
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-
-    settings = {
-      trusted-users = [
-        "builder"
-        "root"
-        "@wheel"
-      ];
-    };
   };
 
   nixpkgs = {

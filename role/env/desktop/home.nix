@@ -7,6 +7,7 @@
     ./home/keybase.nix
     ./home/kitty.nix
     ./home/mako.nix
+    ./home/slack.nix
     ./home/sway.nix
     ./home/thunderbird.nix
     ./home/waybar.nix

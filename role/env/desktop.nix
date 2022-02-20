@@ -13,7 +13,6 @@
       firefox-wayland
       gimp
       libreoffice
-      slack
       vlc
     ];
   };
