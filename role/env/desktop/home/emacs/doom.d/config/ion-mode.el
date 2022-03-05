@@ -1,5 +1,7 @@
 ;;; ion-mode.el --- A major-mode for editing ION contracts -*-lexical-binding: t-*-
 
+(require 'evil-lion)
+
 (defgroup ion-mode nil
   "Support for ION contracts."
   :group 'languages)
@@ -75,6 +77,65 @@
     (rainbow-delimiters-mode 0)))
 
 (add-hook 'ion-mode-hook 'ion-mode--disable-minor-modes)
+
+;;;
+
+(defun ion-reformat-region (beg end)
+  "Reformat the ION in the specified region."
+  (interactive "*r")
+  (let ((interesting-line-regex ".*|.*"))
+    (save-excursion
+      (save-restriction
+        (narrow-to-region beg end)
+
+        ;;; Step 1/4: For each line, remove its beginning & ending `|`
+        ;;;           (otherwise evil-lion will format the output a bit worse)
+        (goto-char (point-min))
+
+        (while (not (eobp))
+          (when (looking-at-p interesting-line-regex)
+            (skip-chars-forward " ")
+            (when (= ?| (char-after))
+              (delete-char 1))
+            (end-of-line)
+            (when (= ?| (char-before))
+              (delete-char -1)))
+
+          (forward-line))
+
+        ;;; Step 2/4: For each line, ensure each `|` is separated with a space
+        (goto-char (point-min))
+
+        (while (not (eobp))
+          (when (looking-at-p interesting-line-regex)
+            (save-excursion
+              (save-restriction
+                (narrow-to-region (line-beginning-position) (line-end-position))
+
+                (while (not (eobp))
+                  (skip-chars-forward "^|")
+                  (unless (= ?\s (char-before))
+                    (insert " "))
+                  (goto-char (1+ (point)))
+                  (unless (= ?\s (following-char))
+                    (insert " "))))))
+
+          (forward-line))
+
+        ;;; Step 3/4: Reformat!
+        (evil-lion--align (point-min) (point-max) 0 'left ?|)
+
+        ;;; Step 4/4: For each line, restore its beginning & ending `|`
+        (goto-char (point-min))
+
+        (while (not (eobp))
+          (when (looking-at-p interesting-line-regex)
+            (skip-chars-forward " ")
+            (insert "| ")
+            (end-of-line)
+            (insert " |"))
+
+          (forward-line))))))
 
 ;;;
 

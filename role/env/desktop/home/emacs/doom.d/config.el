@@ -367,7 +367,8 @@
         "m" 'lsp-rust-analyzer-expand-macro
         "p" 'lsp-rust-find-parent-module
         "r" 'rustic-rerun-shell-command
-        "s" 'rustic-run-shell-command)
+        "s" 'rustic-run-shell-command
+        "t" nil)
 
   (map! :map rustic-mode-map
         :localleader
