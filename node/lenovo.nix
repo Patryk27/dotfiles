@@ -76,6 +76,7 @@
         darktable
         geeqie
         gocryptfs
+        inkscape
         kicad
         obs-studio
         rawtherapee
