@@ -183,6 +183,7 @@
     secrets = {
       "backup:passphrase" = {
         key = "backup:passphrase:lenovo";
+        owner = "pwy";
       };
 
       "wg-fort:private-key" = {

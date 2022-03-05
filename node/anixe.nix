@@ -82,6 +82,7 @@
     secrets = {
       "backup:passphrase" = {
         key = "backup:passphrase:anixe";
+        owner = "pwy";
       };
     };
   };
