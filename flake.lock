@@ -101,11 +101,11 @@
     },
     "nixpkgs-rust-analyzer": {
       "locked": {
-        "lastModified": 1644161820,
-        "narHash": "sha256-oGi5gaCi+e5m1hF1kSmZThuL80NPFyEgNir+d93b5Jw=",
+        "lastModified": 1645882838,
+        "narHash": "sha256-/fRF4EKPwUyFsRaDl52Iz4IpjYigqwTvyAd0EnHQMEE=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "189f73465b9b1c7534e28e327283c4cdd34ddf41",
+        "rev": "e0df172ce2111052f20dd180fc91cc0e9bbdfc0f",
         "type": "github"
       },
       "original": {
