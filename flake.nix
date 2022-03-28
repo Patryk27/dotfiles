@@ -33,6 +33,11 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
+    # TODO should be unnecessary after an upgrade
+    nixpkgs-kicad = {
+      url = "github:nixos/nixpkgs/staging-next";
+    };
+
     nixpkgs-rust-analyzer = {
       url = "github:nixos/nixpkgs";
     };
@@ -50,6 +55,7 @@
     , firenvim
     , home-manager
     , nixpkgs
+    , nixpkgs-kicad
     , nixpkgs-rust-analyzer
     , sops-nix
     }:
@@ -59,6 +65,10 @@
 
       mkNixosConfiguration = { name, system }:
         let
+          pkgs-kicad = import nixpkgs-kicad {
+            inherit system;
+          };
+
           pkgs-rust-analyzer = import nixpkgs-rust-analyzer {
             inherit system;
           };
@@ -98,6 +108,7 @@
                       inherit doom-emacs emacs;
                     };
 
+                    kicad = pkgs-kicad.kicad;
                     rust-analyzer = pkgs-rust-analyzer.rust-analyzer;
                   })
                 ];
