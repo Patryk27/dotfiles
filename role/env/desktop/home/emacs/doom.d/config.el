@@ -176,6 +176,8 @@
 
 (global-display-fill-column-indicator-mode +1)
 
+(map! :n "\\" '+default/search-buffer)
+
 (defun calc-eval-region (arg beg end)
   "Calculate region and replace it with the result."
   (interactive "P\nr")
@@ -274,7 +276,7 @@
       lsp-ui-doc-show-with-cursor nil
       lsp-ui-sideline-enable nil)
 
-(map! :n "g'" 'sort-lines
+(map! :n "z;" 'sort-lines
       :n "ga" '+lookup/references
       :n "gD" nil
       :n "gt" '+lookup/type-definition)
@@ -311,8 +313,11 @@
         (:rot ("1" "2" "3" "4" "5" "6" "7" "8" "9" "10"))
         (:rot ("1st" "2nd" "3rd" "4th" "5th" "6th" "7th" "8th" "9th" "10th"))))
 
-(map! :n "g[" 'parrot-rotate-prev-word-at-point
-      :n "g]" 'parrot-rotate-next-word-at-point)
+(map! :n "z[" 'parrot-rotate-prev-word-at-point
+      :n "z]" 'parrot-rotate-next-word-at-point)
+
+;; powerthesaurus
+(map! :n "zv" 'powerthesaurus-lookup-dwim)
 
 ;; projectile
 (setq projectile-project-search-path '("~/Projects" "~/Projects/anixe")

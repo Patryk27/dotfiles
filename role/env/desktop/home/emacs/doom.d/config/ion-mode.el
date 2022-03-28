@@ -88,7 +88,7 @@
       (save-restriction
         (narrow-to-region beg end)
 
-        ;;; Step 1/4: For each line, remove its beginning & ending `|`
+        ;;; Step 1/5: For each line, remove its beginning & ending `|`
         ;;;           (otherwise evil-lion will format the output a bit worse)
         (goto-char (point-min))
 
@@ -97,13 +97,15 @@
             (skip-chars-forward " ")
             (when (= ?| (char-after))
               (delete-char 1))
+            (while (= ?\s (char-after))
+              (delete-char 1))
             (end-of-line)
             (when (= ?| (char-before))
               (delete-char -1)))
 
           (forward-line))
 
-        ;;; Step 2/4: For each line, ensure each `|` is separated with a space
+        ;;; Step 2/5: For each line, ensure each `|` is separated with a space
         (goto-char (point-min))
 
         (while (not (eobp))
@@ -114,26 +116,39 @@
 
                 (while (not (eobp))
                   (skip-chars-forward "^|")
-                  (unless (= ?\s (char-before))
-                    (insert " "))
-                  (goto-char (1+ (point)))
-                  (unless (= ?\s (following-char))
-                    (insert " "))))))
+                  (unless (eobp)
+                    (unless (= ?\s (char-before))
+                      (insert " "))
+                    (goto-char (1+ (point)))
+                    (unless (= ?\s (following-char))
+                      (insert " "))))
+
+                ;;; Ensure there are no leftover whitespaces at the end
+                (while (= ?\s (char-before))
+                  (delete-char -1)))))
 
           (forward-line))
 
-        ;;; Step 3/4: Reformat!
+        ;;; Step 3/5: For each line, restore its ending `|`
+        (goto-char (point-min))
+
+        (while (not (eobp))
+          (when (looking-at-p interesting-line-regex)
+            (end-of-line)
+            (insert " |"))
+
+          (forward-line))
+
+        ;;; Step 4/5: Reformat!
         (evil-lion--align (point-min) (point-max) 0 'left ?|)
 
-        ;;; Step 4/4: For each line, restore its beginning & ending `|`
+        ;;; Step 5/5: For each line, restore its beginning `|`
         (goto-char (point-min))
 
         (while (not (eobp))
           (when (looking-at-p interesting-line-regex)
             (skip-chars-forward " ")
-            (insert "| ")
-            (end-of-line)
-            (insert " |"))
+            (insert "| "))
 
           (forward-line))))))
 
