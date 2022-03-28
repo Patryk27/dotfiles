@@ -31,7 +31,7 @@
             no-ligation = true;
 
             metric-override = {
-              leading = 1100;
+              leading = 1025;
             };
 
             widths = {
