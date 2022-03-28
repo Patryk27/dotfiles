@@ -99,6 +99,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-geeqie": {
+      "locked": {
+        "lastModified": 1648398524,
+        "narHash": "sha256-sy9szSsHxsFbAv23A+5SjWGmyJJ8/m3eP8X3p2VtDtk=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "893ffcab6c836d58851bd1c8794789ba74545fab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-kicad": {
       "locked": {
         "lastModified": 1647172870,
@@ -154,6 +169,7 @@
         "firenvim": "firenvim",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-geeqie": "nixpkgs-geeqie",
         "nixpkgs-kicad": "nixpkgs-kicad",
         "nixpkgs-rust-analyzer": "nixpkgs-rust-analyzer",
         "sops-nix": "sops-nix"

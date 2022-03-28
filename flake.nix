@@ -34,6 +34,11 @@
     };
 
     # TODO should be unnecessary after an upgrade
+    nixpkgs-geeqie = {
+      url = "github:nixos/nixpkgs";
+    };
+
+    # TODO should be unnecessary after an upgrade
     nixpkgs-kicad = {
       url = "github:nixos/nixpkgs/staging-next";
     };
@@ -55,6 +60,7 @@
     , firenvim
     , home-manager
     , nixpkgs
+    , nixpkgs-geeqie
     , nixpkgs-kicad
     , nixpkgs-rust-analyzer
     , sops-nix
@@ -65,6 +71,10 @@
 
       mkNixosConfiguration = { name, system }:
         let
+          pkgs-geeqie = import nixpkgs-geeqie {
+            inherit system;
+          };
+
           pkgs-kicad = import nixpkgs-kicad {
             inherit system;
           };
@@ -108,6 +118,7 @@
                       inherit doom-emacs emacs;
                     };
 
+                    geeqie = pkgs-geeqie.geeqie;
                     kicad = pkgs-kicad.kicad;
                     rust-analyzer = pkgs-rust-analyzer.rust-analyzer;
                   })
