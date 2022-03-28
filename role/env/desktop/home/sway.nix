@@ -37,6 +37,7 @@
       packages = with pkgs; [
         brightnessctl
         grim
+        pulseaudio
         qt5.qtwayland
         slurp
         swaylock

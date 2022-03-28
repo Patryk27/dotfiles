@@ -33,12 +33,6 @@
         updateMicrocode = true;
       };
     };
-
-    pulseaudio = {
-      enable = true;
-      extraModules = [ pkgs.pulseaudio-modules-bt ];
-      package = pkgs.pulseaudioFull;
-    };
   };
 
   powerManagement = {
@@ -69,9 +63,5 @@
         weekly = 0;
       };
     };
-  };
-
-  sound = {
-    enable = true;
   };
 }
