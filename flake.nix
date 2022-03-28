@@ -187,7 +187,7 @@
                 nixos-rebuild \
                     --flake .#madison \
                     --target-host madison \
-                    --build-host madison \
+                    --build-host localhost \
                     --use-remote-sudo \
                     "$action"
               '')
