@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; -*-
+
 (load "/home/pwy/.doom.d/config/ion-mode.el")
 
 ;; ace-window
@@ -268,6 +270,7 @@
 
 ;; lsp
 (setq lsp-file-watch-threshold 5000
+      lsp-headerline-breadcrumb-enable t
       lsp-lens-enable nil
       lsp-rust-all-features t
       lsp-rust-analyzer-proc-macro-enable t
