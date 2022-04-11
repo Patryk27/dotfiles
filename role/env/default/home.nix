@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   imports = [
     ./home/git.nix
     ./home/gpg.nix
@@ -9,12 +9,20 @@
     ./home/zsh.nix
   ];
 
+  environment = {
+    systemPackages = [
+      (pkgs.writeShellScriptBin "nm-current-ssid" ''
+        nmcli -t -f name,device connection show --active | rg wlp0s20f3 | cut -d\: -f1
+      '')
+    ];
+  };
+
   home-manager = {
     useUserPackages = true;
     useGlobalPkgs = true;
 
     users = {
-      pwy = { pkgs, ... }: {
+      pwy = { ... }: {
         home = {
           username = "pwy";
 

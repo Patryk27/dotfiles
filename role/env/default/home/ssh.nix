@@ -6,6 +6,23 @@
         controlMaster = "auto";
         controlPersist = "10m";
 
+        extraOptionOverrides = {
+          "Match Originalhost eric" = ''
+            Exec "nm-current-ssid | rg Dziupla5"
+              Hostname 192.168.1.200
+          '';
+
+          "Match Originalhost eric-archive" = ''
+            Exec "nm-current-ssid | rg Dziupla5"
+              Hostname 192.168.1.200
+          '';
+
+          "Match Originalhost eric-builder" = ''
+            Exec "nm-current-ssid | rg Dziupla5"
+              Hostname 192.168.1.200
+          '';
+        };
+
         matchBlocks = {
           edge = {
             hostname = "185.238.72.182";
