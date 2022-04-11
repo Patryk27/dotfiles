@@ -30,7 +30,7 @@
 
         in
         with pkgs; [
-          ((emacsPackagesGen emacs').emacsWithPackages (epkgs: [
+          ((emacsPackagesFor emacs').emacsWithPackages (epkgs: [
             epkgs.vterm
           ]))
 

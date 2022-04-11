@@ -24,8 +24,8 @@
       i7z
       iotop
       libnotify
-      ncat
       ncdu
+      nmap
       openvpn
       powertop
       psmisc

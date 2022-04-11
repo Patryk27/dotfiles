@@ -9,5 +9,8 @@
   :recipe (:host github :repo "cpitclaudel/quick-peek")
   :pin "03a276086795faad46a142454fc3e28cab058b70")
 
+(package! lsp-mode
+  :pin "017529b420d6382990885d8e2bc88720795090a7")
+
 (package! rustic
-  :pin "eb5ca14809f28a8774c7212081984c8fbb41a95d")
+  :pin "6eec9713876d698510ee3715698fd42c1571e307")

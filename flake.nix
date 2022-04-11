@@ -6,7 +6,7 @@
     };
 
     emacs = {
-      url = "git+https://git.savannah.gnu.org/git/emacs.git?rev=a0263cfee3cf64f4a77f90591af7ef7d8d78d8db"; # TODO upgrade after Emacs 29 stabilizes a bit
+      url = "git+https://git.savannah.gnu.org/git/emacs.git?rev=2ec77fcd8f9b4ef92ad68175c60bd85e4221bb96";
       flake = false;
     };
 
@@ -33,18 +33,8 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
-    # TODO should be unnecessary after an upgrade
-    nixpkgs-geeqie = {
-      url = "github:nixos/nixpkgs";
-    };
-
-    # TODO should be unnecessary after an upgrade
-    nixpkgs-kicad = {
-      url = "github:nixos/nixpkgs/staging-next";
-    };
-
     nixpkgs-rust-analyzer = {
-      url = "github:nixos/nixpkgs";
+      url = "github:nixos/nixpkgs/ee3d6e2354ee612345f4f798e441b7d053ee31c9";
     };
 
     sops-nix = {
@@ -60,8 +50,6 @@
     , firenvim
     , home-manager
     , nixpkgs
-    , nixpkgs-geeqie
-    , nixpkgs-kicad
     , nixpkgs-rust-analyzer
     , sops-nix
     }:
@@ -71,14 +59,6 @@
 
       mkNixosConfiguration = { name, system }:
         let
-          pkgs-geeqie = import nixpkgs-geeqie {
-            inherit system;
-          };
-
-          pkgs-kicad = import nixpkgs-kicad {
-            inherit system;
-          };
-
           pkgs-rust-analyzer = import nixpkgs-rust-analyzer {
             inherit system;
           };
@@ -118,8 +98,6 @@
                       inherit doom-emacs emacs;
                     };
 
-                    geeqie = pkgs-geeqie.geeqie;
-                    kicad = pkgs-kicad.kicad;
                     rust-analyzer = pkgs-rust-analyzer.rust-analyzer;
                   })
                 ];
