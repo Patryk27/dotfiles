@@ -81,6 +81,7 @@
         obs-studio
         rawtherapee
         spotify
+        sqlite
         virt-manager
       ];
 
