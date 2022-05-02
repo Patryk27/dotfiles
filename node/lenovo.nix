@@ -78,6 +78,7 @@
         gocryptfs
         inkscape
         kicad
+        mullvad
         obs-studio
         rawtherapee
         spotify
@@ -128,6 +129,10 @@
 
   services = {
     davfs2 = {
+      enable = true;
+    };
+
+    mullvad-vpn = {
       enable = true;
     };
 
