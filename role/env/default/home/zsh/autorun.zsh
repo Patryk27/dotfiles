@@ -8,6 +8,8 @@ bindkey '^[^H' backward-kill-bash-word
 zle -N backward-kill-bash-word backward-kill-word-match
 zstyle :zle:backward-kill-bash-word word-style bash
 
+export PATH="$PATH:/home/pwy/.cargo/bin"
+
 d-ip() {
     docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$@"
 }
