@@ -4,6 +4,13 @@
       ssh = {
         enable = true;
 
+        extraOptionOverrides = {
+          "Match Originalhost eric-builder" = ''
+            Exec "nm-current-ssid | grep Dziupla5"
+              Hostname 192.168.1.200
+          '';
+        };
+
         matchBlocks = {
           eric-builder = {
             hostname = "10.24.1.2";
@@ -27,7 +34,7 @@
     ];
 
     trustedBinaryCaches = [
-      "ssh://eric-builder"
+      "ssh-ng://eric-builder"
     ];
 
     buildMachines = [
