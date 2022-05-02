@@ -1,7 +1,7 @@
 {
   inputs = {
     doom-emacs = {
-      url = "github:hlissner/doom-emacs";
+      url = "github:Patryk27/doom-emacs/skip-lsp-during-magit-preview";
       flake = false;
     };
 
