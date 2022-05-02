@@ -44,7 +44,7 @@
     };
 
     nixpkgs-rust-analyzer = {
-      url = "github:nixos/nixpkgs/ee3d6e2354ee612345f4f798e441b7d053ee31c9";
+      url = "github:nixos/nixpkgs";
     };
 
     sops-nix = {
