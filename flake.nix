@@ -38,6 +38,11 @@
       url = "github:nixos/nixpkgs/494bd39625aed6d1da42176753750aeaef7b39e7";
     };
 
+    # TODO https://github.com/NixOS/nixpkgs/issues/167869
+    nixpkgs-openmoji = {
+      url = "github:nixos/nixpkgs/ce8cbe3c01fd8ee2de526ccd84bbf9b82397a510";
+    };
+
     nixpkgs-rust-analyzer = {
       url = "github:nixos/nixpkgs/ee3d6e2354ee612345f4f798e441b7d053ee31c9";
     };
@@ -56,6 +61,7 @@
     , home-manager
     , nixpkgs
     , nixpkgs-anki
+    , nixpkgs-openmoji
     , nixpkgs-rust-analyzer
     , sops-nix
     }:
@@ -66,6 +72,10 @@
       mkNixosConfiguration = { name, system }:
         let
           pkgs-anki = import nixpkgs-anki {
+            inherit system;
+          };
+
+          pkgs-openmoji = import nixpkgs-openmoji {
             inherit system;
           };
 
@@ -109,6 +119,7 @@
                     };
 
                     anki-bin = pkgs-anki.anki-bin;
+                    openmoji-color = pkgs-openmoji.openmoji-color;
                     rust-analyzer = pkgs-rust-analyzer.rust-analyzer;
                   })
                 ];
