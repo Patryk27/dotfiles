@@ -291,6 +291,9 @@
         :prefix ("t" . "table")
         :desc "align" "a" 'markdown-table-align))
 
+;; olivetti-mode
+(map! "M-RET" 'olivetti-mode)
+
 ;; org
 (setq org-agenda-files '("~/org/" "~/org/praca" "~/org/wycieczki")
       org-directory "~/org/")

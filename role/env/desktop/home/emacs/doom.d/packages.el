@@ -1,6 +1,10 @@
 (package! flycheck-popup-tip
   :disable t)
 
+(package! olivetti
+  :recipe (:host github :repo "rnkn/olivetti")
+  :pin "8d287a80c5e3d72ac01b56c8afe60b01f18500b4")
+
 (package! parrot
   :recipe (:host github :repo "dp12/parrot")
   :pin "29265d118267e524453aaa9121c4eae213a63164")
