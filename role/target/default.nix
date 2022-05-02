@@ -25,7 +25,6 @@
     ];
 
     zfs = {
-      devNodes = "/dev/disk/by-path";
       enableUnstable = true;
     };
   };

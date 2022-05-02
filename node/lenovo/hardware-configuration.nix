@@ -19,30 +19,23 @@
         "usb_storage"
         "sd_mod"
       ];
-
-      kernelModules = [
-        "dm-snapshot"
-      ];
-
-      postDeviceCommands = ''
-        echo '=> Importing pools'
-        ${pkgs.zfs}/bin/zpool import rpool
-
-        echo '=> Mounting datasets'
-        ${pkgs.zfs}/bin/zfs mount -a
-      '';
     };
   };
 
   fileSystems = {
     "/" = {
-      fsType = "zfs";
       device = "rpool/root";
+      fsType = "zfs";
+    };
+
+    "/home" = {
+      device = "rpool/home";
+      fsType = "zfs";
     };
 
     "/boot" = {
+      device = "/dev/disk/by-uuid/8350-BA40";
       fsType = "vfat";
-      device = "/dev/disk/by-uuid/F23D-9E7F";
     };
   };
 
@@ -55,6 +48,6 @@
   };
 
   swapDevices = [
-    { device = "/dev/disk/by-uuid/3ad1150f-77ff-407a-a97c-2342c7582cd6"; }
+    { device = "/dev/disk/by-uuid/d9b96e55-e1e6-4649-8e92-2fa62d413a25"; }
   ];
 }

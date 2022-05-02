@@ -34,7 +34,7 @@
       luks = {
         devices = {
           root = {
-            device = "/dev/disk/by-uuid/47ebd8a5-bf81-46ce-b572-c8fc53e1a80c";
+            device = "/dev/disk/by-uuid/5ccd6167-0771-4196-becc-c6d7ad481d1a";
             preLVM = true;
           };
         };
@@ -92,7 +92,7 @@
   };
 
   networking = {
-    hostId = "8be46994";
+    hostId = "640ada54";
     hostName = "lenovo";
 
     wireguard = {
@@ -195,6 +195,6 @@
   };
 
   system = {
-    stateVersion = "20.09";
+    stateVersion = "21.11";
   };
 }

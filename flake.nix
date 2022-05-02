@@ -152,7 +152,7 @@
               "./key/user"
             ];
 
-            buildInputs = with pkgs; [
+            nativeBuildInputs = with pkgs; [
               (callPackage sops-nix { }).sops-import-keys-hook
 
               (pkgs.writeShellScriptBin "do-deploy-madison" ''
