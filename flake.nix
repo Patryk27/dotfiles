@@ -33,6 +33,11 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
+    # TODO https://github.com/NixOS/nixpkgs/pull/168300
+    nixpkgs-anki = {
+      url = "github:nixos/nixpkgs/494bd39625aed6d1da42176753750aeaef7b39e7";
+    };
+
     nixpkgs-rust-analyzer = {
       url = "github:nixos/nixpkgs/ee3d6e2354ee612345f4f798e441b7d053ee31c9";
     };
@@ -50,6 +55,7 @@
     , firenvim
     , home-manager
     , nixpkgs
+    , nixpkgs-anki
     , nixpkgs-rust-analyzer
     , sops-nix
     }:
@@ -59,6 +65,10 @@
 
       mkNixosConfiguration = { name, system }:
         let
+          pkgs-anki = import nixpkgs-anki {
+            inherit system;
+          };
+
           pkgs-rust-analyzer = import nixpkgs-rust-analyzer {
             inherit system;
           };
@@ -98,6 +108,7 @@
                       inherit doom-emacs emacs;
                     };
 
+                    anki-bin = pkgs-anki.anki-bin;
                     rust-analyzer = pkgs-rust-analyzer.rust-analyzer;
                   })
                 ];
