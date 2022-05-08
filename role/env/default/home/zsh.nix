@@ -76,6 +76,7 @@
           d = "docker";
           jcl = "journalctl";
           jclu = "journalctl --user";
+          nx = "nix develop -c zsh";
           scl = "systemctl";
           sclu = "systemctl --user";
           vg-cg = "valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes --collect-jumps=yes -- ";
