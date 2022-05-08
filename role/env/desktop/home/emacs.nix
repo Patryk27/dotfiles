@@ -19,7 +19,7 @@
 
       packages =
         let
-          emacs' = pkgs.emacsPgtkGcc.overrideAttrs (attrs: {
+          emacs' = pkgs.emacsPgtkNativeComp.overrideAttrs (attrs: {
             src = pkgs.sources.emacs;
 
             patches = attrs.patches ++ [
