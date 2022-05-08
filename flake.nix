@@ -41,7 +41,7 @@
 
     # TODO https://github.com/NixOS/nixpkgs/pull/168300
     nixpkgs-anki = {
-      url = "github:nixos/nixpkgs/494bd39625aed6d1da42176753750aeaef7b39e7";
+      url = "github:nixos/nixpkgs/c9f742f7bc09672c661a0597f048fa3d5d9f399f";
     };
 
     # TODO https://github.com/NixOS/nixpkgs/issues/167869
