@@ -29,6 +29,12 @@
       };
     };
 
+    # TODO https://github.com/NixOS/nix/pull/6440
+    nix = {
+      url = "github:nixos/nix";
+      flake = false;
+    };
+
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
@@ -59,6 +65,7 @@
     , emacs-overlay
     , firenvim
     , home-manager
+    , nix
     , nixpkgs
     , nixpkgs-anki
     , nixpkgs-openmoji
@@ -121,6 +128,10 @@
                     anki-bin = pkgs-anki.anki-bin;
                     openmoji-color = pkgs-openmoji.openmoji-color;
                     rust-analyzer = pkgs-rust-analyzer.rust-analyzer;
+
+                    nix = super.nixUnstable.overrideAttrs (old: {
+                      src = nix;
+                    });
                   })
                 ];
               };

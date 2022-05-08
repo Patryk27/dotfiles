@@ -85,6 +85,22 @@
         "type": "github"
       }
     },
+    "nix": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1651491473,
+        "narHash": "sha256-m4o0wdFzhGuiF6nYDgPSQDmBpuhGcrbmVaFfcbNZz90=",
+        "owner": "nixos",
+        "repo": "nix",
+        "rev": "61289ceee3417cd2aa8e8db9fe117a5813969aed",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nix",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1651007983,
@@ -171,6 +187,7 @@
         "emacs-overlay": "emacs-overlay",
         "firenvim": "firenvim",
         "home-manager": "home-manager",
+        "nix": "nix",
         "nixpkgs": "nixpkgs",
         "nixpkgs-anki": "nixpkgs-anki",
         "nixpkgs-openmoji": "nixpkgs-openmoji",
