@@ -129,7 +129,7 @@
 
 ;; doom
 (setq doom-font (font-spec :family "Iosevka Custom Light" :size 18)
-      doom-theme 'doom-gruvbox)
+      doom-theme 'doom-flatwhite)
 
 (map! "M-[" '+workspace/switch-left
       "M-]" '+workspace/switch-right
@@ -228,6 +228,11 @@
       :prefix "b"
       :desc "Kill stale buffers" "DEL" 'kill-stale-buffers)
 
+(custom-set-faces!
+  '(font-lock-preprocessor-face
+    :background "#f1e9e4"
+    :inherit 'italic))
+
 ;; evil
 (setq evil-want-fine-undo t
       +evil-want-o/O-to-continue-comments nil)
@@ -298,6 +303,9 @@
 (setq org-agenda-files '("~/org/" "~/org/praca" "~/org/wycieczki")
       org-directory "~/org/")
 
+;; org-modern
+(global-org-modern-mode)
+
 ;; parrot
 (parrot-mode -1)
 
@@ -366,6 +374,16 @@
    (list :mode 'rustic-cargo-run-mode)))
 
 (after! rustic
+  (custom-set-faces!
+    '(rust-question-mark
+      :background "#eb938a"
+      :foreground "white"
+      :distant-foreground "#eb938a"
+      :weight bold)
+
+    '(rust-ampersand-face
+      :foreground "#f08c00"))
+
   (map! :map rustic-mode-map
         :n "S-M-<up>" 'lsp-rust-analyzer-move-item-up
         :n "S-M-<down>" 'lsp-rust-analyzer-move-item-down)

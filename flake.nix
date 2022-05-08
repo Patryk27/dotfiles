@@ -29,6 +29,11 @@
       };
     };
 
+    kitty-themes = {
+      url = "github:kovidgoyal/kitty-themes";
+      flake = false;
+    };
+
     # TODO https://github.com/NixOS/nix/pull/6440
     nix = {
       url = "github:nixos/nix";
@@ -65,6 +70,7 @@
     , emacs-overlay
     , firenvim
     , home-manager
+    , kitty-themes
     , nix
     , nixpkgs
     , nixpkgs-anki
@@ -122,7 +128,7 @@
                     inherit firenvim;
 
                     sources = {
-                      inherit doom-emacs emacs;
+                      inherit doom-emacs emacs kitty-themes;
                     };
 
                     anki-bin = pkgs-anki.anki-bin;

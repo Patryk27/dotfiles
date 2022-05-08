@@ -85,6 +85,22 @@
         "type": "github"
       }
     },
+    "kitty-themes": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1651732219,
+        "narHash": "sha256-/JCLty73YHsTkNxZP6EwhhoiHi2HjtyMZphAPhHe5h0=",
+        "owner": "kovidgoyal",
+        "repo": "kitty-themes",
+        "rev": "fb48041b0ff5ce60e8f10e7067a407ad99a4862e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kovidgoyal",
+        "repo": "kitty-themes",
+        "type": "github"
+      }
+    },
     "nix": {
       "flake": false,
       "locked": {
@@ -187,6 +203,7 @@
         "emacs-overlay": "emacs-overlay",
         "firenvim": "firenvim",
         "home-manager": "home-manager",
+        "kitty-themes": "kitty-themes",
         "nix": "nix",
         "nixpkgs": "nixpkgs",
         "nixpkgs-anki": "nixpkgs-anki",

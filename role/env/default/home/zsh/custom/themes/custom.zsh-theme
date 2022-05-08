@@ -28,3 +28,5 @@ function timer_update() {
 autoload -Uz add-zsh-hook
 add-zsh-hook preexec timer_start
 add-zsh-hook precmd timer_update
+
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#000000,bg=#e0cec2,underline"
