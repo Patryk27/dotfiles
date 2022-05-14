@@ -26,6 +26,7 @@ window#waybar {
 }
 
 #mode {
+    color: #ffffff;
     background: #75a3ff;
     font-weight: bold;
     padding: 0 25px;
