@@ -44,11 +44,6 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
-    # TODO https://github.com/NixOS/nixpkgs/pull/168300
-    nixpkgs-anki = {
-      url = "github:nixos/nixpkgs/c9f742f7bc09672c661a0597f048fa3d5d9f399f";
-    };
-
     # TODO https://github.com/NixOS/nixpkgs/issues/167869
     nixpkgs-openmoji = {
       url = "github:nixos/nixpkgs/ce8cbe3c01fd8ee2de526ccd84bbf9b82397a510";
@@ -73,7 +68,6 @@
     , kitty-themes
     , nix
     , nixpkgs
-    , nixpkgs-anki
     , nixpkgs-openmoji
     , nixpkgs-rust-analyzer
     , sops-nix
@@ -84,10 +78,6 @@
 
       mkNixosConfiguration = { name, system }:
         let
-          pkgs-anki = import nixpkgs-anki {
-            inherit system;
-          };
-
           pkgs-openmoji = import nixpkgs-openmoji {
             inherit system;
           };
@@ -131,7 +121,6 @@
                       inherit doom-emacs emacs kitty-themes;
                     };
 
-                    anki-bin = pkgs-anki.anki-bin;
                     openmoji-color = pkgs-openmoji.openmoji-color;
                     rust-analyzer = pkgs-rust-analyzer.rust-analyzer;
 
