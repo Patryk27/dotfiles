@@ -39,6 +39,7 @@
         python3
         rr
         rustup
+        sqlite
         valgrind
       ];
     };
