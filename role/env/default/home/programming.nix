@@ -34,6 +34,7 @@
         linuxPackages.perf
         lld
         ninja
+        postgresql
         python
         python3
         rr
