@@ -201,4 +201,21 @@
   system = {
     stateVersion = "21.11";
   };
+
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+
+      qemu = {
+        package = pkgs.qemu_kvm.override {
+          spiceSupport = true;
+          usbredirSupport = true;
+        };
+
+        ovmf = {
+          enable = true;
+        };
+      };
+    };
+  };
 }
