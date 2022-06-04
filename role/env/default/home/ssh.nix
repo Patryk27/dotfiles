@@ -55,7 +55,6 @@
           };
 
           mac = {
-            proxyJump = "eric";
             hostname = "192.168.122.15";
             port = 22;
             user = "pwychowaniec";
@@ -82,6 +81,10 @@
           sienna = {
             hostname = "192.168.1.220";
             user = "pi";
+          };
+
+          ubu = {
+            hostname = "192.168.122.3";
           };
 
           # --- #
