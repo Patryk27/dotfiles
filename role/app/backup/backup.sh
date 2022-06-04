@@ -22,6 +22,7 @@ case "$1" in
             --exclude "/home/*/.config/Vivaldi" \
             --exclude "/home/*/.config/google-chrome" \
             --exclude "/home/*/.local/share/containers" \
+            --exclude "/home/*/.local/share/Trash" \
             --exclude "/home/*/.npm" \
             --exclude "/home/*/.rustup" \
             --exclude "/home/*/.steam" \
