@@ -129,7 +129,7 @@
 
 ;; doom
 (setq doom-font (font-spec :family "Iosevka Custom Light" :size 18)
-      doom-theme 'doom-flatwhite)
+      doom-theme 'doom-gruvbox)
 
 (map! "M-[" '+workspace/switch-left
       "M-]" '+workspace/switch-right
@@ -227,11 +227,6 @@
 (map! :leader
       :prefix "b"
       :desc "Kill stale buffers" "DEL" 'kill-stale-buffers)
-
-(custom-set-faces!
-  '(font-lock-preprocessor-face
-    :background "#f1e9e4"
-    :inherit 'italic))
 
 ;; evil
 (setq evil-want-fine-undo t
@@ -379,10 +374,7 @@
       :background "#eb938a"
       :foreground "white"
       :distant-foreground "#eb938a"
-      :weight bold)
-
-    '(rust-ampersand-face
-      :foreground "#f08c00"))
+      :weight bold))
 
   (map! :map rustic-mode-map
         :n "S-M-<up>" 'lsp-rust-analyzer-move-item-up

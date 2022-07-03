@@ -7,8 +7,8 @@
 }
 
 window#waybar {
-    background: #f1ece4;
-    color: #605a52;
+    background: #282828;
+    color: #ffffff;
 }
 
 #window {
@@ -18,16 +18,15 @@ window#waybar {
 #workspaces button {
     padding: 0 5px;
     background: transparent;
-    color: #605a52;
+    color: #ffffff;
 }
 
 #workspaces button.focused {
-    color: #75a3ff;
+    color: #b8bb26;
 }
 
 #mode {
-    color: #ffffff;
-    background: #75a3ff;
+    background: #c86b85;
     font-weight: bold;
     padding: 0 25px;
 }

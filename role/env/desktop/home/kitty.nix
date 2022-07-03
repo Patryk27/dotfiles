@@ -10,7 +10,7 @@
         };
 
         extraConfig = ''
-          include ${pkgs.kitty-themes}/themes/rose-pine-dawn.conf
+          include ${pkgs.kitty-themes}/themes/gruvbox-dark.conf
           enable_audio_bell no
           placement_strategy top-left
           confirm_os_window_close 0

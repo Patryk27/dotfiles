@@ -10,12 +10,12 @@ font pango:Iosevka Custom 10
 title_align center
 titlebar_padding 1 1
 
-client.background       #f1ece4
-client.focused          #f1ece4 #f1ece4 #75a3ff #f1ece4 #f1ece4
-client.unfocused        #f1ece4 #f1ece4 #605a52 #f1ece4 #f1ece4
-client.focused_inactive #f1ece4 #f1ece4 #605a52 #f1ece4 #f1ece4
-client.urgent           #f1ece4 #dc3545 #ffffff #f1ece4 #f1ece4
-client.placeholder      #f1ece4 #f1ece4 #605a52 #f1ece4 #f1ece4
+client.background       #282828
+client.focused          #282828 #282828 #b8bb26 #282828 #282828
+client.unfocused        #282828 #282828 #dfdfdf #282828 #282828
+client.focused_inactive #282828 #282828 #dfdfdf #282828 #282828
+client.urgent           #282828 #dc3545 #ffffff #282828 #282828
+client.placeholder      #282828 #282828 #dfdfdf #282828 #282828
 
 ## ------ ##
 ## inputs ##
