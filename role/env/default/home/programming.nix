@@ -37,6 +37,7 @@
         postgresql
         python
         python3
+        ravedude
         rr
         rustup
         sqlite

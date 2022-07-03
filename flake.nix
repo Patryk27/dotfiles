@@ -47,6 +47,10 @@
       url = "github:nixos/nixpkgs/046a25e32edad68e578b5fa3dceebbea16c887c5";
     };
 
+    ravedude = {
+      url = "github:Patryk27/avr-hal/nix?dir=ravedude";
+    };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
     };
@@ -64,6 +68,7 @@
     , nixpkgs
     , nixpkgs-openmoji
     , nixpkgs-rust-analyzer
+    , ravedude
     , sops-nix
     }:
 
@@ -116,6 +121,7 @@
                     };
 
                     openmoji-color = pkgs-openmoji.openmoji-color;
+                    ravedude = ravedude.defaultPackage."${system}";
                     rust-analyzer = pkgs-rust-analyzer.rust-analyzer;
                   })
                 ];
