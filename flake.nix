@@ -6,7 +6,7 @@
     };
 
     emacs = {
-      url = "git+https://git.savannah.gnu.org/git/emacs.git?rev=783dd6da31e3f0387e110972c0b9fe1f5acc4bba";
+      url = "git+https://git.savannah.gnu.org/git/emacs.git?rev=4266871467ebcd67ea978e28a9b9ebfccd9b4d6d";
       flake = false;
     };
 
@@ -34,12 +34,6 @@
       flake = false;
     };
 
-    # TODO https://github.com/NixOS/nix/pull/6440
-    nix = {
-      url = "github:nixos/nix";
-      flake = false;
-    };
-
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
@@ -50,7 +44,7 @@
     };
 
     nixpkgs-rust-analyzer = {
-      url = "github:nixos/nixpkgs";
+      url = "github:nixos/nixpkgs/046a25e32edad68e578b5fa3dceebbea16c887c5";
     };
 
     sops-nix = {
@@ -123,10 +117,6 @@
 
                     openmoji-color = pkgs-openmoji.openmoji-color;
                     rust-analyzer = pkgs-rust-analyzer.rust-analyzer;
-
-                    nix = super.nixUnstable.overrideAttrs (old: {
-                      src = nix;
-                    });
                   })
                 ];
               };

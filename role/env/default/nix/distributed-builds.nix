@@ -41,7 +41,7 @@
       {
         hostName = "eric-builder";
         system = "i686-linux";
-        maxJobs = 28;
+        maxJobs = 1;
         speedFactor = 10;
         supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
         mandatoryFeatures = [ ];
@@ -50,7 +50,7 @@
       {
         hostName = "eric-builder";
         system = "x86_64-linux";
-        maxJobs = 28;
+        maxJobs = 1;
         speedFactor = 10;
         supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
         mandatoryFeatures = [ ];

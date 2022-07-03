@@ -22,8 +22,15 @@
     useGlobalPkgs = true;
 
     users = {
-      pwy = { ... }: {
+      root = {
         home = {
+          stateVersion = "18.09";
+        };
+      };
+
+      pwy = {
+        home = {
+          stateVersion = "18.09";
           username = "pwy";
 
           keyboard = {
