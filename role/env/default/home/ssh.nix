@@ -85,6 +85,15 @@
 
           ubu = {
             hostname = "192.168.122.3";
+            port = 22;
+            user = "pwy";
+          };
+
+          win = {
+            hostname = "192.168.122.4";
+            port = 22;
+            user = "pwy";
+          };
           };
 
           # --- #
