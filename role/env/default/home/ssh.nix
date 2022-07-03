@@ -55,9 +55,9 @@
           };
 
           mac = {
-            hostname = "192.168.122.15";
+            hostname = "192.168.122.2";
             port = 22;
-            user = "pwychowaniec";
+            user = "pwy";
           };
 
           madison = {
