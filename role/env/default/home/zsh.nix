@@ -67,7 +67,9 @@
           carrb = "clear && RUST_BACKTRACE=1 cargo run --release";
           cate = "clear && cargo test --quiet";
           cateb = "clear && RUST_BACKTRACE=1 cargo test";
+          cater = "clear && cargo test --quiet --release";
           catew = "clear && cargo test --quiet --workspace";
+          catewr = "clear && cargo test --quiet --workspace --release";
           catewb = "clear && RUST_BACKTRACE=1 cargo test --workspace";
           catewf = "clear && cargo test --all-features --quiet --workspace";
           catewfb = "clear && RUST_BACKTRACE=1 cargo test --all-features --workspace";
