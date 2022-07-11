@@ -1,6 +1,4 @@
 
-(package! lsp-mode
-  :pin "465bcc5fbeb6293446a3241f5f2c1b872337958c")
 
 (package! olivetti
   :recipe (:host github :repo "rnkn/olivetti")
@@ -8,11 +6,11 @@
 
 (package! org-modern
   :recipe (:host github :repo "minad/org-modern")
-  :pin "ff1046705b3950b7a49da50bc34c11da86c6226d")
+  :pin "239c02aa99dc52755edf38d5e9c9e986683c4249")
 
 (package! parrot
   :recipe (:host github :repo "dp12/parrot")
   :pin "29265d118267e524453aaa9121c4eae213a63164")
 
 (package! rustic
-  :pin "3b379fc25b7a097a014147d9c8b83ec1a418cd76")
+  :pin "39029a7e1f059674a9767a9b15514af30ef9f479")
