@@ -146,11 +146,6 @@
     in
     {
       nixosConfigurations = {
-        anixe = mkNixosConfiguration {
-          name = "anixe";
-          system = "x86_64-linux";
-        };
-
         lenovo = mkNixosConfiguration {
           name = "lenovo";
           system = "x86_64-linux";
