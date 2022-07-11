@@ -18,12 +18,8 @@
 
 (map! :n "go" 'evil-avy-goto-char-timer)
 
-;; dired
-(map! :leader
-      "j" 'dired-jump
-      "J" 'dired-jump-other-window)
-
-(add-hook 'dired-after-readin-hook 'hl-line-mode)
+;; dired / dirvish
+(map! :leader "j" 'dirvish-dwim)
 
 (defun dired-diff-dwim ()
   (interactive)
@@ -46,15 +42,16 @@
       (error "no more than 2 files should be marked"))))
 
 (after! (:and evil dired)
-  (map! :map dired-mode-map
-        :n "f" 'find-file
-        :n "q" 'kill-current-buffer
-        :n "Q" '+dired/quit-all
-        :n "=" 'dired-diff-dwim)
+  (setq dirvish-attributes '())
 
   (map! :map dired-mode-map
-        :localleader
-        :n "f" 'find-name-dired))
+        :n "F" nil
+        :n ";" 'dirvish-toggle-fullscreen
+        :n "?" 'dirvish-dispatch)
+
+  (map! :map dired-mode-map
+        :n "Q" '+dired/quit-all
+        :n "=" 'dired-diff-dwim))
 
 ;; doom
 (setq doom-font (font-spec :family "Iosevka Custom Light" :size 18)

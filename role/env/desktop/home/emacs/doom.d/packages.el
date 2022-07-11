@@ -1,3 +1,5 @@
+(package! dirvish
+  :pin "96a257df6691b49f1c36973c6e17c56f8532d722")
 
 
 (package! olivetti
