@@ -49,23 +49,24 @@
        make
        pdf
        rgb
+       tree-sitter
 
        :os
        (tty +osc)
 
        :lang
-       (cc +lsp)
+       (cc +lsp +tree-sitter)
        data
-       emacs-lisp
-       javascript
-       json
+       (emacs-lisp +tree-sitter)
+       (javascript +tree-sitter)
+       (json +tree-sitter)
        (markdown +grip)
-       nix
+       (nix +tree-sitter)
        org
        rest
-       (rust +lsp)
-       sh
-       web
+       (rust +lsp +tree-sitter)
+       (sh +tree-sitter)
+       (web +tree-sitter)
        yaml
 
        :config
