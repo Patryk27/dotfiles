@@ -174,6 +174,12 @@
       "x" 'flycheck-list-errors
       "X" '+default/diagnostics)
 
+;; focus-mode
+(map! :leader
+       :prefix "-"
+       "-" 'focus-mode
+       "p" 'focus-mode-pin)
+
 ;; gcmh
 (setq gcmh-high-cons-threshold (* 128 1024 1024)
       gcmh-idle-delay 10.0)

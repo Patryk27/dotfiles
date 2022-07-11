@@ -1,6 +1,9 @@
 (package! dirvish
   :pin "96a257df6691b49f1c36973c6e17c56f8532d722")
 
+(package! focus
+  :recipe (:host github :repo "larstvei/Focus")
+  :pin "5f3f20e7f22fb9fd7c48abce8bd38061d97e4bc0")
 
 (package! olivetti
   :recipe (:host github :repo "rnkn/olivetti")
