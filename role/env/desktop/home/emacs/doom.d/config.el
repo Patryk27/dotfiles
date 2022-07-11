@@ -188,6 +188,11 @@
 (setq hl-line-sticky-flag nil
       global-hl-line-sticky-flag nil)
 
+;; ion-mode
+(map! :map ion-mode-map
+      :localleader
+      :desc "reformat region" "f" 'ion-reformat-region)
+
 ;; ispell
 (setq ispell-dictionary "en")
 
@@ -300,21 +305,20 @@
    "cargo test --workspace --all-features"
    (list :mode 'rustic-cargo-run-mode)))
 
-(after! rustic
-  (custom-set-faces!
-    '(rust-question-mark
-      :background "#eb938a"
-      :foreground "white"
-      :distant-foreground "#eb938a"
-      :weight bold))
+(defun rustic-open-lib-rs()
+  "Open related 'lib.rs' file."
+  (interactive)
+  (let ((file (locate-dominating-file "." "Cargo.toml")))
+    (when file
+      (find-file (concat file "src/lib.rs")))))
 
+(after! rustic
   (map! :map rustic-mode-map
         :n "S-M-<up>" 'lsp-rust-analyzer-move-item-up
         :n "S-M-<down>" 'lsp-rust-analyzer-move-item-down)
 
   (map! :map rustic-mode-map
         :localleader
-        "SPC" 'lsp-rust-analyzer-open-cargo-toml
         "b" nil
         "h" 'lsp-rust-analyzer-inlay-hints-mode
         "m" 'lsp-rust-analyzer-expand-macro
@@ -322,6 +326,12 @@
         "r" 'rustic-rerun-shell-command
         "s" 'rustic-run-shell-command
         "t" nil)
+
+  (map! :map rustic-mode-map
+        :localleader
+        :prefix ("o" . "open")
+        :desc "lib.rs" "l" 'rustic-open-lib-rs
+        :desc "Cargo.toml" "o" 'lsp-rust-analyzer-open-cargo-toml)
 
   (map! :map rustic-mode-map
         :localleader
