@@ -22,6 +22,7 @@
       };
 
       packages = with pkgs; [
+        ansible
         arcanist
         binutils
         clang-tools
