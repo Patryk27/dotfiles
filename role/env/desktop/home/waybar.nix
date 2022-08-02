@@ -40,7 +40,7 @@
             modules = {
               "custom/disk" = {
                 exec = pkgs.writeShellScript "exec" ''
-                  free=$(zpool list -H -o free rpool)
+                  free=$(${pkgs.zfs}/bin/zpool list -H -o free rpool)
                   echo "disk[$free]"
                 '';
 

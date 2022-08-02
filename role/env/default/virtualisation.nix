@@ -23,10 +23,11 @@
       };
     };
 
-    lxd = {
-      enable = true;
-      zfsSupport = true;
-    };
+    # TODO https://github.com/NixOS/nixpkgs/issues/183759
+    # lxd = {
+    #   enable = true;
+    #   zfsSupport = true;
+    # };
 
     podman = {
       enable = true;

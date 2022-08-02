@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   boot = {
     tmpOnTmpfs = true;
-    kernelPackages = pkgs.linuxPackages_5_17; # TODO upgrade after ZFS catches up
+    kernelPackages = pkgs.linuxPackages_5_18;
 
     kernelParams = [
       "mitigations=off"

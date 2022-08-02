@@ -29,14 +29,6 @@
       builders-use-substitutes = true
     '';
 
-    binaryCachePublicKeys = [
-      "eric-builder:vj2KhujwD56FS5m1E/MNfUjlBGFLzWEc+ESHbiTJQ18="
-    ];
-
-    trustedBinaryCaches = [
-      "ssh-ng://eric-builder"
-    ];
-
     buildMachines = [
       {
         hostName = "eric-builder";
@@ -56,5 +48,15 @@
         mandatoryFeatures = [ ];
       }
     ];
+
+    settings = {
+      trusted-public-keys = [
+        "eric-builder:vj2KhujwD56FS5m1E/MNfUjlBGFLzWEc+ESHbiTJQ18="
+      ];
+
+      trusted-substituters = [
+        "ssh-ng://eric-builder"
+      ];
+    };
   };
 }

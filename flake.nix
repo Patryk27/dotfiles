@@ -1,12 +1,13 @@
 {
   inputs = {
     doom-emacs = {
-      url = "github:Patryk27/doom-emacs/skip-lsp-during-magit-preview";
+      # url = "github:Patryk27/doom-emacs";
+      url = "path:/home/pwy/Projects/doom-emacs";
       flake = false;
     };
 
     emacs = {
-      url = "git+https://git.savannah.gnu.org/git/emacs.git?rev=4266871467ebcd67ea978e28a9b9ebfccd9b4d6d";
+      url = "git+https://git.savannah.gnu.org/git/emacs.git?rev=ef77070727f262d9cecefd8a204c49a47ce4fc45";
       flake = false;
     };
 
@@ -38,13 +39,8 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
-    # TODO https://github.com/NixOS/nixpkgs/issues/167869
-    nixpkgs-openmoji = {
-      url = "github:nixos/nixpkgs/ce8cbe3c01fd8ee2de526ccd84bbf9b82397a510";
-    };
-
     nixpkgs-rust-analyzer = {
-      url = "github:nixos/nixpkgs/046a25e32edad68e578b5fa3dceebbea16c887c5";
+      url = "github:nixos/nixpkgs";
     };
 
     ravedude = {
@@ -66,7 +62,6 @@
     , kitty-themes
     , nix
     , nixpkgs
-    , nixpkgs-openmoji
     , nixpkgs-rust-analyzer
     , ravedude
     , sops-nix
@@ -77,10 +72,6 @@
 
       mkNixosConfiguration = { name, system }:
         let
-          pkgs-openmoji = import nixpkgs-openmoji {
-            inherit system;
-          };
-
           pkgs-rust-analyzer = import nixpkgs-rust-analyzer {
             inherit system;
           };
@@ -120,7 +111,6 @@
                       inherit doom-emacs emacs kitty-themes;
                     };
 
-                    openmoji-color = pkgs-openmoji.openmoji-color;
                     ravedude = ravedude.defaultPackage."${system}";
                     rust-analyzer = pkgs-rust-analyzer.rust-analyzer;
                   })

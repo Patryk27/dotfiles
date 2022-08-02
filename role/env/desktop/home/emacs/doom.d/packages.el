@@ -1,5 +1,5 @@
 (package! dirvish
-  :pin "96a257df6691b49f1c36973c6e17c56f8532d722")
+  :pin "9c3083aae9169d26d0936c9f4838029b44b83563")
 
 (package! focus
   :recipe (:host github :repo "larstvei/Focus")
@@ -18,4 +18,4 @@
   :pin "29265d118267e524453aaa9121c4eae213a63164")
 
 (package! rustic
-  :pin "39029a7e1f059674a9767a9b15514af30ef9f479")
+  :pin "baef1faba8c73587455f8582ee6ba3ef32077a69")
