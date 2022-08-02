@@ -15,11 +15,6 @@
       url = "github:nix-community/emacs-overlay";
     };
 
-    firenvim = {
-      url = "github:glacambre/firenvim";
-      flake = false;
-    };
-
     home-manager = {
       url = "github:rycee/home-manager";
 
@@ -57,7 +52,6 @@
     , doom-emacs
     , emacs
     , emacs-overlay
-    , firenvim
     , home-manager
     , kitty-themes
     , nix
@@ -105,8 +99,6 @@
                   emacs-overlay.overlay
 
                   (self: super: {
-                    inherit firenvim;
-
                     sources = {
                       inherit doom-emacs emacs kitty-themes;
                     };

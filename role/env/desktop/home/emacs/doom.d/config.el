@@ -13,6 +13,11 @@
 
 (map! :leader "k" 'ace-window)
 
+;; atomic-chrome
+(setq atomic-chrome-default-major-mode 'markdown-mode)
+
+(atomic-chrome-start-server)
+
 ;; avy
 (setq avy-keys '(?a ?s ?d ?h ?j ?k ?l))
 
