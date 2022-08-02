@@ -30,6 +30,7 @@
         gcc
         gdb
         gnumake
+        imagemagick
         jq
         kcachegrind
         linuxPackages.perf
