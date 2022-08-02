@@ -13,6 +13,14 @@
     };
   };
 
+  home-manager.users.pwy = {
+    services = {
+      gpg-agent = {
+        enable = lib.mkForce false;
+      };
+    };
+  };
+
   environment = {
     systemPackages = with pkgs; [
       tmux
@@ -36,5 +44,9 @@
         RuntimeDirectorySize = 16G
       '';
     };
+  };
+
+  system = {
+    stateVersion = "21.11";
   };
 }

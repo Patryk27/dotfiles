@@ -1,9 +1,11 @@
 keys:
   - &lenovo d3396ef208b4f6ade0193853036808e292fe16f1
+  - &madison 9eadf6ad16fbf9f4ebc9dea7ca202396199b20c7
   - &me 196abfec6a1dd1ec7594f8d1f62547d075e09767
 creation_rules:
   - path_regex: secrets\.yaml$
     key_groups:
     - pgp:
       - *lenovo
+      - *madison
       - *me
