@@ -2,6 +2,7 @@
   imports = [
     ./default.nix
     ./desktop/home.nix
+    ./desktop/iphone.nix
     ./desktop/video.nix
     ./desktop/yubikey.nix
   ];
