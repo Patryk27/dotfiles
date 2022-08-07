@@ -71,3 +71,11 @@ pg-rust() {
         -f "split-window-vertically" \
         "$dir/Cargo.toml"
 }
+
+z() {
+    if [[ "$#" == 0 ]]; then
+        fc -ln -1 | wl-copy -n
+    else
+        echo "$@" | wl-copy -n
+    fi
+}

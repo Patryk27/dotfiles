@@ -1,30 +1,31 @@
 PROMPT='
-%{$fg[yellow]%}%~%{$reset_color%}$(git_prompt_info)$(timer_info)
+%{$fg[yellow]%}%~%{$reset_color%}$(tt_prompt_info)
 %(?,%{$fg[green]%};%{$reset_color%},%{$fg[red]%}!%{$reset_color%}) '
 
-ZSH_THEME_GIT_PROMPT_PREFIX=" | %{$fg_bold[blue]%}"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%} ✗%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%} ✔%{$reset_color%}"
+tt_prompt_info() {
+  echo -n " %{$FG[244]%}["
 
-function timer_info {
-  echo "${timer_msg}"
+  if [ $tt_elapsed ]; then
+    echo -n "${tt_elapsed}s|"
+  fi
+
+  echo -n "$(date +%H:%M:%S)"
+  echo "]%f"
 }
 
-function timer_start() {
-  timer=$SECONDS
+tt_start() {
+  tt_pending=$SECONDS
 }
 
-function timer_update() {
-  if [ $timer ]; then
-    elapsed=$(($SECONDS - $timer))
-    timer_msg=" | %{$fg[blue]%}${elapsed}s%f"
-    unset timer
+tt_update() {
+  if [ $tt_pending ]; then
+    tt_elapsed=$(($SECONDS - $tt_pending))
+    unset tt_pending
   else
-    timer_msg=""
+    tt_elapsed=""
   fi
 }
 
 autoload -Uz add-zsh-hook
-add-zsh-hook preexec timer_start
-add-zsh-hook precmd timer_update
+add-zsh-hook preexec tt_start
+add-zsh-hook precmd tt_update

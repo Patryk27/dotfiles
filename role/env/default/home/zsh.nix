@@ -36,7 +36,6 @@
             "autojump"
             "extract"
             "fzf"
-            "git"
           ];
 
           extraConfig = ''
@@ -50,7 +49,7 @@
 
             ${pkgs.any-nix-shell}/bin/any-nix-shell zsh --info-right | source /dev/stdin
             source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-            source ${./zsh/autorun.zsh}
+            source ${./zsh/init.zsh}
           '';
         };
 
