@@ -9,7 +9,7 @@
     :background "red"
     :weight bold))
 
-(setq aw-keys '(?a ?s ?d ?h ?j ?k ?l))
+(setq aw-keys '(?a ?s ?d ?j ?k ?l))
 
 (map! :leader "k" 'ace-window)
 
@@ -19,12 +19,46 @@
 (atomic-chrome-start-server)
 
 ;; avy
-(setq avy-keys '(?a ?s ?d ?h ?j ?k ?l))
+(setq avy-keys '(?a ?s ?d ?j ?k ?l))
 
-(map! :n "go" 'evil-avy-goto-char-timer)
+(map! :ni "M-j" 'evil-avy-goto-char-timer
+      :ni "M-k" 'evil-avy-goto-char-in-line)
+
+(after! avy
+  (defun avy-action-mark-to-char (pt)
+    (activate-mark)
+    (goto-char pt))
+
+  (setf (alist-get ?  avy-dispatch-alist) 'avy-action-mark-to-char)
+
+  (defun avy-action-lookup-documentation (pt)
+    (save-excursion
+      (goto-char pt)
+      (call-interactively '+lookup/documentation))
+    (select-window
+     (cdr (ring-ref avy-ring 0)))
+    t)
+
+  (setf (alist-get ?w avy-dispatch-alist) 'avy-action-lookup-documentation)
+
+  (defun avy-action-embark (pt)
+    (unwind-protect
+        (save-excursion
+          (goto-char pt)
+          (embark-act))
+      (select-window
+       (cdr (ring-ref avy-ring 0))))
+    t)
+
+  (setf (alist-get ?. avy-dispatch-alist) 'avy-action-embark))
 
 ;; dired / dirvish
-(map! :leader "j" 'dirvish-dwim)
+(map! :leader "j" 'dired-jump)
+
+(setq dirvish-quick-access-entries
+      '(
+        ("d" "/downloads")
+        ("o" "~/org")))
 
 (defun dired-diff-dwim ()
   (interactive)
@@ -49,23 +83,17 @@
 (after! (:and evil dired)
   (setq dirvish-attributes '())
 
-  (map! :map dired-mode-map
-        :n "F" nil
+  (map! :map dirvish-mode-map
         :n ";" 'dirvish-toggle-fullscreen
-        :n "?" 'dirvish-dispatch)
-
-  (map! :map dired-mode-map
-        :n "Q" '+dired/quit-all
-        :n "=" 'dired-diff-dwim))
+        :n "=" 'dired-diff-dwim
+        :n "?" 'dirvish-dispatch
+        :n "F" nil
+        :n "b" 'dirvish-quick-access
+        :n "q" 'dirvish-quit))
 
 ;; doom
 (setq doom-font (font-spec :family "Iosevka Custom Light" :size 18)
       doom-theme 'doom-gruvbox)
-
-(map! "M-[" '+workspace/switch-left
-      "M-]" '+workspace/switch-right
-      "M-{" '+workspace/swap-left
-      "M-}" '+workspace/swap-right)
 
 (map! :leader
       "b a" 'rename-buffer
@@ -73,7 +101,9 @@
       "o t" '+vterm/here
       "o T" nil
       "[" '+workspace/switch-left
+      "TAB [" nil
       "]" '+workspace/switch-right
+      "TAB ]" nil
       "{" '+workspace/swap-left
       "}" '+workspace/swap-right
       "1" '+workspace/switch-to-0
@@ -109,7 +139,8 @@
 
 (global-display-fill-column-indicator-mode +1)
 
-(map! :n "\\" '+default/search-buffer)
+(map! :n "\\" '+default/search-buffer
+      :ni "M-i" 'insert-char)
 
 (defun calc-eval-region (arg beg end)
   "Calculate region and replace it with the result."
@@ -181,9 +212,10 @@
 
 ;; focus-mode
 (map! :leader
-       :prefix "-"
-       "-" 'focus-mode
-       "p" 'focus-mode-pin)
+      :prefix "-"
+      "-" 'focus-mode
+      "p" 'focus-mode-pin
+      "i" 'focus-change-thing)
 
 ;; gcmh
 (setq gcmh-high-cons-threshold (* 128 1024 1024)
@@ -264,8 +296,8 @@
         (:rot ("1" "2" "3" "4" "5" "6" "7" "8" "9" "10"))
         (:rot ("1st" "2nd" "3rd" "4th" "5th" "6th" "7th" "8th" "9th" "10th"))))
 
-(map! :n "z[" 'parrot-rotate-prev-word-at-point
-      :n "z]" 'parrot-rotate-next-word-at-point)
+(map! :n "z(" 'parrot-rotate-prev-word-at-point
+      :n "z)" 'parrot-rotate-next-word-at-point)
 
 ;; powerthesaurus
 (map! :n "zv" 'powerthesaurus-lookup-dwim)
@@ -273,6 +305,13 @@
 ;; projectile
 (setq projectile-project-search-path '("~/Projects" "~/Projects/anixe")
       projectile-track-known-projects-automatically nil)
+
+(map! :leader
+      :prefix "p"
+      "P" 'projectile-switch-open-project)
+
+(after! projectile
+  (setq projectile-switch-project-action #'projectile-commander))
 
 ;; rainbow-delimeters
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
@@ -363,7 +402,11 @@
 (setq undo-tree-visualizer-timestamps t)
 
 ;; vertico
-(map! :map vertico-map "M-DEL" 'delete-backward-char)
+(setq vertico-quick1 "asd"
+      vertico-quick2 "jkl")
+
+(map! :map vertico-map
+      "M-q" #'vertico-quick-insert)
 
 ;; vterm
 (map! :leader "d" '+vterm/toggle)

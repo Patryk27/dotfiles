@@ -3,7 +3,7 @@
   :pin "061958ab96c31085b5daf449b1d826b052777b59")
 
 (package! dirvish
-  :pin "9c3083aae9169d26d0936c9f4838029b44b83563")
+  :pin "b325464b37969aed7cc43c1bfa505f813b733063")
 
 (package! focus
   :recipe (:host github :repo "larstvei/Focus")
