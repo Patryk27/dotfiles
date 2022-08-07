@@ -7,23 +7,35 @@
         controlPersist = "10m";
 
         extraOptionOverrides = {
+          "Match Originalhost archive" = ''
+            Exec "nmcli | rg Dziupla5"
+              Hostname 192.168.1.200
+          '';
+
+          "Match Originalhost builder" = ''
+            Exec "nmcli | rg Dziupla5"
+              Hostname 192.168.1.200
+          '';
+
           "Match Originalhost eric" = ''
-            Exec "nm-current-ssid | rg Dziupla5"
-              Hostname 192.168.1.200
-          '';
-
-          "Match Originalhost eric-archive" = ''
-            Exec "nm-current-ssid | rg Dziupla5"
-              Hostname 192.168.1.200
-          '';
-
-          "Match Originalhost eric-builder" = ''
-            Exec "nm-current-ssid | rg Dziupla5"
+            Exec "nmcli | rg Dziupla5"
               Hostname 192.168.1.200
           '';
         };
 
         matchBlocks = {
+          archive = {
+            hostname = "10.24.1.2";
+            port = 33002;
+            user = "pwy";
+          };
+
+          builder = {
+            hostname = "10.24.1.2";
+            port = 33001;
+            user = "pwy";
+          };
+
           edge = {
             hostname = "185.238.72.182";
             port = 33000;
@@ -36,15 +48,9 @@
             user = "pwy";
           };
 
-          eric-archive = {
-            hostname = "10.24.1.2";
-            port = 33002;
-            user = "pwy";
-          };
-
-          eric-builder = {
-            hostname = "10.24.1.2";
-            port = 33001;
+          gateway = {
+            hostname = "142.132.178.21";
+            port = 33000;
             user = "pwy";
           };
 

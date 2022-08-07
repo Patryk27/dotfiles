@@ -70,7 +70,7 @@
       packages = with pkgs; [
         (import ../role/app/backup.nix {
           inherit pkgs;
-          repo = "pwy@eric-archive:/home/pwy/backup-lenovo";
+          repo = "pwy@archive:/home/pwy/backup-lenovo";
         })
 
         darktable
@@ -103,11 +103,11 @@
           privateKeyFile = "/run/secrets/wg-fort:private-key";
 
           peers = [
-            # edge
+            # gateway
             {
               publicKey = "GwhWP0DClVw9fY7PJidPuZfOzBhxhcnjTnO+8i1Z50w=";
               allowedIPs = [ "10.24.1.0/24" ];
-              endpoint = "185.238.72.182:51820";
+              endpoint = "142.132.178.21:51820";
               persistentKeepalive = 10;
             }
           ];

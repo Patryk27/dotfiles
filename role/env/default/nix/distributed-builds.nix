@@ -5,14 +5,14 @@
         enable = true;
 
         extraOptionOverrides = {
-          "Match Originalhost eric-builder" = ''
-            Exec "nm-current-ssid | grep Dziupla5"
+          "Match Originalhost builder" = ''
+            Exec "nmcli | rg Dziupla5"
               Hostname 192.168.1.200
           '';
         };
 
         matchBlocks = {
-          eric-builder = {
+          builder = {
             hostname = "10.24.1.2";
             port = 33001;
             user = "builder";
@@ -31,7 +31,7 @@
 
     buildMachines = [
       {
-        hostName = "eric-builder";
+        hostName = "builder";
         system = "i686-linux";
         maxJobs = 1;
         speedFactor = 10;
@@ -40,7 +40,7 @@
       }
 
       {
-        hostName = "eric-builder";
+        hostName = "builder";
         system = "x86_64-linux";
         maxJobs = 1;
         speedFactor = 10;
@@ -51,11 +51,11 @@
 
     settings = {
       trusted-public-keys = [
-        "eric-builder:vj2KhujwD56FS5m1E/MNfUjlBGFLzWEc+ESHbiTJQ18="
+        "builder:vj2KhujwD56FS5m1E/MNfUjlBGFLzWEc+ESHbiTJQ18="
       ];
 
       trusted-substituters = [
-        "ssh-ng://eric-builder"
+        "ssh-ng://builder"
       ];
     };
   };
