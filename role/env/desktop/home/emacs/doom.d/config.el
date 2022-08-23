@@ -84,12 +84,9 @@
   (setq dirvish-attributes '())
 
   (map! :map dirvish-mode-map
-        :n ";" 'dirvish-toggle-fullscreen
-        :n "=" 'dired-diff-dwim
-        :n "?" 'dirvish-dispatch
         :n "F" nil
-        :n "b" 'dirvish-quick-access
-        :n "q" 'dirvish-quit))
+        :n ";" 'dirvish-layout-toggle
+        :n "=" 'dired-diff-dwim))
 
 ;; doom
 (setq doom-font (font-spec :family "Iosevka Custom Light" :size 18)

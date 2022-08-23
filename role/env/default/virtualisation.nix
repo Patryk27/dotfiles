@@ -27,9 +27,5 @@
       enable = true;
       zfsSupport = true;
     };
-
-    podman = {
-      enable = true;
-    };
   };
 }

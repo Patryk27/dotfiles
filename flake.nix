@@ -1,7 +1,6 @@
 {
   inputs = {
     doom-emacs = {
-      # url = "github:Patryk27/doom-emacs";
       url = "path:/home/pwy/Projects/doom-emacs";
       flake = false;
     };
@@ -64,66 +63,59 @@
     let
       inherit (nixpkgs) lib;
 
-      mkNixosConfiguration = { name, system }:
-        let
-          pkgs-rust-analyzer = import nixpkgs-rust-analyzer {
-            inherit system;
-          };
+      mkNixosConfiguration = { name, system }: lib.nixosSystem {
+        inherit system;
 
-        in
-        lib.nixosSystem {
-          inherit system;
+        modules = [
+          (import (./node + "/${name}.nix"))
+          (import (./node + "/${name}/hardware-configuration.nix"))
 
-          modules = [
-            (import (./node + "/${name}.nix"))
-            (import (./node + "/${name}/hardware-configuration.nix"))
+          home-manager.nixosModules.home-manager
+          sops-nix.nixosModules.sops
 
-            home-manager.nixosModules.home-manager
-            sops-nix.nixosModules.sops
-
-            ({ ... }: {
-              nix = {
-                registry = {
-                  nixpkgs = {
-                    flake = nixpkgs;
-                  };
+          ({ ... }: {
+            nix = {
+              registry = {
+                nixpkgs = {
+                  flake = nixpkgs;
                 };
-
-                nixPath = [
-                  "nixpkgs=${nixpkgs}"
-                ];
               };
 
-              nixpkgs = {
-                overlays = [
-                  emacs-overlay.overlay
+              nixPath = [
+                "nixpkgs=${nixpkgs}"
+              ];
+            };
 
-                  (self: super: {
-                    sources = {
-                      inherit doom-emacs emacs kitty-themes;
-                    };
+            nixpkgs = {
+              overlays = [
+                emacs-overlay.overlay
 
-                    ravedude = ravedude.defaultPackage."${system}";
-                    rust-analyzer = pkgs-rust-analyzer.rust-analyzer;
-                  })
-                ];
-              };
+                (self: super: {
+                  sources = {
+                    inherit doom-emacs emacs kitty-themes;
+                  };
 
-              sops = {
-                defaultSopsFile = ./secrets.yaml;
+                  ravedude = ravedude.defaultPackage."${system}";
+                  rust-analyzer = (import nixpkgs-rust-analyzer { inherit system; }).rust-analyzer;
+                })
+              ];
+            };
 
-                secrets = lib.genAttrs [
-                  "backup:passphrase:anixe"
-                  "backup:passphrase:lenovo"
-                  "wg-fort:private-key:lenovo"
-                ]
-                  (k: {
-                    owner = "pwy";
-                  });
-              };
-            })
-          ];
-        };
+            sops = {
+              defaultSopsFile = ./secrets.yaml;
+
+              secrets = lib.genAttrs [
+                "backup:passphrase:anixe"
+                "backup:passphrase:lenovo"
+                "wg-fort:private-key:lenovo"
+              ]
+                (k: {
+                  owner = "pwy";
+                });
+            };
+          })
+        ];
+      };
 
     in
     {
