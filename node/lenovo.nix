@@ -79,6 +79,7 @@
         inkscape
         kicad
         mullvad
+        nethack
         obs-studio
         rawtherapee
         spotify
