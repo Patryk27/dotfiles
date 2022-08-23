@@ -149,9 +149,9 @@
 
 (map! :leader
       :prefix ("=" . "calc")
-      :desc "eval" "RET" 'calc-eval-region
+      :desc "eval" "=" 'calc-eval-region
       :desc "grab" "g" 'calc-grab-rectangle
-      :desc "dispatch" "=" 'calc-dispatch)
+      :desc "dispatch" "d" 'calc-dispatch)
 
 (map! :leader
       :prefix "o"
@@ -161,7 +161,7 @@
   (interactive)
   (if (eq display-line-numbers-type nil)
       (progn
-        (setq display-line-numbers-type 'relative)
+        (setq display-line-numbers-type t)
         (global-display-line-numbers-mode +1))
     (progn
       (setq display-line-numbers-type nil)
@@ -214,10 +214,6 @@
       "p" 'focus-mode-pin
       "i" 'focus-change-thing)
 
-;; gcmh
-(setq gcmh-high-cons-threshold (* 128 1024 1024)
-      gcmh-idle-delay 10.0)
-
 ;; hl-line
 (setq hl-line-sticky-flag nil
       global-hl-line-sticky-flag nil)
@@ -254,6 +250,9 @@
       :n "ga" '+lookup/references
       :n "gD" nil
       :n "gt" '+lookup/type-definition)
+
+;; magit
+(setq magit-ediff-dwim-resolve-function 'magit-ediff-resolve-all)
 
 ;; markdown-mode
 (after! markdown-mode
@@ -343,8 +342,15 @@
    "cargo test --workspace --all-features"
    (list :mode 'rustic-cargo-run-mode)))
 
-(defun rustic-open-lib-rs()
-  "Open related 'lib.rs' file."
+(defun rustic-open-main-rs ()
+  "Open closest 'main.rs'."
+  (interactive)
+  (let ((file (locate-dominating-file "." "Cargo.toml")))
+    (when file
+      (find-file (concat file "src/main.rs")))))
+
+(defun rustic-open-lib-rs ()
+  "Open closest 'lib.rs'."
   (interactive)
   (let ((file (locate-dominating-file "." "Cargo.toml")))
     (when file
@@ -368,8 +374,9 @@
   (map! :map rustic-mode-map
         :localleader
         :prefix ("o" . "open")
+        :desc "main.rs" "m" 'rustic-open-main-rs
         :desc "lib.rs" "l" 'rustic-open-lib-rs
-        :desc "Cargo.toml" "o" 'lsp-rust-analyzer-open-cargo-toml)
+        :desc "Cargo.toml" "c" 'lsp-rust-analyzer-open-cargo-toml)
 
   (map! :map rustic-mode-map
         :localleader
@@ -392,6 +399,16 @@
 (map! "C-x s" 'subword-mode
       "C-x S" 'global-subword-mode)
 
+;; TODO not sure why it's needed - maybe the current Emacs's version is somewhat
+;;      malfunctioning?
+(after! transient
+  (setq transient-levels-file  (concat doom-data-dir "transient/levels")
+        transient-values-file  (concat doom-data-dir "transient/values")
+        transient-history-file (concat doom-data-dir "transient/history"))
+
+  (setq transient-values
+    (transient--read-file-contents transient-values-file)))
+
 ;; undo-tree
 (setq undo-tree-visualizer-timestamps t)
 
@@ -400,7 +417,9 @@
       vertico-quick2 "jkl")
 
 (map! :map vertico-map
-      "M-q" #'vertico-quick-insert)
+      "DEL" #'backward-delete-char
+      "C-DEL" #'vertico-directory-delete-char
+      "M-i" #'vertico-quick-insert)
 
 ;; vterm
 (map! :leader "d" '+vterm/toggle)

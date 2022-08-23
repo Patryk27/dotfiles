@@ -19,7 +19,11 @@
 
       packages =
         let
-          emacs' = pkgs.emacsPgtkNativeComp.overrideAttrs (attrs: {
+          emacs'' = pkgs.emacsPgtkNativeComp.override {
+            withImageMagick = true;
+          };
+
+          emacs' = emacs''.overrideAttrs (attrs: {
             src = pkgs.sources.emacs;
 
             patches = attrs.patches ++ [
