@@ -9,10 +9,6 @@
   :recipe (:host github :repo "larstvei/Focus")
   :pin "5f3f20e7f22fb9fd7c48abce8bd38061d97e4bc0")
 
-(package! olivetti
-  :recipe (:host github :repo "rnkn/olivetti")
-  :pin "8d287a80c5e3d72ac01b56c8afe60b01f18500b4")
-
 (package! org-modern
   :recipe (:host github :repo "minad/org-modern")
   :pin "239c02aa99dc52755edf38d5e9c9e986683c4249")
