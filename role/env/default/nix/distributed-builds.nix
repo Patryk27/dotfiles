@@ -33,8 +33,8 @@
       {
         hostName = "builder";
         system = "i686-linux";
-        maxJobs = 1;
-        speedFactor = 10;
+        maxJobs = 8;
+        speedFactor = 5;
         supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
         mandatoryFeatures = [ ];
       }
@@ -42,8 +42,8 @@
       {
         hostName = "builder";
         system = "x86_64-linux";
-        maxJobs = 1;
-        speedFactor = 10;
+        maxJobs = 8;
+        speedFactor = 5;
         supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
         mandatoryFeatures = [ ];
       }
