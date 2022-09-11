@@ -6,7 +6,7 @@
     };
 
     emacs = {
-      url = "git+https://git.savannah.gnu.org/git/emacs.git?rev=ef77070727f262d9cecefd8a204c49a47ce4fc45";
+      url = "git+https://git.savannah.gnu.org/git/emacs.git";
       flake = false;
     };
 
