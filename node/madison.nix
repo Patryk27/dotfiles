@@ -31,6 +31,12 @@
     hostId = "937e9913";
     hostName = "madison";
 
+    firewall = {
+      allowedTCPPorts = [
+        8443 # LXD
+      ];
+    };
+
     interfaces = {
       enp1s0 = {
         useDHCP = true;
