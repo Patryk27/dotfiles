@@ -90,7 +90,8 @@
 
 ;; doom
 (setq doom-font (font-spec :family "Iosevka Custom Light" :size 18)
-      doom-theme 'doom-gruvbox)
+      doom-theme 'doom-gruvbox
+      +doom-dashboard-functions '(doom-dashboard-widget-banner))
 
 (map! :leader
       "b a" 'rename-buffer
@@ -98,8 +99,10 @@
       "o t" '+vterm/here
       "o T" nil
       "[" '+workspace/switch-left
+      "(" '+workspace/switch-left
       "TAB [" nil
       "]" '+workspace/switch-right
+      ")" '+workspace/switch-right
       "TAB ]" nil
       "{" '+workspace/swap-left
       "}" '+workspace/swap-right
@@ -250,9 +253,6 @@
       :n "ga" '+lookup/references
       :n "gD" nil
       :n "gt" '+lookup/type-definition)
-
-;; magit
-(setq magit-ediff-dwim-resolve-function 'magit-ediff-resolve-all)
 
 ;; markdown-mode
 (after! markdown-mode
