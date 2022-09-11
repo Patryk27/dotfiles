@@ -143,6 +143,39 @@
 
     throttled = {
       enable = true;
+
+      extraConfig = ''
+        [GENERAL]
+        Enabled: True
+        Sysfs_Power_Path: /sys/class/power_supply/AC*/online
+        Autoreload: True
+
+        [BATTERY]
+        Update_Rate_s: 30
+        HWP_Mode: False
+
+        [AC]
+        Update_Rate_s: 5
+        PL1_Tdp_W: 60
+        PL1_Duration_s: 60
+        PL2_Tdp_W: 60
+        PL2_Duration_s: 60
+        HWP_Mode: True
+
+        [UNDERVOLT.BATTERY]
+        CORE: -140
+        GPU: -100
+        CACHE: -140
+        UNCORE: 0
+        ANALOGIO: 0
+
+        [UNDERVOLT.AC]
+        CORE: -140
+        GPU: -100
+        CACHE: -140
+        UNCORE: 0
+        ANALOGIO: 0
+      '';
     };
 
     tlp = {
@@ -177,12 +210,6 @@
         # Arduino
         KERNEL=="ttyACM[0-9]*", MODE="0666"
       '';
-    };
-
-    undervolt = {
-      enable = true;
-      coreOffset = -140;
-      gpuOffset = -100;
     };
   };
 
