@@ -1,9 +1,0 @@
-#!/usr/bin/env zsh
-
-hour=$(date +%H)
-
-if (( hour > 6 && hour < 22 )); then
-    brightnessctl s '100%'
-else
-    brightnessctl s '50%'
-fi
