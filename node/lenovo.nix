@@ -73,6 +73,11 @@
           repo = "pwy@archive:/home/pwy/backup-lenovo";
         })
 
+        (dwarf-fortress-packages.dwarf-fortress-full.override {
+          enableIntro = false;
+          theme = dwarf-fortress-packages.themes.spacefox;
+        })
+
         darktable
         geeqie
         gocryptfs
