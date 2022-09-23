@@ -82,7 +82,7 @@
         geeqie
         gocryptfs
         inkscape
-        kicad
+        # kicad TODO 
         mullvad
         nethack
         obs-studio

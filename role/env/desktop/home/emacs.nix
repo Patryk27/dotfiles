@@ -45,11 +45,13 @@
             pl
           ]))
 
+          rnix-lsp
           rust-analyzer
         ];
 
       sessionVariables = {
         DOOMLOCALDIR = "${config.xdg.cacheHome}/.doom.local";
+        DOOMPROFILELOADFILE = "${config.xdg.cacheHome}/profile-load.el";
       };
     };
   };

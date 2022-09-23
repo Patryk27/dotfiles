@@ -7,11 +7,11 @@
 
 (package! focus
   :recipe (:host github :repo "larstvei/Focus")
-  :pin "5f3f20e7f22fb9fd7c48abce8bd38061d97e4bc0")
+  :pin "9dd85fc474bbc1ebf22c287752c960394fcd465a")
 
 (package! org-modern
   :recipe (:host github :repo "minad/org-modern")
-  :pin "23347906b826656c5054b8e35714a1c3d74bdcc4")
+  :pin "610e6fb535b3baf5cbcf17e6491076793e52ae98")
 
 (package! parrot
   :recipe (:host github :repo "dp12/parrot")

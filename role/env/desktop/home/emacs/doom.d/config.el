@@ -266,7 +266,8 @@
       org-directory "~/org/")
 
 ;; org-modern
-(global-org-modern-mode)
+(after! org
+  (global-org-modern-mode))
 
 ;; parrot
 (parrot-mode -1)

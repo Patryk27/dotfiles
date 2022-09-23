@@ -5,7 +5,7 @@
        :ui
        doom
        doom-dashboard
-       (emoji +unicode)
+       ;; (emoji +unicode) TODO
        hl-todo
        modeline
        ophints
@@ -61,7 +61,7 @@
        (javascript +tree-sitter)
        (json +tree-sitter)
        (markdown +grip)
-       (nix +tree-sitter)
+       (nix +lsp +tree-sitter)
        org
        rest
        (rust +lsp +tree-sitter)
