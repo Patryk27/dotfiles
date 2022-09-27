@@ -6,7 +6,7 @@
     };
 
     emacs = {
-      url = "git+https://git.savannah.gnu.org/git/emacs.git?rev=0a5477b448e6b62bcedc1803e531ec7686eea48d";
+      url = "git+https://git.savannah.gnu.org/git/emacs.git?rev=6a35160e557120b27ee6f8da04c50a89ee54b28c";
       flake = false;
     };
 
@@ -33,10 +33,6 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
-    nixpkgs-kernel = {
-      url = "github:nixos/nixpkgs/40674f0d7f6b06f0b96a6b24cb8d31363a92da86";
-    };
-
     nixpkgs-rust-analyzer = {
       url = "github:nixos/nixpkgs";
     };
@@ -59,7 +55,6 @@
     , kitty-themes
     , nix
     , nixpkgs
-    , nixpkgs-kernel
     , nixpkgs-rust-analyzer
     , ravedude
     , sops-nix
@@ -100,7 +95,6 @@
                     inherit doom-emacs emacs kitty-themes;
                   };
 
-                  linuxKernel = (import nixpkgs-kernel { inherit system; }).linuxKernel;
                   ravedude = ravedude.defaultPackage."${system}";
                   rust-analyzer = (import nixpkgs-rust-analyzer { inherit system; }).rust-analyzer;
                 })

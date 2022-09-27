@@ -4,53 +4,33 @@ Configurations for some of my NixOS machines.
 
 [#flakes](https://nixos.wiki/wiki/Flakes),
 [#home-manager](https://github.com/nix-community/home-manager),
-[#sway](https://nixos.wiki/wiki/Sway),
 [#sops](https://github.com/Mic92/sops-nix)
 
 # Notable parts
 
 ## Emacs
 
-- [nix](role/env/desktop/home/emacs.nix)
-- [doom.d](role/env/desktop/home/emacs/doom.d)
+- [nix](role/env/desktop/emacs.nix)
+- [doom.d](role/env/desktop/emacs/doom.d)
+
+## i3
+
+- [nix](role/env/desktop/i3.nix)
+- [config](role/env/desktop/i3/config)
 
 ## Kitty
 
-- [nix](role/env/desktop/home/kitty.nix)
+- [nix](role/env/desktop/kitty.nix)
 
-## Sway
+## Polybar
 
-- [nix](role/env/desktop/home/sway.nix)
-- [config](role/env/desktop/home/sway/config)
-
-## Waybar
-
-- [nix](role/env/desktop/home/waybar.nix)
-- [style](role/env/desktop/home/waybar/style.css)
+- [nix](role/env/desktop/polybar.nix)
 
 ## ZSH
 
-- [nix](role/env/default/home/zsh.nix)
-
-# Structure
-
-### `node`
-
-My machines.
-
-Two of them are physical laptops, the third one is a virtual machine where I offload CPU-intensive tasks.
-
-### `role/app`
-
-Applications that wouldn't make sense to push upstream (i.e. my backup script).
-
-### `role/env`
-
-Environments: `default` contains all the non-graphical applications (because one of my nodes is a _headless_ virtual machine), `desktop` contains the rest.
-
-### `role/target`
-
-Deployment targets: physical machine and virtual machine.
+- [nix](role/env/default/zsh.nix)
+- [config](role/env/default/zsh/init.zsh)
+- [theme](role/env/default/zsh/custom/themes/custom.zsh-theme)
 
 # License
 

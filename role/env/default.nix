@@ -1,8 +1,14 @@
 { config, pkgs, ... }: {
   imports = [
-    ./default/home.nix
+    ./default/git.nix
+    ./default/gpg.nix
+    ./default/lorri.nix
     ./default/nix.nix
+    ./default/programming.nix
+    ./default/ssh.nix
+    ./default/vim.nix
     ./default/virtualisation.nix
+    ./default/zsh.nix
   ];
 
   console = {
@@ -38,6 +44,35 @@
       wget
       zsh
     ];
+  };
+
+  home-manager = {
+    useUserPackages = true;
+    useGlobalPkgs = true;
+
+    users = {
+      root = {
+        home = {
+          stateVersion = "19.09";
+        };
+      };
+
+      pwy = {
+        home = {
+          stateVersion = "19.09";
+          username = "pwy";
+
+          keyboard = {
+            layout = "pl";
+            options = [ "caps:escape" ];
+          };
+
+          sessionVariables = {
+            EDITOR = "vim";
+          };
+        };
+      };
+    };
   };
 
   i18n = {

@@ -8,7 +8,6 @@ workspace_layout tabbed
 
 font pango:Iosevka Custom 10
 title_align center
-titlebar_padding 1 1
 
 client.background       #282828
 client.focused          #282828 #282828 #b8bb26 #282828 #282828
@@ -17,31 +16,8 @@ client.focused_inactive #282828 #282828 #dfdfdf #282828 #282828
 client.urgent           #282828 #dc3545 #ffffff #282828 #282828
 client.placeholder      #282828 #282828 #dfdfdf #282828 #282828
 
-## ------ ##
-## inputs ##
-
-input "1:1:AT_Translated_Set_2_keyboard" {
-    xkb_layout "custom"
-    xkb_options caps:escape,compose:prsc
-    repeat_delay 200
-    repeat_rate 25
-}
-
-input "12951:18804:ZSA_Technology_Labs_ErgoDox_EZ" {
-    xkb_layout "pl"
-    xkb_options compose:prsc
-    repeat_delay 200
-    repeat_rate 25
-}
-
-input type:mouse {
-    scroll_factor 0.6
-}
-
 ## ---- ##
 ## main ##
-
-seat * hide_cursor 2000
 
 bindsym Super_L mode "~"
 bindsym Print mode "~"
@@ -55,6 +31,7 @@ bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 
 mode "~" {
     bindsym Super_L mode "default"
+    bindsym Print mode "default"
 
     bindsym q workspace 1; mode "default"
     bindsym w workspace 2; mode "default"
@@ -70,33 +47,31 @@ mode "~" {
     bindsym j focus down; mode "default"
     bindsym k focus up; mode "default"
     bindsym l focus right; mode "default"
-    bindsym y focus parent; mode "default"
-    bindsym n focus child; mode "default"
+    bindsym Ctrl+k focus parent; mode "default"
+    bindsym Ctrl+j focus child; mode "default"
 
     bindsym Shift+h move left; mode "default"
     bindsym Shift+j move down; mode "default"
     bindsym Shift+k move up; mode "default"
     bindsym Shift+l move right; mode "default"
 
-    bindsym Backspace mode "~/system"
     bindsym u mode "~/screen"
     bindsym i mode "~/workspace"
     bindsym o mode "~/container"
     bindsym p mode "~/window"
+    bindsym m mode "~/system"
 
-    bindsym Return exec "wofi --show drun"; mode "default"
-    bindsym Space exec "kitty"; mode "default"
+    bindsym period exec "rofi -show drun"; mode "default"
+    bindsym slash exec "kitty"; mode "default"
+    bindsym semicolon exec "rofi -show"; mode "default"
 }
 
 mode "~/container" {
     bindsym Super_L mode "default"
+    bindsym Print mode "default"
 
-    bindsym h split h; mode "default"
-    bindsym j split v; mode "default"
-
-    bindsym r layout tabbed; mode "default"
-    bindsym f layout stacking; mode "default"
-    bindsym v layout toggle split; mode "default"
+    bindsym l mode "~/container/layout"
+    bindsym s mode "~/container/split"
 
     bindsym Shift+h move container left; mode "default"
     bindsym Shift+j move container down; mode "default"
@@ -119,37 +94,42 @@ mode "~/container" {
     bindsym Ctrl+Shift+l move container to output right; mode "default"
 }
 
+mode "~/container/layout" {
+    bindsym Super_L mode "default"
+    bindsym Print mode "default"
+
+    bindsym q layout tabbed; mode "default"
+    bindsym w layout stacking; mode "default"
+    bindsym e layout toggle split; mode "default"
+}
+
+mode "~/container/split" {
+    bindsym Super_L mode "default"
+    bindsym Print mode "default"
+
+    bindsym h split h; mode "default"
+    bindsym v split v; mode "default"
+}
+
 mode "~/screen" {
     bindsym Super_L mode "default"
+    bindsym Print mode "default"
 
-    bindsym o exec bash -c 'geo="$(slurp)"; sleep 1; grim -g "$geo" -t png - | wl-copy -t image/png'; mode "default"
-    bindsym p exec grim -g "$(slurp)" -t png - | wl-copy -t image/png; mode "default"
-    bindsym Shift+p exec grim -g "$(slurp)" -t png /tmp/screen.png; mode "default"
-
-    bindsym r exec \
-        dbus-send /io/pwy/ScreenRecorder io.pwy.ScreenRecorder.Started \
-     && wf-recorder -g "$(slurp)" -f /tmp/screen.mp4 \
-      ; mode "default"
-
-    bindsym Shift+R exec \
-        dbus-send /io/pwy/ScreenRecorder io.pwy.ScreenRecorder.Stopped \
-     && pkill -SIGINT wf-recorder \
-      ; mode "default"
+    bindsym o exec "xfce4-screenshooter"; mode "default"
 }
 
 mode "~/system" {
     bindsym Super_L mode "default"
+    bindsym Print mode "default"
 
-    bindsym d exec "makoctl set-mode dnd"; mode "default"
-    bindsym Shift+d exec "makoctl set-mode default"; mode "default"
-
-    bindsym l exec "swaylock -c 000000 -d && swaymsg mode default"
+    bindsym l exec "i3lock -c 000000 -d && i3-msg mode default"
     bindsym p exec "poweroff"
     bindsym r exec "reboot"
 }
 
 mode "~/window" {
     bindsym Super_L mode "default"
+    bindsym Print mode "default"
 
     bindsym f floating toggle; mode "default"
     bindsym g fullscreen toggle; mode "default"
@@ -173,6 +153,7 @@ mode "~/window" {
 
 mode "~/workspace" {
     bindsym Super_L mode "default"
+    bindsym Print mode "default"
 
     bindsym Ctrl+Shift+h move workspace to output left; mode "default"
     bindsym Ctrl+Shift+j move workspace to output down; mode "default"
@@ -187,7 +168,15 @@ for_window [urgent=latest] focus
 for_window [window_role="pop-up"] floating enable
 
 assign [title="Slack"] 1
-assign [title="Google Chrome"] 2
-assign [title="Mozilla Firefox"] 2
+assign [title="Firefox"] 2
+assign [title="Emacs"] 3
 assign [title="Thunderbird"] 4
-assign [title="Keybase"] 8
+
+## ------- ##
+## autorun ##
+
+exec --no-startup-id i3-msg "workspace 1; exec slack"
+exec --no-startup-id i3-msg "workspace 2; exec firefox"
+exec --no-startup-id i3-msg "workspace 3; exec emacs"
+exec --no-startup-id i3-msg "workspace 4; exec thunderbird"
+exec --no-startup-id i3-msg "workspace 2"

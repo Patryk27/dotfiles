@@ -9,21 +9,8 @@
       "nouveau"
     ];
 
-    extraModulePackages = with config.boot.kernelPackages; [
-      acpi_call
-    ];
-
-    extraModprobeConfig = "options snd_hda_intel power_save=1";
-
-    kernelModules = [
-      "acpi_call"
-    ];
-
     kernelParams = [
-      "i915.enable_fbc=1"
-      "i915.enable_gvt=1"
       "psmouse.synaptics_intertouch=1"
-      "thinkpad_acpi.fan_control=1"
     ];
 
     initrd = {
@@ -40,16 +27,6 @@
         };
       };
     };
-  };
-
-  console = {
-    font = "latarcyrheb-sun32";
-  };
-
-  environment = {
-    systemPackages = with pkgs; [
-      screen
-    ];
   };
 
   hardware = {
@@ -78,22 +55,34 @@
           theme = dwarf-fortress-packages.themes.spacefox;
         })
 
+        anki-bin
         darktable
         geeqie
         gocryptfs
         inkscape
-        # kicad TODO 
-        mullvad
-        nethack
-        obs-studio
+        # kicad TODO
+        mpv
         rawtherapee
-        spotify
+        screen
         virt-manager
       ];
+    };
 
-      sessionVariables = {
-        MESA_LOADER_DRIVER_OVERRIDE = "iris";
-      };
+    xsession = {
+      initExtra =
+        let
+          layout = pkgs.writeText "layout" ''
+            keycode 110 = Page_Up
+            keycode 112 = Home
+            keycode 115 = Page_Down
+            keycode 117 = End
+          '';
+
+        in
+        ''
+          ${pkgs.xorg.xmodmap}/bin/xmodmap ${layout}
+          echo "Xft.dpi: 192" | ${pkgs.xorg.xrdb}/bin/xrdb -merge
+        '';
     };
   };
 
@@ -134,10 +123,6 @@
 
   services = {
     davfs2 = {
-      enable = true;
-    };
-
-    mullvad-vpn = {
       enable = true;
     };
 
@@ -247,6 +232,35 @@
 
         ovmf = {
           enable = true;
+        };
+      };
+    };
+  };
+
+  # ---
+
+  specialisation = {
+    nvidia = {
+      inheritParentConfig = true;
+
+      configuration = {
+        hardware = {
+          nvidia = {
+            prime = {
+              nvidiaBusId = "PCI:1:0:0";
+              intelBusId = "PCI:0:2:0";
+
+              sync = {
+                enable = true;
+              };
+            };
+          };
+        };
+
+        services = {
+          xserver = {
+            videoDrivers = [ "nvidia" ];
+          };
         };
       };
     };

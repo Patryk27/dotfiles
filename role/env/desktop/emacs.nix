@@ -19,7 +19,7 @@
 
       packages =
         let
-          emacs'' = pkgs.emacsPgtkNativeComp.override {
+          emacs'' = pkgs.emacsNativeComp.override {
             withImageMagick = true;
           };
 

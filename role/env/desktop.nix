@@ -1,19 +1,28 @@
 { pkgs, ... }: {
   imports = [
     ./default.nix
-    ./desktop/home.nix
+    ./desktop/emacs.nix
+    ./desktop/i3.nix
     ./desktop/iphone.nix
-    ./desktop/video.nix
-    ./desktop/yubikey.nix
+    ./desktop/kitty.nix
+    ./desktop/polybar.nix
+    ./desktop/rofi.nix
   ];
 
   environment = {
+    pathsToLink = [
+      "/libexec"
+    ];
+
     systemPackages = with pkgs; [
       audacity
       chromium
-      firefox-wayland
+      firefox
       gimp
       libreoffice
+      slack
+      spotify
+      thunderbird
       vlc
     ];
   };
@@ -62,12 +71,61 @@
       enable = true;
       driSupport32Bit = true;
     };
+
+    pulseaudio = {
+      enable = true;
+      package = pkgs.pulseaudioFull;
+    };
   };
 
   nixpkgs = {
     config = {
+      pulseaudio = true;
+
       chromium = {
         enableWideVine = true;
+      };
+    };
+  };
+
+  programs = {
+    dconf = {
+      enable = true;
+    };
+  };
+
+  services = {
+    xserver = {
+      enable = true;
+      layout = "pl";
+      autoRepeatDelay = 200;
+      autoRepeatInterval = 40;
+
+      libinput = {
+        enable = true;
+      };
+
+      displayManager = {
+        autoLogin = {
+          enable = true;
+          user = "pwy";
+        };
+      };
+
+      desktopManager = {
+        session = [
+          { name = "default"; start = ""; }
+        ];
+
+        xfce = {
+          enable = true;
+          noDesktop = true;
+          enableXfwm = false;
+        };
+
+        xterm = {
+          enable = false;
+        };
       };
     };
   };

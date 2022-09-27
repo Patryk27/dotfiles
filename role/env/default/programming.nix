@@ -11,9 +11,6 @@
     home = {
       file = {
         ".cargo/config".text = ''
-          [registries.meuse]
-          index = "ssh://git@git.anixe.pl/aclr8/crates-index.git"
-
           [target.x86_64-unknown-linux-gnu]
           rustflags = [
               "-C", "link-arg=-fuse-ld=lld",

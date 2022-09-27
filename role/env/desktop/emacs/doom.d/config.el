@@ -29,7 +29,7 @@
     (activate-mark)
     (goto-char pt))
 
-  (setf (alist-get ?  avy-dispatch-alist) 'avy-action-mark-to-char)
+  (setf (alist-get ? avy-dispatch-alist) 'avy-action-mark-to-char)
 
   (defun avy-action-lookup-documentation (pt)
     (save-excursion
@@ -39,7 +39,7 @@
      (cdr (ring-ref avy-ring 0)))
     t)
 
-  (setf (alist-get ?w avy-dispatch-alist) 'avy-action-lookup-documentation)
+  (setf (alist-get ?k avy-dispatch-alist) 'avy-action-lookup-documentation)
 
   (defun avy-action-embark (pt)
     (unwind-protect
@@ -50,7 +50,7 @@
        (cdr (ring-ref avy-ring 0))))
     t)
 
-  (setf (alist-get ?. avy-dispatch-alist) 'avy-action-embark))
+  (setf (alist-get ?e avy-dispatch-alist) 'avy-action-embark))
 
 ;; dired / dirvish
 (map! :leader "j" 'dired-jump)
@@ -89,7 +89,7 @@
         :n "=" 'dired-diff-dwim))
 
 ;; doom
-(setq doom-font (font-spec :family "Iosevka Custom Light" :size 18)
+(setq doom-font (font-spec :family "Iosevka Custom Light" :size 36)
       doom-theme 'doom-gruvbox
       +doom-dashboard-functions '(doom-dashboard-widget-banner))
 
