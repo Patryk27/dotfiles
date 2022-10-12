@@ -25,8 +25,10 @@
         clang-tools
         cmake
         gcc
+        gcsfuse
         gdb
         gnumake
+        google-cloud-sdk
         imagemagick
         jq
         kcachegrind
