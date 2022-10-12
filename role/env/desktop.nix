@@ -78,6 +78,16 @@
     };
   };
 
+  home-manager.users.pwy = {
+    home = {
+      file = {
+        ".wallpaper" = {
+          source = ./desktop/wallpaper.png;
+        };
+      };
+    };
+  };
+
   nixpkgs = {
     config = {
       pulseaudio = true;

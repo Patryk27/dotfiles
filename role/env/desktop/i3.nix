@@ -3,6 +3,7 @@
     home = {
       packages = with pkgs; [
         brightnessctl
+        feh
         i3lock
       ];
     };
