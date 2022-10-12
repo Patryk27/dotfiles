@@ -32,6 +32,7 @@
         imagemagick
         jq
         kcachegrind
+        libxml2
         linuxPackages.perf
         lld
         ninja
