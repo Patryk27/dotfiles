@@ -5,6 +5,7 @@
         brightnessctl
         feh
         i3lock
+        xfce.xfce4-clipman-plugin
       ];
     };
 
