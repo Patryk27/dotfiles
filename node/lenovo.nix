@@ -60,7 +60,7 @@
         geeqie
         gocryptfs
         inkscape
-        # kicad TODO
+        kicad
         mpv
         rawtherapee
         screen

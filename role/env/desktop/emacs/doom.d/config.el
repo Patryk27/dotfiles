@@ -81,9 +81,11 @@
       (error "no more than 2 files should be marked"))))
 
 (after! (:and evil dired)
-  (setq dirvish-attributes '())
+  (setq dirvish-hide-details nil)
 
   (map! :map dirvish-mode-map
+        :n "h" 'dired-up-directory
+        :n "l" 'dired-find-file
         :n "F" nil
         :n ";" 'dirvish-layout-toggle
         :n "=" 'dired-diff-dwim))
@@ -133,7 +135,8 @@
 (setq calendar-week-start-day 1
       display-line-numbers-type nil
       user-full-name "Patryk Wychowaniec"
-      user-mail-address "pwychowaniec@pm.me")
+      user-mail-address "pwychowaniec@pm.me"
+      x-select-enable-clipboard-manager nil)
 
 (setq-default major-mode 'text-mode)
 
@@ -317,7 +320,7 @@
   "Run 'cargo check' on current crate."
   (interactive)
   (rustic-run-cargo-command
-   "cargo check --tests --all-features"
+   "cargo check --tests --benches --all-features"
    (list :mode 'rustic-cargo-run-mode
          :directory (rustic-buffer-crate))))
 
@@ -333,7 +336,7 @@
   "Run 'cargo check' on current workspace."
   (interactive)
   (rustic-run-cargo-command
-   "cargo check --workspace --tests --all-features"
+   "cargo check --workspace --tests --benches --all-features"
    (list :mode 'rustic-cargo-run-mode)))
 
 (defun rustic-cargo-test-workspace ()

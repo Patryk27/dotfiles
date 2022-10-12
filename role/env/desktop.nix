@@ -25,6 +25,8 @@
       spotify
       thunderbird
       vlc
+      xclip
+      xorg.xmodmap
     ];
   };
 

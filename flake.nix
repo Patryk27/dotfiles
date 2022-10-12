@@ -6,7 +6,7 @@
     };
 
     emacs = {
-      url = "git+https://git.savannah.gnu.org/git/emacs.git?rev=6a35160e557120b27ee6f8da04c50a89ee54b28c";
+      url = "git+https://git.savannah.gnu.org/git/emacs.git?rev=739b5d0e52d83ec567bd61a5a49ac0e93e0eb469";
       flake = false;
     };
 
@@ -38,7 +38,7 @@
     };
 
     ravedude = {
-      url = "github:Patryk27/avr-hal/nix?dir=ravedude";
+      url = "github:Rahix/avr-hal?dir=ravedude";
     };
 
     sops-nix = {
