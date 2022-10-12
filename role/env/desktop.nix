@@ -20,6 +20,7 @@
       firefox
       gimp
       libreoffice
+      okular
       slack
       spotify
       thunderbird
