@@ -68,6 +68,16 @@
       ];
     };
 
+    services = {
+      polybar = {
+        config = {
+          "module/temperature" = {
+            hwmon-path = "/sys/devices/platform/coretemp.0/hwmon/hwmon8/temp1_input";
+          };
+        };
+      };
+    };
+
     xsession = {
       initExtra =
         let

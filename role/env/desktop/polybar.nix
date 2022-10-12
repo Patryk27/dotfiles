@@ -53,9 +53,9 @@
 
             modules-right =
               if builtins.elem "nvidia" config.services.xserver.videoDrivers then
-                "cpu nvidia memory battery pulseaudio date"
+                "cpu nvidia memory battery pulseaudio backlight temperature date"
               else
-                "cpu memory battery pulseaudio date";
+                "cpu memory battery pulseaudio backlight temperature date";
 
             tray-position = "right";
             tray-padding = 0;
@@ -78,6 +78,12 @@
                 "Iosevka Custom:size=18;2"
               else
                 "Iosevka Custom:size=8;1";
+          };
+
+          "module/backlight" = {
+            type = "internal/backlight";
+            label = "led[%percentage%%]";
+            card = "intel_backlight";
           };
 
           "module/battery" = {
@@ -156,8 +162,15 @@
 
           "module/pulseaudio" = {
             type = "internal/pulseaudio";
-            label-volume = "vol[%percentage%]";
-            label-muted = "vol[%percentage%,-]";
+            label-volume = "vol[%percentage%%]";
+            label-muted = "vol[%percentage%%,-]";
+          };
+
+          "module/temperature" = {
+            type = "internal/temperature";
+            label = "temp[%temperature-c%]";
+            label-warn = "temp![%temperature-c%]";
+            units = true;
           };
         };
       };
