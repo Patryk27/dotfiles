@@ -86,6 +86,10 @@
             keycode 112 = Home
             keycode 115 = Page_Down
             keycode 117 = End
+
+            keysym d = d D aring Aring aring Aring
+            keysym r = r R odiaeresis Odiaeresis odiaeresis Odiaeresis
+            keysym w = w W adiaeresis Adiaeresis adiaeresis Adiaeresis
           '';
 
         in
