@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }: {
   imports = [
     ../role/env/default.nix
-    ../role/env/desktop/home/emacs.nix
     ../role/target/virtual.nix
   ];
 
@@ -9,14 +8,6 @@
     loader = {
       grub = {
         device = "/dev/vda";
-      };
-    };
-  };
-
-  home-manager.users.pwy = {
-    services = {
-      gpg-agent = {
-        enable = lib.mkForce false;
       };
     };
   };
