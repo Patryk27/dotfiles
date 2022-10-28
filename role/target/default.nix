@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   boot = {
     tmpOnTmpfs = true;
-    kernelPackages = pkgs.linuxPackages_5_15;
+    kernelPackages = pkgs.linuxPackages_5_19;
 
     kernelParams = [
       "mitigations=off"

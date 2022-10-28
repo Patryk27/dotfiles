@@ -361,6 +361,10 @@
       (find-file (concat file "src/lib.rs")))))
 
 (after! rustic
+  ;; TODO https://github.com/brotzeit/rustic/issues/450
+  (defun rustic-save-some-buffers-advice (orig-fun &rest args)
+    (apply orig-fun args))
+
   (map! :map rustic-mode-map
         :n "S-M-<up>" 'lsp-rust-analyzer-move-item-up
         :n "S-M-<down>" 'lsp-rust-analyzer-move-item-down)
@@ -410,10 +414,11 @@
 (setq vertico-quick1 "asd"
       vertico-quick2 "jkl")
 
-(map! :map vertico-map
-      "DEL" #'backward-delete-char
-      "C-DEL" #'vertico-directory-delete-char
-      "M-i" #'vertico-quick-insert)
+(after! vertico
+  (map! :map vertico-map
+        "DEL" #'backward-delete-char
+        "C-DEL" #'vertico-directory-delete-char
+        "M-i" #'vertico-quick-insert))
 
 ;; vterm
 (map! :leader "d" '+vterm/toggle)
