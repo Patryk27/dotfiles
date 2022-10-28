@@ -52,7 +52,7 @@
 
         (dwarf-fortress-packages.dwarf-fortress-full.override {
           enableIntro = false;
-          theme = dwarf-fortress-packages.themes.spacefox;
+          theme = dwarf-fortress-packages.themes.wanderlust;
         })
 
         anki-bin
