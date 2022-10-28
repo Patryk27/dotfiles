@@ -44,6 +44,7 @@
         rustup
         sqlite
         valgrind
+        wrk
       ];
     };
   };
