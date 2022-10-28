@@ -403,16 +403,6 @@
 (map! "C-x s" 'subword-mode
       "C-x S" 'global-subword-mode)
 
-;; TODO not sure why it's needed - maybe the current Emacs's version is somewhat
-;;      malfunctioning?
-(after! transient
-  (setq transient-levels-file  (concat doom-data-dir "transient/levels")
-        transient-values-file  (concat doom-data-dir "transient/values")
-        transient-history-file (concat doom-data-dir "transient/history"))
-
-  (setq transient-values
-    (transient--read-file-contents transient-values-file)))
-
 ;; undo-tree
 (setq undo-tree-visualizer-timestamps t)
 
