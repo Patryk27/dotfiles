@@ -111,7 +111,7 @@
             interval = 1;
 
             date = "%u-%U,%d-%m-%Y";
-            time = "%M:%H";
+            time = "%S:%M:%H";
             label = "cal[%time%,%date%]";
           };
 
