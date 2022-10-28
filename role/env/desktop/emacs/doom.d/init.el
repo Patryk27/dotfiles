@@ -5,7 +5,7 @@
        :ui
        doom
        doom-dashboard
-       ;; (emoji +unicode) TODO
+       (emoji +unicode)
        hl-todo
        modeline
        ophints
