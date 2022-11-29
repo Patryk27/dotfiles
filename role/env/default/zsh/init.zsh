@@ -72,10 +72,47 @@ pg-rust() {
         "$dir/Cargo.toml"
 }
 
+pub-add() {
+    fpath="$1"
+
+    if [[ -z "$fpath" ]]; then
+        echo "usage: pub-add <path>"
+        return
+    fi
+
+    fname=$(basename "$fpath")
+
+    rsync \
+        -avz \
+        --info=progress \
+        --rsync-path="sudo rsync" \
+        "$fpath" \
+        "eric:/var/lib/containers/nginx/var/www/files/$fname"
+
+    echo "Ok: https://files.pwy.io/$fname"
+}
+
+pub-del() {
+    fname="$1"
+
+    if [[ -z "$fname" ]]; then
+        echo "usage: pub-del <name>"
+        return
+    fi
+
+    ssh eric -- \
+        sudo rm "/var/lib/containers/nginx/var/www/files/$fname"
+}
+
+pub-ls() {
+    ssh eric -- \
+        ls -l /var/lib/containers/nginx/var/www/files
+}
+
 z() {
     if [[ "$#" == 0 ]]; then
-        fc -ln -1 | wl-copy -n
+        fc -ln -1 | xclip
     else
-        echo "$@" | wl-copy -n
+        echo "$@" | xclip
     fi
 }

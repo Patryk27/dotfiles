@@ -87,7 +87,7 @@
     firewall = {
       enable = true;
       allowPing = true;
-      allowedTCPPorts = [ 2000 2001 2002 ];
+      allowedTCPPorts = [ 1334 2000 2001 2002 ];
     };
   };
 

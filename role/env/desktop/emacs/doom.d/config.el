@@ -93,9 +93,20 @@
 ;; doom
 (setq doom-font (font-spec :family "Iosevka Custom Light" :size 36)
       doom-theme 'doom-gruvbox
+      doom-scratch-initial-major-mode 'org-mode
       +doom-dashboard-functions '(doom-dashboard-widget-banner))
 
+(defun open-plan-buffer ()
+  (interactive)
+  (pop-to-buffer
+    (doom-scratch-buffer
+     nil
+     doom-scratch-initial-major-mode
+     default-directory
+     "<plan>")))
+
 (map! :leader
+      "z" 'open-plan-buffer
       "b a" 'rename-buffer
       "w P" '+popup/raise
       "o t" '+vterm/here

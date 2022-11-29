@@ -55,6 +55,15 @@
           theme = dwarf-fortress-packages.themes.wanderlust;
         })
 
+        (writeShellScriptBin "nvidia-offload" ''
+          export __NV_PRIME_RENDER_OFFLOAD=1
+          export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+          export __GLX_VENDOR_LIBRARY_NAME=nvidia
+          export __VK_LAYER_NV_optimus=NVIDIA_only
+
+          exec "$@"
+        '')
+
         anki-bin
         darktable
         geeqie
@@ -62,6 +71,7 @@
         inkscape
         kicad
         mpv
+        nvtop
         rawtherapee
         screen
         virt-manager
@@ -215,6 +225,16 @@
         KERNEL=="ttyACM[0-9]*", MODE="0666"
       '';
     };
+
+    # xserver = {
+    #   videoDrivers = [ "nvidia" ];
+
+    #   screenSection = ''
+    #     Option         "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
+    #     Option         "AllowIndirectGLXProtocol" "off"
+    #     Option         "TripleBuffer" "on"
+    #   '';
+    # };
   };
 
   sops = {

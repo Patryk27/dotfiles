@@ -166,6 +166,8 @@ mode "~/workspace" {
 
 for_window [urgent=latest] focus
 for_window [window_role="pop-up"] floating enable
+for_window [title="Doomé"] floating enable
+for_window [title="SimpleScreenRecorder"] floating enable
 
 assign [title="Slack"] 1
 assign [title="Firefox"] 2

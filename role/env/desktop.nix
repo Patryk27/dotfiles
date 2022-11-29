@@ -21,6 +21,7 @@
       gimp
       libreoffice
       okular
+      simplescreenrecorder
       slack
       spotify
       thunderbird

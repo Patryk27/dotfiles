@@ -53,9 +53,9 @@
 
             modules-right =
               if builtins.elem "nvidia" config.services.xserver.videoDrivers then
-                "cpu nvidia memory battery pulseaudio backlight temperature date"
+                "cpu nvidia memory disk battery pulseaudio backlight temperature date"
               else
-                "cpu memory battery pulseaudio backlight temperature date";
+                "cpu memory disk battery pulseaudio backlight temperature date";
 
             tray-position = "right";
             tray-padding = 0;
@@ -113,6 +113,16 @@
             date = "%u-%U,%d-%m-%Y";
             time = "%S:%M:%H";
             label = "cal[%time%,%date%]";
+          };
+
+          "module/disk" = {
+            type = "custom/script";
+            interval = 1;
+
+            exec = toString (pkgs.writeShellScript "exec" ''
+              free=$(${pkgs.zfs}/bin/zpool list -H -o free rpool)
+              echo "disk[$free]"
+            '');
           };
 
           "module/i3" = {
