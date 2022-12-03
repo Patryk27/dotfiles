@@ -109,6 +109,16 @@
     dconf = {
       enable = true;
     };
+
+    file-roller = {
+      enable = true;
+    };
+
+    thunar = {
+      plugins = with pkgs.xfce; [
+        thunar-archive-plugin
+      ];
+    };
   };
 
   services = {
