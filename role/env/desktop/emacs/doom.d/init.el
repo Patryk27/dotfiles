@@ -56,6 +56,7 @@
 
        :lang
        (cc +lsp +tree-sitter)
+       (csharp +lsp +tree-sitter)
        data
        (emacs-lisp +tree-sitter)
        (javascript +tree-sitter)

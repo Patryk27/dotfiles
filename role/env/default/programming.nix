@@ -24,6 +24,7 @@
         binutils
         clang-tools
         cmake
+        dotnet-sdk_6
         gcc
         gcsfuse
         gdb
@@ -35,6 +36,7 @@
         libxml2
         linuxPackages.perf
         lld
+        msbuild
         ninja
         postgresql
         python
