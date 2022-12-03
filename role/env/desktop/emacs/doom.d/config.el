@@ -204,6 +204,13 @@
       :prefix "b"
       :desc "Kill stale buffers" "DEL" 'kill-stale-buffers)
 
+(defun remove-ansi ()
+  "Remove ANSI codes from buffer."
+  (interactive)
+  (save-excursion
+   (mark-whole-buffer)
+   (ansi-color-filter-region (region-beginning) (region-end))))
+
 ;; evil
 (setq evil-want-fine-undo t
       +evil-want-o/O-to-continue-comments nil)
