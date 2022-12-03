@@ -226,16 +226,6 @@
         KERNEL=="ttyACM[0-9]*", MODE="0666"
       '';
     };
-
-    # xserver = {
-    #   videoDrivers = [ "nvidia" ];
-
-    #   screenSection = ''
-    #     Option         "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
-    #     Option         "AllowIndirectGLXProtocol" "off"
-    #     Option         "TripleBuffer" "on"
-    #   '';
-    # };
   };
 
   sops = {
