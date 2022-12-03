@@ -24,8 +24,11 @@
       simplescreenrecorder
       slack
       spotify
+      steam-run
       thunderbird
       vlc
+      wineWowPackages.stable
+      winetricks
       xclip
       xorg.xmodmap
     ];
