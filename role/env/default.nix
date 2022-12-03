@@ -42,6 +42,7 @@
       unrar
       unzip
       wget
+      zip
       zsh
     ];
   };
