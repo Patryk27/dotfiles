@@ -65,6 +65,7 @@
         '')
 
         anki-bin
+        blender
         darktable
         geeqie
         gocryptfs
