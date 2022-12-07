@@ -146,6 +146,12 @@
     };
   };
 
+  programs = {
+    steam = {
+      enable = true;
+    };
+  };
+
   services = {
     davfs2 = {
       enable = true;
