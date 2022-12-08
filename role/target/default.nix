@@ -1,7 +1,7 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   boot = {
     tmpOnTmpfs = true;
-    kernelPackages = pkgs.linuxPackages_5_19;
+    kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 
     kernelParams = [
       "mitigations=off"
