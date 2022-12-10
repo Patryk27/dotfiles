@@ -9,6 +9,9 @@
   :recipe (:host github :repo "larstvei/Focus")
   :pin "9dd85fc474bbc1ebf22c287752c960394fcd465a")
 
+(package! lsp-mode
+  :pin "e56da7199c09e44f4b5feaf07691d467c01da376")
+
 (package! org-modern
   :recipe (:host github :repo "minad/org-modern")
   :pin "610e6fb535b3baf5cbcf17e6491076793e52ae98")
