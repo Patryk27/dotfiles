@@ -45,6 +45,7 @@
         ravedude
         rr
         rustup
+        spirv-tools
         sqlite
         valgrind
         wrk
