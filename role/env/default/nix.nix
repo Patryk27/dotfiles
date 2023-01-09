@@ -1,8 +1,4 @@
 { pkgs, ... }: {
-  imports = [
-    ./nix/distributed-builds.nix
-  ];
-
   environment = {
     systemPackages = with pkgs; [
       nix-index
