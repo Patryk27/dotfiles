@@ -30,6 +30,7 @@
         gdb
         gnumake
         google-cloud-sdk
+        gparted
         imagemagick
         jq
         kcachegrind
