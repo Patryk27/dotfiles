@@ -21,6 +21,7 @@
     };
 
     supportedFilesystems = [
+      "ntfs"
       "zfs"
     ];
 
