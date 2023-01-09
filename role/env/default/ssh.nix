@@ -17,7 +17,7 @@
               Hostname 192.168.1.200
           '';
 
-          "Match Originalhost eric" = ''
+          "Match Originalhost warp" = ''
             Exec "nmcli | rg Dziupla5"
               Hostname 192.168.1.200
           '';
@@ -42,12 +42,6 @@
             user = "pwy";
           };
 
-          eric = {
-            hostname = "10.24.1.2";
-            port = 33000;
-            user = "pwy";
-          };
-
           gateway = {
             hostname = "142.132.178.21";
             port = 33000;
@@ -66,24 +60,6 @@
             user = "pwy";
           };
 
-          madison = {
-            proxyJump = "eric";
-            hostname = "192.168.122.4";
-            port = 33000;
-            user = "pwy";
-
-            remoteForwards = [
-              {
-                bind.address = "/run/user/1000/gnupg/S.gpg-agent";
-                host.address = "/run/user/1000/gnupg/S.gpg-agent.extra";
-              }
-              {
-                bind.address = "/run/user/1000/gnupg/S.gpg-agent.ssh";
-                host.address = "/run/user/1000/gnupg/S.gpg-agent.ssh";
-              }
-            ];
-          };
-
           sienna = {
             hostname = "192.168.1.220";
             user = "pi";
@@ -92,6 +68,12 @@
           ubu = {
             hostname = "192.168.122.3";
             port = 22;
+            user = "pwy";
+          };
+
+          warp = {
+            hostname = "10.24.1.2";
+            port = 33000;
             user = "pwy";
           };
 
