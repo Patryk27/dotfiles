@@ -20,9 +20,10 @@
 
 ;; avy
 (setq avy-keys '(?a ?s ?d ?j ?k ?l))
+(define-key isearch-mode-map (kbd "_") 'avy-isearch)
 
-(map! :ni "M-j" 'evil-avy-goto-char-timer
-      :ni "M-k" 'evil-avy-goto-char-in-line)
+(map! :ni "M-j" 'evil-avy-goto-char-timer)
+(map! :n "_" 'evil-avy-goto-char-timer)
 
 (after! avy
   (defun avy-action-mark-to-char (pt)
@@ -31,15 +32,25 @@
 
   (setf (alist-get ? avy-dispatch-alist) 'avy-action-mark-to-char)
 
-  (defun avy-action-lookup-documentation (pt)
+  (defun avy-action-lookup-definition (pt)
     (save-excursion
       (goto-char pt)
-      (call-interactively '+lookup/documentation))
+      (call-interactively '+lookup/definition))
     (select-window
      (cdr (ring-ref avy-ring 0)))
     t)
 
-  (setf (alist-get ?k avy-dispatch-alist) 'avy-action-lookup-documentation)
+  (setf (alist-get ?f avy-dispatch-alist) 'avy-action-lookup-definition)
+
+  (defun avy-action-lookup-references (pt)
+    (save-excursion
+      (goto-char pt)
+      (call-interactively '+lookup/references))
+    (select-window
+     (cdr (ring-ref avy-ring 0)))
+    t)
+
+  (setf (alist-get ?g avy-dispatch-alist) 'avy-action-lookup-references)
 
   (defun avy-action-embark (pt)
     (unwind-protect
@@ -50,15 +61,17 @@
        (cdr (ring-ref avy-ring 0))))
     t)
 
-  (setf (alist-get ?e avy-dispatch-alist) 'avy-action-embark))
+  (setf (alist-get ?h avy-dispatch-alist) 'avy-action-embark))
 
 ;; dired / dirvish
 (map! :leader "j" 'dired-jump)
 
 (setq dirvish-quick-access-entries
       '(
-        ("d" "/downloads")
-        ("o" "~/org")))
+        ("d" "/d")
+        ("o" "~/org")
+        ("x" "/x")
+        ("z" "/z")))
 
 (defun dired-diff-dwim ()
   (interactive)
@@ -144,6 +157,7 @@
 
 ;; emacs
 (setq calendar-week-start-day 1
+      custom-file (file-name-concat doom-local-dir "custom.el")
       display-line-numbers-type nil
       user-full-name "Patryk Wychowaniec"
       user-mail-address "pwychowaniec@pm.me"
