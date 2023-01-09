@@ -71,6 +71,7 @@
         gocryptfs
         inkscape
         kicad
+        moonlight-qt
         mpv
         nvtop
         rawtherapee
