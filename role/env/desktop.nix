@@ -67,7 +67,6 @@
 
       in
       with pkgs; [
-        corefonts
         iosevka-custom
         noto-fonts-emoji
       ];
