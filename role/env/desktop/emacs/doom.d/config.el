@@ -225,6 +225,13 @@
    (mark-whole-buffer)
    (ansi-color-filter-region (region-beginning) (region-end))))
 
+(defun fixup-escapes ()
+  "Remove ANSI codes from buffer."
+  (interactive)
+  (save-excursion
+   (mark-whole-buffer)
+   (ansi-color-filter-region (region-beginning) (region-end))))
+
 ;; evil
 (setq evil-want-fine-undo t
       +evil-want-o/O-to-continue-comments nil)

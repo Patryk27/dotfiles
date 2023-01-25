@@ -19,14 +19,12 @@
       };
 
       packages = with pkgs; [
-        ansible
         arcanist
         binutils
         clang-tools
         cmake
         dotnet-sdk_6
         gcc
-        gcsfuse
         gdb
         gnumake
         google-cloud-sdk
@@ -38,9 +36,7 @@
         linuxPackages.perf
         lld
         msbuild
-        ninja
         postgresql
-        python
         python3
         ravedude
         rr

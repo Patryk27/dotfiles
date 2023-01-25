@@ -45,6 +45,7 @@
             pl
           ]))
 
+          omnisharp-roslyn
           rnix-lsp
           rust-analyzer
         ];
