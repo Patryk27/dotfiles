@@ -20,6 +20,10 @@
         };
 
         extraConfig = {
+          core = {
+            commentChar = ";";
+          };
+
           fetch = {
             prune = true;
           };
@@ -30,6 +34,10 @@
 
           pull = {
             rebase = true;
+          };
+
+          safe = {
+            directory = "*";
           };
         };
       };

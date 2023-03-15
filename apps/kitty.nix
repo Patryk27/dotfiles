@@ -6,7 +6,7 @@
 
         font = {
           name = "Iosevka Custom Light";
-          size = 13;
+          size = 15;
         };
 
         extraConfig = ''

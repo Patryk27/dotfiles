@@ -10,50 +10,12 @@ zstyle :zle:backward-kill-bash-word word-style bash
 
 export PATH="$PATH:/home/pwy/.cargo/bin"
 
+export GPG_TTY=$(tty)
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
+
 d-ip() {
     docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$@"
-}
-
-cn-attach() {
-    TERM=xterm ssh eric -t "sudo machinectl shell $1"
-}
-
-cn-down() {
-    TERM=xterm ssh eric -t "sudo systemctl stop container@$1"
-}
-
-cn-restart() {
-    TERM=xterm ssh eric -t "sudo systemctl stop container@$1 && sudo systemctl start container@$1"
-}
-
-cn-status() {
-    TERM=xterm ssh eric -t "sudo systemctl status container@$1"
-}
-
-cn-up() {
-    TERM=xterm ssh eric -t "sudo systemctl start container@$1"
-}
-
-madison-attach() {
-    session="$1"
-
-    if [[ -z "$session" ]]; then
-        echo "usage: madison-attach <session>"
-        return
-    fi
-
-    TERM=xterm-24bit ssh madison -t tmux attach -t "$session"
-}
-
-madison-new() {
-    session="$1"
-
-    if [[ -z "$session" ]]; then
-        echo "usage: madison-new <session>"
-        return
-    fi
-
-    TERM=xterm-24bit ssh madison -t tmux new -s "$session"
 }
 
 pg-rust() {

@@ -1,11 +1,6 @@
 { pkgs, ... }: {
-  environment = {
-    # For autosuggestions
-    pathsToLink = [ "/share/zsh" ];
-  };
-
   programs = {
-    autojump = {
+    zsh = {
       enable = true;
     };
   };
@@ -13,6 +8,8 @@
   home-manager.users.pwy = {
     home = {
       packages = with pkgs; [
+        autojump
+
         # For fzf-history-widget
         perl
       ];

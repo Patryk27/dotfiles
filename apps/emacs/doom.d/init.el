@@ -8,7 +8,6 @@
        (emoji +unicode)
        hl-todo
        modeline
-       ophints
        (popup +defaults)
        vc-gutter
        vi-tilde-fringe
@@ -20,7 +19,7 @@
        fold
        format
        multiple-cursors
-       (parinfer +rust)
+       parinfer
        snippets
        word-wrap
 
@@ -45,14 +44,10 @@
        (eval +overlay)
        (lookup +dictionary +offline)
        lsp
-       (magit +forge)
+       magit
        make
-       pdf
        rgb
        tree-sitter
-
-       :os
-       (tty +osc)
 
        :lang
        (cc +lsp +tree-sitter)

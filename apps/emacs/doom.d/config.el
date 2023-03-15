@@ -1,6 +1,9 @@
 ;;; -*- lexical-binding: t; -*-
 
-(load "/home/pwy/.doom.d/config/ion-mode.el")
+(when (eq system-type 'darwin)
+  (setq insert-directory-program "/opt/homebrew/bin/gls"))
+
+(load "/Users/PWY/.doom.d/config/ion-mode.el")
 
 ;; ace-window
 (custom-set-faces!
@@ -20,10 +23,8 @@
 
 ;; avy
 (setq avy-keys '(?a ?s ?d ?j ?k ?l))
-(define-key isearch-mode-map (kbd "_") 'avy-isearch)
 
-(map! :ni "M-j" 'evil-avy-goto-char-timer)
-(map! :n "_" 'evil-avy-goto-char-timer)
+(map! :n "=" 'evil-avy-goto-char-timer)
 
 (after! avy
   (defun avy-action-mark-to-char (pt)
@@ -68,10 +69,8 @@
 
 (setq dirvish-quick-access-entries
       '(
-        ("d" "/d")
-        ("o" "~/org")
-        ("x" "/x")
-        ("z" "/z")))
+        ("d" "~/Downloads")
+        ("o" "~/org")))
 
 (defun dired-diff-dwim ()
   (interactive)
@@ -104,7 +103,7 @@
         :n "=" 'dired-diff-dwim))
 
 ;; doom
-(setq doom-font (font-spec :family "Iosevka Custom Light" :size 36)
+(setq doom-font (font-spec :family "Iosevka Custom Light" :size 16 :weight 'light)
       doom-theme 'doom-gruvbox
       doom-scratch-initial-major-mode 'org-mode
       +doom-dashboard-functions '(doom-dashboard-widget-banner))
@@ -118,20 +117,19 @@
      default-directory
      "<plan>")))
 
+(map! "s-[" '+workspace/switch-left
+      "s-{" '+workspace/swap-left
+      "s-]" '+workspace/switch-right
+      "s-}" '+workspace/swap-right
+      "s-o" '+workspace/new
+      "s-p" 'evil-write-all)
+
 (map! :leader
       "z" 'open-plan-buffer
       "b a" 'rename-buffer
       "w P" '+popup/raise
       "o t" '+vterm/here
       "o T" nil
-      "[" '+workspace/switch-left
-      "(" '+workspace/switch-left
-      "TAB [" nil
-      "]" '+workspace/switch-right
-      ")" '+workspace/switch-right
-      "TAB ]" nil
-      "{" '+workspace/swap-left
-      "}" '+workspace/swap-right
       "1" '+workspace/switch-to-0
       "2" '+workspace/switch-to-1
       "3" '+workspace/switch-to-2
@@ -160,15 +158,22 @@
       custom-file (file-name-concat doom-local-dir "custom.el")
       display-line-numbers-type nil
       user-full-name "Patryk Wychowaniec"
-      user-mail-address "pwychowaniec@pm.me"
-      x-select-enable-clipboard-manager nil)
+      user-mail-address "pwychowaniec@pm.me")
 
 (setq-default major-mode 'text-mode)
 
 (global-display-fill-column-indicator-mode +1)
 
 (map! :n "\\" '+default/search-buffer
-      :ni "M-i" 'insert-char)
+      :ni "s-i" 'insert-char
+      :ni "s-h" 'evil-window-left
+      :ni "s-H" '+evil/window-move-left
+      :ni "s-j" 'evil-window-down
+      :ni "s-J" '+evil/window-move-down
+      :ni "s-k" 'evil-window-up
+      :ni "s-K" '+evil/window-move-up
+      :ni "s-l" 'evil-window-right
+      :ni "s-L" '+evil/window-move-right)
 
 (defun calc-eval-region (arg beg end)
   "Calculate region and replace it with the result."
@@ -232,6 +237,17 @@
    (mark-whole-buffer)
    (ansi-color-filter-region (region-beginning) (region-end))))
 
+(defun next-error-in-different-file ()
+  "Like `next-error', but looks for the error in a different file."
+  (interactive)
+  (let ((buffer (next-error-find-buffer)))
+    (when buffer
+      (with-current-buffer buffer
+        (compilation-next-file 1)
+        (compile-goto-error)))))
+
+(map! :n "] E" 'next-error-in-different-file)
+
 ;; evil
 (setq evil-want-fine-undo t
       +evil-want-o/O-to-continue-comments nil)
@@ -243,7 +259,7 @@
 (map! :n "gF" 'ffap-other-window)
 
 ;; evil-numbers
-(map! :n "g+" 'evil-numbers/inc-at-pt
+(map! :n "g=" 'evil-numbers/inc-at-pt
       :n "g-" 'evil-numbers/dec-at-pt)
 
 ;; flycheck
@@ -332,11 +348,8 @@
         (:rot ("1" "2" "3" "4" "5" "6" "7" "8" "9" "10"))
         (:rot ("1st" "2nd" "3rd" "4th" "5th" "6th" "7th" "8th" "9th" "10th"))))
 
-(map! :n "z(" 'parrot-rotate-prev-word-at-point
-      :n "z)" 'parrot-rotate-next-word-at-point)
-
-;; powerthesaurus
-(map! :n "zv" 'powerthesaurus-lookup-dwim)
+(map! :n "z[" 'parrot-rotate-prev-word-at-point
+      :n "z]" 'parrot-rotate-next-word-at-point)
 
 ;; projectile
 (setq projectile-project-search-path '("~/Projects" "~/Projects/anixe")
@@ -405,8 +418,8 @@
     (apply orig-fun args))
 
   (map! :map rustic-mode-map
-        :n "S-M-<up>" 'lsp-rust-analyzer-move-item-up
-        :n "S-M-<down>" 'lsp-rust-analyzer-move-item-down)
+        :n "s-<up>" 'lsp-rust-analyzer-move-item-up
+        :n "s-<down>" 'lsp-rust-analyzer-move-item-down)
 
   (map! :map rustic-mode-map
         :localleader
@@ -460,4 +473,4 @@
         "M-i" #'vertico-quick-insert))
 
 ;; vterm
-(map! :leader "d" '+vterm/toggle)
+(map! "s-s" '+vterm/toggle)

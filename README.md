@@ -3,36 +3,26 @@
 Configurations for some of my NixOS machines.
 
 [#flakes](https://nixos.wiki/wiki/Flakes),
-[#home-manager](https://github.com/nix-community/home-manager),
-[#sops](https://github.com/Mic92/sops-nix)
+[#home-manager](https://github.com/nix-community/home-manager).
 
 # Notable parts
 
 ## Emacs
 
-- [nix](role/env/desktop/emacs.nix)
-- [doom.d](role/env/desktop/emacs/doom.d)
-
-## i3
-
-- [nix](role/env/desktop/i3.nix)
-- [config](role/env/desktop/i3/config)
+- [nix](apps/emacs.nix)
+- [doom.d](apps/emacs/doom.d)
 
 ## Kitty
 
-- [nix](role/env/desktop/kitty.nix)
-
-## Polybar
-
-- [nix](role/env/desktop/polybar.nix)
+- [nix](apps/kitty.nix)
 
 ## ZSH
 
-- [nix](role/env/default/zsh.nix)
-- [config](role/env/default/zsh/init.zsh)
-- [theme](role/env/default/zsh/custom/themes/custom.zsh-theme)
+- [nix](apps/zsh.nix)
+- [config](apps/zsh/init.zsh)
+- [theme](apps/zsh/custom/themes/custom.zsh-theme)
 
 # License
 
-Copyright (c) 2021-2022, Patryk Wychowaniec <pwychowaniec@pm.me>.    
+Copyright (c) 2021-2023, Patryk Wychowaniec <pwychowaniec@pm.me>.    
 Licensed under the MIT license.

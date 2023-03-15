@@ -1,13 +1,23 @@
 {
   inputs = {
     doom-emacs = {
-      url = "path:/home/pwy/Projects/doom-emacs";
+      url = "path:/Users/pwy/Projects/doom-emacs";
       flake = false;
     };
 
     emacs = {
       url = "git+https://git.savannah.gnu.org/git/emacs.git?rev=739b5d0e52d83ec567bd61a5a49ac0e93e0eb469";
       flake = false;
+    };
+
+    darwin = {
+      url = "github:lnl7/nix-darwin/master";
+
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
     };
 
     emacs-overlay = {
@@ -48,6 +58,7 @@
 
   outputs =
     { self
+    , darwin
     , doom-emacs
     , emacs
     , emacs-overlay
@@ -59,111 +70,46 @@
     , ravedude
     , sops-nix
     }:
+    {
+      darwinConfigurations = {
+        mac = darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
 
-    let
-      inherit (nixpkgs) lib;
+          modules = [
+            ./nodes/mac.nix
 
-      mkNixosConfiguration = { name, system }: lib.nixosSystem {
-        inherit system;
-
-        modules = [
-          (import (./node + "/${name}.nix"))
-          (import (./node + "/${name}/hardware-configuration.nix"))
-
-          home-manager.nixosModules.home-manager
-          sops-nix.nixosModules.sops
-
-          ({ ... }: {
-            nix = {
-              registry = {
-                nixpkgs = {
-                  flake = nixpkgs;
+            ({ ... }: {
+              nix = {
+                registry = {
+                  nixpkgs = {
+                    flake = nixpkgs;
+                  };
                 };
+
+                nixPath = [
+                  "nixpkgs=${nixpkgs}"
+                ];
               };
 
-              nixPath = [
-                "nixpkgs=${nixpkgs}"
-              ];
-            };
+              nixpkgs = {
+                overlays = [
+                  emacs-overlay.overlay
 
-            nixpkgs = {
-              overlays = [
-                emacs-overlay.overlay
+                  (self: super: {
+                    sources = {
+                      inherit doom-emacs emacs kitty-themes;
+                    };
 
-                (self: super: {
-                  sources = {
-                    inherit doom-emacs emacs kitty-themes;
-                  };
+                    rust-analyzer = (import nixpkgs-rust-analyzer { system = "aarch64-darwin"; }).rust-analyzer;
+                  })
+                ];
+              };
 
-                  ravedude = ravedude.defaultPackage."${system}";
-                  rust-analyzer = (import nixpkgs-rust-analyzer { inherit system; }).rust-analyzer;
-                })
-              ];
-            };
+            })
 
-            sops = {
-              defaultSopsFile = ./secrets.yaml;
-
-              secrets = lib.genAttrs [
-                "backup:passphrase:anixe"
-                "backup:passphrase:lenovo"
-                "wg-fort:private-key:lenovo"
-              ]
-                (k: {
-                  owner = "pwy";
-                });
-            };
-          })
-        ];
-      };
-
-    in
-    {
-      nixosConfigurations = {
-        lenovo = mkNixosConfiguration {
-          name = "lenovo";
-          system = "x86_64-linux";
+            home-manager.darwinModules.home-manager
+          ];
         };
-
-        madison = mkNixosConfiguration {
-          name = "madison";
-          system = "x86_64-linux";
-        };
-      };
-
-      devShell = {
-        x86_64-linux =
-          let
-            pkgs = (import nixpkgs) {
-              system = "x86_64-linux";
-            };
-
-          in
-          pkgs.mkShell {
-            sopsPGPKeyDirs = [
-              "./key/node"
-              "./key/user"
-            ];
-
-            nativeBuildInputs = with pkgs; [
-              (callPackage sops-nix { }).sops-import-keys-hook
-
-              (pkgs.writeShellScriptBin "do-deploy-madison" ''
-                action="$1"
-
-                if [[ -z "$action" ]]; then
-                    action="switch"
-                fi
-
-                nixos-rebuild \
-                    --flake .#madison \
-                    --target-host madison \
-                    --build-host localhost \
-                    --use-remote-sudo \
-                    "$action"
-              '')
-            ];
-          };
       };
     };
 }
