@@ -11,6 +11,7 @@ function do-help {
     echo "  - backup"
     echo "  - cloud"
     echo "  - diary"
+    echo "  - phone"
 
     exit 0
 }
@@ -31,6 +32,10 @@ function do-mount {
 
         "diary")
             do-mount--diary
+            ;;
+
+        "phone")
+            do-mount--phone
             ;;
 
         *)
@@ -55,6 +60,10 @@ function do-umount {
 
         "diary")
             do-umount--diary
+            ;;
+
+        "phone")
+            do-umount--phone
             ;;
 
         *)
@@ -120,15 +129,13 @@ function do-mount--diary {
         exit 1
     fi
 
-    echo "[+] Preparing mount point"
-
+    echo "[+] Mounting"
     sudo mkdir /private/diary
     sudo chown pwy:staff /private/diary
 
     sudo mkdir /private/diary.data
     sudo chown pwy:staff /private/diary.data
 
-    echo "[+] Mounting"
     sshfs \
         -o reconnect,ServerAliveInterval=5,ServerAliveCountMax=1 \
         warp:/var/lib/storages/diary /private/diary.data
@@ -152,6 +159,31 @@ function do-umount--diary {
     echo "[+] Cleaning-up"
     sudo rm -d /private/diary
     sudo rm -d /private/diary.data
+}
+
+function do-mount--phone {
+    if [[ -d /private/phone ]]; then
+        echo "error: resource already mounted"
+        exit 1
+    fi
+
+    echo "[+] Mounting"
+    sudo mkdir /private/phone
+    sudo chown pwy:staff /private/phone
+    ifuse /private/phone
+}
+
+function do-umount--phone {
+    if [[ ! -d /private/phone ]]; then
+        echo "error: resource not mounted"
+        exit 1
+    fi
+
+    echo "[+] Unmounting"
+    umount /private/phone
+
+    echo "[+] Cleaning-up"
+    sudo rm -d /private/phone
 }
 
 if [[ -z "$1" ]]; then

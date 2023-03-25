@@ -4,6 +4,7 @@
       set -e
 
       export PATH="$PATH:${pkgs.gocryptfs}/bin"
+      export PATH="$PATH:${pkgs.ifuse}/bin"
 
       ${./mnt/mnt.sh} "$@"
     '')
