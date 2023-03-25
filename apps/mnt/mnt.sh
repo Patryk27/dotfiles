@@ -11,7 +11,6 @@ function do-help {
     echo "  - backup"
     echo "  - cloud"
     echo "  - diary"
-    echo "  - phone"
 
     exit 0
 }
@@ -32,10 +31,6 @@ function do-mount {
 
         "diary")
             do-mount--diary
-            ;;
-
-        "phone")
-            do-mount--phone
             ;;
 
         *)
@@ -60,10 +55,6 @@ function do-umount {
 
         "diary")
             do-umount--diary
-            ;;
-
-        "phone")
-            do-umount--phone
             ;;
 
         *)
@@ -159,32 +150,8 @@ function do-umount--diary {
     umount /private/diary.data
 
     echo "[+] Cleaning-up"
-    rm -d /private/diary
-    rm -d /private/diary.data
-}
-
-function do-mount--phone {
-    if [[ -d /private/phone ]]; then
-        echo "error: resource already mounted"
-        exit 1
-    fi
-
-    echo "[+] Mounting"
-    mkdir /private/phone
-    ifuse /private/phone
-}
-
-function do-umount--phone {
-    if [[ ! -d /private/phone ]]; then
-        echo "error: resource not mounted"
-        exit 1
-    fi
-
-    echo "[+] Unmounting"
-    umount /private/phone
-
-    echo "[+] Cleaning-up"
-    rm -d /private/phone
+    sudo rm -d /private/diary
+    sudo rm -d /private/diary.data
 }
 
 if [[ -z "$1" ]]; then
