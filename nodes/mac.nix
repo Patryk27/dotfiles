@@ -28,7 +28,6 @@
       jq
       libxml2
       lld
-      miller
       ncdu
       nixos-rebuild
       nmap
@@ -38,8 +37,6 @@
       spirv-tools
       sqlite
       sshfs
-      virt-manager
-      virt-viewer
       wget
       wrk
     ];

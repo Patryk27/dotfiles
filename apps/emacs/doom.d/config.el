@@ -33,6 +33,16 @@
 
   (setf (alist-get ? avy-dispatch-alist) 'avy-action-mark-to-char)
 
+  (defun avy-action-lookup-documentation (pt)
+    (save-excursion
+      (goto-char pt)
+      (call-interactively '+lookup/documentation))
+    (select-window
+     (cdr (ring-ref avy-ring 0)))
+    t)
+
+  (setf (alist-get ?? avy-dispatch-alist) 'avy-action-lookup-documentation)
+
   (defun avy-action-lookup-definition (pt)
     (save-excursion
       (goto-char pt)
@@ -62,7 +72,7 @@
        (cdr (ring-ref avy-ring 0))))
     t)
 
-  (setf (alist-get ?h avy-dispatch-alist) 'avy-action-embark))
+  (setf (alist-get ?. avy-dispatch-alist) 'avy-action-embark))
 
 ;; dired / dirvish
 (map! :leader "j" 'dired-jump)
@@ -189,6 +199,8 @@
       :desc "grab" "g" 'calc-grab-rectangle
       :desc "dispatch" "d" 'calc-dispatch)
 
+(map! :v "=" 'calc-eval-region)
+
 (map! :leader
       :prefix "o"
       :desc "Calendar" "c" 'calendar)
@@ -230,13 +242,6 @@
    (mark-whole-buffer)
    (ansi-color-filter-region (region-beginning) (region-end))))
 
-(defun fixup-escapes ()
-  "Remove ANSI codes from buffer."
-  (interactive)
-  (save-excursion
-   (mark-whole-buffer)
-   (ansi-color-filter-region (region-beginning) (region-end))))
-
 (defun next-error-in-different-file ()
   "Like `next-error', but looks for the error in a different file."
   (interactive)
@@ -247,6 +252,11 @@
         (compile-goto-error)))))
 
 (map! :n "] E" 'next-error-in-different-file)
+
+(map!
+ (:map 'override
+   :v "v" #'er/expand-region
+   :v "V" #'er/contract-region))
 
 ;; evil
 (setq evil-want-fine-undo t
@@ -320,8 +330,8 @@
         :desc "align" "a" 'markdown-table-align))
 
 ;; org
-(setq org-agenda-files '("~/org/" "~/org/praca" "~/org/wycieczki")
-      org-directory "~/org/")
+(setq org-agenda-files '("~/Documents/" "~/Documents/praca" "~/Documents/wycieczki")
+      org-directory "~/Documents")
 
 ;; org-modern
 (after! org

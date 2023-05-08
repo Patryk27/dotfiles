@@ -3,14 +3,11 @@
   :pin "061958ab96c31085b5daf449b1d826b052777b59")
 
 (package! dirvish
-  :pin "ec4100612b2e93d9e188e7eab4c144b45f3547ee")
+  :pin "4b63cd2e5ba994f8e674388db7035de1a8f0343f")
 
 (package! focus
   :recipe (:host github :repo "larstvei/Focus")
-  :pin "9dd85fc474bbc1ebf22c287752c960394fcd465a")
-
-(package! lsp-mode
-  :pin "e56da7199c09e44f4b5feaf07691d467c01da376")
+  :pin "2507ec4ec5a9402647ef85540669db1815520c15")
 
 (package! org-modern
   :recipe (:host github :repo "minad/org-modern")
@@ -18,7 +15,7 @@
 
 (package! parrot
   :recipe (:host github :repo "dp12/parrot")
-  :pin "29265d118267e524453aaa9121c4eae213a63164")
+  :pin "1d381f24d74242018e306d1a0c891bed9a465ac3")
 
 (package! rustic
-  :pin "0eca6e6f0b5b3b02233a2d03c797be2f9a983c19")
+  :pin "39423d1cf4fa054c36bf9577356451f4c06ee148")

@@ -23,6 +23,7 @@
   };
 
   nix = {
+    package = pkgs.nix;
     distributedBuilds = true;
 
     extraOptions = ''
@@ -71,5 +72,4 @@
       enable = true;
     };
   };
-
 }

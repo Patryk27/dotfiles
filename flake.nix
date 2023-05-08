@@ -5,11 +5,6 @@
       flake = false;
     };
 
-    emacs = {
-      url = "git+https://git.savannah.gnu.org/git/emacs.git?rev=739b5d0e52d83ec567bd61a5a49ac0e93e0eb469";
-      flake = false;
-    };
-
     darwin = {
       url = "github:lnl7/nix-darwin/master";
 
@@ -18,10 +13,6 @@
           follows = "nixpkgs";
         };
       };
-    };
-
-    emacs-overlay = {
-      url = "github:nix-community/emacs-overlay";
     };
 
     home-manager = {
@@ -47,10 +38,6 @@
       url = "github:nixos/nixpkgs";
     };
 
-    ravedude = {
-      url = "github:Rahix/avr-hal?dir=ravedude";
-    };
-
     sops-nix = {
       url = "github:Mic92/sops-nix";
     };
@@ -60,14 +47,11 @@
     { self
     , darwin
     , doom-emacs
-    , emacs
-    , emacs-overlay
     , home-manager
     , kitty-themes
     , nix
     , nixpkgs
     , nixpkgs-rust-analyzer
-    , ravedude
     , sops-nix
     }:
     {
@@ -93,11 +77,9 @@
 
               nixpkgs = {
                 overlays = [
-                  emacs-overlay.overlay
-
                   (self: super: {
                     sources = {
-                      inherit doom-emacs emacs kitty-themes;
+                      inherit doom-emacs kitty-themes;
                     };
 
                     rust-analyzer = (import nixpkgs-rust-analyzer { system = "aarch64-darwin"; }).rust-analyzer;
