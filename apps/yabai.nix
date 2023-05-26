@@ -1,0 +1,7 @@
+{ ... }: {
+  services = {
+    yabai = {
+      enable = true;
+    };
+  };
+}

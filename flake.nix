@@ -38,6 +38,10 @@
       url = "github:nixos/nixpkgs";
     };
 
+    nixpkgs-yabai = {
+      url = "github:nixos/nixpkgs";
+    };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
     };
@@ -52,6 +56,7 @@
     , nix
     , nixpkgs
     , nixpkgs-rust-analyzer
+    , nixpkgs-yabai
     , sops-nix
     }:
     {
@@ -83,6 +88,7 @@
                     };
 
                     rust-analyzer = (import nixpkgs-rust-analyzer { system = "aarch64-darwin"; }).rust-analyzer;
+                    yabai = (import nixpkgs-yabai { system = "aarch64-darwin"; }).yabai;
                   })
                 ];
               };

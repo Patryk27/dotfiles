@@ -8,8 +8,10 @@
     ../apps/mnt.nix
     ../apps/nix.nix
     ../apps/rust.nix
+    ../apps/skhd.nix
     ../apps/ssh.nix
     ../apps/vim.nix
+    ../apps/yabai.nix
     ../apps/zsh.nix
   ];
 
