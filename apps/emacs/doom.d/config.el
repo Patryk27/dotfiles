@@ -163,6 +163,17 @@
       :prefix "b"
       :desc "ediff" "=" 'ediff-buffers)
 
+;; electric
+
+;; https://github.com/doomemacs/doomemacs/issues/6331#issuecomment-1109981584
+(defadvice! --nxml-electric-slash-remove-duplicate-right-angle-and-indent (func arg)
+  :around 'nxml-electric-slash
+  (let ((point-before (point)))
+    (funcall func arg)
+    (unless (equal (+ 1 point-before) (point))
+      (delete-char 1)
+      (funcall indent-line-function))))
+
 ;; emacs
 (setq calendar-week-start-day 1
       custom-file (file-name-concat doom-local-dir "custom.el")
