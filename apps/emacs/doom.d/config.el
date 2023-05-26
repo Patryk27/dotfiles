@@ -2,6 +2,7 @@
 
 (when (eq system-type 'darwin)
   (setq insert-directory-program "/opt/homebrew/bin/gls"))
+  (setq mac-pass-command-to-system nil)
 
 (load "/Users/PWY/.doom.d/config/ion-mode.el")
 

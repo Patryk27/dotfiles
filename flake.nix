@@ -33,18 +33,6 @@
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
-
-    nixpkgs-rust-analyzer = {
-      url = "github:nixos/nixpkgs";
-    };
-
-    nixpkgs-yabai = {
-      url = "github:nixos/nixpkgs";
-    };
-
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-    };
   };
 
   outputs =
@@ -55,9 +43,6 @@
     , kitty-themes
     , nix
     , nixpkgs
-    , nixpkgs-rust-analyzer
-    , nixpkgs-yabai
-    , sops-nix
     }:
     {
       darwinConfigurations = {
@@ -86,9 +71,6 @@
                     sources = {
                       inherit doom-emacs kitty-themes;
                     };
-
-                    rust-analyzer = (import nixpkgs-rust-analyzer { system = "aarch64-darwin"; }).rust-analyzer;
-                    yabai = (import nixpkgs-yabai { system = "aarch64-darwin"; }).yabai;
                   })
                 ];
               };

@@ -17,7 +17,6 @@
 
       omnisharp-roslyn
       rnix-lsp
-      rust-analyzer
     ];
 
   home-manager.users.pwy = { config, ... }: {
