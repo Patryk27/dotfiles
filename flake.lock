@@ -138,6 +138,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-arcanist": {
+      "locked": {
+        "lastModified": 1685786116,
+        "narHash": "sha256-6LoyyGzBg2K4uYAEG+wZiYUB6ccKtW2VbHLu8tPfSUM=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "599fd903c4097b982597c71d7526484caa5921b9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-regression": {
       "locked": {
         "lastModified": 1643052045,
@@ -177,7 +192,8 @@
         "home-manager": "home-manager",
         "kitty-themes": "kitty-themes",
         "nix": "nix",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "nixpkgs-arcanist": "nixpkgs-arcanist"
       }
     }
   },
