@@ -31,6 +31,7 @@
       libxml2
       lld
       ncdu
+      ninja
       nixos-rebuild
       nmap
       postgresql
