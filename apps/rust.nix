@@ -7,6 +7,10 @@
 
   home-manager.users.pwy = {
     home = {
+      packages = with pkgs; [
+        rust-analyzer
+      ];
+
       file = {
         ".cargo/config".text = ''
           [target.x86_64-unknown-linux-gnu]
