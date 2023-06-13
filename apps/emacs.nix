@@ -5,8 +5,8 @@
     ];
   };
 
-  environment.systemPackages =
-    with pkgs; [
+  environment = {
+    systemPackages = with pkgs; [
       (aspellWithDicts (dicts: with dicts; [
         en
         en-computers
@@ -18,8 +18,9 @@
       omnisharp-roslyn
       rnix-lsp
     ];
+  };
 
-  home-manager.users.pwy = { config, ... }: {
+  home-manager.users.pwy = {
     home = {
       file = {
         ".doom.d" = {
