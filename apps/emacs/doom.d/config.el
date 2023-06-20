@@ -42,7 +42,7 @@
      (cdr (ring-ref avy-ring 0)))
     t)
 
-  (setf (alist-get ?? avy-dispatch-alist) 'avy-action-lookup-documentation)
+  (setf (alist-get ?w avy-dispatch-alist) 'avy-action-lookup-documentation)
 
   (defun avy-action-lookup-definition (pt)
     (save-excursion
@@ -52,7 +52,7 @@
      (cdr (ring-ref avy-ring 0)))
     t)
 
-  (setf (alist-get ?f avy-dispatch-alist) 'avy-action-lookup-definition)
+  (setf (alist-get ?e avy-dispatch-alist) 'avy-action-lookup-definition)
 
   (defun avy-action-lookup-references (pt)
     (save-excursion
@@ -62,7 +62,17 @@
      (cdr (ring-ref avy-ring 0)))
     t)
 
-  (setf (alist-get ?g avy-dispatch-alist) 'avy-action-lookup-references)
+  (setf (alist-get ?r avy-dispatch-alist) 'avy-action-lookup-references)
+
+  (defun avy-action-lookup-type-definition (pt)
+    (save-excursion
+      (goto-char pt)
+      (call-interactively '+lookup/type-definition))
+    (select-window
+     (cdr (ring-ref avy-ring 0)))
+    t)
+
+  (setf (alist-get ?t avy-dispatch-alist) 'avy-action-lookup-type-definition)
 
   (defun avy-action-embark (pt)
     (unwind-protect
@@ -136,6 +146,7 @@
       "s-p" 'evil-write-all)
 
 (map! :leader
+      "§" 'org-agenda-list
       "z" 'open-plan-buffer
       "b a" 'rename-buffer
       "w P" '+popup/raise
@@ -333,6 +344,22 @@
       :n "ga" '+lookup/references
       :n "gD" nil
       :n "gt" '+lookup/type-definition)
+
+(defun ++git-ignore-p (path)
+  (let* ((path (directory-file-name path))
+         (default-directory (file-name-directory path))
+         (relpath (file-name-nondirectory path))
+         (cmd (format "git check-ignore '%s'" relpath))
+         (status (call-process-shell-command cmd)))
+    (eq status 0)))
+
+(defun ++lsp--path-is-watchable-directory-a
+    (fn path dir ignored-directories)
+  (and (not (++git-ignore-p (f-join dir path)))
+       (funcall fn path dir ignored-directories)))
+
+(advice-add 'lsp--path-is-watchable-directory
+            :around #'++lsp--path-is-watchable-directory-a)
 
 ;; markdown-mode
 (after! markdown-mode
