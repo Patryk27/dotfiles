@@ -53,7 +53,7 @@
     (modify-syntax-entry ?# "<" table)
     (modify-syntax-entry ?\n ">" table)
     table)
-  "Syntax table for 'ion-mode'.")
+  "Syntax table for `ion-mode'.")
 
 ;;;
 

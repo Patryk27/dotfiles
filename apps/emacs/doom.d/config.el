@@ -1,8 +1,9 @@
 ;;; -*- lexical-binding: t; -*-
 
 (when (eq system-type 'darwin)
-  (setq insert-directory-program "/opt/homebrew/bin/gls"))
-  (setq mac-pass-command-to-system nil)
+  (progn
+    (setq insert-directory-program "/opt/homebrew/bin/gls")
+    (setq mac-pass-command-to-system nil)))
 
 (load "/Users/PWY/.doom.d/config/ion-mode.el")
 
@@ -129,14 +130,10 @@
       doom-scratch-initial-major-mode 'org-mode
       +doom-dashboard-functions '(doom-dashboard-widget-banner))
 
-(defun open-plan-buffer ()
+(defun copy-buffer-path ()
+  "Copy buffer's relative path to the kill ring."
   (interactive)
-  (pop-to-buffer
-    (doom-scratch-buffer
-     nil
-     doom-scratch-initial-major-mode
-     default-directory
-     "<plan>")))
+  (kill-new (file-relative-name buffer-file-name (projectile-project-root))))
 
 (map! "s-[" '+workspace/switch-left
       "s-{" '+workspace/swap-left
@@ -147,8 +144,8 @@
 
 (map! :leader
       "§" 'org-agenda-list
-      "z" 'open-plan-buffer
       "b a" 'rename-buffer
+      "b p" 'copy-buffer-path
       "w P" '+popup/raise
       "o t" '+vterm/here
       "o T" nil
@@ -262,8 +259,8 @@
   "Remove ANSI codes from buffer."
   (interactive)
   (save-excursion
-   (mark-whole-buffer)
-   (ansi-color-filter-region (region-beginning) (region-end))))
+    (mark-whole-buffer)
+    (ansi-color-filter-region (region-beginning) (region-end))))
 
 (defun next-error-in-different-file ()
   "Like `next-error', but looks for the error in a different file."
@@ -276,10 +273,9 @@
 
 (map! :n "] E" 'next-error-in-different-file)
 
-(map!
- (:map 'override
-   :v "v" #'er/expand-region
-   :v "V" #'er/contract-region))
+(map! :map 'override
+      :v "v" #'er/expand-region
+      :v "V" #'er/contract-region)
 
 ;; evil
 (setq evil-want-fine-undo t
@@ -360,6 +356,19 @@
 
 (advice-add 'lsp--path-is-watchable-directory
             :around #'++lsp--path-is-watchable-directory-a)
+
+;; magit
+(defun magit-copy-buffer-name ()
+  "Show the current branch in the echo-area and add it to the `kill-ring'."
+  (interactive)
+  (let ((branch (magit-get-current-branch)))
+    (if branch
+        (progn (kill-new branch)
+               (message "%s" branch))
+      (user-error "There is not current branch"))))
+
+(map! :map magit-status-mode-map
+      :n "yn" 'magit-copy-buffer-name)
 
 ;; markdown-mode
 (after! markdown-mode
@@ -515,11 +524,28 @@
 (setq vertico-quick1 "asd"
       vertico-quick2 "jkl")
 
+(add-hook 'minibuffer-setup-hook
+   (lambda ()
+     (setq orderless-smart-case-initial orderless-smart-case)))
+
+(add-hook 'minibuffer-exit-hook
+   (lambda ()
+     (setq orderless-smart-case orderless-smart-case-initial)))
+
+(defun vertico-toggle-case-sensitivity ()
+  "Toggle case sensitivity of the current search."
+  (interactive)
+  (setq orderless-smart-case (not orderless-smart-case))
+  (when (= (how-many "#" (point-min) (point-max)) 1)
+    (insert (minibuffer-contents-no-properties)))
+  (consult-vertico--refresh))
+
 (after! vertico
   (map! :map vertico-map
         "DEL" #'backward-delete-char
         "C-DEL" #'vertico-directory-delete-char
-        "M-i" #'vertico-quick-insert))
+        "s-i" #'vertico-toggle-case-sensitivity
+        "s-j" #'vertico-quick-insert))
 
 ;; vterm
 (map! "s-s" '+vterm/toggle)
@@ -527,8 +553,8 @@
 ;; xml-mode
 (defun +format--buffer-maybe-xml (orig)
   (if (eq major-mode 'xml-mode)
-    (save-excursion
-      (shell-command-on-region (mark) (point) "xmllint --encode utf-8 --format -" (buffer-name) t))
+      (save-excursion
+        (shell-command-on-region (mark) (point) "xmllint --encode utf-8 --format -" (buffer-name) t))
     (funcall orig)))
 
 (advice-add '+format--buffer :around '+format--buffer-maybe-xml)
