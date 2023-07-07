@@ -4,8 +4,8 @@
       enable = true;
 
       skhdConfig = ''
-        alt - q : yabai -m space --focus prev
-        alt - w : yabai -m space --focus next
+        alt - 0x21 : yabai -m space --focus prev
+        alt - 0x1E : yabai -m space --focus next
       '';
     };
   };
