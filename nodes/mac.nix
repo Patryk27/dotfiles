@@ -30,6 +30,7 @@
       jq
       libxml2
       lld
+      magic-wormhole
       ncdu
       ninja
       nixos-rebuild
