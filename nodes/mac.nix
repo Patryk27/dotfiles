@@ -38,6 +38,7 @@
       postgresql
       python3
       ripgrep
+      simavr
       spirv-tools
       sqlite
       sshfs
