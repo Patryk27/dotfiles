@@ -148,7 +148,10 @@
       "b p" 'copy-buffer-path
       "w P" '+popup/raise
       "o t" '+vterm/here
-      "o T" nil
+      "(" '+workspace/switch-left
+      ")" '+workspace/switch-right
+      "[" '+workspace/swap-left
+      "]" '+workspace/swap-right
       "1" '+workspace/switch-to-0
       "2" '+workspace/switch-to-1
       "3" '+workspace/switch-to-2
@@ -341,22 +344,6 @@
       :n "gD" nil
       :n "gt" '+lookup/type-definition)
 
-(defun ++git-ignore-p (path)
-  (let* ((path (directory-file-name path))
-         (default-directory (file-name-directory path))
-         (relpath (file-name-nondirectory path))
-         (cmd (format "git check-ignore '%s'" relpath))
-         (status (call-process-shell-command cmd)))
-    (eq status 0)))
-
-(defun ++lsp--path-is-watchable-directory-a
-    (fn path dir ignored-directories)
-  (and (not (++git-ignore-p (f-join dir path)))
-       (funcall fn path dir ignored-directories)))
-
-(advice-add 'lsp--path-is-watchable-directory
-            :around #'++lsp--path-is-watchable-directory-a)
-
 ;; magit
 (defun magit-copy-buffer-name ()
   "Show the current branch in the echo-area and add it to the `kill-ring'."
@@ -369,6 +356,12 @@
 
 (map! :map magit-status-mode-map
       :n "yn" 'magit-copy-buffer-name)
+
+(after! magit
+  (use-package! magit-delta
+    :config
+    (setq magit-delta-default-dark-theme "gruvbox-dark")
+    (magit-delta-mode)))
 
 ;; markdown-mode
 (after! markdown-mode

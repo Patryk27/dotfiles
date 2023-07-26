@@ -12,6 +12,13 @@
   :recipe (:host github :repo "larstvei/Focus")
   :pin "2507ec4ec5a9402647ef85540669db1815520c15")
 
+(package! lsp-mode
+  :pin "39390d39e3ad039d2b1604f9acf788d41e33f3ae")
+
+(package! magit-delta
+  :recipe (:host github :repo "dandavison/magit-delta")
+  :pin "5fc7dbddcfacfe46d3fd876172ad02a9ab6ac616")
+
 (package! org-modern
   :recipe (:host github :repo "minad/org-modern")
   :pin "610e6fb535b3baf5cbcf17e6491076793e52ae98")
