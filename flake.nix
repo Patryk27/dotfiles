@@ -37,6 +37,10 @@
     nixpkgs-arcanist = {
       url = "github:nixos/nixpkgs";
     };
+
+    nixpkgs-rust-analyzer = {
+      url = "github:nixos/nixpkgs";
+    };
   };
 
   outputs =
@@ -48,6 +52,7 @@
     , nix
     , nixpkgs
     , nixpkgs-arcanist
+    , nixpkgs-rust-analyzer
     }:
     {
       darwinConfigurations = {
@@ -87,6 +92,10 @@
                         hash = "sha256-u+HRsaCuAAyLrEihrZtLrdZ6NTVjPshieJATK3t5Fo4=";
                       };
                     });
+
+                    rust-analyzer = (import nixpkgs-rust-analyzer {
+                      system = "aarch64-darwin";
+                    }).rust-analyzer;
                   })
                 ];
               };

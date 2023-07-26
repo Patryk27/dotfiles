@@ -169,6 +169,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-rust-analyzer": {
+      "locked": {
+        "lastModified": 1689230645,
+        "narHash": "sha256-5PKMCkMQIhdW6DFpNVm4DOQ81PoSPsYcTL3fqlBUWpA=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "686945e0c07d68a6ca624438f1623fd3284ec15d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1684935479,
@@ -193,7 +208,8 @@
         "kitty-themes": "kitty-themes",
         "nix": "nix",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-arcanist": "nixpkgs-arcanist"
+        "nixpkgs-arcanist": "nixpkgs-arcanist",
+        "nixpkgs-rust-analyzer": "nixpkgs-rust-analyzer"
       }
     }
   },
