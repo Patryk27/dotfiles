@@ -5,7 +5,7 @@
     ];
   };
 
-  home-manager.users.pwy = {
+  home-manager.users.PWY = {
     home = {
       packages = with pkgs; [
         rust-analyzer

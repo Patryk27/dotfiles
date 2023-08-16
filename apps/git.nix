@@ -1,5 +1,5 @@
 { ... }: {
-  home-manager.users.pwy = {
+  home-manager.users.PWY = {
     programs = {
       git = {
         enable = true;

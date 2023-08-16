@@ -20,7 +20,7 @@
     ];
   };
 
-  home-manager.users.pwy = {
+  home-manager.users.PWY = {
     home = {
       file = {
         ".doom.d" = {

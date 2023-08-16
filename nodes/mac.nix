@@ -38,7 +38,6 @@
       postgresql
       python3
       ripgrep
-      simavr
       spirv-tools
       sqlite
       sshfs
@@ -99,10 +98,10 @@
         };
       };
 
-      pwy = {
+      PWY = {
         home = {
           stateVersion = "23.05";
-          username = "pwy";
+          username = "PWY";
 
           sessionVariables = {
             EDITOR = "vim";
@@ -116,6 +115,18 @@
     keyboard = {
       enableKeyMapping = true;
       remapCapsLockToEscape = true;
+    };
+  };
+
+  users = {
+    users = {
+      PWY = {
+        home = "/Users/PWY";
+      };
+
+      root = {
+        home = "/var/root";
+      };
     };
   };
 }

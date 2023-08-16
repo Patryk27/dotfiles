@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  home-manager.users.pwy = {
+  home-manager.users.PWY = {
     programs = {
       neovim = {
         enable = true;

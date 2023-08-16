@@ -34,10 +34,6 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
-    nixpkgs-arcanist = {
-      url = "github:nixos/nixpkgs";
-    };
-
     nixpkgs-rust-analyzer = {
       url = "github:nixos/nixpkgs";
     };
@@ -51,7 +47,6 @@
     , kitty-themes
     , nix
     , nixpkgs
-    , nixpkgs-arcanist
     , nixpkgs-rust-analyzer
     }:
     {
@@ -81,17 +76,6 @@
                     sources = {
                       inherit doom-emacs kitty-themes;
                     };
-
-                    arcanist = (import nixpkgs-arcanist {
-                      system = "aarch64-darwin";
-                    }).arcanist.overrideAttrs (old: {
-                      src = pkgs.fetchFromGitHub {
-                        owner = "phacility";
-                        repo = "arcanist";
-                        rev = "e50d1bc4eabac9c37e3220e9f3fb8e37ae20b957";
-                        hash = "sha256-u+HRsaCuAAyLrEihrZtLrdZ6NTVjPshieJATK3t5Fo4=";
-                      };
-                    });
 
                     rust-analyzer = (import nixpkgs-rust-analyzer {
                       system = "aarch64-darwin";
