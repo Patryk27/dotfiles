@@ -1,5 +1,5 @@
 (doom! :completion
-       (company +childframe)
+       company
        vertico
 
        :ui

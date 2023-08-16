@@ -2,9 +2,6 @@
   :recipe (:host github :repo "alpha22jp/atomic-chrome")
   :pin "061958ab96c31085b5daf449b1d826b052777b59")
 
-(package! company-box
-  :pin "b6f53e26adf948aca55c3ff6c22c21a6a6614253")
-
 (package! dirvish
   :pin "119f9f59a618bb7b476c93e9ab1d7542c5c1df41")
 
@@ -13,7 +10,7 @@
   :pin "2507ec4ec5a9402647ef85540669db1815520c15")
 
 (package! lsp-mode
-  :pin "39390d39e3ad039d2b1604f9acf788d41e33f3ae")
+  :pin "2346840947b833b351d74056a86a8f1fb124d22f")
 
 (package! magit-delta
   :recipe (:host github :repo "dandavison/magit-delta")
