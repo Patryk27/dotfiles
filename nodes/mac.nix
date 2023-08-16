@@ -32,6 +32,7 @@
       lld
       ncdu
       ninja
+      niv
       nixos-rebuild
       nmap
       postgresql
