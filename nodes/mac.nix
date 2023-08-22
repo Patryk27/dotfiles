@@ -1,5 +1,6 @@
 { config, pkgs, ... }: {
   imports = [
+    ../apps/direnv.nix
     ../apps/emacs.nix
     ../apps/git.nix
     ../apps/gpg.nix
