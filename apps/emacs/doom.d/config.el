@@ -91,8 +91,8 @@
 
 (setq dirvish-quick-access-entries
       '(
-        ("d" "~/Downloads")
-        ("o" "~/org")))
+        ("d" "~/Documents")
+        ("w" "~/Downloads")))
 
 (defun dired-diff-dwim ()
   (interactive)
@@ -130,10 +130,15 @@
       doom-scratch-initial-major-mode 'org-mode
       +doom-dashboard-functions '(doom-dashboard-widget-banner))
 
-(defun copy-buffer-path ()
+(defun copy-buffer-relative-path ()
   "Copy buffer's relative path to the kill ring."
   (interactive)
   (kill-new (file-relative-name buffer-file-name (projectile-project-root))))
+
+(defun copy-buffer-absolute-path ()
+  "Copy buffer's absolute path to the kill ring."
+  (interactive)
+  (kill-new buffer-file-name))
 
 (map! "s-[" '+workspace/switch-left
       "s-{" '+workspace/swap-left
@@ -145,9 +150,11 @@
 (map! :leader
       "§" 'org-agenda-list
       "b a" 'rename-buffer
-      "b p" 'copy-buffer-path
+      "b p" 'copy-buffer-relative-path
+      "b P" 'copy-buffer-absolute-path
       "w P" '+popup/raise
       "o t" '+vterm/here
+      "o s" '+eshell/here
       "(" '+workspace/switch-left
       ")" '+workspace/switch-right
       "[" '+workspace/swap-left
@@ -176,7 +183,6 @@
       :desc "ediff" "=" 'ediff-buffers)
 
 ;; electric
-
 ;; https://github.com/doomemacs/doomemacs/issues/6331#issuecomment-1109981584
 (defadvice! --nxml-electric-slash-remove-duplicate-right-angle-and-indent (func arg)
   :around 'nxml-electric-slash
@@ -280,6 +286,20 @@
       :v "v" #'er/expand-region
       :v "V" #'er/contract-region)
 
+;; eshell
+(defun +eshell/here ()
+  (interactive)
+  (eshell 'N))
+
+(defun eshell/bcat (&rest args)
+  "Output the contents of one or more buffers as a string. "
+  (let ((buffers (mapcar #'get-buffer args)))
+    (mapconcat (lambda (buf)
+                 (save-window-excursion
+                   (switch-to-buffer buf)
+                   (buffer-substring-no-properties (point-min) (point-max))))
+               buffers "\n")))
+
 ;; evil
 (setq evil-want-fine-undo t
       +evil-want-o/O-to-continue-comments nil)
@@ -287,8 +307,6 @@
 (setq evil-normal-state-cursor '(box "#00ff00")
       evil-insert-state-cursor '(bar "#00ff00")
       evil-visual-state-cursor '(hollow "#00ff00"))
-
-(map! :n "gF" 'ffap-other-window)
 
 ;; evil-numbers
 (map! :n "g=" 'evil-numbers/inc-at-pt
@@ -299,13 +317,6 @@
       :prefix "c"
       "x" 'flycheck-list-errors
       "X" '+default/diagnostics)
-
-;; focus-mode
-(map! :leader
-      :prefix "-"
-      "-" 'focus-mode
-      "p" 'focus-mode-pin
-      "i" 'focus-change-thing)
 
 ;; hl-line
 (setq hl-line-sticky-flag nil
@@ -331,10 +342,10 @@
 ;; lsp
 (setq lsp-file-watch-threshold 5000
       lsp-headerline-breadcrumb-enable t
+      lsp-inlay-hint-enable t
       lsp-lens-enable nil
       lsp-rust-all-features t
       lsp-rust-analyzer-proc-macro-enable t
-      lsp-rust-analyzer-server-display-inlay-hints t
       lsp-signature-auto-activate nil
       lsp-ui-doc-show-with-cursor nil
       lsp-ui-sideline-enable nil)
@@ -353,6 +364,8 @@
         (progn (kill-new branch)
                (message "%s" branch))
       (user-error "There is not current branch"))))
+
+(map! "s-g" 'magit-status)
 
 (map! :map magit-status-mode-map
       :n "yn" 'magit-copy-buffer-name)
@@ -420,7 +433,7 @@
 (setq rustic-compile-directory-method 'rustic-buffer-workspace)
 
 (defun rustic-cargo-check-crate ()
-  "Run 'cargo check' on current crate."
+  "Run `cargo check' on current crate."
   (interactive)
   (rustic-run-cargo-command
    "cargo check --tests --benches --all-features"
@@ -428,36 +441,43 @@
          :directory (rustic-buffer-crate))))
 
 (defun rustic-cargo-test-crate ()
-  "Run 'cargo test' on current crate."
+  "Run `cargo test' on current crate."
   (interactive)
   (rustic-run-cargo-command
    "cargo test --all-features"
    (list :mode 'rustic-cargo-run-mode
          :directory (rustic-buffer-crate))))
 
+(defun rustic-cargo-clippy-workspace ()
+  "Run `cargo clippy' on current workspace."
+  (interactive)
+  (rustic-run-cargo-command
+   "cargo clippy --workspace --tests --benches --all-features"
+   (list :mode 'rustic-cargo-clippy-mode)))
+
 (defun rustic-cargo-check-workspace ()
-  "Run 'cargo check' on current workspace."
+  "Run `cargo check' on current workspace."
   (interactive)
   (rustic-run-cargo-command
    "cargo check --workspace --tests --benches --all-features"
    (list :mode 'rustic-cargo-run-mode)))
 
 (defun rustic-cargo-test-workspace ()
-  "Run 'cargo test' on current workspace."
+  "Run `cargo test' on current workspace."
   (interactive)
   (rustic-run-cargo-command
    "cargo test --workspace --all-features"
    (list :mode 'rustic-cargo-run-mode)))
 
 (defun rustic-open-main-rs ()
-  "Open closest 'main.rs'."
+  "Open closest `main.rs'."
   (interactive)
   (let ((file (locate-dominating-file "." "Cargo.toml")))
     (when file
       (find-file (concat file "src/main.rs")))))
 
 (defun rustic-open-lib-rs ()
-  "Open closest 'lib.rs'."
+  "Open closest `lib.rs'."
   (interactive)
   (let ((file (locate-dominating-file "." "Cargo.toml")))
     (when file
@@ -498,6 +518,7 @@
   (map! :map rustic-mode-map
         :localleader
         :prefix ("w" . "workspace")
+        :desc "cargo check" "k" 'rustic-cargo-clippy-workspace
         :desc "cargo check" "c" 'rustic-cargo-check-workspace
         :desc "cargo test" "t" 'rustic-cargo-test-workspace)
 
@@ -518,12 +539,12 @@
       vertico-quick2 "jkl")
 
 (add-hook 'minibuffer-setup-hook
-   (lambda ()
-     (setq orderless-smart-case-initial orderless-smart-case)))
+          (lambda ()
+            (setq orderless-smart-case-initial orderless-smart-case)))
 
 (add-hook 'minibuffer-exit-hook
-   (lambda ()
-     (setq orderless-smart-case orderless-smart-case-initial)))
+          (lambda ()
+            (setq orderless-smart-case orderless-smart-case-initial)))
 
 (defun vertico-toggle-case-sensitivity ()
   "Toggle case sensitivity of the current search."
@@ -538,7 +559,7 @@
         "DEL" #'backward-delete-char
         "C-DEL" #'vertico-directory-delete-char
         "s-i" #'vertico-toggle-case-sensitivity
-        "s-j" #'vertico-quick-insert))
+        "s-j" #'vertico-quick-jump))
 
 ;; vterm
 (map! "s-s" '+vterm/toggle)

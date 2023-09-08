@@ -36,9 +36,14 @@
             user = "pwy";
           };
 
+          ubu-wg = {
+            hostname = "10.24.1.3";
+            user = "pwy";
+          };
+
           warp = {
-            # hostname = "10.24.1.2";
-            hostname = "192.168.1.200";
+            hostname = "10.24.1.2";
+            # hostname = "192.168.1.200";
             port = 33000;
             user = "pwy";
           };

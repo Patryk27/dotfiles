@@ -23,28 +23,14 @@
   };
 
   nix = {
-    package = pkgs.nix;
     distributedBuilds = true;
 
-    extraOptions = ''
-      sandbox = true
-      builders-use-substitutes = true
-      experimental-features = nix-command flakes
-      extra-platforms = x86_64-darwin aarch64-darwin
-    '';
-
-    buildMachines = [
-      {
-        hostName = "warp";
-        system = "x86_64-linux";
-        maxJobs = 8;
-        speedFactor = 1;
-        supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-        mandatoryFeatures = [ ];
-      }
-    ];
-
     settings = {
+      builders-use-substitutes = true;
+      experimental-features = [ "nix-command" "flakes" ];
+      extra-platforms = [ "x86_64-darwin" "aarch64-darwin" ];
+      sandbox = true;
+
       trusted-users = [
         "builder"
         "root"
@@ -59,6 +45,17 @@
         "ssh-ng://warp"
       ];
     };
+
+    buildMachines = [
+      {
+        hostName = "warp";
+        system = "x86_64-linux";
+        maxJobs = 8;
+        speedFactor = 1;
+        supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+        mandatoryFeatures = [ ];
+      }
+    ];
   };
 
   nixpkgs = {

@@ -1,6 +1,8 @@
-.PHONY: switch
+.PHONY: check, switch
+
+check:
+	nix build .#darwinConfigurations.mac.system
 
 switch:
-	nix build .#darwinConfigurations.mac.system --option builders '' \
-    && ./result/sw/bin/darwin-rebuild switch --flake .#mac \
-    && ~/.emacs.d/bin/doom sync
+	nix build .#darwinConfigurations.mac.system \
+    && ./result/sw/bin/darwin-rebuild switch --flake .#mac

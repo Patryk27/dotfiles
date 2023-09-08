@@ -56,6 +56,7 @@
           cab = "clear && cargo build";
           cabr = "clear && cargo build --release";
           cac = "clear && cargo check";
+          cacw = "clear && cargo check --workspace";
           caf = "clear && cargo fmt";
           car = "clear && cargo run";
           carb = "clear && RUST_BACKTRACE=1 cargo run";
@@ -72,12 +73,7 @@
           cau = "clear && cargo update";
           caup = "clear && cargo update --package";
           d = "docker";
-          jcl = "journalctl";
-          jclu = "journalctl --user";
           nx = "nix develop -c zsh";
-          scl = "systemctl";
-          sclu = "systemctl --user";
-          vg-cg = "valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes --collect-jumps=yes -- ";
         };
       };
     };

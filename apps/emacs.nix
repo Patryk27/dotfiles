@@ -15,7 +15,16 @@
         sv
       ]))
 
-      omnisharp-roslyn
+      (emacs29-macport.overrideAttrs (old: {
+        patches = (old.patches or [ ]) ++ [
+          ./emacs/patch/poll.patch
+        ];
+
+        configureFlags = (old.configureFlags or [ ]) ++ [
+          "--with-poll"
+        ];
+      }))
+
       rnix-lsp
     ];
   };

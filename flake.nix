@@ -34,6 +34,10 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
+    nixpkgs-emacs = {
+      url = "github:nixos/nixpkgs";
+    };
+
     nixpkgs-rust-analyzer = {
       url = "github:nixos/nixpkgs";
     };
@@ -47,6 +51,7 @@
     , kitty-themes
     , nix
     , nixpkgs
+    , nixpkgs-emacs
     , nixpkgs-rust-analyzer
     }:
     {
@@ -76,6 +81,10 @@
                     sources = {
                       inherit doom-emacs kitty-themes;
                     };
+
+                    emacs29-macport = (import nixpkgs-emacs {
+                      system = "aarch64-darwin";
+                    }).emacs29-macport;
 
                     rust-analyzer = (import nixpkgs-rust-analyzer {
                       system = "aarch64-darwin";
