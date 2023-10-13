@@ -7,6 +7,9 @@
 
   environment = {
     systemPackages = with pkgs; [
+      emacs29-macport
+      rnix-lsp
+
       (aspellWithDicts (dicts: with dicts; [
         en
         en-computers
@@ -14,18 +17,6 @@
         pl
         sv
       ]))
-
-      (emacs29-macport.overrideAttrs (old: {
-        patches = (old.patches or [ ]) ++ [
-          ./emacs/patch/poll.patch
-        ];
-
-        configureFlags = (old.configureFlags or [ ]) ++ [
-          "--with-poll"
-        ];
-      }))
-
-      rnix-lsp
     ];
   };
 

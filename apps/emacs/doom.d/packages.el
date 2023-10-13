@@ -5,9 +5,8 @@
 (package! dirvish
   :pin "119f9f59a618bb7b476c93e9ab1d7542c5c1df41")
 
-(package! magit-delta
-  :recipe (:host github :repo "dandavison/magit-delta")
-  :pin "5fc7dbddcfacfe46d3fd876172ad02a9ab6ac616")
+(package! kkp
+  :recipe (:host github :repo "benjaminor/kkp"))
 
 (package! org-modern
   :recipe (:host github :repo "minad/org-modern")

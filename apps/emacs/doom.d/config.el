@@ -6,6 +6,7 @@
     (setq mac-pass-command-to-system nil)))
 
 (load "/Users/pwy/.doom.d/config/ion-mode.el")
+(global-kkp-mode)
 
 ;; ace-window
 (custom-set-faces!
@@ -369,12 +370,6 @@
 
 (map! :map magit-status-mode-map
       :n "yn" 'magit-copy-buffer-name)
-
-(after! magit
-  (use-package! magit-delta
-    :config
-    (setq magit-delta-default-dark-theme "gruvbox-dark")
-    (magit-delta-mode)))
 
 ;; markdown-mode
 (after! markdown-mode
