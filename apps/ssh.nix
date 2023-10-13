@@ -42,8 +42,13 @@
           };
 
           warp = {
+            hostname = "192.168.1.200";
+            port = 33000;
+            user = "pwy";
+          };
+
+          warp-wg = {
             hostname = "10.24.1.2";
-            # hostname = "192.168.1.200";
             port = 33000;
             user = "pwy";
           };
@@ -69,6 +74,11 @@
 
           anx-wrop-aclr8-p3 = {
             hostname = "192.168.194.137";
+            user = "patryk.wychowaniec";
+          };
+
+          anx-gcpa-hx-v1 = {
+            hostname = "34.107.119.213";
             user = "patryk.wychowaniec";
           };
 
