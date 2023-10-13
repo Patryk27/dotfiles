@@ -32,6 +32,7 @@
       libxml2
       lld
       ncdu
+      nethack
       ninja
       niv
       nixos-rebuild
