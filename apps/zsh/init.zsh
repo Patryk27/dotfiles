@@ -18,11 +18,11 @@ d-ip() {
     docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$@"
 }
 
-pub-add() {
+share() {
     file="$1"
 
     if [[ -z "$file" ]]; then
-        echo "usage: pub-add <path>"
+        echo "usage: share <path>"
         return
     fi
 
@@ -32,29 +32,30 @@ pub-add() {
 
     rsync \
         -avz \
+        --info=progress2 \
         --rsync-path="sudo rsync" \
         "$file" \
-        "gateway:/var/lib/nixos-containers/nginx/var/www/files/$fname"
+        "gateway:/var/lib/nixos-containers/nginx/var/www/share/$fname"
 
     echo
-    echo "https://files.pwy.io/$fname"
+    echo "https://share.pwy.io/$fname"
 }
 
-pub-ls() {
+share-ls() {
     ssh gateway -- \
-        ls -l /var/lib/nixos-containers/nginx/var/www/files
+        ls -l /var/lib/nixos-containers/nginx/var/www/share
 }
 
-pub-rm() {
+share-rm() {
     fname="$1"
 
     if [[ -z "$fname" ]]; then
-        echo "usage: pub-rm <name>"
+        echo "usage: share-rm <name>"
         return
     fi
 
     ssh gateway -- \
-        sudo rm "/var/lib/nixos-containers/nginx/var/www/files/$fname"
+        sudo rm "/var/lib/nixos-containers/nginx/var/www/share/$fname"
 }
 
 z() {
