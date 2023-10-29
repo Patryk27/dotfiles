@@ -382,10 +382,6 @@
 (setq org-agenda-files '("~/Documents/" "~/Documents/praca" "~/Documents/wycieczki")
       org-directory "~/Documents")
 
-;; org-modern
-(after! org
-  (global-org-modern-mode))
-
 ;; parrot
 (parrot-mode -1)
 

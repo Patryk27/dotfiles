@@ -8,10 +8,6 @@
 (package! kkp
   :recipe (:host github :repo "benjaminor/kkp"))
 
-(package! org-modern
-  :recipe (:host github :repo "minad/org-modern")
-  :pin "610e6fb535b3baf5cbcf17e6491076793e52ae98")
-
 (package! parrot
   :recipe (:host github :repo "dp12/parrot")
   :pin "1d381f24d74242018e306d1a0c891bed9a465ac3")
