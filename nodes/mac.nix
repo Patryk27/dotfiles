@@ -31,6 +31,7 @@
       jq
       libxml2
       lld
+      moonlight-qt
       ncdu
       nethack
       ninja
