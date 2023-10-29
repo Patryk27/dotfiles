@@ -41,6 +41,10 @@
     nixpkgs-rust-analyzer = {
       url = "github:nixos/nixpkgs";
     };
+
+    nixpkgs-yabai = {
+      url = "github:nixos/nixpkgs";
+    };
   };
 
   outputs =
@@ -53,6 +57,7 @@
     , nixpkgs
     , nixpkgs-emacs
     , nixpkgs-rust-analyzer
+    , nixpkgs-yabai
     }:
     {
       darwinConfigurations = {
@@ -89,6 +94,10 @@
                     rust-analyzer = (import nixpkgs-rust-analyzer {
                       system = "aarch64-darwin";
                     }).rust-analyzer;
+
+                    yabai = (import nixpkgs-yabai {
+                      system = "aarch64-darwin";
+                    }).yabai;
                   })
                 ];
               };
