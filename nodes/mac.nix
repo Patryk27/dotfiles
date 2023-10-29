@@ -40,6 +40,7 @@
       postgresql
       python3
       ripgrep
+      rsync
       spirv-tools
       sqlite
       sshfs
