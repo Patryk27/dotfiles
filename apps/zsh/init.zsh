@@ -9,9 +9,8 @@ zle -N backward-kill-bash-word backward-kill-word-match
 zstyle :zle:backward-kill-bash-word word-style bash
 
 export PATH="$PATH:$HOME/.cargo/bin"
-
 export GPG_TTY=$(tty)
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+
 gpgconf --launch gpg-agent
 
 d-ip() {

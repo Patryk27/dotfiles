@@ -7,8 +7,9 @@
 
   programs = {
     gnupg = {
-      agent.enable = true;
-      agent.enableSSHSupport = true;
+      agent = {
+        enable = true;
+      };
     };
   };
 }

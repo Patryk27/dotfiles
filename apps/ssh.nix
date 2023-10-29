@@ -107,14 +107,22 @@
             user = "patryk.wychowaniec";
           };
 
-          gcpa-hx-v1 = {
-            hostname = "34.107.119.213";
+          anx-yta-5 = {
+            hostname = "10.117.106.5";
+            user = "patryk.wychowaniec";
+          };
+
+          anx-lv = {
+            hostname = "10.33.25.12";
             user = "patryk.wychowaniec";
           };
         };
 
         extraConfig = ''
           PubkeyAcceptedKeyTypes +ssh-rsa
+
+          Host *
+              UseKeychain yes
         '';
       };
     };
