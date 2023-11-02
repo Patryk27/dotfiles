@@ -1,4 +1,7 @@
-.PHONY: check, switch
+.PHONY: all, check, switch
+
+all:
+	make switch
 
 check:
 	nix build .#darwinConfigurations.mac.system
