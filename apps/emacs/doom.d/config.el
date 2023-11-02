@@ -555,6 +555,10 @@
 ;; vterm
 (map! "s-s" '+vterm/toggle)
 
+(add-hook 'vterm-mode-hook
+          (lambda ()
+            (display-fill-column-indicator-mode -1)))
+
 ;; xml-mode
 (defun +format--buffer-maybe-xml (orig)
   (if (eq major-mode 'xml-mode)
