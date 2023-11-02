@@ -123,6 +123,7 @@
 
           Host *
               UseKeychain yes
+              ServerAliveInterval 30s
         '';
       };
     };
