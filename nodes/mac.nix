@@ -29,6 +29,7 @@
       google-cloud-sdk
       htop
       jq
+      just
       libxml2
       lld
       moonlight-qt
