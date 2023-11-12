@@ -36,11 +36,10 @@
           ];
 
           extraConfig = ''
-            FZF_BASE="$(fzf-share)"
-            ZSH_CUSTOM="${./zsh/custom}"
-
             COMPLETION_WAITING_DOTS="true"
             DISABLE_MAGIC_FUNCTIONS="true"
+            FZF_BASE="$(fzf-share)"
+            ZSH_CUSTOM="${./zsh/custom}"
 
             eval "$(direnv hook zsh)"
 

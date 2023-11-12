@@ -1,3 +1,8 @@
+export PATH="$PATH:$HOME/Applications"
+export PATH="$PATH:$HOME/.cargo/bin"
+
+# ---
+
 autoload -Uz backward-kill-word-match
 
 bindkey '^W' backward-kill-space-word
@@ -8,11 +13,13 @@ bindkey '^[^H' backward-kill-bash-word
 zle -N backward-kill-bash-word backward-kill-word-match
 zstyle :zle:backward-kill-bash-word word-style bash
 
-export PATH="$PATH:$HOME/Applications"
-export PATH="$PATH:$HOME/.cargo/bin"
+# ---
+
 export GPG_TTY=$(tty)
 
 gpgconf --launch gpg-agent
+
+# ---
 
 d-ip() {
     docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$@"
@@ -35,15 +42,15 @@ share() {
         --info=progress2 \
         --rsync-path="sudo rsync" \
         "$file" \
-        "gateway:/var/lib/nixos-containers/nginx/var/www/share/$fname"
+        "gateway:/var/lib/nixos-containers/nginx/var/www/files/$fname"
 
     echo
-    echo "https://share.pwy.io/$fname"
+    echo "https://files.pwy.io/$fname"
 }
 
 share-ls() {
     ssh gateway -- \
-        ls -l /var/lib/nixos-containers/nginx/var/www/share
+        ls -l /var/lib/nixos-containers/nginx/var/www/files
 }
 
 share-rm() {
@@ -55,7 +62,7 @@ share-rm() {
     fi
 
     ssh gateway -- \
-        sudo rm "/var/lib/nixos-containers/nginx/var/www/share/$fname"
+        sudo rm "/var/lib/nixos-containers/nginx/var/www/files/$fname"
 }
 
 z() {
