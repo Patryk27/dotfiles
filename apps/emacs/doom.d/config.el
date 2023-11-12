@@ -1,12 +1,16 @@
 ;;; -*- lexical-binding: t; -*-
 
+(load "%ion-mode%")
+
 (when (eq system-type 'darwin)
   (progn
     (setq insert-directory-program "/opt/homebrew/bin/gls")
     (setq mac-pass-command-to-system nil)))
 
-(load "/Users/pwy/.doom.d/config/ion-mode.el")
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
 (global-kkp-mode)
+
+;; -----------------------------------------------------------------------------
 
 ;; ace-window
 (custom-set-faces!
@@ -364,7 +368,7 @@
     (if branch
         (progn (kill-new branch)
                (message "%s" branch))
-      (user-error "There is not current branch"))))
+      (user-error "There is no current branch"))))
 
 (map! "s-g" 'magit-status)
 
@@ -381,6 +385,9 @@
 ;; org
 (setq org-agenda-files '("~/Documents/" "~/Documents/praca" "~/Documents/wycieczki")
       org-directory "~/Documents")
+
+;; parinfer
+(setq-default parinfer-rust-library "%parinfer%")
 
 ;; parrot
 (parrot-mode -1)
