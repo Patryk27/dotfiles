@@ -31,10 +31,6 @@
     };
 
     nixpkgs = {
-      url = "github:nixos/nixpkgs/nixos-unstable";
-    };
-
-    nixpkgs-master = {
       url = "github:nixos/nixpkgs";
     };
   };
@@ -47,7 +43,6 @@
     , kitty-themes
     , nix
     , nixpkgs
-    , nixpkgs-master
     }:
     {
       darwinConfigurations = {
@@ -74,8 +69,8 @@
                 overlays = [
                   (self: super:
                     let
-                      nixpkgs-master' = import nixpkgs-master {
-                        system = "aarch64-darwin";
+                      nixpkgs-x86 = import nixpkgs {
+                        system = "x86_64-linux";
                       };
 
                     in
@@ -84,10 +79,7 @@
                         inherit doom-emacs kitty-themes;
                       };
 
-                      emacs29-macport = nixpkgs-master'.emacs29-macport;
-                      moonlight-qt = nixpkgs-master'.moonlight-qt;
-                      rust-analyzer = nixpkgs-master'.rust-analyzer;
-                      yabai = nixpkgs-master'.yabai;
+                      iosevka = nixpkgs-x86.iosevka;
                     })
                 ];
               };
