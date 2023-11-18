@@ -20,6 +20,7 @@
     systemPackages = with pkgs; [
       arcanist
       aria
+      audacity
       cmake
       curl
       fd
