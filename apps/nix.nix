@@ -28,7 +28,7 @@
 
     settings = {
       builders-use-substitutes = true;
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [ "ca-derivations" "flakes" "nix-command" ];
       extra-platforms = [ "x86_64-darwin" "aarch64-darwin" ];
       sandbox = true;
 
