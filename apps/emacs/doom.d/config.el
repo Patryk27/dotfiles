@@ -130,9 +130,8 @@
         :n "=" 'dired-diff-dwim))
 
 ;; doom
-(setq doom-font (font-spec :family "Iosevka Custom Light" :size 16 :weight 'light)
+(setq doom-font (font-spec :family "Berkeley Mono" :size 14)
       doom-theme 'doom-gruvbox
-      doom-scratch-initial-major-mode 'org-mode
       +doom-dashboard-functions '(doom-dashboard-widget-banner))
 
 (defun copy-buffer-relative-path ()
@@ -153,7 +152,6 @@
       "s-p" 'evil-write-all)
 
 (map! :leader
-      "§" 'org-agenda-list
       "b a" 'rename-buffer
       "b p" 'copy-buffer-relative-path
       "b P" 'copy-buffer-absolute-path
@@ -385,6 +383,17 @@
 ;; org
 (setq org-agenda-files '("~/Documents/" "~/Documents/praca" "~/Documents/wycieczki")
       org-directory "~/Documents")
+
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/Documents/todo.org" "Inbox")
+         "* %?" :prepend t)))
+
+(defun org-capture-todo ()
+  (interactive)
+  (org-capture nil "t"))
+
+(map! "s-§" 'org-agenda-list
+      "M-§" 'org-capture-todo)
 
 ;; parinfer
 (setq-default parinfer-rust-library "%parinfer%")

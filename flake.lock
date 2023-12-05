@@ -24,8 +24,8 @@
     "doom-emacs": {
       "flake": false,
       "locked": {
-        "lastModified": 1699445844,
-        "narHash": "sha256-EULz7ciOUcUWNUoOVFb7GSnvXOojHYaazJKJuE7BLFk=",
+        "lastModified": 1700431544,
+        "narHash": "sha256-kxhvTS+vlJ4TPPi+K5FnNwYo1IOdaCRpEV1cO9Uesak=",
         "path": "/Users/pwy/Projects/doom-emacs",
         "type": "path"
       },
