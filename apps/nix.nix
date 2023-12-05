@@ -1,16 +1,25 @@
 { pkgs, ... }: {
-  home-manager.users.root = {
+  home-manager.users.root = { lib, ... }: {
     programs = {
       ssh = {
         enable = true;
 
         matchBlocks = {
           warp = {
-            # hostname = "10.24.1.2";
-            hostname = "192.168.1.200";
             port = 33000;
             user = "pwy";
           };
+
+          warp--local = {
+            match = ''OriginalHost warp Exec "networksetup -getairportnetwork en0 | grep -q 'Desafinado'"'';
+            hostname = "192.168.1.200";
+          };
+
+          warp--wg = lib.hm.dag.entryAfter [ "warp--local" ] {
+            match = "OriginalHost warp";
+            hostname = "10.24.1.2";
+          };
+
         };
       };
     };

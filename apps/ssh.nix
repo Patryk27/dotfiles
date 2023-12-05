@@ -1,17 +1,26 @@
 { ... }: {
-  home-manager.users.PWY = {
+  home-manager.users.PWY = { lib, ... }: {
     programs = {
       ssh = {
         enable = true;
         controlMaster = "auto";
         controlPersist = "10m";
+        serverAliveInterval = 30;
 
         matchBlocks = {
           archive = {
-            # hostname = "10.24.1.2";
-            hostname = "192.168.1.200";
             port = 33002;
             user = "pwy";
+          };
+
+          archive--local = {
+            match = ''OriginalHost archive Exec "networksetup -getairportnetwork en0 | grep -q 'Desafinado'"'';
+            hostname = "192.168.1.200";
+          };
+
+          archive--wg = lib.hm.dag.entryAfter [ "archive--local" ] {
+            match = "OriginalHost archive";
+            hostname = "10.24.1.2";
           };
 
           gateway = {
@@ -36,21 +45,19 @@
             user = "pwy";
           };
 
-          ubu-wg = {
-            hostname = "10.24.1.3";
-            user = "pwy";
-          };
-
           warp = {
-            hostname = "192.168.1.200";
             port = 33000;
             user = "pwy";
           };
 
-          warp-wg = {
+          warp--local = {
+            match = ''OriginalHost warp Exec "networksetup -getairportnetwork en0 | grep -q 'Desafinado'"'';
+            hostname = "192.168.1.200";
+          };
+
+          warp--wg = lib.hm.dag.entryAfter [ "warp--local" ] {
+            match = "OriginalHost warp";
             hostname = "10.24.1.2";
-            port = 33000;
-            user = "pwy";
           };
 
           # --- #
@@ -123,7 +130,6 @@
 
           Host *
               UseKeychain yes
-              ServerAliveInterval 30s
         '';
       };
     };
