@@ -72,3 +72,11 @@ z() {
         echo "$@" | pbcopy
     fi
 }
+
+nxu() {
+    if [[ -z "$1" ]]; then
+        nix flake update
+    else
+        nix flake lock --update-input $@
+    fi
+}
