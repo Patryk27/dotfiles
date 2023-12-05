@@ -56,30 +56,6 @@
     fontDir = {
       enable = true;
     };
-
-    fonts =
-      let
-        iosevka-custom = pkgs.iosevka.override {
-          set = "custom";
-
-          privateBuildPlan = {
-            family = "Iosevka Custom";
-            spacing = "term";
-            serifs = "sans";
-            no-cv-ss = true;
-            no-ligation = true;
-
-            variants = {
-              inherits = "ss08";
-            };
-          };
-        };
-
-      in
-      with pkgs; [
-        iosevka-custom
-        jetbrains-mono
-      ];
   };
 
   home-manager = {

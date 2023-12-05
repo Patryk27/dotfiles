@@ -69,17 +69,13 @@
                 overlays = [
                   (self: super:
                     let
-                      nixpkgs-x86 = import nixpkgs {
-                        system = "x86_64-linux";
-                      };
+                      # ---
 
                     in
                     {
                       sources = {
                         inherit doom-emacs kitty-themes;
                       };
-
-                      iosevka = nixpkgs-x86.iosevka;
                     })
                 ];
               };

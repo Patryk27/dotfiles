@@ -5,7 +5,7 @@
         enable = true;
 
         font = {
-          name = "JetBrains Mono Light";
+          name = "Berkeley Mono";
           size = 14;
         };
 
