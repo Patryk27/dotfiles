@@ -19,7 +19,6 @@
             match = "OriginalHost warp";
             hostname = "10.24.1.2";
           };
-
         };
       };
     };

@@ -41,8 +41,17 @@
           };
 
           ubu = {
-            hostname = "192.168.1.113";
             user = "pwy";
+          };
+
+          ubu--local = {
+            match = ''OriginalHost ubu Exec "networksetup -getairportnetwork en0 | grep -q 'Desafinado'"'';
+            hostname = "192.168.1.113";
+          };
+
+          ubu--wg = lib.hm.dag.entryAfter [ "ubu--local" ] {
+            match = "OriginalHost ubu";
+            hostname = "10.24.1.3";
           };
 
           warp = {
@@ -101,6 +110,11 @@
 
           anx-gcpp-mercures-mpg-v3 = {
             hostname = "35.233.81.152";
+            user = "patryk.wychowaniec";
+          };
+
+          anx-gcpp-mercures-mpg-v4 = {
+            hostname = "34.76.100.205";
             user = "patryk.wychowaniec";
           };
 
