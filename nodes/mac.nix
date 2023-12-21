@@ -29,6 +29,7 @@
       gnumake
       google-cloud-sdk
       htop
+      inkscape
       jq
       just
       libxml2
