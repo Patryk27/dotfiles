@@ -332,6 +332,7 @@
 
 ;; ispell
 (setq ispell-dictionary "en")
+(advice-add 'ispell-lookup-words :around 'doom-shut-up-a)
 
 ;; json-mode
 (defun +format--buffer-maybe-json (orig)
@@ -345,7 +346,6 @@
 ;; lsp
 (setq lsp-file-watch-threshold 5000
       lsp-headerline-breadcrumb-enable t
-      lsp-inlay-hint-enable t
       lsp-lens-enable nil
       lsp-rust-all-features t
       lsp-rust-analyzer-proc-macro-enable t
@@ -384,16 +384,17 @@
 (setq org-agenda-files '("~/Documents/" "~/Documents/praca" "~/Documents/wycieczki")
       org-directory "~/Documents")
 
-(setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "~/Documents/todo.org" "Inbox")
-         "* %?" :prepend t)))
+(after! org
+  (setq org-capture-templates
+        '(("t" "Todo" entry (file+headline "~/Documents/todo.org" "Inbox")
+           "* %?" :prepend t)))
 
-(defun org-capture-todo ()
-  (interactive)
-  (org-capture nil "t"))
+  (defun org-capture-todo ()
+    (interactive)
+    (org-capture nil "t"))
 
-(map! "s-§" 'org-agenda-list
-      "M-§" 'org-capture-todo)
+  (map! "s-§" 'org-agenda-list
+        "M-§" 'org-capture-todo))
 
 ;; parinfer
 (setq-default parinfer-rust-library "%parinfer%")
