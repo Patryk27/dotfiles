@@ -24,5 +24,5 @@ Configurations for some of my NixOS machines.
 
 # License
 
-Copyright (c) 2021-2024, Patryk Wychowaniec <pwychowaniec@pm.me>.    
+Copyright (c) 2021 Patryk Wychowaniec <pwychowaniec@pm.me>.    
 Licensed under the MIT license.
