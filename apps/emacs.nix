@@ -8,7 +8,8 @@
   environment = {
     systemPackages = with pkgs; [
       emacs29-macport
-      rnix-lsp
+      nil
+      nixpkgs-fmt
 
       (aspellWithDicts (dicts: with dicts; [
         en

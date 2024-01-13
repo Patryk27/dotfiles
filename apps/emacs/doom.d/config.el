@@ -130,7 +130,7 @@
         :n "=" 'dired-diff-dwim))
 
 ;; doom
-(setq doom-font (font-spec :family "Berkeley Mono" :size 14)
+(setq doom-font (font-spec :family "Berkeley Mono" :size 14 :weight 'medium)
       doom-theme 'doom-gruvbox
       +doom-dashboard-functions '(doom-dashboard-widget-banner))
 
@@ -311,6 +311,17 @@
       evil-insert-state-cursor '(bar "#00ff00")
       evil-visual-state-cursor '(hollow "#00ff00"))
 
+(map! "s-e" 'evil-scroll-up
+      "s-r" 'evil-scroll-line-up
+      "s-d" 'evil-scroll-down
+      "s-f" 'evil-scroll-line-down
+      "s-W" '+workspace/delete
+      :n "z;" 'sort-lines
+      :n "ga" '+lookup/references
+      :n "gD" nil
+      :n "gt" '+lookup/type-definition
+      :n "gh" '+lookup/domentation)
+
 ;; evil-numbers
 (map! :n "g=" 'evil-numbers/inc-at-pt
       :n "g-" 'evil-numbers/dec-at-pt)
@@ -353,10 +364,20 @@
       lsp-ui-doc-show-with-cursor nil
       lsp-ui-sideline-enable nil)
 
-(map! :n "z;" 'sort-lines
-      :n "ga" '+lookup/references
-      :n "gD" nil
-      :n "gt" '+lookup/type-definition)
+;; lsp-nix
+(use-package lsp-mode
+  :ensure t)
+
+(use-package lsp-nix
+  :ensure lsp-mode
+  :after (lsp-mode)
+  :demand t
+  :custom
+  (lsp-nix-nil-formatter ["nixpkgs-fmt"]))
+
+(use-package nix-mode
+  :hook (nix-mode . lsp-deferred)
+  :ensure t)
 
 ;; magit
 (defun magit-copy-buffer-name ()
@@ -368,7 +389,8 @@
                (message "%s" branch))
       (user-error "There is no current branch"))))
 
-(map! "s-g" 'magit-status)
+(map! "s-g" 'magit-status
+      "s-G" 'magit-status-here)
 
 (map! :map magit-status-mode-map
       :n "yn" 'magit-copy-buffer-name)
@@ -384,17 +406,17 @@
 (setq org-agenda-files '("~/Documents/" "~/Documents/praca" "~/Documents/wycieczki")
       org-directory "~/Documents")
 
+(defun org-capture-todo ()
+  (interactive)
+  (org-capture nil "t"))
+
+(map! "s-§" 'org-agenda-list
+      "M-§" 'org-capture-todo)
+
 (after! org
   (setq org-capture-templates
         '(("t" "Todo" entry (file+headline "~/Documents/todo.org" "Inbox")
-           "* %?" :prepend t)))
-
-  (defun org-capture-todo ()
-    (interactive)
-    (org-capture nil "t"))
-
-  (map! "s-§" 'org-agenda-list
-        "M-§" 'org-capture-todo))
+           "* %?" :prepend t))))
 
 ;; parinfer
 (setq-default parinfer-rust-library "%parinfer%")

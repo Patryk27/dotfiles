@@ -41,7 +41,6 @@
     , doom-emacs
     , home-manager
     , kitty-themes
-    , nix
     , nixpkgs
     }:
     {

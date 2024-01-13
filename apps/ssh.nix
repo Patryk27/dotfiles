@@ -69,6 +69,11 @@
             hostname = "10.24.1.2";
           };
 
+          win = {
+            user = "Komputer";
+            hostname = "192.168.1.114";
+          };
+
           # --- #
 
           "gitlab.pwy.io" = {

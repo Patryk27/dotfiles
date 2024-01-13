@@ -57,7 +57,7 @@
        (javascript +tree-sitter)
        (json +tree-sitter)
        (markdown +grip)
-       (nix +lsp +tree-sitter)
+       (nix +tree-sitter)
        org
        rest
        (rust +lsp +tree-sitter)

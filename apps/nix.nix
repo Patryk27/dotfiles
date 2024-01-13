@@ -27,7 +27,6 @@
   environment = {
     systemPackages = with pkgs; [
       nix-index
-      nixpkgs-fmt
     ];
   };
 
