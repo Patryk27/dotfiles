@@ -31,6 +31,14 @@
   };
 
   nix = {
+    package = pkgs.nix.overrideAttrs
+      (final: prev: {
+        patches = prev.patches ++ [
+          # TODO https://github.com/NixOS/nix/issues/9625
+          ./nix/openssl-sandbox.patch
+        ];
+      });
+
     distributedBuilds = true;
 
     settings = {
