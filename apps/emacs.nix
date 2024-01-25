@@ -7,9 +7,8 @@
 
   environment = {
     systemPackages = with pkgs; [
+      emacs-lsp-booster
       emacs29-macport
-      nil
-      nixpkgs-fmt
 
       (aspellWithDicts (dicts: with dicts; [
         en
@@ -48,15 +47,10 @@
           ".doom.d/packages.el" = {
             text = render ./emacs/doom.d/packages.el;
           };
-
-          ".emacs.d" = {
-            source = pkgs.sources.doom-emacs;
-          };
         };
 
       sessionVariables = {
-        DOOMLOCALDIR = "/Users/pwy/.cache/.doom.local";
-        DOOMPROFILELOADFILE = "/Users/pwy/.cache/profile-load.el";
+        LSP_USE_PLISTS = "true";
       };
     };
   };

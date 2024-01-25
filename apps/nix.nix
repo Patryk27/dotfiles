@@ -26,7 +26,11 @@
 
   environment = {
     systemPackages = with pkgs; [
+      nil
+      niv
       nix-index
+      nixos-rebuild
+      nixpkgs-fmt
     ];
   };
 

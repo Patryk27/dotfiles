@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ ... }: {
   home-manager.users.PWY = {
     programs = {
       neovim = {

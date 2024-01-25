@@ -1,5 +1,6 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
   imports = [
+    ../apps/csharp.nix
     ../apps/direnv.nix
     ../apps/emacs.nix
     ../apps/git.nix
@@ -18,9 +19,9 @@
 
   environment = {
     systemPackages = with pkgs; [
-      arcanist
       aria
       audacity
+      bat
       cmake
       curl
       fd
@@ -29,7 +30,6 @@
       gnumake
       google-cloud-sdk
       htop
-      inkscape
       jq
       just
       libxml2
@@ -38,8 +38,6 @@
       ncdu
       nethack
       ninja
-      niv
-      nixos-rebuild
       nmap
       postgresql
       python3
@@ -48,6 +46,7 @@
       spirv-tools
       sqlite
       sshfs
+      watch
       wget
       wrk
     ];

@@ -1,10 +1,5 @@
 {
   inputs = {
-    doom-emacs = {
-      url = "path:/Users/pwy/Projects/doom-emacs";
-      flake = false;
-    };
-
     darwin = {
       url = "github:lnl7/nix-darwin/master";
 
@@ -38,7 +33,6 @@
   outputs =
     { self
     , darwin
-    , doom-emacs
     , home-manager
     , kitty-themes
     , nixpkgs
@@ -66,16 +60,11 @@
 
               nixpkgs = {
                 overlays = [
-                  (self: super:
-                    let
-                      # ---
-
-                    in
-                    {
-                      sources = {
-                        inherit doom-emacs kitty-themes;
-                      };
-                    })
+                  (self: super: {
+                    sources = {
+                      inherit kitty-themes;
+                    };
+                  })
                 ];
               };
             })
