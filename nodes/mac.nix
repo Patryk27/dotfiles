@@ -7,8 +7,8 @@
     ../apps/gpg.nix
     ../apps/kitty.nix
     ../apps/lorri.nix
-    ../apps/mnt.nix
     ../apps/nix.nix
+    ../apps/res.nix
     ../apps/rust.nix
     ../apps/skhd.nix
     ../apps/ssh.nix
@@ -22,6 +22,7 @@
       aria
       audacity
       bat
+      clang-tools
       cmake
       curl
       fd

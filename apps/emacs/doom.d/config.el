@@ -120,12 +120,18 @@
       (error "no more than 2 files should be marked"))))
 
 (after! (:and evil dired)
-  (setq dirvish-hide-details nil)
+  (setq dirvish-attributes '(file-time file-size)
+        dirvish-hide-details nil)
 
   (map! :map dirvish-mode-map
+        :n "?" 'dirvish-dispatch
+        :n "a" 'dirvish-quick-access
+        :n "s" 'dirvish-quicksort
+        :n "n" 'find-file
+        :n "N" 'dirvish-narrow
         :n "h" 'dired-up-directory
         :n "l" 'dired-find-file
-        :n "F" nil
+        :n "<tab>" 'dirvish-fd
         :n ";" 'dirvish-layout-toggle
         :n "=" 'dired-diff-dwim))
 
@@ -184,16 +190,6 @@
 (map! :leader
       :prefix "b"
       :desc "ediff" "=" 'ediff-buffers)
-
-;; electric
-;; https://github.com/doomemacs/doomemacs/issues/6331#issuecomment-1109981584
-(defadvice! --nxml-electric-slash-remove-duplicate-right-angle-and-indent (func arg)
-  :around 'nxml-electric-slash
-  (let ((point-before (point)))
-    (funcall func arg)
-    (unless (equal (+ 1 point-before) (point))
-      (delete-char 1)
-      (funcall indent-line-function))))
 
 ;; emacs
 (setq calendar-week-start-day 1
@@ -357,45 +353,12 @@
 
 ;; lsp
 (setq lsp-file-watch-threshold 5000
-      lsp-headerline-breadcrumb-enable t
       lsp-lens-enable nil
       lsp-rust-all-features t
-      lsp-rust-analyzer-proc-macro-enable t
       lsp-signature-auto-activate nil
       lsp-ui-doc-show-with-cursor nil
       lsp-ui-sideline-enable nil
       lsp-use-plists t)
-
-(defun lsp-booster--advice-json-parse (old-fn &rest args)
-  "Try to parse bytecode instead of json."
-  (or
-   (when (equal (following-char) ?#)
-     (let ((bytecode (read (current-buffer))))
-       (when (byte-code-function-p bytecode)
-         (funcall bytecode))))
-   (apply old-fn args)))
-
-(advice-add (if (progn (require 'json)
-                       (fboundp 'json-parse-buffer))
-                'json-parse-buffer
-              'json-read)
-            :around
-            #'lsp-booster--advice-json-parse)
-
-(defun lsp-booster--advice-final-command (old-fn cmd &optional test?)
-  "Prepend emacs-lsp-booster command to lsp CMD."
-  (let ((orig-result (funcall old-fn cmd test?)))
-    (if (and (not test?)                             ;; for check lsp-server-present?
-             (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
-             lsp-use-plists
-             (not (functionp 'json-rpc-connection))  ;; native json-rpc
-             (executable-find "emacs-lsp-booster"))
-        (progn
-          (message "Using emacs-lsp-booster for %s!" orig-result)
-          (cons "emacs-lsp-booster" orig-result))
-      orig-result)))
-
-(advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
 
 ;; lsp-nix
 (use-package lsp-mode
@@ -598,31 +561,10 @@
 (setq undo-tree-visualizer-timestamps t)
 
 ;; vertico
-(setq vertico-quick1 "asd"
-      vertico-quick2 "jkl")
-
-(add-hook 'minibuffer-setup-hook
-          (lambda ()
-            (setq orderless-smart-case-initial orderless-smart-case)))
-
-(add-hook 'minibuffer-exit-hook
-          (lambda ()
-            (setq orderless-smart-case orderless-smart-case-initial)))
-
-(defun vertico-toggle-case-sensitivity ()
-  "Toggle case sensitivity of the current search."
-  (interactive)
-  (setq orderless-smart-case (not orderless-smart-case))
-  (when (= (how-many "#" (point-min) (point-max)) 1)
-    (insert (minibuffer-contents-no-properties)))
-  (consult-vertico--refresh))
-
 (after! vertico
   (map! :map vertico-map
         "DEL" #'backward-delete-char
-        "C-DEL" #'vertico-directory-delete-char
-        "s-i" #'vertico-toggle-case-sensitivity
-        "s-j" #'vertico-quick-jump))
+        "C-DEL" #'vertico-directory-delete-char))
 
 ;; vterm
 (map! "s-s" '+vterm/toggle)

@@ -4,8 +4,8 @@ set -e
 
 function do-help {
     echo "usage:"
-    echo "  mnt mount <resource>"
-    echo "  mnt umount <resource>"
+    echo "  res mount <resource>"
+    echo "  res umount <resource>"
     echo
     echo "resources:"
     echo "  - backup"

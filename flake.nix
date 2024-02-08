@@ -10,6 +10,11 @@
       };
     };
 
+    emacs-mac = {
+      url = "https://bitbucket.org/mituharu/emacs-mac/get/08a024bd93e6bd1faef9c8623dd43ce3058cfa85.zip";
+      flake = false;
+    };
+
     home-manager = {
       url = "github:rycee/home-manager";
 
@@ -33,6 +38,7 @@
   outputs =
     { self
     , darwin
+    , emacs-mac
     , home-manager
     , kitty-themes
     , nixpkgs
@@ -62,7 +68,7 @@
                 overlays = [
                   (self: super: {
                     sources = {
-                      inherit kitty-themes;
+                      inherit emacs-mac kitty-themes;
                     };
                   })
                 ];

@@ -1,12 +1,12 @@
 { pkgs, ... }: {
   environment.systemPackages = [
-    (pkgs.writeShellScriptBin "mnt" ''
+    (pkgs.writeShellScriptBin "res" ''
       set -e
 
       export PATH="$PATH:${pkgs.gocryptfs}/bin"
       export PATH="$PATH:${pkgs.ifuse}/bin"
 
-      ${./mnt/mnt.sh} "$@"
+      ${./res/main.sh} "$@"
     '')
   ];
 }

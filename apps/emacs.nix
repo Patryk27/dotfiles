@@ -1,14 +1,9 @@
 { pkgs, ... }: {
-  fonts = {
-    fonts = with pkgs; [
-      emacs-all-the-icons-fonts
-    ];
-  };
-
   environment = {
     systemPackages = with pkgs; [
-      emacs-lsp-booster
-      emacs29-macport
+      (emacs29-macport.overrideAttrs (old: {
+        src = pkgs.sources.emacs-mac;
+      }))
 
       (aspellWithDicts (dicts: with dicts; [
         en
