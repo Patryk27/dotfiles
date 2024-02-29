@@ -1,6 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
 (load "%ion-mode%")
+(load "%llvm-mode%")
 
 (when (eq system-type 'darwin)
   (progn
@@ -91,13 +92,86 @@
 
   (setf (alist-get ?. avy-dispatch-alist) 'avy-action-embark))
 
+;; calc
+(defun calc-copy-top ()
+  "Copy the thing at the top of the calc stack."
+  (interactive)
+  (let ((val (calc-top)))
+    (kill-new (if (Math-scalarp val)
+                  (math-format-number val)
+                (math-format-flat-expr-fancy val 0)))))
+
+(defun calc-eval-region (_arg beg end)
+  "Calculate region and replace it with the result."
+  (interactive "P\nr")
+  (let* ((expr (buffer-substring-no-properties beg end))
+         (result (calc-eval expr)))
+    (if (equal current-prefix-arg nil)
+      (progn
+        (kill-region beg end)
+        (insert result))
+      (progn
+        (goto-char end)
+        (insert "\n= ")
+        (insert result)))))
+
+(map! :leader
+      :desc "calc" "=" 'calc)
+
+(map! :v "=" 'calc-eval-region)
+
+(map! :map calc-mode-map
+      :desc "yank" "s-y" 'calc-copy-top)
+
+;; csharp-mode
+(set-popup-rule! "^\\*csharp-compilation" :vslot -1)
+
+(after! csharp-mode
+  (map! :map csharp-mode-map
+        :localleader
+        :desc "build" "b" 'csharp-dotnet-build
+        :desc "test" "t" 'csharp-dotnet-test))
+
+(defun csharp-dotnet-build ()
+  "Run `dotnet build' on current solution."
+  (interactive)
+  (csharp-compilation "dotnet" "build"))
+
+(defun csharp-dotnet-test ()
+  "Run `dotnet test' on current solution."
+  (interactive)
+  (csharp-compilation "dotnet" "test"))
+
+(defun csharp-compilation (command args)
+  (let ((buffer (get-buffer-create "*csharp-compilation*")))
+    (with-current-buffer buffer
+      (setq-local buffer-read-only t
+                  default-directory (projectile-project-root))
+      (let ((inhibit-read-only t))
+        (erase-buffer)
+        (insert (format "%s %s \n" command args)))
+      (display-buffer buffer)
+      (let ((process (start-process "csharp-dotnet-test" buffer command args)))
+        (set-process-filter process 'csharp-compilation-filter)))))
+
+(defun csharp-compilation-filter (process output)
+  (let ((buffer (process-buffer process)))
+    (when (buffer-live-p buffer)
+      (with-current-buffer buffer
+        (let ((inhibit-read-only t)
+              (window (get-buffer-window buffer)))
+          (goto-char (point-max))
+          (insert output)
+          (set-window-point window (point-max)))))))
+
 ;; dired / dirvish
 (map! :leader "j" 'dired-jump)
 
 (setq dirvish-quick-access-entries
       '(
         ("d" "~/Documents")
-        ("w" "~/Downloads")))
+        ("w" "~/Downloads")
+        ("a" "/private/diary")))
 
 (defun dired-diff-dwim ()
   (interactive)
@@ -131,7 +205,9 @@
         :n "N" 'dirvish-narrow
         :n "h" 'dired-up-directory
         :n "l" 'dired-find-file
-        :n "<tab>" 'dirvish-fd
+        :n "\\" 'dirvish-narrow
+        :n "|" 'dirvish-fd
+        :n "<tab>" 'dirvish-toggle-subtree
         :n ";" 'dirvish-layout-toggle
         :n "=" 'dired-diff-dwim))
 
@@ -213,22 +289,6 @@
       :ni "s-K" '+evil/window-move-up
       :ni "s-l" 'evil-window-right
       :ni "s-L" '+evil/window-move-right)
-
-(defun calc-eval-region (arg beg end)
-  "Calculate region and replace it with the result."
-  (interactive "P\nr")
-  (let* ((expr (buffer-substring-no-properties beg end))
-         (result (calc-eval expr)))
-    (kill-region beg end)
-    (insert result)))
-
-(map! :leader
-      :prefix ("=" . "calc")
-      :desc "eval" "=" 'calc-eval-region
-      :desc "grab" "g" 'calc-grab-rectangle
-      :desc "dispatch" "d" 'calc-dispatch)
-
-(map! :v "=" 'calc-eval-region)
 
 (map! :leader
       :prefix "o"
@@ -398,6 +458,10 @@
         :prefix ("t" . "table")
         :desc "align" "a" 'markdown-table-align))
 
+;; minibuffer
+(map! :map minibuffer-mode-map
+      "C-u" 'universal-argument)
+
 ;; org
 (setq org-agenda-files '("~/Documents/" "~/Documents/praca" "~/Documents/wycieczki")
       org-directory "~/Documents")
@@ -565,6 +629,9 @@
   (map! :map vertico-map
         "DEL" #'backward-delete-char
         "C-DEL" #'vertico-directory-delete-char))
+
+;; vlf
+(require 'vlf-setup)
 
 ;; vterm
 (map! "s-s" '+vterm/toggle)

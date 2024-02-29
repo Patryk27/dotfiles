@@ -5,6 +5,9 @@
 (package! dirvish
   :pin "119f9f59a618bb7b476c93e9ab1d7542c5c1df41")
 
+(package! vlf
+  :pin "6192573ee088079bf1f81abc2bf2a370a5a92397")
+
 (package! kkp
   :recipe (:host github :repo "benjaminor/kkp"))
 
