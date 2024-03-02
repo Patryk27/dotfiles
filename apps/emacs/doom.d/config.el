@@ -5,8 +5,8 @@
 
 (when (eq system-type 'darwin)
   (progn
-    (setq insert-directory-program "/opt/homebrew/bin/gls")
-    (setq mac-pass-command-to-system nil)))
+    (setq insert-directory-program "/opt/homebrew/bin/gls"
+          mac-pass-command-to-system nil)))
 
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 (global-kkp-mode)
@@ -195,7 +195,8 @@
 
 (after! (:and evil dired)
   (setq dirvish-attributes '(file-time file-size)
-        dirvish-hide-details nil)
+        dirvish-hide-details nil
+        dired-omit-files "\\`[.]?#\\|\\`[.][.]?\\'")
 
   (map! :map dirvish-mode-map
         :n "?" 'dirvish-dispatch
@@ -239,7 +240,6 @@
       "b P" 'copy-buffer-absolute-path
       "w P" '+popup/raise
       "o t" '+vterm/here
-      "o s" '+eshell/here
       "(" '+workspace/switch-left
       ")" '+workspace/switch-right
       "[" '+workspace/swap-left
@@ -347,6 +347,12 @@
       :v "V" #'er/contract-region)
 
 ;; eshell
+(defun +eshell/clear ()
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)
+    (eshell-send-input nil nil t)))
+
 (defun +eshell/here ()
   (interactive)
   (eshell 'N))
@@ -359,6 +365,22 @@
                    (switch-to-buffer buf)
                    (buffer-substring-no-properties (point-min) (point-max))))
                buffers "\n")))
+
+(defun eshell-insert-history ()
+  "Displays the eshell history to select and insert back into your eshell."
+  (interactive)
+  (insert (completing-read "Eshell history: "
+                               (delete-dups
+                                (ring-elements eshell-history-ring)))))
+
+(setq eshell-banner-message ""
+      eshell-scroll-to-bottom-on-input t)
+
+(map! :leader "o s" '+eshell/here)
+
+(map! :map eshell-mode-map
+      "C-l" '+eshell/clear
+      "M-r" 'eshell-insert-history)
 
 ;; evil
 (setq evil-want-fine-undo t
@@ -463,8 +485,9 @@
       "C-u" 'universal-argument)
 
 ;; org
-(setq org-agenda-files '("~/Documents/" "~/Documents/praca" "~/Documents/wycieczki")
-      org-directory "~/Documents")
+(setq org-agenda-files '("~/Documents/org/")
+      org-directory "~/Documents/org"
+      org-log-into-drawer t)
 
 (defun org-capture-todo ()
   (interactive)
@@ -475,7 +498,7 @@
 
 (after! org
   (setq org-capture-templates
-        '(("t" "Todo" entry (file+headline "~/Documents/todo.org" "Inbox")
+        '(("t" "Todo" entry (file+headline "~/Documents/org/todo.org" "Inbox")
            "* %?" :prepend t))))
 
 ;; parinfer
@@ -504,6 +527,11 @@
 
 (map! :n "z[" 'parrot-rotate-prev-word-at-point
       :n "z]" 'parrot-rotate-next-word-at-point)
+
+;; pcre2el
+(defmacro prx (&rest expressions)
+  "Convert the rx-compatible regular EXPRESSIONS to PCRE."
+  `(rxt-elisp-to-pcre (rx ,@expressions)))
 
 ;; projectile
 (setq projectile-project-search-path '("~/Projects" "~/Projects/anixe")

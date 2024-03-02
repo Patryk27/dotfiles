@@ -12,7 +12,7 @@
       ];
 
       file = {
-        ".cargo/config".text = ''
+        ".cargo/config.toml".text = ''
           [net]
           git-fetch-with-cli = true
 
