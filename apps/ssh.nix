@@ -30,9 +30,9 @@
           };
 
           glacier = {
-            hostname = "zh1258.rsync.net";
-            port = 22;
-            user = "zh1258";
+            hostname = "u393702.your-storagebox.de";
+            port = 23;
+            user = "u393702";
           };
 
           sienna = {
