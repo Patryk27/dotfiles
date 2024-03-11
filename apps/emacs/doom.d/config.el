@@ -376,6 +376,8 @@
 (setq eshell-banner-message ""
       eshell-scroll-to-bottom-on-input t)
 
+(map! "s-a" '+eshell/toggle)
+
 (map! :leader "o s" '+eshell/here)
 
 (map! :map eshell-mode-map
