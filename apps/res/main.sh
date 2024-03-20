@@ -8,8 +8,6 @@ function do-help {
     echo "  res umount <resource>"
     echo
     echo "resources:"
-    echo "  - backup"
-    echo "  - cloud"
     echo "  - diary"
     echo "  - phone"
 
@@ -22,14 +20,6 @@ function do-mount {
     fi
 
     case "$1" in
-        "backup")
-            do-mount--backup
-            ;;
-
-        "cloud")
-            do-mount--cloud
-            ;;
-
         "diary")
             do-mount--diary
             ;;
@@ -50,14 +40,6 @@ function do-umount {
     fi
 
     case "$1" in
-        "backup")
-            do-umount--backup
-            ;;
-
-        "cloud")
-            do-umount--cloud
-            ;;
-
         "diary")
             do-umount--diary
             ;;
@@ -72,76 +54,33 @@ function do-umount {
     esac
 }
 
-function do-mount--backup {
-    if [[ -d /private/backup ]]; then
-        echo "error: resource already mounted"
-        exit 1
-    fi
-
-    backup mount
-}
-
-function do-umount--backup {
-    if [[ ! -d /private/backup ]]; then
-        echo "error: resource not mounted"
-        exit 1
-    fi
-
-    backup umount
-    rm -d /private/backup
-}
-
-function do-mount--cloud {
-    if [[ -d /private/cloud ]]; then
-        echo "error: resource already mounted"
-        exit 1
-    fi
-
-    echo "[+] Preparing mount point"
-    mkdir /private/cloud
-
-    echo "[+] Detecting sftp-server"
-    sftp_server=$(
-        ssh warp -- grep Subsystem /etc/ssh/sshd_config | cut -d' ' -f3
-    )
-
-    echo "[+] Mounting"
-    sshfs \
-        -o reconnect,ServerAliveInterval=5,ServerAliveCountMax=1 \
-        -o sftp_server="sudo -u '#999' -g '#999' ${sftp_server}" \
-        warp:/var/lib/nixos-containers/nextcloud/var/lib/nextcloud/data /private/cloud
-}
-
-function do-umount--cloud {
-    if [[ ! -d /private/cloud ]]; then
-        echo "error: resource not mounted"
-        exit 1
-    fi
-
-    echo "[+] Unmounting"
-    sudo umount /private/cloud
-    rm -d /private/cloud
-}
-
 function do-mount--diary {
     if [[ -d /private/diary ]]; then
         echo "error: resource already mounted"
         exit 1
     fi
 
+    if ssh warp 'test -e /mnt/diary'; then
+        echo "error: resource already mounted at the remote"
+        exit 1
+    fi
+
+    echo "[+] Opening crypt"
+
+    ssh warp -- \
+        mkdir /mnt/diary
+
+    ssh warp -- \
+        gocryptfs /var/lib/storages/diary /mnt/diary
+
     echo "[+] Mounting"
+
     sudo mkdir /private/diary
     sudo chown pwy:staff /private/diary
 
-    sudo mkdir /private/diary.data
-    sudo chown pwy:staff /private/diary.data
-
     sshfs \
         -o reconnect,ServerAliveInterval=5,ServerAliveCountMax=1 \
-        warp:/var/lib/storages/diary /private/diary.data
-
-    echo "[+] Opening crypt"
-    gocryptfs /private/diary.data /private/diary
+        warp:/mnt/diary /private/diary
 }
 
 function do-umount--diary {
@@ -150,15 +89,18 @@ function do-umount--diary {
         exit 1
     fi
 
-    echo "[+] Closing crypt"
-    umount /private/diary
-
     echo "[+] Unmounting"
-    umount /private/diary.data
 
-    echo "[+] Cleaning-up"
+    umount /private/diary
     sudo rm -d /private/diary
-    sudo rm -d /private/diary.data
+
+    echo "[+] Closing crypt"
+
+    ssh warp -- \
+        umount /mnt/diary
+
+    ssh warp -- \
+        rm -d /mnt/diary
 }
 
 function do-mount--phone {

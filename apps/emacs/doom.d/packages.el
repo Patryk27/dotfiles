@@ -1,3 +1,7 @@
+(package! alert
+  :recipe (:host github :repo "jwiegley/alert")
+  :pin "7774b5fd2feb98d4910ff06435d08c19fba93e26")
+
 (package! atomic-chrome
   :recipe (:host github :repo "alpha22jp/atomic-chrome")
   :pin "f1b077be7e414f457191d72dcf5eedb4371f9309")

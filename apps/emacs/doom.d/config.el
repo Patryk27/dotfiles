@@ -24,6 +24,9 @@
 
 (map! :leader "k" 'ace-window)
 
+;; alert
+(setq alert-default-style 'osx-notifier)
+
 ;; atomic-chrome
 (setq atomic-chrome-default-major-mode 'markdown-mode)
 
@@ -390,7 +393,8 @@
 
 (setq evil-normal-state-cursor '(box "#00ff00")
       evil-insert-state-cursor '(bar "#00ff00")
-      evil-visual-state-cursor '(hollow "#00ff00"))
+      evil-visual-state-cursor '(hollow "#00ff00")
+      evil-replace-state-cursor '(hbar "#00ff00"))
 
 (map! "s-e" 'evil-scroll-up
       "s-r" 'evil-scroll-line-up
@@ -537,7 +541,8 @@
 
 ;; projectile
 (setq projectile-project-search-path '("~/Projects" "~/Projects/anixe")
-      projectile-track-known-projects-automatically nil)
+      projectile-track-known-projects-automatically nil
+      projectile-verbose nil)
 
 (map! :leader
       :prefix "p"
