@@ -11,7 +11,7 @@
     };
 
     emacs-mac = {
-      url = "https://bitbucket.org/mituharu/emacs-mac/get/08a024bd93e6bd1faef9c8623dd43ce3058cfa85.zip";
+      url = "https://bitbucket.org/mituharu/emacs-mac/get/0386c5908920.zip";
       flake = false;
     };
 
