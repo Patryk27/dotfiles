@@ -1,9 +1,7 @@
 { pkgs, ... }: {
   environment = {
     systemPackages = with pkgs; [
-      (emacs29-macport.overrideAttrs (old: {
-        src = pkgs.sources.emacs-mac;
-      }))
+      emacs-git
 
       (aspellWithDicts (dicts: with dicts; [
         en

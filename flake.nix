@@ -10,9 +10,14 @@
       };
     };
 
-    emacs-mac = {
-      url = "https://bitbucket.org/mituharu/emacs-mac/get/0386c5908920.zip";
-      flake = false;
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay";
+
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
     };
 
     home-manager = {
@@ -38,7 +43,7 @@
   outputs =
     { self
     , darwin
-    , emacs-mac
+    , emacs-overlay
     , home-manager
     , kitty-themes
     , nixpkgs
@@ -66,9 +71,11 @@
 
               nixpkgs = {
                 overlays = [
+                  emacs-overlay.overlay
+
                   (self: super: {
                     sources = {
-                      inherit emacs-mac kitty-themes;
+                      inherit kitty-themes;
                     };
                   })
                 ];

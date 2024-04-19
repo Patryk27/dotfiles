@@ -142,6 +142,11 @@
             hostname = "10.33.25.12";
             user = "patryk.wychowaniec";
           };
+
+          anx-pozpdariv1 = {
+            hostname = "pozpdariv1.hrc.lan";
+            user = "patryk.wychowaniec";
+          };
         };
 
         extraConfig = ''

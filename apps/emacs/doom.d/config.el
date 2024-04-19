@@ -4,16 +4,17 @@
 (load "%llvm-mode%")
 
 (when (eq system-type 'darwin)
-  (progn
-    (setq insert-directory-program "/opt/homebrew/bin/gls"
-          mac-pass-command-to-system nil)))
+  (setq insert-directory-program "/opt/homebrew/bin/gls"
+        mac-pass-command-to-system nil))
 
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 (global-kkp-mode)
 
-;; -----------------------------------------------------------------------------
+(defun no-op () nil)
 
+;; -----------------------------------------------------------------------------
 ;; ace-window
+
 (custom-set-faces!
   '(aw-leading-char-face
     :foreground "white"
@@ -24,15 +25,23 @@
 
 (map! :leader "k" 'ace-window)
 
+;; -----------------------------------------------------------------------------
 ;; alert
+
+(require 'alert)
+
 (setq alert-default-style 'osx-notifier)
 
+;; -----------------------------------------------------------------------------
 ;; atomic-chrome
+
 (setq atomic-chrome-default-major-mode 'markdown-mode)
 
 (atomic-chrome-start-server)
 
+;; -----------------------------------------------------------------------------
 ;; avy
+
 (setq avy-keys '(?a ?s ?d ?j ?k ?l))
 
 (map! :n "=" 'evil-avy-goto-char-timer)
@@ -95,7 +104,17 @@
 
   (setf (alist-get ?. avy-dispatch-alist) 'avy-action-embark))
 
+;; -----------------------------------------------------------------------------
 ;; calc
+
+(map! :leader
+      :desc "calc" "=" 'calc)
+
+(map! :v "=" 'calc-eval-region)
+
+(map! :map calc-mode-map
+      :desc "yank" "s-y" 'calc-copy-top)
+
 (defun calc-copy-top ()
   "Copy the thing at the top of the calc stack."
   (interactive)
@@ -110,23 +129,17 @@
   (let* ((expr (buffer-substring-no-properties beg end))
          (result (calc-eval expr)))
     (if (equal current-prefix-arg nil)
-      (progn
-        (kill-region beg end)
-        (insert result))
+        (progn
+          (kill-region beg end)
+          (insert result))
       (progn
         (goto-char end)
         (insert "\n= ")
         (insert result)))))
 
-(map! :leader
-      :desc "calc" "=" 'calc)
-
-(map! :v "=" 'calc-eval-region)
-
-(map! :map calc-mode-map
-      :desc "yank" "s-y" 'calc-copy-top)
-
+;; -----------------------------------------------------------------------------
 ;; csharp-mode
+
 (set-popup-rule! "^\\*csharp-compilation" :vslot -1)
 
 (after! csharp-mode
@@ -167,7 +180,9 @@
           (insert output)
           (set-window-point window (point-max)))))))
 
+;; -----------------------------------------------------------------------------
 ;; dired / dirvish
+
 (map! :leader "j" 'dired-jump)
 
 (setq dirvish-quick-access-entries
@@ -214,22 +229,53 @@
         :n "|" 'dirvish-fd
         :n "<tab>" 'dirvish-toggle-subtree
         :n ";" 'dirvish-layout-toggle
-        :n "=" 'dired-diff-dwim))
+        :n "=" 'dired-diff-dwim)
 
+  ;; TODO https://github.com/alexluigit/dirvish/pull/251
+  (defun dirvish--mode-line-fmt-setter (left right &optional header)
+    "Set the `dirvish--mode-line-fmt'.
+LEFT and RIGHT are segments aligned to left/right respectively.
+If HEADER, set the `dirvish--header-line-fmt' instead."
+    (cl-labels ((expand (segments)
+                  (cl-loop for s in segments collect
+                           (if (stringp s) s
+                             `(:eval (,(intern (format "dirvish-%s-ml" s)) (dirvish-curr))))))
+                (get-font-scale ()
+                  (let* ((face (if header 'header-line 'mode-line-inactive))
+                         (defualt (face-attribute 'default :height))
+                         (ml-height (face-attribute face :height)))
+                    (cond ((floatp ml-height) ml-height)
+                          ((integerp ml-height) (/ (float ml-height) defualt))
+                          (t 1)))))
+      `((:eval
+         (let* ((dv (dirvish-curr))
+                (buf (and (car (dv-layout dv)) (cdr (dv-index dv))))
+                (scale ,(get-font-scale))
+                (win-width (floor (/ (window-width) scale)))
+                (str-l (format-mode-line
+                        ',(or (expand left) mode-line-format) nil nil buf))
+                (str-r (format-mode-line ',(expand right) nil nil buf))
+                (len-r (string-width str-r)))
+           (concat
+            (dirvish--bar-image (car (dv-layout dv)) ,header)
+            (if (< (+ (string-width str-l) len-r) win-width)
+                str-l
+              (let ((trim (1- (- win-width len-r))))
+                (if (>= trim 0)
+                    (substring str-l 0 (min trim (1- (length str-l))))
+                  "")))
+            (propertize
+             " " 'display
+             `((space :align-to (- (+ right right-fringe right-margin)
+                                   ,(ceiling (* scale (string-width str-r)))))))
+            str-r)))))))
+
+;; -----------------------------------------------------------------------------
 ;; doom
+
 (setq doom-font (font-spec :family "Berkeley Mono" :size 14 :weight 'medium)
       doom-theme 'doom-gruvbox
       +doom-dashboard-functions '(doom-dashboard-widget-banner))
-
-(defun copy-buffer-relative-path ()
-  "Copy buffer's relative path to the kill ring."
-  (interactive)
-  (kill-new (file-relative-name buffer-file-name (projectile-project-root))))
-
-(defun copy-buffer-absolute-path ()
-  "Copy buffer's absolute path to the kill ring."
-  (interactive)
-  (kill-new buffer-file-name))
 
 (map! "s-[" '+workspace/switch-left
       "s-{" '+workspace/swap-left
@@ -243,11 +289,11 @@
       "b p" 'copy-buffer-relative-path
       "b P" 'copy-buffer-absolute-path
       "w P" '+popup/raise
-      "o t" '+vterm/here
+      "o t" 'eat
       "(" '+workspace/switch-left
       ")" '+workspace/switch-right
-      "[" '+workspace/swap-left
-      "]" '+workspace/swap-right
+      "{" '+workspace/swap-left
+      "}" '+workspace/swap-right
       "1" '+workspace/switch-to-0
       "2" '+workspace/switch-to-1
       "3" '+workspace/switch-to-2
@@ -259,19 +305,43 @@
       "9" '+workspace/switch-to-8
       "0" '+workspace/switch-to-final)
 
+(defun copy-buffer-relative-path ()
+  "Copy buffer's relative path to the kill ring."
+  (interactive)
+  (kill-new (file-relative-name buffer-file-name (projectile-project-root))))
+
+(defun copy-buffer-absolute-path ()
+  "Copy buffer's absolute path to the kill ring."
+  (interactive)
+  (kill-new buffer-file-name))
+
+;; -----------------------------------------------------------------------------
 ;; doom-modeline
+
 (after! doom-modeline
-  (defun empty-modeline ()
-    nil)
+  (advice-add 'doom-modeline-segment--vcs :override 'no-op))
 
-  (advice-add 'doom-modeline-segment--vcs :override 'empty-modeline))
+;; -----------------------------------------------------------------------------
+;; eat
 
+(add-hook 'eshell-load-hook #'eat-eshell-mode)
+
+(add-hook 'eat-mode-hook
+          (lambda ()
+            (display-fill-column-indicator-mode -1)))
+
+;; -----------------------------------------------------------------------------
 ;; ediff
+
 (map! :leader
       :prefix "b"
       :desc "ediff" "=" 'ediff-buffers)
 
+;; -----------------------------------------------------------------------------
 ;; emacs
+
+(global-display-fill-column-indicator-mode +1)
+
 (setq calendar-week-start-day 1
       custom-file (file-name-concat doom-local-dir "custom.el")
       display-line-numbers-type nil
@@ -281,9 +351,8 @@
 
 (setq-default major-mode 'text-mode)
 
-(global-display-fill-column-indicator-mode +1)
-
 (map! :n "\\" '+default/search-buffer
+      :n "] E" 'next-error-in-different-file
       :ni "s-i" 'insert-char
       :ni "s-h" 'evil-window-left
       :ni "s-H" '+evil/window-move-left
@@ -295,8 +364,20 @@
       :ni "s-L" '+evil/window-move-right)
 
 (map! :leader
+      :prefix "b"
+      :desc "Kill stale buffers" "DEL" 'kill-stale-buffers)
+
+(map! :leader
       :prefix "o"
       :desc "Calendar" "c" 'calendar)
+
+(map! :leader
+      :prefix "t"
+      :desc "Line numbers" "l" 'toggle-line-numbers)
+
+(map! :map 'override
+      :v "v" #'er/expand-region
+      :v "V" #'er/contract-region)
 
 (defun toggle-line-numbers ()
   (interactive)
@@ -307,10 +388,6 @@
     (progn
       (setq display-line-numbers-type nil)
       (global-display-line-numbers-mode -1))))
-
-(map! :leader
-      :prefix "t"
-      :desc "Line numbers" "l" 'toggle-line-numbers)
 
 (defun buffer-fresh-p (buffer)
   (let ((backing-file (buffer-file-name buffer)))
@@ -324,9 +401,6 @@
   (interactive)
   (mapc 'kill-buffer (-remove 'buffer-fresh-p (buffer-list))))
 
-(map! :leader
-      :prefix "b"
-      :desc "Kill stale buffers" "DEL" 'kill-stale-buffers)
 
 (defun remove-ansi ()
   "Remove ANSI codes from buffer."
@@ -344,22 +418,16 @@
         (compilation-next-file 1)
         (compile-goto-error)))))
 
-(map! :n "] E" 'next-error-in-different-file)
-
-(map! :map 'override
-      :v "v" #'er/expand-region
-      :v "V" #'er/contract-region)
-
+;; -----------------------------------------------------------------------------
 ;; eshell
-(defun +eshell/clear ()
-  (interactive)
-  (let ((inhibit-read-only t))
-    (erase-buffer)
-    (eshell-send-input nil nil t)))
 
-(defun +eshell/here ()
-  (interactive)
-  (eshell 'N))
+(use-package eshell)
+
+(map! "s-s" '+eshell/toggle)
+(map! :leader "o s" '+eshell/here)
+
+;; TODO eshell-did-you-mean seems broken at the moment
+(advice-add 'eshell-did-you-mean-setup :override 'no-op)
 
 (defun eshell/bcat (&rest args)
   "Output the contents of one or more buffers as a string. "
@@ -370,25 +438,78 @@
                    (buffer-substring-no-properties (point-min) (point-max))))
                buffers "\n")))
 
-(defun eshell-insert-history ()
-  "Displays the eshell history to select and insert back into your eshell."
-  (interactive)
-  (insert (completing-read "Eshell history: "
-                               (delete-dups
-                                (ring-elements eshell-history-ring)))))
+(after! esh-mode
+  (defvar +eshell--id nil)
 
-(setq eshell-banner-message ""
-      eshell-scroll-to-bottom-on-input t)
+  (map! :map eshell-mode-map
+        "s-d" '+eshell/search-history)
 
-(map! "s-a" '+eshell/toggle)
+  (setq eshell-bad-command-tolerance 999
+        eshell-prompt-function '+eshell/prompt
+        eshell-prompt-regexp "λ ")
 
-(map! :leader "o s" '+eshell/here)
+  (set-eshell-alias!
+   "ca" "clear && cargo"
+   "cab" "clear && cargo build"
+   "cabr" "clear && cargo build --release"
+   "cac" "clear && cargo check"
+   "cacw" "clear && cargo check --workspace"
+   "caf" "clear && cargo fmt"
+   "car" "clear && cargo run"
+   "carb" "clear && RUST_BACKTRACE=1 cargo run"
+   "carr" "clear && cargo run --release"
+   "carrb" "clear && RUST_BACKTRACE=1 cargo run --release"
+   "cate" "clear && cargo test --quiet"
+   "cateb" "clear && RUST_BACKTRACE=1 cargo test"
+   "cater" "clear && cargo test --quiet --release"
+   "catew" "clear && cargo test --quiet --workspace"
+   "catewr" "clear && cargo test --quiet --workspace --release"
+   "catewb" "clear && RUST_BACKTRACE=1 cargo test --workspace"
+   "catewf" "clear && cargo test --all-features --quiet --workspace"
+   "catewfb" "clear && RUST_BACKTRACE=1 cargo test --all-features --workspace"
+   "cau" "clear && cargo update"
+   "caup" "clear && cargo update --package"
+   "d" "docker"
+   "dc" "docker-compose")
 
-(map! :map eshell-mode-map
-      "C-l" '+eshell/clear
-      "M-r" 'eshell-insert-history)
+  (defun +eshell/toggle (&rest _)
+    "Toggle eshell popup window."
+    (interactive "P")
+    (let ((buffer-name
+           (get-buffer-create
+            (format "*doom:eshell-popup:%s*"
+                    (if (bound-and-true-p persp-mode)
+                        (safe-persp-name (get-current-persp))
+                      "main")))))
+      (if-let (win (get-buffer-window buffer-name))
+          (delete-window win)
+        (let ((buffer (or (cl-loop for buf in (doom-buffers-in-mode 'eshell-mode)
+                                   if (equal (buffer-local-value '+eshell--id buf)
+                                             buffer-name)
+                                   return buf)
+                          (get-buffer-create buffer-name))))
+          (with-current-buffer buffer
+            (setq-local +eshell--id buffer-name)
+            (unless (eq major-mode 'eshell-mode)
+              (eshell-mode)))
+          (pop-to-buffer buffer)))
+      (get-buffer buffer-name)))
 
+  (defun +eshell/prompt ()
+    (require 'shrink-path)
+    (concat (if (bobp) "" "\n")
+            (let ((pwd (eshell/pwd)))
+              (propertize (if (or (file-remote-p pwd) (equal pwd "~"))
+                              pwd
+                            (abbreviate-file-name pwd))
+                          'face '+eshell-prompt-pwd))
+            "\n"
+            (propertize "λ" 'face (if (zerop eshell-last-command-status) 'success 'error))
+            " ")))
+
+;; -----------------------------------------------------------------------------
 ;; evil
+
 (setq evil-want-fine-undo t
       +evil-want-o/O-to-continue-comments nil)
 
@@ -408,30 +529,43 @@
       :n "gt" '+lookup/type-definition
       :n "gh" '+lookup/domentation)
 
+;; -----------------------------------------------------------------------------
 ;; evil-numbers
+
 (map! :n "g=" 'evil-numbers/inc-at-pt
       :n "g-" 'evil-numbers/dec-at-pt)
 
+;; -----------------------------------------------------------------------------
 ;; flycheck
+
 (map! :leader
       :prefix "c"
       "x" 'flycheck-list-errors
       "X" '+default/diagnostics)
 
+;; -----------------------------------------------------------------------------
 ;; hl-line
+
 (setq hl-line-sticky-flag nil
       global-hl-line-sticky-flag nil)
 
+;; -----------------------------------------------------------------------------
 ;; ion-mode
+
 (map! :map ion-mode-map
       :localleader
       :desc "reformat region" "f" 'ion-reformat-region)
 
+;; -----------------------------------------------------------------------------
 ;; ispell
+
 (setq ispell-dictionary "en")
+
 (advice-add 'ispell-lookup-words :around 'doom-shut-up-a)
 
+;; -----------------------------------------------------------------------------
 ;; json-mode
+
 (defun +format--buffer-maybe-json (orig)
   (if (eq major-mode 'json-mode)
       (json-pretty-print-buffer)
@@ -440,7 +574,9 @@
 (after! json
   (advice-add '+format--buffer :around '+format--buffer-maybe-json))
 
+;; -----------------------------------------------------------------------------
 ;; lsp
+
 (setq lsp-file-watch-threshold 5000
       lsp-lens-enable nil
       lsp-rust-all-features t
@@ -449,22 +585,28 @@
       lsp-ui-sideline-enable nil
       lsp-use-plists t)
 
+;; -----------------------------------------------------------------------------
 ;; lsp-nix
-(use-package lsp-mode
-  :ensure t)
+
+(use-package lsp-mode)
 
 (use-package lsp-nix
-  :ensure lsp-mode
-  :after (lsp-mode)
   :demand t
   :custom
   (lsp-nix-nil-formatter ["nixpkgs-fmt"]))
 
 (use-package nix-mode
-  :hook (nix-mode . lsp-deferred)
-  :ensure t)
+  :hook (nix-mode . lsp-deferred))
 
+;; -----------------------------------------------------------------------------
 ;; magit
+
+(map! "s-g" 'magit-status
+      "s-G" 'magit-status-here)
+
+(map! :map magit-status-mode-map
+      :n "yn" 'magit-copy-buffer-name)
+
 (defun magit-copy-buffer-name ()
   "Show the current branch in the echo-area and add it to the `kill-ring'."
   (interactive)
@@ -474,44 +616,48 @@
                (message "%s" branch))
       (user-error "There is no current branch"))))
 
-(map! "s-g" 'magit-status
-      "s-G" 'magit-status-here)
-
-(map! :map magit-status-mode-map
-      :n "yn" 'magit-copy-buffer-name)
-
+;; -----------------------------------------------------------------------------
 ;; markdown-mode
+
 (after! markdown-mode
   (map! :map markdown-mode-map
         :localleader
         :prefix ("t" . "table")
         :desc "align" "a" 'markdown-table-align))
 
+;; -----------------------------------------------------------------------------
 ;; minibuffer
+
 (map! :map minibuffer-mode-map
       "C-u" 'universal-argument)
 
+;; -----------------------------------------------------------------------------
 ;; org
+
 (setq org-agenda-files '("~/Documents/org/")
       org-directory "~/Documents/org"
       org-log-into-drawer t)
 
+(map! "s-§" 'org-agenda-list
+      "M-§" 'org-capture-todo)
+
 (defun org-capture-todo ()
   (interactive)
   (org-capture nil "t"))
-
-(map! "s-§" 'org-agenda-list
-      "M-§" 'org-capture-todo)
 
 (after! org
   (setq org-capture-templates
         '(("t" "Todo" entry (file+headline "~/Documents/org/todo.org" "Inbox")
            "* %?" :prepend t))))
 
+;; -----------------------------------------------------------------------------
 ;; parinfer
+
 (setq-default parinfer-rust-library "%parinfer%")
 
+;; -----------------------------------------------------------------------------
 ;; parrot
+
 (parrot-mode -1)
 
 (setq parrot-rotate-dict
@@ -535,12 +681,16 @@
 (map! :n "z[" 'parrot-rotate-prev-word-at-point
       :n "z]" 'parrot-rotate-next-word-at-point)
 
+;; -----------------------------------------------------------------------------
 ;; pcre2el
+
 (defmacro prx (&rest expressions)
   "Convert the rx-compatible regular EXPRESSIONS to PCRE."
   `(rxt-elisp-to-pcre (rx ,@expressions)))
 
+;; -----------------------------------------------------------------------------
 ;; projectile
+
 (setq projectile-project-search-path '("~/Projects" "~/Projects/anixe")
       projectile-track-known-projects-automatically nil
       projectile-verbose nil)
@@ -552,10 +702,14 @@
 (after! projectile
   (setq projectile-switch-project-action #'projectile-commander))
 
+;; -----------------------------------------------------------------------------
 ;; rainbow-delimeters
+
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
+;; -----------------------------------------------------------------------------
 ;; rustic-mode
+
 (setq rustic-compile-directory-method 'rustic-buffer-workspace)
 
 (defun rustic-cargo-check-crate ()
@@ -653,30 +807,33 @@
         "r"
         'rustic-rerun-shell-command))
 
+;; -----------------------------------------------------------------------------
 ;; subword-mode
+
 (map! "C-x s" 'subword-mode
       "C-x S" 'global-subword-mode)
 
+;; -----------------------------------------------------------------------------
 ;; undo-tree
+
 (setq undo-tree-visualizer-timestamps t)
 
+;; -----------------------------------------------------------------------------
 ;; vertico
+
 (after! vertico
   (map! :map vertico-map
         "DEL" #'backward-delete-char
         "C-DEL" #'vertico-directory-delete-char))
 
+;; -----------------------------------------------------------------------------
 ;; vlf
+
 (require 'vlf-setup)
 
-;; vterm
-(map! "s-s" '+vterm/toggle)
-
-(add-hook 'vterm-mode-hook
-          (lambda ()
-            (display-fill-column-indicator-mode -1)))
-
+;; -----------------------------------------------------------------------------
 ;; xml-mode
+
 (defun +format--buffer-maybe-xml (orig)
   (if (eq major-mode 'xml-mode)
       (save-excursion
