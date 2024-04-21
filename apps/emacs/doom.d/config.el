@@ -4,8 +4,9 @@
 (load "%llvm-mode%")
 
 (when (eq system-type 'darwin)
-  (setq insert-directory-program "/opt/homebrew/bin/gls"
-        mac-pass-command-to-system nil))
+  (progn
+    (setq insert-directory-program "/opt/homebrew/bin/gls")
+    (modify-all-frames-parameters '((inhibit-double-buffering . t)))))
 
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 (global-kkp-mode)
@@ -187,6 +188,7 @@
 
 (setq dirvish-quick-access-entries
       '(
+        ("q" "~/Desktop/queue")
         ("o" "~/Documents")
         ("d" "~/Downloads")
         ("i" "/private/diary")
@@ -421,8 +423,6 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 ;; -----------------------------------------------------------------------------
 ;; eshell
 
-(use-package eshell)
-
 (map! "s-s" '+eshell/toggle)
 (map! :leader "o s" '+eshell/here)
 
@@ -438,11 +438,11 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
                    (buffer-substring-no-properties (point-min) (point-max))))
                buffers "\n")))
 
-(after! esh-mode
+(after! eshell
   (defvar +eshell--id nil)
 
   (map! :map eshell-mode-map
-        "s-d" '+eshell/search-history)
+        "s-r" 'consult-history)
 
   (setq eshell-bad-command-tolerance 999
         eshell-prompt-function '+eshell/prompt
@@ -469,8 +469,10 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
    "catewfb" "clear && RUST_BACKTRACE=1 cargo test --all-features --workspace"
    "cau" "clear && cargo update"
    "caup" "clear && cargo update --package"
+   "cds" "eshell/cd /scp:$1/"
    "d" "docker"
-   "dc" "docker-compose")
+   "dc" "docker-compose"
+   "ssh-copy-terminfo" "infocmp | ssh $1 tic -")
 
   (defun +eshell/toggle (&rest _)
     "Toggle eshell popup window."
@@ -491,7 +493,9 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
           (with-current-buffer buffer
             (setq-local +eshell--id buffer-name)
             (unless (eq major-mode 'eshell-mode)
-              (eshell-mode)))
+              (progn
+                (setq-local default-directory (or (doom-project-root) default-directory))
+                (eshell-mode))))
           (pop-to-buffer buffer)))
       (get-buffer buffer-name)))
 
@@ -635,7 +639,7 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 ;; org
 
 (setq org-agenda-files '("~/Documents/org/")
-      org-directory "~/Documents/org"
+      org-directory "~/Documents/org/"
       org-log-into-drawer t)
 
 (map! "s-§" 'org-agenda-list
