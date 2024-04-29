@@ -4,9 +4,7 @@
 (load "%llvm-mode%")
 
 (when (eq system-type 'darwin)
-  (progn
-    (setq insert-directory-program "/opt/homebrew/bin/gls")
-    (modify-all-frames-parameters '((inhibit-double-buffering . t)))))
+  (setq insert-directory-program "/opt/homebrew/bin/gls"))
 
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 (global-kkp-mode)
@@ -332,6 +330,19 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
           (lambda ()
             (display-fill-column-indicator-mode -1)))
 
+(defun +eat/fix-keys ()
+  (if (bound-and-true-p eat--eshell-char-mode)
+    (progn
+      (evil-emacs-state)
+
+      (map! :map eat-eshell-char-mode-map
+            :i "ESC" 'eat-self-input
+            :i "C-c" 'eat-self-input))
+
+    (evil-normal-state)))
+
+(add-hook 'eat--eshell-char-mode-hook '+eat/fix-keys)
+
 ;; -----------------------------------------------------------------------------
 ;; ediff
 
@@ -449,29 +460,29 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
         eshell-prompt-regexp "λ ")
 
   (set-eshell-alias!
-   "ca" "clear && cargo"
-   "cab" "clear && cargo build"
-   "cabr" "clear && cargo build --release"
-   "cac" "clear && cargo check"
-   "cacw" "clear && cargo check --workspace"
-   "caf" "clear && cargo fmt"
-   "car" "clear && cargo run"
-   "carb" "clear && RUST_BACKTRACE=1 cargo run"
-   "carr" "clear && cargo run --release"
-   "carrb" "clear && RUST_BACKTRACE=1 cargo run --release"
-   "cate" "clear && cargo test --quiet"
-   "cateb" "clear && RUST_BACKTRACE=1 cargo test"
-   "cater" "clear && cargo test --quiet --release"
-   "catew" "clear && cargo test --quiet --workspace"
-   "catewr" "clear && cargo test --quiet --workspace --release"
-   "catewb" "clear && RUST_BACKTRACE=1 cargo test --workspace"
-   "catewf" "clear && cargo test --all-features --quiet --workspace"
-   "catewfb" "clear && RUST_BACKTRACE=1 cargo test --all-features --workspace"
-   "cau" "clear && cargo update"
-   "caup" "clear && cargo update --package"
-   "cds" "eshell/cd /scp:$1/"
-   "d" "docker"
-   "dc" "docker-compose"
+   "ca" "clear && cargo $*"
+   "cab" "clear && cargo build $*"
+   "cabr" "clear && cargo build --release $*"
+   "cac" "clear && cargo check $*"
+   "cacw" "clear && cargo check --workspace $*"
+   "caf" "clear && cargo fmt $*"
+   "car" "clear && cargo run $*"
+   "carb" "clear && RUST_BACKTRACE=1 cargo run $*"
+   "carr" "clear && cargo run --release $*"
+   "carrb" "clear && RUST_BACKTRACE=1 cargo run --release $*"
+   "cate" "clear && cargo test --quiet $*"
+   "cateb" "clear && RUST_BACKTRACE=1 cargo test $*"
+   "cater" "clear && cargo test --quiet --release $*"
+   "catew" "clear && cargo test --quiet --workspace $*"
+   "catewr" "clear && cargo test --quiet --workspace --release $*"
+   "catewb" "clear && RUST_BACKTRACE=1 cargo test --workspace $*"
+   "catewf" "clear && cargo test --all-features --quiet --workspace $*"
+   "catewfb" "clear && RUST_BACKTRACE=1 cargo test --all-features --workspace $*"
+   "cau" "clear && cargo update $*"
+   "caup" "clear && cargo update --package $*"
+   "cds" "eshell/cd /scp:$1:/"
+   "d" "docker $*"
+   "dc" "docker-compose $*"
    "ssh-copy-terminfo" "infocmp | ssh $1 tic -")
 
   (defun +eshell/toggle (&rest _)
