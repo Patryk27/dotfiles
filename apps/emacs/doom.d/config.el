@@ -221,8 +221,7 @@
         :n "?" 'dirvish-dispatch
         :n "a" 'dirvish-quick-access
         :n "s" 'dirvish-quicksort
-        :n "n" 'find-file
-        :n "N" 'dirvish-narrow
+        :n "-" 'find-file
         :n "h" 'dired-up-directory
         :n "l" 'dired-find-file
         :n "\\" 'dirvish-narrow
@@ -440,6 +439,20 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 ;; TODO eshell-did-you-mean seems broken at the moment
 (advice-add 'eshell-did-you-mean-setup :override 'no-op)
 
+(defvar eshell-global-history-ring nil
+  "The history ring shared across Eshell sessions.")
+
+(defun +eshell/use-global-history ()
+  "Make Eshell history shared across different sessions."
+  (unless eshell-global-history-ring
+    (when eshell-history-file-name
+      (eshell-read-history nil t))
+    (setq eshell-global-history-ring
+      (or eshell-history-ring (make-ring eshell-history-size))))
+  (setq eshell-history-ring eshell-global-history-ring))
+
+(add-hook 'eshell-mode-hook '+eshell/use-global-history)
+
 (defun eshell/bcat (&rest args)
   "Output the contents of one or more buffers as a string. "
   (let ((buffers (mapcar #'get-buffer args)))
@@ -456,15 +469,18 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
         "s-r" 'consult-history)
 
   (setq eshell-bad-command-tolerance 999
+        eshell-history-size 4096
         eshell-prompt-function '+eshell/prompt
         eshell-prompt-regexp "λ ")
+
+  (add-to-list 'eshell-modules-list 'eshell-elecslash)
 
   (set-eshell-alias!
    "ca" "clear && cargo $*"
    "cab" "clear && cargo build $*"
    "cabr" "clear && cargo build --release $*"
    "cac" "clear && cargo check $*"
-   "cacw" "clear && cargo check --workspace $*"
+   "cacw" "clear && cargo check --workspace --tests $*"
    "caf" "clear && cargo fmt $*"
    "car" "clear && cargo run $*"
    "carb" "clear && RUST_BACKTRACE=1 cargo run $*"

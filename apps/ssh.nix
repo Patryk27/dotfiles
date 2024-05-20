@@ -138,6 +138,11 @@
             user = "patryk.wychowaniec";
           };
 
+          anx-yta-7 = {
+            hostname = "10.117.106.7";
+            user = "patryk.wychowaniec";
+          };
+
           anx-lv = {
             hostname = "10.33.25.12";
             user = "patryk.wychowaniec";
