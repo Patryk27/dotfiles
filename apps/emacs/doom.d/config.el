@@ -525,6 +525,15 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
         eshell-prompt-function '+eshell/prompt
         eshell-prompt-regexp "λ ")
 
+  (defun +eshell--unused-buffer (&optional new-p)
+    (or (unless new-p
+          (cl-loop for buf in (+eshell-buffers)
+                   if (and (buffer-live-p buf)
+                           (not (get-buffer-window buf t))
+                           (not (with-current-buffer buf +eshell--id)))
+                   return buf))
+        (generate-new-buffer eshell-buffer-name)))
+
   (add-to-list 'eshell-modules-list 'eshell-elecslash)
 
   (set-eshell-alias!
