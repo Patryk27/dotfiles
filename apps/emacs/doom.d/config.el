@@ -921,7 +921,12 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 (defun +format--buffer-maybe-xml (orig)
   (if (eq major-mode 'xml-mode)
       (save-excursion
-        (shell-command-on-region (mark) (point) "xmllint --encode utf-8 --format -" (buffer-name) t))
+        (shell-command-on-region
+         (mark)
+         (point)
+         "xmllint --encode utf-8 --format -"
+         (buffer-name)
+         t))
     (funcall orig)))
 
 (advice-add '+format--buffer :around '+format--buffer-maybe-xml)
