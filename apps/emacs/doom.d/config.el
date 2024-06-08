@@ -315,6 +315,37 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
   (kill-new buffer-file-name))
 
 ;; -----------------------------------------------------------------------------
+;; diary
+
+(defun open-diary (&rest _)
+  "Open the diary."
+  (interactive)
+
+  (tramp-cleanup-connection
+   (tramp-dissect-file-name "/scp:warp:"))
+
+  (unless (file-exists-p "/scp:warp:/mnt/diary/.mounted")
+    (progn
+      (eshell-command
+       (format
+        "echo %s | ssh warp -- 'gocryptfs /var/lib/storages/diary /mnt/diary'"
+        (read-passwd "Password: ")))))
+
+  (evil-normal-state)
+  (dired "/scp:warp:/mnt/diary"))
+
+(defun close-diary (&rest _)
+  "Close the diary."
+  (interactive)
+
+  (tramp-cleanup-connection
+   (tramp-dissect-file-name "/scp:warp:"))
+
+  (if (file-exists-p "/scp:warp:/mnt/diary/.mounted")
+      (progn
+        (eshell-command "ssh warp -- 'umount /mnt/diary'"))))
+
+;; -----------------------------------------------------------------------------
 ;; doom-modeline
 
 (after! doom-modeline
