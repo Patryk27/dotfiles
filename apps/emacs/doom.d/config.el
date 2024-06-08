@@ -537,6 +537,15 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
   (add-to-list 'eshell-modules-list 'eshell-elecslash)
 
   (set-eshell-alias!
+   ;; docker
+   "d" "docker $*"
+   "dc" "docker-compose $*"
+
+   ;; eshell
+   "cdp" "eshell/cd (projectile-project-root)"
+   "cds" "eshell/cd /scp:$1:/"
+
+   ;; rust
    "ca" "clear && cargo $*"
    "cab" "clear && cargo build $*"
    "cabr" "clear && cargo build --release $*"
@@ -557,9 +566,10 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
    "catewfb" "clear && RUST_BACKTRACE=1 cargo test --all-features --workspace $*"
    "cau" "clear && cargo update $*"
    "caup" "clear && cargo update --package $*"
-   "cds" "eshell/cd /scp:$1:/"
-   "d" "docker $*"
-   "dc" "docker-compose $*"
+
+   ;; ssh
+   "gs" "TERM=xterm ssh $1"
+   "gsb" "TERM=xterm ssh $1 -t byobu"
    "ssh-copy-terminfo" "infocmp | ssh $1 tic -")
 
   (defun +eshell/toggle (&rest _)
