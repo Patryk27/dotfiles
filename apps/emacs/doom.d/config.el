@@ -520,6 +520,7 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
         "s-r" 'consult-history)
 
   (setq eshell-bad-command-tolerance 999
+        eshell-banner-message ""
         eshell-history-size 4096
         eshell-prompt-function '+eshell/prompt
         eshell-prompt-regexp "λ ")
