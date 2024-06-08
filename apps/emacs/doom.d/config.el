@@ -472,8 +472,10 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 (map! "s-s" '+eshell/toggle)
 (map! :leader "o s" '+eshell/here)
 
-;; TODO eshell-did-you-mean seems broken at the moment
+;;;; ----
+
 (advice-add 'eshell-did-you-mean-setup :override 'no-op)
+(advice-add 'setup-esh-help-eldoc :override 'no-op)
 
 (defvar eshell-global-history-ring nil
   "The history ring shared across Eshell sessions.")
