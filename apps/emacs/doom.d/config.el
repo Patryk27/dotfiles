@@ -6,8 +6,8 @@
 (when (eq system-type 'darwin)
   (setq insert-directory-program "/opt/homebrew/bin/gls"))
 
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
 (global-kkp-mode)
+(toggle-frame-fullscreen)
 
 (defun no-op () nil)
 
