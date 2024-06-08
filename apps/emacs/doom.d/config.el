@@ -500,6 +500,19 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
                    (buffer-substring-no-properties (point-min) (point-max))))
                buffers "\n")))
 
+(defun eshell/ccat (file)
+  "Like `cat' but output with Emacs syntax highlighting."
+  (with-temp-buffer
+    (insert-file-contents file)
+    (let ((buffer-file-name file))
+      (delay-mode-hooks
+        (set-auto-mode)
+        (if (fboundp 'font-lock-ensure)
+            (font-lock-ensure)
+          (with-no-warnings
+            (font-lock-fontify-buffer)))))
+    (buffer-string)))
+
 (after! eshell
   (defvar +eshell--id nil)
 
