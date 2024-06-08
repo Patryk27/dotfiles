@@ -747,6 +747,11 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
   (interactive)
   (org-capture nil "t"))
 
+(defun org-open-next-section ()
+  (interactive)
+  (org-forward-heading-same-level nil)
+  (+org/open-fold))
+
 (after! org
   (setq org-capture-templates
         '(("t" "Todo" entry (file+headline "~/Documents/org/todo.org" "Inbox")
