@@ -477,19 +477,21 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 (advice-add 'eshell-did-you-mean-setup :override 'no-op)
 (advice-add 'setup-esh-help-eldoc :override 'no-op)
 
-(defvar eshell-global-history-ring nil
-  "The history ring shared across Eshell sessions.")
+;;;; ----
 
-(defun +eshell/use-global-history ()
-  "Make Eshell history shared across different sessions."
-  (unless eshell-global-history-ring
-    (when eshell-history-file-name
-      (eshell-read-history nil t))
-    (setq eshell-global-history-ring
-      (or eshell-history-ring (make-ring eshell-history-size))))
-  (setq eshell-history-ring eshell-global-history-ring))
+(setq eshell-save-history-on-exit nil)
 
-(add-hook 'eshell-mode-hook '+eshell/use-global-history)
+(defun eshell-append-history ()
+  "Call `eshell-write-history' with the `append' parameter set to `t'."
+  (when eshell-history-ring
+    (let ((newest-cmd-ring (make-ring 1)))
+      (ring-insert newest-cmd-ring (car (ring-elements eshell-history-ring)))
+      (let ((eshell-history-ring newest-cmd-ring))
+        (eshell-write-history eshell-history-file-name t)))))
+
+(add-hook 'eshell-pre-command-hook #'eshell-append-history)
+
+;;;; ----
 
 (defun eshell/bcat (&rest args)
   "Output the contents of one or more buffers as a string. "
@@ -512,6 +514,8 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
           (with-no-warnings
             (font-lock-fontify-buffer)))))
     (buffer-string)))
+
+;;;; ----
 
 (after! eshell
   (defvar +eshell--id nil)
