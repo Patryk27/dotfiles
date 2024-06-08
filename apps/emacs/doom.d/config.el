@@ -687,32 +687,6 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 (setq-default parinfer-rust-library "%parinfer%")
 
 ;; -----------------------------------------------------------------------------
-;; parrot
-
-(parrot-mode -1)
-
-(setq parrot-rotate-dict
-      '(
-        (:rot ("<" ">"))
-        (:rot ("<=" ">="))
-        (:rot ("&" "|"))
-        (:rot ("&&" "||"))
-        (:rot ("==" "!="))
-        (:rot ("yes" "no") :caps t :upcase t)
-        (:rot ("get" "set") :caps t :upcase t)
-        (:rot ("high" "low") :caps t :upcase t)
-        (:rot ("in" "out") :caps t :upcase t)
-        (:rot ("left" "right") :caps t :upcase t)
-        (:rot ("min" "max") :caps t :upcase t)
-        (:rot ("on" "off") :caps t :upcase t)
-        (:rot ("true" "false") :caps t :upcase t)
-        (:rot ("1" "2" "3" "4" "5" "6" "7" "8" "9" "10"))
-        (:rot ("1st" "2nd" "3rd" "4th" "5th" "6th" "7th" "8th" "9th" "10th"))))
-
-(map! :n "z[" 'parrot-rotate-prev-word-at-point
-      :n "z]" 'parrot-rotate-next-word-at-point)
-
-;; -----------------------------------------------------------------------------
 ;; pcre2el
 
 (defmacro prx (&rest expressions)

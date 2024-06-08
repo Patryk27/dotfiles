@@ -29,9 +29,6 @@
 (package! lsp-mode
   :pin "02c5ba59ce3d1cede4aa689c530f16cccfb5e1d1")
 
-(package! parrot
-  :recipe (:host github :repo "dp12/parrot")
-  :pin "1d381f24d74242018e306d1a0c891bed9a465ac3")
 
 (package! rustic
   :pin "39423d1cf4fa054c36bf9577356451f4c06ee148")
