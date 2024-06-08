@@ -361,17 +361,22 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
             (display-fill-column-indicator-mode -1)))
 
 (defun +eat/fix-keys ()
-  (if (bound-and-true-p eat--eshell-char-mode)
-    (progn
-      (evil-emacs-state)
+  (when (bound-and-true-p eat--eshell-char-mode)
+    (evil-emacs-state)
 
-      (map! :map eat-eshell-char-mode-map
-            :i "ESC" 'eat-self-input
-            :i "C-c" 'eat-self-input))
+    (map! :map eat-eshell-char-mode-map
+          :i "ESC" 'eat-self-input
+          :i "C-c" 'eat-self-input
+          :in "s-v" 'eat-yank))
 
-    (evil-normal-state)))
+  (when (bound-and-true-p eat--eshell-semi-char-mode)
+    (map! :map eat-eshell-semi-char-mode-map
+          :in "s-v" 'eat-yank))
+
+  (evil-normal-state))
 
 (add-hook 'eat--eshell-char-mode-hook '+eat/fix-keys)
+(add-hook 'eat--eshell-semi-char-mode-hook '+eat/fix-keys)
 
 ;; -----------------------------------------------------------------------------
 ;; ediff
