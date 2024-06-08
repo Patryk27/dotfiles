@@ -682,11 +682,6 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
            "* %?" :prepend t))))
 
 ;; -----------------------------------------------------------------------------
-;; parinfer
-
-(setq-default parinfer-rust-library "%parinfer%")
-
-;; -----------------------------------------------------------------------------
 ;; pcre2el
 
 (defmacro prx (&rest expressions)

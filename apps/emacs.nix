@@ -21,11 +21,9 @@
             builtins.replaceStrings [
               "%ion-mode%"
               "%llvm-mode%"
-              "%parinfer%"
             ] [
               (toString ./emacs/vendor/ion-mode.el)
               (toString "${pkgs.llvm.src}/llvm/utils/emacs/llvm-mode.el")
-              (toString "${pkgs.parinfer-rust}/lib/libparinfer_rust.dylib")
             ]
               (builtins.readFile path);
 
