@@ -745,8 +745,9 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
       org-log-into-drawer t
       org-hide-emphasis-markers t)
 
-(map! "s-§" 'org-agenda-list
-      "M-§" 'org-capture-todo)
+(map! "§" 'org-agenda-list
+      "M-§" 'org-capture-todo
+      "<f10>" 'org-open-next-section)
 
 (defun org-capture-todo ()
   (interactive)
