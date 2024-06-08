@@ -272,7 +272,7 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 ;; -----------------------------------------------------------------------------
 ;; doom
 
-(setq doom-font (font-spec :family "Berkeley Mono" :size 14 :weight 'medium)
+(setq doom-font (font-spec :family "Berkeley Mono" :size 14)
       doom-theme 'doom-gruvbox
       +doom-dashboard-functions '(doom-dashboard-widget-banner))
 
