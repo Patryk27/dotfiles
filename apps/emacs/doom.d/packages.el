@@ -20,11 +20,13 @@
                    (:exclude ".dir-locals.el" "*-tests.el")))
   :pin "3a6f418f55d183b9d86f99c140caed4ba3d44f93")
 
-(package! vlf
-  :pin "cc02f2533782d6b9b628cec7e2dcf25b2d05a27c")
+(package! focus
+  :recipe (:host github :repo "larstvei/Focus")
+  :pin "17c471544f540f2cf9a05fd6cd87e52e5de317e2")
 
 (package! kkp
-  :recipe (:host github :repo "benjaminor/kkp"))
+  :recipe (:host github :repo "benjaminor/kkp")
+  :pin "ed9214329f11b095fc7bad06feb329b9f232258d")
 
 (package! lsp-mode
   :pin "02c5ba59ce3d1cede4aa689c530f16cccfb5e1d1")
@@ -34,4 +36,8 @@
   :pin "0b7af08548e586c0d3b0ca4a683253da407220d1")
 
 (package! rustic
+  :recipe (:host github :repo "emacs-rustic/rustic")
   :pin "39423d1cf4fa054c36bf9577356451f4c06ee148")
+
+(package! vlf
+  :pin "cc02f2533782d6b9b628cec7e2dcf25b2d05a27c")
