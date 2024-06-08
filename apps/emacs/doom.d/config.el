@@ -738,7 +738,8 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 
 (setq org-agenda-files '("~/Documents/org/")
       org-directory "~/Documents/org/"
-      org-log-into-drawer t)
+      org-log-into-drawer t
+      org-hide-emphasis-markers t)
 
 (map! "s-§" 'org-agenda-list
       "M-§" 'org-capture-todo)
@@ -753,6 +754,8 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
   (+org/open-fold))
 
 (after! org
+  (global-org-modern-mode)
+
   (setq org-capture-templates
         '(("t" "Todo" entry (file+headline "~/Documents/org/todo.org" "Inbox")
            "* %?" :prepend t))))

@@ -29,6 +29,9 @@
 (package! lsp-mode
   :pin "02c5ba59ce3d1cede4aa689c530f16cccfb5e1d1")
 
+(package! org-modern
+  :recipe (:host github :repo "minad/org-modern")
+  :pin "0b7af08548e586c0d3b0ca4a683253da407220d1")
 
 (package! rustic
   :pin "39423d1cf4fa054c36bf9577356451f4c06ee148")
