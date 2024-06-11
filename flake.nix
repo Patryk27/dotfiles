@@ -1,15 +1,5 @@
 {
   inputs = {
-    darwin = {
-      url = "github:lnl7/nix-darwin/master";
-
-      inputs = {
-        nixpkgs = {
-          follows = "nixpkgs";
-        };
-      };
-    };
-
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";
 
@@ -21,7 +11,7 @@
     };
 
     home-manager = {
-      url = "github:rycee/home-manager";
+      url = "github:nix-community/home-manager/release-24.05";
 
       inputs = {
         nixpkgs = {
@@ -30,31 +20,29 @@
       };
     };
 
-    kitty-themes = {
-      url = "github:kovidgoyal/kitty-themes";
-      flake = false;
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
     };
 
     nixpkgs = {
-      url = "github:nixos/nixpkgs";
+      url = "github:nixos/nixpkgs/nixos-24.05";
     };
   };
 
   outputs =
     { self
-    , darwin
     , emacs-overlay
     , home-manager
-    , kitty-themes
+    , nixos-hardware
     , nixpkgs
     }:
     {
-      darwinConfigurations = {
-        mac = darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
+      nixosConfigurations = {
+        fw = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
 
           modules = [
-            ./nodes/mac.nix
+            ./nodes/fw.nix
 
             ({ pkgs, ... }: {
               nix = {
@@ -72,17 +60,16 @@
               nixpkgs = {
                 overlays = [
                   emacs-overlay.overlay
-
-                  (self: super: {
-                    sources = {
-                      inherit kitty-themes;
-                    };
-                  })
                 ];
+              };
+
+              system = {
+                stateVersion = "24.05";
               };
             })
 
-            home-manager.darwinModules.home-manager
+            home-manager.nixosModules.home-manager
+            nixos-hardware.nixosModules.framework-16-7040-amd
           ];
         };
       };

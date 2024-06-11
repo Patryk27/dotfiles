@@ -1,4 +1,3 @@
-export PATH="$PATH:$HOME/Applications"
 export PATH="$PATH:$HOME/.cargo/bin"
 
 # ---
@@ -20,10 +19,6 @@ export GPG_TTY=$(tty)
 gpgconf --launch gpg-agent
 
 # ---
-
-d-ip() {
-    docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$@"
-}
 
 share() {
     file="$1"
@@ -63,20 +58,4 @@ share-rm() {
 
     ssh gateway -- \
         sudo rm "/var/lib/nixos-containers/nginx/var/www/files/$fname"
-}
-
-z() {
-    if [[ "$#" == 0 ]]; then
-        fc -ln -1 | pbcopy
-    else
-        echo "$@" | pbcopy
-    fi
-}
-
-nxu() {
-    if [[ -z "$1" ]]; then
-        nix flake update
-    else
-        nix flake lock --update-input $@
-    fi
 }
