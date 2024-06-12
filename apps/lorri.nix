@@ -1,7 +1,0 @@
-{ ... }: {
-  services = {
-    lorri = {
-      enable = true;
-    };
-  };
-}

@@ -11,11 +11,7 @@
 
         extraConfig = ''
           enable_audio_bell no
-          placement_strategy top-left
-          confirm_os_window_close 0
           disable_ligatures always
-          map cmd+h no_op
-          map cmd+k no_op
         '';
       };
     };

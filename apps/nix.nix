@@ -28,4 +28,10 @@
       allowUnfree = true;
     };
   };
+
+  services = {
+    lorri = {
+      enable = true;
+    };
+  };
 }
