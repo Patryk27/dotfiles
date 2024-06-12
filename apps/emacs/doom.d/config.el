@@ -272,25 +272,19 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 ;; -----------------------------------------------------------------------------
 ;; doom
 
-(setq doom-font (font-spec :family "Berkeley Mono" :size 14)
+(setq doom-font (font-spec :family "Berkeley Mono" :size 14.0)
       doom-theme 'doom-gruvbox
       +doom-dashboard-functions '(doom-dashboard-widget-banner))
 
-(map! "s-[" '+workspace/switch-left
-      "s-{" '+workspace/swap-left
-      "s-]" '+workspace/switch-right
-      "s-}" '+workspace/swap-right
-      "s-o" '+workspace/new
-      "s-p" 'evil-write-all)
-
 (map! :leader
+      "~" 'evil-write-all
       "b a" 'rename-buffer
       "b p" 'copy-buffer-relative-path
       "b P" 'copy-buffer-absolute-path
       "w P" '+popup/raise
       "o t" 'eat
-      "(" '+workspace/switch-left
-      ")" '+workspace/switch-right
+      "[" '+workspace/switch-left
+      "]" '+workspace/switch-right
       "{" '+workspace/swap-left
       "}" '+workspace/swap-right
       "1" '+workspace/switch-to-0
@@ -400,16 +394,7 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 (setq-default major-mode 'text-mode)
 
 (map! :n "\\" '+default/search-buffer
-      :n "] E" 'next-error-in-different-file
-      :ni "s-i" 'insert-char
-      :ni "s-h" 'evil-window-left
-      :ni "s-H" '+evil/window-move-left
-      :ni "s-j" 'evil-window-down
-      :ni "s-J" '+evil/window-move-down
-      :ni "s-k" 'evil-window-up
-      :ni "s-K" '+evil/window-move-up
-      :ni "s-l" 'evil-window-right
-      :ni "s-L" '+evil/window-move-right)
+      :n "] E" 'next-error-in-different-file)
 
 (map! :leader
       :prefix "b"
@@ -469,8 +454,9 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 ;; -----------------------------------------------------------------------------
 ;; eshell
 
-(map! "s-s" '+eshell/toggle)
-(map! :leader "o s" '+eshell/here)
+(map! :leader
+      "d" '+eshell/toggle
+      "o s" '+eshell/here)
 
 ;;;; ----
 
@@ -521,7 +507,7 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
   (defvar +eshell--id nil)
 
   (map! :map eshell-mode-map
-        "s-r" 'consult-history)
+        :ni "C-r" 'consult-history)
 
   (setq eshell-bad-command-tolerance 999
         eshell-banner-message ""
@@ -624,11 +610,9 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
       evil-visual-state-cursor '(hollow "#00ff00")
       evil-replace-state-cursor '(hbar "#00ff00"))
 
-(map! "s-e" 'evil-scroll-up
-      "s-r" 'evil-scroll-line-up
-      "s-d" 'evil-scroll-down
-      "s-f" 'evil-scroll-line-down
-      "s-W" '+workspace/delete
+(map! :n "~" 'evil-write
+      :n "C-e" 'evil-scroll-up
+      :n "C-u" 'evil-scroll-line-down
       :n "z;" 'sort-lines
       :n "ga" '+lookup/references
       :n "gD" nil
@@ -707,9 +691,6 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 ;; -----------------------------------------------------------------------------
 ;; magit
 
-(map! "s-g" 'magit-status
-      "s-G" 'magit-status-here)
-
 (map! :map magit-status-mode-map
       :n "yn" 'magit-copy-buffer-name)
 
@@ -745,9 +726,9 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
       org-log-into-drawer t
       org-hide-emphasis-markers t)
 
-(map! "§" 'org-agenda-list
-      "M-§" 'org-capture-todo
-      "<f10>" 'org-open-next-section)
+(map! :leader
+      "\\" 'org-agenda-list
+      "|" 'org-capture-todo)
 
 (defun org-capture-todo ()
   (interactive)
@@ -775,7 +756,7 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 ;; -----------------------------------------------------------------------------
 ;; projectile
 
-(setq projectile-project-search-path '("~/Projects" "~/Projects/anixe")
+(setq projectile-project-search-path '("/x" "/x/anixe")
       projectile-track-known-projects-automatically nil
       projectile-verbose nil)
 
@@ -851,10 +832,6 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
   ;; TODO https://github.com/brotzeit/rustic/issues/450
   (defun rustic-save-some-buffers-advice (orig-fun &rest args)
     (apply orig-fun args))
-
-  (map! :map rustic-mode-map
-        :n "s-<up>" 'lsp-rust-analyzer-move-item-up
-        :n "s-<down>" 'lsp-rust-analyzer-move-item-down)
 
   (map! :map rustic-mode-map
         :localleader

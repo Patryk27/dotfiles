@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  home-manager.users.PWY = {
+  home-manager.users.pwy = {
     home = {
       packages = with pkgs; [
         (with dotnetCorePackages; combinePackages [

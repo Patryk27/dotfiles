@@ -1,5 +1,5 @@
 { ... }: {
-  home-manager.users.PWY = { lib, ... }: {
+  home-manager.users.pwy = { lib, ... }: {
     programs = {
       ssh = {
         enable = true;
@@ -8,20 +8,20 @@
         serverAliveInterval = 30;
 
         matchBlocks = {
-          archive = {
-            port = 33002;
-            user = "pwy";
-          };
+          # archive = {
+          #   port = 33002;
+          #   user = "pwy";
+          # };
 
-          archive--local = {
-            match = ''OriginalHost archive Exec "networksetup -getairportnetwork en0 | grep -q 'Desafinado'"'';
-            hostname = "192.168.1.200";
-          };
+          # archive--local = {
+          #   match = ''OriginalHost archive Exec "networksetup -getairportnetwork en0 | grep -q 'Desafinado'"'';
+          #   hostname = "192.168.1.200";
+          # };
 
-          archive--wg = lib.hm.dag.entryAfter [ "archive--local" ] {
-            match = "OriginalHost archive";
-            hostname = "10.24.1.2";
-          };
+          # archive--wg = lib.hm.dag.entryAfter [ "archive--local" ] {
+          #   match = "OriginalHost archive";
+          #   hostname = "10.24.1.2";
+          # };
 
           gateway = {
             hostname = "142.132.178.21";
@@ -40,34 +40,34 @@
             user = "pi";
           };
 
-          ubu = {
-            user = "pwy";
-          };
+          # ubu = {
+          #   user = "pwy";
+          # };
 
-          ubu--local = {
-            match = ''OriginalHost ubu Exec "networksetup -getairportnetwork en0 | grep -q 'Desafinado'"'';
-            hostname = "192.168.1.113";
-          };
+          # ubu--local = {
+          #   match = ''OriginalHost ubu Exec "networksetup -getairportnetwork en0 | grep -q 'Desafinado'"'';
+          #   hostname = "192.168.1.113";
+          # };
 
-          ubu--wg = lib.hm.dag.entryAfter [ "ubu--local" ] {
-            match = "OriginalHost ubu";
-            hostname = "10.24.1.3";
-          };
+          # ubu--wg = lib.hm.dag.entryAfter [ "ubu--local" ] {
+          #   match = "OriginalHost ubu";
+          #   hostname = "10.24.1.3";
+          # };
 
-          warp = {
-            port = 33000;
-            user = "pwy";
-          };
+          # warp = {
+          #   port = 33000;
+          #   user = "pwy";
+          # };
 
-          warp--local = {
-            match = ''OriginalHost warp Exec "networksetup -getairportnetwork en0 | grep -q 'Desafinado'"'';
-            hostname = "192.168.1.200";
-          };
+          # warp--local = {
+          #   match = ''OriginalHost warp Exec "networksetup -getairportnetwork en0 | grep -q 'Desafinado'"'';
+          #   hostname = "192.168.1.200";
+          # };
 
-          warp--wg = lib.hm.dag.entryAfter [ "warp--local" ] {
-            match = "OriginalHost warp";
-            hostname = "10.24.1.2";
-          };
+          # warp--wg = lib.hm.dag.entryAfter [ "warp--local" ] {
+          #   match = "OriginalHost warp";
+          #   hostname = "10.24.1.2";
+          # };
 
           win = {
             user = "Komputer";
@@ -156,9 +156,6 @@
 
         extraConfig = ''
           PubkeyAcceptedKeyTypes +ssh-rsa
-
-          Host *
-              UseKeychain yes
         '';
       };
     };

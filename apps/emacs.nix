@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   environment = {
     systemPackages = with pkgs; [
-      emacs-git
+      emacs-pgtk
 
       (aspellWithDicts (dicts: with dicts; [
         en
@@ -11,9 +11,19 @@
         sv
       ]))
     ];
+
+    sessionVariables = {
+      LSP_USE_PLISTS = "true";
+    };
   };
 
-  home-manager.users.PWY = {
+  fonts = {
+    packages = with pkgs; [
+      emacs-all-the-icons-fonts
+    ];
+  };
+
+  home-manager.users.pwy = {
     home = {
       file =
         let
@@ -41,10 +51,6 @@
             text = render ./emacs/doom.d/packages.el;
           };
         };
-
-      sessionVariables = {
-        LSP_USE_PLISTS = "true";
-      };
     };
   };
 }
