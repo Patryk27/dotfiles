@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   environment = {
     systemPackages = with pkgs; [
+      docker-compose
       virt-manager
     ];
   };
@@ -14,7 +15,6 @@
       enable = true;
 
       qemu = {
-        package = pkgs.qemu_kvm;
         runAsRoot = true;
 
         swtpm = {

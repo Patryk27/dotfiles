@@ -24,7 +24,9 @@
 
   environment = {
     systemPackages = with pkgs; [
+      anki-bin
       aria
+      audacity
       curl
       fd
       file
@@ -36,20 +38,30 @@
       just
       libxml2
       lld
+      moonlight-qt
       ncdu
       nethack
       nmap
       postgresql
+      powertop
       python3
       ripgrep
       rsync
+      slack
       spirv-tools
+      spotify
       sqlite
       unzip
       watch
       wget
       wrk
     ];
+  };
+
+  programs = {
+    steam = {
+      enable = true;
+    };
   };
 
   networking = {

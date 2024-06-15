@@ -3,9 +3,6 @@
 (load "%ion-mode%")
 (load "%llvm-mode%")
 
-(when (eq system-type 'darwin)
-  (setq insert-directory-program "/opt/homebrew/bin/gls"))
-
 (global-kkp-mode)
 (toggle-frame-fullscreen)
 
@@ -272,12 +269,11 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 ;; -----------------------------------------------------------------------------
 ;; doom
 
-(setq doom-font (font-spec :family "Berkeley Mono" :size 14.0)
+(setq doom-font (font-spec :family "Berkeley Mono" :size 13.0)
       doom-theme 'doom-gruvbox
       +doom-dashboard-functions '(doom-dashboard-widget-banner))
 
 (map! :leader
-      "~" 'evil-write-all
       "b a" 'rename-buffer
       "b p" 'copy-buffer-relative-path
       "b P" 'copy-buffer-absolute-path
@@ -360,12 +356,7 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 
     (map! :map eat-eshell-char-mode-map
           :i "ESC" 'eat-self-input
-          :i "C-c" 'eat-self-input
-          :in "s-v" 'eat-yank))
-
-  (when (bound-and-true-p eat--eshell-semi-char-mode)
-    (map! :map eat-eshell-semi-char-mode-map
-          :in "s-v" 'eat-yank))
+          :i "C-c" 'eat-self-input))
 
   (evil-normal-state))
 
@@ -610,9 +601,11 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
       evil-visual-state-cursor '(hollow "#00ff00")
       evil-replace-state-cursor '(hbar "#00ff00"))
 
-(map! :n "~" 'evil-write
+(map! :ni "C-<tab>" 'evil-write-all
       :n "C-e" 'evil-scroll-up
       :n "C-u" 'evil-scroll-line-down
+      :ni "C-<left>" 'evil-beginning-of-line
+      :ni "C-<right>" 'evil-end-of-line
       :n "z;" 'sort-lines
       :n "ga" '+lookup/references
       :n "gD" nil
@@ -727,8 +720,8 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
       org-hide-emphasis-markers t)
 
 (map! :leader
-      "\\" 'org-agenda-list
-      "|" 'org-capture-todo)
+      "`" 'org-agenda-list
+      "~" 'org-capture-todo)
 
 (defun org-capture-todo ()
   (interactive)

@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  wifi-check = "${pkgs.iw}/bin/iw dev wlp1s0 info | grep -q Desafinado";
+  wifi-check = "${pkgs.iw}/bin/iw dev wlp1s0 info | grep -q Dziupla";
 
 in
 {

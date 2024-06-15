@@ -1,12 +1,10 @@
 { pkgs, ... }: {
   environment = {
     systemPackages = with pkgs; [
-      audacity
+      chromium
+      easyeffects
       firefox
       gnome3.gnome-tweaks
-      moonlight-qt
-      slack
-      spotify
     ];
 
     sessionVariables = {
