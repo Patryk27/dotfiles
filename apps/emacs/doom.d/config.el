@@ -273,6 +273,9 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
       doom-theme 'doom-gruvbox
       +doom-dashboard-functions '(doom-dashboard-widget-banner))
 
+(map! "C-{" '+workspace/switch-left
+      "C-}" '+workspace/switch-right)
+
 (map! :leader
       "b a" 'rename-buffer
       "b p" 'copy-buffer-relative-path
@@ -350,18 +353,24 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
           (lambda ()
             (display-fill-column-indicator-mode -1)))
 
-(defun +eat/fix-keys ()
-  (when (bound-and-true-p eat--eshell-char-mode)
-    (evil-emacs-state)
+;; ---
 
-    (map! :map eat-eshell-char-mode-map
-          :i "ESC" 'eat-self-input
-          :i "C-c" 'eat-self-input))
+(defun +eat/disable-evil ()
+  (if (bound-and-true-p eat--eshell-char-mode)
+      (progn
+        (turn-off-evil-mode)
+        (set-cursor-color "#ffffff"))
+    (turn-on-evil-mode)))
 
-  (evil-normal-state))
+(add-hook 'eat--eshell-char-mode-hook '+eat/disable-evil)
 
-(add-hook 'eat--eshell-char-mode-hook '+eat/fix-keys)
-(add-hook 'eat--eshell-semi-char-mode-hook '+eat/fix-keys)
+;; ---
+
+(defun +eat/evil-initialize-a (fn &rest args)
+  (unless (bound-and-true-p eat--eshell-char-mode)
+    (apply fn args)))
+
+(advice-add 'evil-initialize :around '+eat/evil-initialize-a)
 
 ;; -----------------------------------------------------------------------------
 ;; ediff
@@ -449,10 +458,25 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
       "d" '+eshell/toggle
       "o s" '+eshell/here)
 
-;;;; ----
-
 (advice-add 'eshell-did-you-mean-setup :override 'no-op)
 (advice-add 'setup-esh-help-eldoc :override 'no-op)
+
+(add-hook 'eshell-mode-hook
+          (lambda ()
+            (display-fill-column-indicator-mode -1)))
+
+;;;; ----
+
+(map! :map eshell-mode-map
+      :n "p" '+eshell/yank
+      :n "P" '+eshell/yank
+      :ni "C-V" '+eshell/yank)
+
+(defun +eshell/yank ()
+  (interactive)
+  (if eat-terminal
+      (eat-yank)
+    (yank)))
 
 ;;;; ----
 
@@ -497,25 +521,16 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 (after! eshell
   (defvar +eshell--id nil)
 
-  (map! :map eshell-mode-map
-        :ni "C-r" 'consult-history)
-
   (setq eshell-bad-command-tolerance 999
         eshell-banner-message ""
         eshell-history-size 4096
         eshell-prompt-function '+eshell/prompt
         eshell-prompt-regexp "λ ")
 
-  (defun +eshell--unused-buffer (&optional new-p)
-    (or (unless new-p
-          (cl-loop for buf in (+eshell-buffers)
-                   if (and (buffer-live-p buf)
-                           (not (get-buffer-window buf t))
-                           (not (with-current-buffer buf +eshell--id)))
-                   return buf))
-        (generate-new-buffer eshell-buffer-name)))
-
   (add-to-list 'eshell-modules-list 'eshell-elecslash)
+
+  (map! :map eshell-mode-map
+        :ni "C-r" 'consult-history)
 
   (set-eshell-alias!
    ;; docker
@@ -549,8 +564,8 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
    "caup" "clear && cargo update --package $*"
 
    ;; ssh
-   "gs" "TERM=xterm ssh $1"
-   "gsb" "TERM=xterm ssh $1 -t byobu"
+   "ssht" "TERM=xterm ssh $1"
+   "sshb" "TERM=xterm ssh $1 -t byobu"
    "ssh-copy-terminfo" "infocmp | ssh $1 tic -")
 
   (defun +eshell/toggle (&rest _)
@@ -588,7 +603,16 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
                           'face '+eshell-prompt-pwd))
             "\n"
             (propertize "λ" 'face (if (zerop eshell-last-command-status) 'success 'error))
-            " ")))
+            " "))
+
+  (defun +eshell--unused-buffer (&optional new-p)
+    (or (unless new-p
+          (cl-loop for buf in (+eshell-buffers)
+                   if (and (buffer-live-p buf)
+                           (not (get-buffer-window buf t))
+                           (not (with-current-buffer buf +eshell--id)))
+                   return buf))
+        (generate-new-buffer eshell-buffer-name))))
 
 ;; -----------------------------------------------------------------------------
 ;; evil
