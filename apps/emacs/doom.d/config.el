@@ -347,6 +347,9 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 ;; -----------------------------------------------------------------------------
 ;; eat
 
+(setq eat-minimum-latency 0.001
+      eat-maximum-latency 0.005)
+
 (add-hook 'eshell-load-hook #'eat-eshell-mode)
 
 (add-hook 'eat-mode-hook
@@ -355,14 +358,17 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 
 ;; ---
 
-(defun +eat/disable-evil ()
+(defun +eat/evil-setup ()
+  (map! :map eat-eshell-char-mode-map
+        :g "C-V" 'eat-yank)
+
   (if (bound-and-true-p eat--eshell-char-mode)
       (progn
         (turn-off-evil-mode)
         (set-cursor-color "#ffffff"))
     (turn-on-evil-mode)))
 
-(add-hook 'eat--eshell-char-mode-hook '+eat/disable-evil)
+(add-hook 'eat--eshell-char-mode-hook '+eat/evil-setup)
 
 ;; ---
 
@@ -434,7 +440,6 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
   (interactive)
   (mapc 'kill-buffer (-remove 'buffer-fresh-p (buffer-list))))
 
-
 (defun remove-ansi ()
   "Remove ANSI codes from buffer."
   (interactive)
@@ -465,12 +470,29 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
           (lambda ()
             (display-fill-column-indicator-mode -1)))
 
-;;;; ----
+;; ---
 
 (map! :map eshell-mode-map
       :n "p" '+eshell/yank
       :n "P" '+eshell/yank
+      :ni "C-r" '+eshell/history
       :ni "C-V" '+eshell/yank)
+
+(map! :map eshell-mode-map
+      :prefix "C-c"
+      :ni "C-c" '+eshell/interrupt)
+
+(defun +eshell/interrupt ()
+  (interactive)
+  (if eat-terminal
+      (eat-self-input 1 3)
+    (eshell-interrupt-process)))
+
+(defun +eshell/history ()
+  (interactive)
+  (if eat-terminal
+      (eat-self-input 1 18)
+    (consult-history)))
 
 (defun +eshell/yank ()
   (interactive)
@@ -478,7 +500,7 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
       (eat-yank)
     (yank)))
 
-;;;; ----
+;; ---
 
 (setq eshell-save-history-on-exit nil)
 
@@ -492,7 +514,7 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 
 (add-hook 'eshell-pre-command-hook #'eshell-append-history)
 
-;;;; ----
+;; ---
 
 (defun eshell/bcat (&rest args)
   "Output the contents of one or more buffers as a string. "
@@ -516,7 +538,7 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
             (font-lock-fontify-buffer)))))
     (buffer-string)))
 
-;;;; ----
+;; ---
 
 (after! eshell
   (defvar +eshell--id nil)
@@ -525,12 +547,9 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
         eshell-banner-message ""
         eshell-history-size 4096
         eshell-prompt-function '+eshell/prompt
-        eshell-prompt-regexp "λ ")
+        eshell-prompt-regexp "; ")
 
   (add-to-list 'eshell-modules-list 'eshell-elecslash)
-
-  (map! :map eshell-mode-map
-        :ni "C-r" 'consult-history)
 
   (set-eshell-alias!
    ;; docker
@@ -602,7 +621,7 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
                             (abbreviate-file-name pwd))
                           'face '+eshell-prompt-pwd))
             "\n"
-            (propertize "λ" 'face (if (zerop eshell-last-command-status) 'success 'error))
+            (propertize ";" 'face (if (zerop eshell-last-command-status) 'success 'error))
             " "))
 
   (defun +eshell--unused-buffer (&optional new-p)

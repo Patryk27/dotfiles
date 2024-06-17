@@ -51,7 +51,9 @@
       spirv-tools
       spotify
       sqlite
+      unnethack
       unzip
+      valgrind
       watch
       wget
       wrk
