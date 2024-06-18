@@ -36,6 +36,7 @@
       htop
       jq
       just
+      killall
       libxml2
       lld
       moonlight-qt
