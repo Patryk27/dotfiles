@@ -30,4 +30,18 @@
       };
     };
   };
+
+  nixpkgs = {
+    overlays = [
+      (final: prev: {
+        gnome = prev.gnome.overrideScope (gfinal: gprev: {
+          gnome-shell = prev.gnome.gnome-shell.overrideAttrs (old: {
+            patches = old.patches ++ [
+              ./gui/patches/gnome-shell-disable-screenshot-notification.patch
+            ];
+          });
+        });
+      })
+    ];
+  };
 }

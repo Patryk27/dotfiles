@@ -1,0 +1,13 @@
+diff --git a/js/ui/screenshot.js b/js/ui/screenshot.js
+index c39603aca..9328490d6 100644
+--- a/js/ui/screenshot.js
++++ b/js/ui/screenshot.js
+@@ -2365,7 +2365,7 @@ function _storeScreenshot(bytes, pixbuf) {
+     }
+ 
+     Main.messageTray.add(source);
+-    source.addNotification(notification);
++    // source.addNotification(notification);
+ 
+     return file;
+ }
