@@ -29,6 +29,7 @@
       audacity
       curl
       fd
+      ffmpeg-full
       file
       fzf
       github-cli
