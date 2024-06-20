@@ -183,11 +183,13 @@
 
 (setq dirvish-quick-access-entries
       '(
-        ("q" "~/Desktop/queue")
-        ("o" "~/Documents")
         ("d" "~/Downloads")
-        ("i" "/private/diary")
-        ("f" "/scp:gateway:/var/lib/nixos-containers/nginx/var/www/files")))
+        ("f" "/scp:gateway:/var/lib/nixos-containers/nginx/var/www/files")
+        ("h" "~")
+        ("o" "~/Documents")
+        ("p" "/p")
+        ("q" "/q")
+        ("x" "/x")))
 
 (defun dired-diff-dwim ()
   (interactive)
