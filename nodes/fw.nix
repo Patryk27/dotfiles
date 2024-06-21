@@ -18,6 +18,7 @@
 
     ./fw/gui.nix
     ./fw/hw.nix
+    ./fw/schedules.nix
     ./fw/user.nix
     ./fw/virt.nix
   ];
@@ -27,6 +28,8 @@
       anki-bin
       aria
       audacity
+      bmon
+      borgbackup
       curl
       fd
       ffmpeg-full

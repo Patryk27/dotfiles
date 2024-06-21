@@ -4,6 +4,22 @@ let
 
 in
 {
+  home-manager.users.root = {
+    programs = {
+      ssh = {
+        enable = true;
+
+        matchBlocks = {
+          archive = {
+            port = 33002;
+            user = "pwy";
+            hostname = "192.168.1.200";
+          };
+        };
+      };
+    };
+  };
+
   home-manager.users.pwy = { lib, ... }: {
     home = {
       packages = with pkgs; [
