@@ -31,6 +31,7 @@
       bmon
       borgbackup
       curl
+      discord
       fd
       ffmpeg-full
       file
