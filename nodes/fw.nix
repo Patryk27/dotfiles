@@ -32,6 +32,7 @@
       borgbackup
       curl
       discord
+      ectool
       fd
       ffmpeg-full
       file
