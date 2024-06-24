@@ -37,6 +37,7 @@
       ffmpeg-full
       file
       fzf
+      git
       github-cli
       google-cloud-sdk
       htop
