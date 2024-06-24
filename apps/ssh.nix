@@ -130,28 +130,8 @@ in
             user = "patryk.wychowaniec";
           };
 
-          anx-gcpp-mercures-mpg-v1 = {
-            hostname = "34.76.150.210";
-            user = "patryk.wychowaniec";
-          };
-
-          anx-gcpp-mercures-mpg-v2 = {
-            hostname = "34.76.252.23";
-            user = "patryk.wychowaniec";
-          };
-
           anx-gcpp-mercures-mpg-v4 = {
             hostname = "34.76.100.205";
-            user = "patryk.wychowaniec";
-          };
-
-          anx-gcpp-mercures-dc-v1 = {
-            hostname = "35.205.67.162";
-            user = "patryk.wychowaniec";
-          };
-
-          anx-gcpp-hx-v1 = {
-            hostname = "35.189.219.168";
             user = "patryk.wychowaniec";
           };
 
