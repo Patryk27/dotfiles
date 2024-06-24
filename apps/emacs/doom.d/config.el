@@ -393,7 +393,6 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 (global-display-fill-column-indicator-mode +1)
 
 (setq calendar-week-start-day 1
-      custom-file (file-name-concat doom-local-dir "custom.el")
       display-line-numbers-type nil
       user-full-name "Patryk Wychowaniec"
       user-mail-address "pwychowaniec@pm.me"
@@ -647,8 +646,8 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
       evil-replace-state-cursor '(hbar "#00ff00"))
 
 (map! :ni "C-<tab>" 'evil-write-all
-      :n "C-e" 'evil-scroll-up
-      :n "C-u" 'evil-scroll-line-down
+      :nv "C-e" 'evil-scroll-up
+      :nv "C-u" 'evil-scroll-line-down
       :ni "C-<left>" 'evil-beginning-of-line
       :ni "C-<right>" 'evil-end-of-line
       :n "z;" 'sort-lines
@@ -765,8 +764,8 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
       org-hide-emphasis-markers t)
 
 (map! :leader
-      "`" 'org-agenda-list
-      "~" 'org-capture-todo)
+      "e" 'org-agenda-list
+      "E" 'org-capture-todo)
 
 (defun org-capture-todo ()
   (interactive)
