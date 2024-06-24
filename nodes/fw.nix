@@ -56,6 +56,7 @@
       ripgrep
       rsync
       slack
+      snx-rs
       spirv-tools
       spotify
       sqlite
