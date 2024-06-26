@@ -1,4 +1,11 @@
-{ ... }: {
+{ pkgs, ... }: {
+  environment = {
+    systemPackages = with pkgs; [
+      git
+      github-cli
+    ];
+  };
+
   home-manager.users.pwy = {
     programs = {
       git = {

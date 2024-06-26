@@ -18,6 +18,7 @@
 
     ./fw/gui.nix
     ./fw/hw.nix
+    ./fw/net.nix
     ./fw/schedules.nix
     ./fw/user.nix
     ./fw/virt.nix
@@ -26,19 +27,14 @@
   environment = {
     systemPackages = with pkgs; [
       anki-bin
-      aria
       audacity
-      bmon
       borgbackup
-      curl
       discord
       ectool
       fd
       ffmpeg-full
       file
       fzf
-      git
-      github-cli
       google-cloud-sdk
       htop
       jq
@@ -49,14 +45,11 @@
       moonlight-qt
       ncdu
       nethack
-      nmap
       postgresql
       powertop
       python3
       ripgrep
-      rsync
       slack
-      snx-rs
       spirv-tools
       spotify
       sqlite
@@ -64,8 +57,6 @@
       unzip
       valgrind
       watch
-      wget
-      wrk
     ];
   };
 
