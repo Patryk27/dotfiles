@@ -5,6 +5,7 @@
       easyeffects
       firefox
       gnome3.gnome-tweaks
+      wl-clipboard
     ];
 
     sessionVariables = {

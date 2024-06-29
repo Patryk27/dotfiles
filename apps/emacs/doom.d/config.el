@@ -6,6 +6,26 @@
 (global-kkp-mode)
 (toggle-frame-fullscreen)
 
+(setq-default wl-copy-process nil)
+
+(when (string-prefix-p "wayland" (getenv "WAYLAND_DISPLAY"))
+  (defun wl-copy-handler (text)
+    (setq wl-copy-process
+          (make-process :name "wl-copy"
+                        :buffer nil
+                        :command '("wl-copy" "-f" "-n")
+                        :connection-type 'pipe))
+    (process-send-string wl-copy-process text)
+    (process-send-eof wl-copy-process))
+
+  (defun wl-paste-handler ()
+    (if (and wl-copy-process (process-live-p wl-copy-process))
+        nil
+      (shell-command-to-string "wl-paste -n | tr -d \r")))
+
+  (setq interprogram-cut-function 'wl-copy-handler
+        interprogram-paste-function 'wl-paste-handler))
+
 (defun no-op () nil)
 
 ;; -----------------------------------------------------------------------------
@@ -358,6 +378,10 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
           (lambda ()
             (display-fill-column-indicator-mode -1)))
 
+(map! :map eat-eshell-char-mode-map
+      :g "<escape>" 'eat-self-input
+      :g "M-<return>" 'eat-eshell-semi-char-mode)
+
 ;; ---
 
 (defun +eat/evil-setup ()
@@ -460,10 +484,6 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 ;; -----------------------------------------------------------------------------
 ;; eshell
 
-(map! :leader
-      "d" '+eshell/toggle
-      "o s" '+eshell/here)
-
 (advice-add 'eshell-did-you-mean-setup :override 'no-op)
 (advice-add 'setup-esh-help-eldoc :override 'no-op)
 
@@ -471,9 +491,14 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
           (lambda ()
             (display-fill-column-indicator-mode -1)))
 
-;; ---
+(add-hook 'eshell-post-command-hook 'evil-insert-state)
+
+(map! :leader
+      "d" '+eshell/toggle
+      "o s" '+eshell/here)
 
 (map! :map eshell-mode-map
+      :n "RET" '+eshell/goto-end-of-prompt
       :n "p" '+eshell/yank
       :n "P" '+eshell/yank
       :ni "C-r" '+eshell/history
@@ -546,7 +571,8 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 
   (setq eshell-bad-command-tolerance 999
         eshell-banner-message ""
-        eshell-history-size 4096
+        eshell-buffer-maximum-lines 8192
+        eshell-history-size 8192
         eshell-prompt-function '+eshell/prompt
         eshell-prompt-regexp "; ")
 
@@ -663,6 +689,11 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
       :n "g-" 'evil-numbers/dec-at-pt)
 
 ;; -----------------------------------------------------------------------------
+;; evil-terminal-cursor-changer
+
+(evil-terminal-cursor-changer-activate)
+
+;; -----------------------------------------------------------------------------
 ;; flycheck
 
 (map! :leader
@@ -675,6 +706,14 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 
 (setq hl-line-sticky-flag nil
       global-hl-line-sticky-flag nil)
+
+;; -----------------------------------------------------------------------------
+;; indent-bars
+
+(use-package indent-bars
+  :custom
+  (indent-bars-color '(highlight :face-bg t :blend 0.2))
+  :hook ((emacs-lisp-mode rustic-mode) . indent-bars-mode))
 
 ;; -----------------------------------------------------------------------------
 ;; ion-mode
