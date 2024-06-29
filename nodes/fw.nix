@@ -41,6 +41,7 @@
       just
       killall
       libxml2
+      linuxPackages.perf
       lld
       moonlight-qt
       ncdu
