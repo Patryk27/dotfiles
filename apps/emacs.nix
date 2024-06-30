@@ -1,7 +1,11 @@
 { pkgs, ... }: {
   environment = {
     systemPackages = with pkgs; [
-      emacs-pgtk
+      (emacs-git.overrideAttrs (old: {
+        patches = (old.patches or [ ]) ++ [
+          ./emacs/patches/synchronized-updates.patch
+        ];
+      }))
 
       (aspellWithDicts (dicts: with dicts; [
         en
