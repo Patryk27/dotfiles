@@ -20,10 +20,6 @@
                    (:exclude ".dir-locals.el" "*-tests.el")))
   :pin "3a6f418f55d183b9d86f99c140caed4ba3d44f93")
 
-(package! evil-terminal-cursor-changer
-  :recipe (:host github :repo "7696122/evil-terminal-cursor-changer")
-  :pin "2358f3e27d89128361cf80fcfa092fdfe5b52fd8")
-
 (package! focus
   :recipe (:host github :repo "larstvei/Focus")
   :pin "17c471544f540f2cf9a05fd6cd87e52e5de317e2")

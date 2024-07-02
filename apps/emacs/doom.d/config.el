@@ -3,28 +3,33 @@
 (load "%ion-mode%")
 (load "%llvm-mode%")
 
-(global-kkp-mode)
-(toggle-frame-fullscreen)
+(when (display-graphic-p)
+  (toggle-frame-fullscreen))
 
-(setq-default wl-copy-process nil)
+(unless (display-graphic-p)
+  (progn
+    (global-kkp-mode)
+    (xterm-mouse-mode)
 
-(when (string-prefix-p "wayland" (getenv "WAYLAND_DISPLAY"))
-  (defun wl-copy-handler (text)
-    (setq wl-copy-process
-          (make-process :name "wl-copy"
-                        :buffer nil
-                        :command '("wl-copy" "-f" "-n")
-                        :connection-type 'pipe))
-    (process-send-string wl-copy-process text)
-    (process-send-eof wl-copy-process))
+    (setq-default wl-copy-process nil)
 
-  (defun wl-paste-handler ()
-    (if (and wl-copy-process (process-live-p wl-copy-process))
-        nil
-      (shell-command-to-string "wl-paste -n | tr -d \r")))
+    (when (string-prefix-p "wayland" (getenv "WAYLAND_DISPLAY"))
+      (defun wl-copy-handler (text)
+        (setq wl-copy-process
+              (make-process :name "wl-copy"
+                            :buffer nil
+                            :command '("wl-copy" "-f" "-n")
+                            :connection-type 'pipe))
+        (process-send-string wl-copy-process text)
+        (process-send-eof wl-copy-process))
 
-  (setq interprogram-cut-function 'wl-copy-handler
-        interprogram-paste-function 'wl-paste-handler))
+      (defun wl-paste-handler ()
+        (if (and wl-copy-process (process-live-p wl-copy-process))
+            nil
+          (shell-command-to-string "wl-paste -n | tr -d \r")))
+
+      (setq interprogram-cut-function 'wl-copy-handler
+            interprogram-paste-function 'wl-paste-handler))))
 
 (defun no-op () nil)
 
@@ -291,7 +296,7 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 ;; -----------------------------------------------------------------------------
 ;; doom
 
-(setq doom-font (font-spec :family "Berkeley Mono" :size 13.0)
+(setq doom-font (font-spec :family "Berkeley Mono" :size 16.5)
       doom-theme 'doom-gruvbox
       +doom-dashboard-functions '(doom-dashboard-widget-banner))
 
@@ -689,11 +694,6 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
       :n "g-" 'evil-numbers/dec-at-pt)
 
 ;; -----------------------------------------------------------------------------
-;; evil-terminal-cursor-changer
-
-(evil-terminal-cursor-changer-activate)
-
-;; -----------------------------------------------------------------------------
 ;; flycheck
 
 (map! :leader
@@ -713,6 +713,7 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 (use-package indent-bars
   :custom
   (indent-bars-color '(highlight :face-bg t :blend 0.2))
+  (indent-bars-width-frac 0.12)
   :hook ((emacs-lisp-mode rustic-mode) . indent-bars-mode))
 
 ;; -----------------------------------------------------------------------------
