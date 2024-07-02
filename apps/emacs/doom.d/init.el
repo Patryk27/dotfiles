@@ -46,6 +46,7 @@
        lsp
        magit
        make
+       pdf
        rgb
        tree-sitter
 

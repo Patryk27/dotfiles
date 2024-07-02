@@ -43,6 +43,9 @@
   :recipe (:host github :repo "minad/org-modern")
   :pin "0b7af08548e586c0d3b0ca4a683253da407220d1")
 
+(package! pdf-tools
+  :built-in 'prefer)
+
 (package! rustic
   :recipe (:host github :repo "emacs-rustic/rustic")
   :pin "39423d1cf4fa054c36bf9577356451f4c06ee148")
