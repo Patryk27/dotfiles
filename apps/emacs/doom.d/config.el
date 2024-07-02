@@ -374,18 +374,17 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 ;; -----------------------------------------------------------------------------
 ;; eat
 
-(setq eat-minimum-latency 0.001
-      eat-maximum-latency 0.005)
-
 (add-hook 'eshell-load-hook #'eat-eshell-mode)
 
 (add-hook 'eat-mode-hook
           (lambda ()
             (display-fill-column-indicator-mode -1)))
 
+(map! :map eat-eshell-semi-char-mode-map
+      :g "M-RET" 'eat-eshell-char-mode)
+
 (map! :map eat-eshell-char-mode-map
-      :g "<escape>" 'eat-self-input
-      :g "M-<return>" 'eat-eshell-semi-char-mode)
+      :g "<escape>" 'eat-self-input)
 
 ;; ---
 
@@ -396,7 +395,7 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
   (if (bound-and-true-p eat--eshell-char-mode)
       (progn
         (turn-off-evil-mode)
-        (set-cursor-color "#ffffff"))
+        (+eat/refresh-cursor))
     (turn-on-evil-mode)))
 
 (add-hook 'eat--eshell-char-mode-hook '+eat/evil-setup)
@@ -408,6 +407,19 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
     (apply fn args)))
 
 (advice-add 'evil-initialize :around '+eat/evil-initialize-a)
+
+;; ---
+
+(defun +eat/refresh-cursor ()
+  (set-cursor-color "#ffffff")
+  (setq cursor-type 'box))
+
+(defun +eat/evil-refresh-cursor-a (fn &rest args)
+  (if (bound-and-true-p eat--eshell-char-mode)
+      (+eat/refresh-cursor)
+    (apply fn args)))
+
+(advice-add 'evil-refresh-cursor :around '+eat/evil-refresh-cursor-a)
 
 ;; -----------------------------------------------------------------------------
 ;; ediff
@@ -669,9 +681,7 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 ;; evil
 
 (setq evil-want-fine-undo t
-      +evil-want-o/O-to-continue-comments nil)
-
-(setq evil-normal-state-cursor '(box "#00ff00")
+      evil-normal-state-cursor '(box "#00ff00")
       evil-insert-state-cursor '(bar "#00ff00")
       evil-visual-state-cursor '(hollow "#00ff00")
       evil-replace-state-cursor '(hbar "#00ff00"))
