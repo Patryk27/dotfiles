@@ -57,7 +57,6 @@
       unnethack
       unzip
       valgrind
-      valgrind
       watch
     ];
   };
