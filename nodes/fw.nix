@@ -61,15 +61,21 @@
     ];
   };
 
+  networking = {
+    hostId = "c7a81ba2";
+    hostName = "pfw";
+  };
+
   programs = {
     steam = {
       enable = true;
     };
   };
 
-  networking = {
-    hostId = "c7a81ba2";
-    hostName = "pfw";
+  services = {
+    fwupd = {
+      enable = true;
+    };
   };
 
   time = {
