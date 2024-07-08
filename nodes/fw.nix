@@ -8,6 +8,7 @@
     ../apps/emacs.nix
     ../apps/git.nix
     ../apps/gpg.nix
+    ../apps/js.nix
     ../apps/kitty.nix
     ../apps/nix.nix
     ../apps/res.nix

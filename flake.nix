@@ -27,6 +27,10 @@
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
+
+    nixpkgs-latest = {
+      url = "github:nixos/nixpkgs/master";
+    };
   };
 
   outputs =
@@ -35,6 +39,7 @@
     , home-manager
     , nixos-hardware
     , nixpkgs
+    , nixpkgs-latest
     }:
     {
       nixosConfigurations = {
@@ -60,6 +65,17 @@
               nixpkgs = {
                 overlays = [
                   emacs-overlay.overlay
+
+                  (self: super:
+                    let
+                      nixpkgs-latest' = import nixpkgs-latest {
+                        system = "x86_64-linux";
+                      };
+
+                    in
+                    {
+                      vue-language-server = nixpkgs-latest'.vue-language-server;
+                    })
                 ];
               };
 

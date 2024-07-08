@@ -55,7 +55,7 @@
        (csharp +lsp +tree-sitter)
        data
        (emacs-lisp +tree-sitter)
-       (javascript +tree-sitter)
+       (javascript +lsp +tree-sitter)
        (json +tree-sitter)
        (markdown +grip)
        (nix +tree-sitter)

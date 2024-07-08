@@ -33,7 +33,7 @@
   :pin "ed9214329f11b095fc7bad06feb329b9f232258d")
 
 (package! lsp-mode
-  :pin "02c5ba59ce3d1cede4aa689c530f16cccfb5e1d1")
+  :pin "7e342a5aef3db3e805c37c1caca52a4cc1f3c8a2")
 
 (package! org-modern
   :recipe (:host github :repo "minad/org-modern")
