@@ -43,6 +43,7 @@
       libxml2
       linuxPackages.perf
       lld
+      lm_sensors
       moonlight-qt
       ncdu
       nethack
