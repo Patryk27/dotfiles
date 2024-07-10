@@ -37,6 +37,7 @@
       ffmpeg-full
       file
       fzf
+      gimp
       google-cloud-sdk
       htop
       jq
