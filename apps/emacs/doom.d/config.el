@@ -845,7 +845,7 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 ;; -----------------------------------------------------------------------------
 ;; projectile
 
-(setq projectile-project-search-path '("/x" "/x/anixe")
+(setq projectile-project-search-path '("/x" "/x/anixe" "~/.emacs.d")
       projectile-track-known-projects-automatically nil
       projectile-verbose nil)
 
