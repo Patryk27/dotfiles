@@ -982,6 +982,15 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 (require 'vlf-setup)
 
 ;; -----------------------------------------------------------------------------
+;; web-mode
+
+(defun lsp-web ()
+  (when (string-suffix-p ".vue" (buffer-file-name))
+    (lsp)))
+
+(add-hook 'web-mode-hook 'lsp-web)
+
+;; -----------------------------------------------------------------------------
 ;; xml-mode
 
 (defun +format--buffer-maybe-xml (orig)
