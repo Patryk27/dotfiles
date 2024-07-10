@@ -47,7 +47,6 @@
        magit
        make
        pdf
-       rgb
        tree-sitter
 
        :lang
