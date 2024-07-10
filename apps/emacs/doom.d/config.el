@@ -815,7 +815,9 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 
 (map! :leader
       "e" 'org-agenda-list
-      "E" 'org-capture-todo)
+      "E" 'org-capture-todo
+      "\\" '+default/org-notes-headlines
+      "|" '+default/org-notes-search)
 
 (defun org-capture-todo ()
   (interactive)
