@@ -30,6 +30,7 @@
       anki-bin
       audacity
       borgbackup
+      dbeaver-bin
       discord
       ectool
       fd
