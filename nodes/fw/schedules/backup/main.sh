@@ -7,9 +7,14 @@ DATASETS=(
   "rpool/x"
 )
 
+tmp="/run/backup"
+
 # ------------------------------------------------------------------------------
 
-tmp="/run/backup"
+echo "checking connection"
+borg info
+
+# ---
 
 echo "preparing temporary directory"
 echo
@@ -20,11 +25,6 @@ if [[ -d "${tmp}" ]]; then
 fi
 
 mkdir "${tmp}"
-
-# ---
-
-echo "checking connection"
-borg info
 
 # ---
 
