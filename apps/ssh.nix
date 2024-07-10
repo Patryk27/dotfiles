@@ -13,7 +13,7 @@ in
           archive = {
             port = 33002;
             user = "pwy";
-            hostname = "192.168.1.200";
+            hostname = "10.24.1.2";
           };
         };
       };
@@ -125,23 +125,13 @@ in
             user = "patryk.wychowaniec";
           };
 
-          anx-gcpa-hx-v1 = {
+          anx-gcpa = {
             hostname = "34.107.119.213";
             user = "patryk.wychowaniec";
           };
 
-          anx-gcpp-mercures-mpg-v4 = {
+          anx-gcpp = {
             hostname = "34.76.100.205";
-            user = "patryk.wychowaniec";
-          };
-
-          anx-yta-5 = {
-            hostname = "10.117.106.5";
-            user = "patryk.wychowaniec";
-          };
-
-          anx-yta-7 = {
-            hostname = "10.117.106.7";
             user = "patryk.wychowaniec";
           };
 
