@@ -14,6 +14,14 @@
   };
 
   services = {
+    printing = {
+      enable = true;
+
+      drivers = with pkgs; [
+        hplipWithPlugin
+      ];
+    };
+
     xserver = {
       enable = true;
 
