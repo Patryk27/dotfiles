@@ -35,10 +35,6 @@
 (package! lsp-mode
   :pin "7e342a5aef3db3e805c37c1caca52a4cc1f3c8a2")
 
-(package! org-modern
-  :recipe (:host github :repo "minad/org-modern")
-  :pin "0b7af08548e586c0d3b0ca4a683253da407220d1")
-
 (package! pdf-tools
   :built-in 'prefer)
 

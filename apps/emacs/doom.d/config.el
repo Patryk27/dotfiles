@@ -829,8 +829,6 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
   (+org/open-fold))
 
 (after! org
-  (global-org-modern-mode)
-
   (setq org-capture-templates
         '(("t" "Todo" entry (file+headline "~/Documents/org/todo.org" "Inbox")
            "* %?" :prepend t))))
