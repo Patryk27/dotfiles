@@ -40,6 +40,7 @@
       gimp
       google-cloud-sdk
       htop
+      inkscape
       jq
       just
       killall
