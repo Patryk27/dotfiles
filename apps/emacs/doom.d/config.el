@@ -984,9 +984,15 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 
 (defun lsp-web ()
   (when (string-suffix-p ".vue" (buffer-file-name))
-    (lsp)))
+    (lsp)
+    (lsp-disable-format)))
+
+(defun lsp-disable-format ()
+  (+format-with-lsp-mode -1))
 
 (add-hook 'web-mode-hook 'lsp-web)
+(add-hook 'web-mode-hook 'lsp-disable-format)
+(add-hook 'typescript-mode-hook 'lsp-disable-format)
 
 ;; -----------------------------------------------------------------------------
 ;; xml-mode

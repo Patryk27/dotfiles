@@ -17,7 +17,7 @@
        :editor
        (evil +everywhere)
        fold
-       format
+       (format +lsp)
        multiple-cursors
        parinfer
        snippets

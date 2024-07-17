@@ -6,6 +6,9 @@
   :recipe (:host github :repo "alpha22jp/atomic-chrome")
   :pin "f1b077be7e414f457191d72dcf5eedb4371f9309")
 
+(package! company
+  :pin "c67946d6e32060a046543411ce93d1656c2c882c")
+
 (package! dirvish
   :pin "119f9f59a618bb7b476c93e9ab1d7542c5c1df41")
 

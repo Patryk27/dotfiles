@@ -4,7 +4,7 @@
       chromium
       easyeffects
       firefox
-      gnome3.gnome-tweaks
+      gnome-tweaks
       wl-clipboard
     ];
 
