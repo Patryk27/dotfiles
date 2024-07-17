@@ -61,7 +61,6 @@
       unnethack
       unzip
       valgrind
-      vscode
       watch
     ];
   };
