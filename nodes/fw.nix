@@ -55,12 +55,14 @@
       nethack
       postgresql
       powertop
+      protonmail-bridge-gui
       python3
       ripgrep
       slack
       spirv-tools
       spotify
       sqlite
+      thunderbird
       unnethack
       unzip
       valgrind
