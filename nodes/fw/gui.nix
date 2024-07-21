@@ -5,6 +5,7 @@
       easyeffects
       firefox
       gnome-tweaks
+      guvcview
       wl-clipboard
     ];
 
