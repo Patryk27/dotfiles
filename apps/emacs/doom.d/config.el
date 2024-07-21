@@ -374,7 +374,7 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 ;; -----------------------------------------------------------------------------
 ;; eat
 
-(add-hook 'eshell-load-hook #'eat-eshell-mode)
+(add-hook 'eshell-load-hook 'eat-eshell-mode)
 
 (add-hook 'eat-mode-hook
           (lambda ()
@@ -386,7 +386,9 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 (map! :map eat-eshell-char-mode-map
       :g "<escape>" 'eat-self-input)
 
-;; ---
+(defun +eat/refresh-cursor ()
+  (set-cursor-color "#ffffff")
+  (setq cursor-type 'box))
 
 (defun +eat/evil-setup ()
   (map! :map eat-eshell-char-mode-map
@@ -400,19 +402,11 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 
 (add-hook 'eat--eshell-char-mode-hook '+eat/evil-setup)
 
-;; ---
-
 (defun +eat/evil-initialize-a (fn &rest args)
   (unless (bound-and-true-p eat--eshell-char-mode)
     (apply fn args)))
 
 (advice-add 'evil-initialize :around '+eat/evil-initialize-a)
-
-;; ---
-
-(defun +eat/refresh-cursor ()
-  (set-cursor-color "#ffffff")
-  (setq cursor-type 'box))
 
 (defun +eat/evil-refresh-cursor-a (fn &rest args)
   (if (bound-and-true-p eat--eshell-char-mode)
@@ -457,8 +451,8 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
       :desc "Line numbers" "l" 'toggle-line-numbers)
 
 (map! :map 'override
-      :v "v" #'er/expand-region
-      :v "V" #'er/contract-region)
+      :v "v" 'er/expand-region
+      :v "V" 'er/contract-region)
 
 (defun toggle-line-numbers ()
   (interactive)
@@ -550,18 +544,25 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 (defun eshell-append-history ()
   "Call `eshell-write-history' with the `append' parameter set to `t'."
   (when eshell-history-ring
-    (let ((newest-cmd-ring (make-ring 1)))
-      (ring-insert newest-cmd-ring (car (ring-elements eshell-history-ring)))
-      (let ((eshell-history-ring newest-cmd-ring))
-        (eshell-write-history eshell-history-file-name t)))))
+    (let ((ring (make-ring 1)))
+      (ring-insert ring (car (ring-elements eshell-history-ring)))
 
-(add-hook 'eshell-pre-command-hook #'eshell-append-history)
+      (setq eshell-history-ring--prev (ring-copy eshell-history-ring)
+            eshell-history-ring ring
+            eshell-hist--new-items 1)
+
+      (eshell-write-history eshell-history-file-name t)
+
+      (setq eshell-history-ring eshell-history-ring--prev
+            eshell-history-ring--prev nil))))
+
+(add-hook 'eshell-pre-command-hook 'eshell-append-history)
 
 ;; ---
 
 (defun eshell/bcat (&rest args)
   "Output the contents of one or more buffers as a string. "
-  (let ((buffers (mapcar #'get-buffer args)))
+  (let ((buffers (mapcar 'get-buffer args)))
     (mapconcat (lambda (buf)
                  (save-window-excursion
                    (switch-to-buffer buf)
@@ -743,13 +744,13 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 ;; -----------------------------------------------------------------------------
 ;; json-mode
 
-(defun +format--buffer-maybe-json (orig)
+(defun +format--buffer-maybe-json-a (fn &rest args)
   (if (eq major-mode 'json-mode)
       (json-pretty-print-buffer)
-    (funcall orig)))
+    (apply fn args)))
 
 (after! json
-  (advice-add '+format--buffer :around '+format--buffer-maybe-json))
+  (advice-add '+format--buffer :around '+format--buffer-maybe-json-a))
 
 ;; -----------------------------------------------------------------------------
 ;; lsp
@@ -761,6 +762,15 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
       lsp-ui-doc-show-with-cursor nil
       lsp-ui-sideline-enable nil
       lsp-use-plists t)
+
+(defun +format-with-lsp-mode--maybe-disable-a (fn &rest args)
+  (let ((file (buffer-file-name)))
+    (unless (or (string-suffix-p ".vue" file)
+                (string-suffix-p ".ts" file))
+      (apply fn args))))
+
+(after! lsp-mode
+  (advice-add '+format-with-lsp-mode :around '+format-with-lsp-mode--maybe-disable-a))
 
 ;; -----------------------------------------------------------------------------
 ;; lsp-nix
@@ -852,7 +862,7 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
       "P" 'projectile-switch-open-project)
 
 (after! projectile
-  (setq projectile-switch-project-action #'projectile-commander))
+  (setq projectile-switch-project-action 'projectile-commander))
 
 ;; -----------------------------------------------------------------------------
 ;; rainbow-delimeters
@@ -971,8 +981,8 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 
 (after! vertico
   (map! :map vertico-map
-        "DEL" #'backward-delete-char
-        "C-DEL" #'vertico-directory-delete-char))
+        "DEL" 'backward-delete-char
+        "C-DEL" 'vertico-directory-delete-char))
 
 ;; -----------------------------------------------------------------------------
 ;; vlf
@@ -982,22 +992,16 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 ;; -----------------------------------------------------------------------------
 ;; web-mode
 
-(defun lsp-web ()
+(defun lsp-vue-activate ()
   (when (string-suffix-p ".vue" (buffer-file-name))
-    (lsp)
-    (lsp-disable-format)))
+    (lsp)))
 
-(defun lsp-disable-format ()
-  (+format-with-lsp-mode -1))
-
-(add-hook 'web-mode-hook 'lsp-web)
-(add-hook 'web-mode-hook 'lsp-disable-format)
-(add-hook 'typescript-mode-hook 'lsp-disable-format)
+(add-hook 'web-mode-hook 'lsp-vue-activate)
 
 ;; -----------------------------------------------------------------------------
 ;; xml-mode
 
-(defun +format--buffer-maybe-xml (orig)
+(defun +format--buffer-maybe-xml-a (fn &rest args)
   (if (eq major-mode 'xml-mode)
       (save-excursion
         (shell-command-on-region
@@ -1006,6 +1010,6 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
          "xmllint --encode utf-8 --format -"
          (buffer-name)
          t))
-    (funcall orig)))
+    (apply fn args)))
 
-(advice-add '+format--buffer :around '+format--buffer-maybe-xml)
+(advice-add '+format--buffer :around '+format--buffer-maybe-xml-a)
