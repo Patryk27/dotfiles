@@ -30,12 +30,14 @@
       anki-bin
       audacity
       borgbackup
+      chromium
       dbeaver-bin
       discord
       ectool
       fd
       ffmpeg-full
       file
+      firefox
       fzf
       gimp
       google-cloud-sdk

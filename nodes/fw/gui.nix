@@ -1,9 +1,7 @@
 { pkgs, ... }: {
   environment = {
     systemPackages = with pkgs; [
-      chromium
       easyeffects
-      firefox
       gnome-tweaks
       guvcview
       wl-clipboard
