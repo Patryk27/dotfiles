@@ -32,6 +32,7 @@
       borgbackup
       chromium
       dbeaver-bin
+      dig
       discord
       ectool
       fd
