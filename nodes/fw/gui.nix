@@ -16,6 +16,8 @@
     dconf = {
       settings = {
         "org/gnome/desktop/wm/keybindings" = {
+          minimize = [ ];
+
           switch-to-workspace-up = [ "<Super>k" ];
           switch-to-workspace-down = [ "<Super>j" ];
           switch-to-workspace-left = [ "<Super>h" ];
