@@ -47,6 +47,7 @@
       jq
       just
       killall
+      libreoffice-qt
       libxml2
       linuxPackages.perf
       lld
