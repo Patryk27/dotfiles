@@ -916,6 +916,11 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
       "C-<f1>" 'global-subword-mode)
 
 ;; -----------------------------------------------------------------------------
+;; typescript-mode
+
+(setq-default typescript-indent-level 2)
+
+;; -----------------------------------------------------------------------------
 ;; undo-tree
 
 (setq undo-tree-visualizer-timestamps t)
