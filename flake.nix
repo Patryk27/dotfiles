@@ -1,15 +1,5 @@
 {
   inputs = {
-    emacs-overlay = {
-      url = "github:nix-community/emacs-overlay";
-
-      inputs = {
-        nixpkgs = {
-          follows = "nixpkgs";
-        };
-      };
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager";
 
@@ -35,7 +25,6 @@
 
   outputs =
     { self
-    , emacs-overlay
     , home-manager
     , nixos-hardware
     , nixpkgs
@@ -64,8 +53,6 @@
 
               nixpkgs = {
                 overlays = [
-                  emacs-overlay.overlay
-
                   (self: super:
                     let
                       nixpkgs-latest' = import nixpkgs-latest {

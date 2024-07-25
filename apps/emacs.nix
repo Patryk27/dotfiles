@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   environment = {
     systemPackages = with pkgs; [
-      emacs-pgtk
+      emacs29-pgtk
 
       (aspellWithDicts (dicts: with dicts; [
         en
