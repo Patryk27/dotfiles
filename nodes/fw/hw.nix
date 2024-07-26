@@ -89,6 +89,7 @@
     zfs = {
       autoScrub = {
         enable = true;
+        interval = "Mon *-*-* 12:00:00";
       };
 
       autoSnapshot = {
