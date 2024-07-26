@@ -37,9 +37,5 @@
   :recipe (:host github :repo "emacs-rustic/rustic")
   :pin "c1893528ad6b8e8ca795b547f326ec52dacf8728")
 
-(package! straight
-  :recipe (:host github :repo "Patryk27/straight.el")
-  :pin "3468d18d3ed83a48325901e1c88473acf427a4fe")
-
 (package! vlf
   :pin "cc02f2533782d6b9b628cec7e2dcf25b2d05a27c")
