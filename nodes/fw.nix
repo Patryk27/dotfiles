@@ -95,6 +95,18 @@
     };
   };
 
+  systemd = {
+    services = {
+      disable-led = {
+        script = ''
+          ${pkgs.fw-ectool}/bin/ectool led power off
+        '';
+
+        wantedBy = [ "multi-user.target" ];
+      };
+    };
+  };
+
   time = {
     timeZone = "Europe/Warsaw";
   };
