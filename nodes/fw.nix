@@ -105,6 +105,12 @@
         wantedBy = [ "multi-user.target" ];
       };
     };
+
+    timers = {
+      fwupd-refresh = {
+        enable = false;
+      };
+    };
   };
 
   time = {
