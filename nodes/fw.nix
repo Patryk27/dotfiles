@@ -46,6 +46,7 @@
       inkscape
       jq
       just
+      kdenlive
       killall
       libreoffice-qt
       libxml2
