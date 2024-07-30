@@ -67,6 +67,7 @@
       unnethack
       unzip
       valgrind
+      vlc
       watch
     ];
   };
