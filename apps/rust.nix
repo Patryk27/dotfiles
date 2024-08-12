@@ -8,7 +8,10 @@
   home-manager.users.pwy = {
     home = {
       packages = with pkgs; [
+        avrdude
+        pkgsCross.avr.buildPackages.gcc
         rust-analyzer
+        simavr
       ];
 
       file = {
