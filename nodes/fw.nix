@@ -71,6 +71,7 @@
       valgrind
       vlc
       watch
+      zip
     ];
   };
 
