@@ -30,6 +30,7 @@
       anki-bin
       audacity
       borgbackup
+      bzip2
       chromium
       dbeaver-bin
       dig
