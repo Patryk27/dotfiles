@@ -35,7 +35,7 @@
 
        :checkers
        syntax
-       (spell +everywhere)
+       (spell +aspell +everywhere)
 
        :tools
        debugger

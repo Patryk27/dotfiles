@@ -667,14 +667,6 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
       :desc "reformat region" "f" 'ion-reformat-region)
 
 ;; -----------------------------------------------------------------------------
-;; ispell
-
-(setq ispell-dictionary "en")
-
-(after! ispell
-  (advice-add 'ispell-lookup-words :around 'doom-shut-up-a))
-
-;; -----------------------------------------------------------------------------
 ;; json
 
 (after! json
@@ -908,6 +900,14 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
         :localleader
         "r"
         'rustic-rerun-shell-command))
+
+;; -----------------------------------------------------------------------------
+;; spell-fu
+
+(after! spell-fu
+  (spell-fu-dictionary-add (spell-fu-get-ispell-dictionary "en"))
+  (spell-fu-dictionary-add (spell-fu-get-ispell-dictionary "pl"))
+  (spell-fu-dictionary-add (spell-fu-get-ispell-dictionary "sv")))
 
 ;; -----------------------------------------------------------------------------
 ;; subword-mode
