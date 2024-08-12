@@ -41,6 +41,7 @@
       file
       firefox
       fzf
+      gdb
       gimp
       google-cloud-sdk
       htop
