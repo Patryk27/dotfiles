@@ -9,6 +9,7 @@
         ])
 
         csharp-ls
+        omnisharp-roslyn
       ];
     };
   };
