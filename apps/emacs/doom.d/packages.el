@@ -8,17 +8,6 @@
 (package! dirvish
   :pin "119f9f59a618bb7b476c93e9ab1d7542c5c1df41")
 
-(package! eat
-  :recipe (:type git
-           :host codeberg
-           :repo "akib/emacs-eat"
-           :files ("*.el" ("term" "term/*.el") "*.texi"
-                   "*.ti" ("terminfo/e" "terminfo/e/*")
-                   ("terminfo/65" "terminfo/65/*")
-                   ("integration" "integration/*")
-                   (:exclude ".dir-locals.el" "*-tests.el")))
-  :pin "3a6f418f55d183b9d86f99c140caed4ba3d44f93")
-
 (package! focus
   :recipe (:host github :repo "larstvei/Focus")
   :pin "17c471544f540f2cf9a05fd6cd87e52e5de317e2")

@@ -14,12 +14,6 @@ zstyle :zle:backward-kill-bash-word word-style bash
 
 # ---
 
-export GPG_TTY=$(tty)
-
-gpgconf --launch gpg-agent
-
-# ---
-
 share() {
     file="$1"
 
@@ -58,4 +52,12 @@ share-rm() {
 
     ssh gateway -- \
         sudo rm "/var/lib/nixos-containers/nginx/var/www/files/$fname"
+}
+
+nxu() {
+    if [[ -z "$1" ]]; then
+        nix flake update
+    else
+        nix flake lock --update-input $@
+    fi
 }

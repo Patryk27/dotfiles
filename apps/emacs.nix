@@ -20,6 +20,9 @@
           ln -s $(${pkgs.findutils}/bin/find ${pkgs.emacsPackages.pdf-tools}/ -name epdfinfo) $out/bin/
         '';
       })
+
+      # For vterm
+      libtool
     ];
 
     sessionVariables = {

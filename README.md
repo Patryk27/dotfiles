@@ -12,6 +12,12 @@ Configuration for my NixOS laptop.
 - [nix](apps/emacs.nix)
 - [doom.d](apps/emacs/doom.d)
 
+## ZSH
+
+- [nix](apps/zsh.nix)
+- [config](apps/zsh/init.zsh)
+- [theme](apps/zsh/custom/themes/custom.zsh-theme)
+
 # License
 
 Copyright (c) 2021 Patryk Wychowaniec <pwychowaniec@pm.me>.    
