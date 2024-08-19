@@ -21,12 +21,6 @@
 (map! :n "=" 'evil-avy-goto-char-timer)
 
 (after! avy
-  (defun avy-action-mark-to-char (pt)
-    (activate-mark)
-    (goto-char pt))
-
-  (setf (alist-get ? avy-dispatch-alist) 'avy-action-mark-to-char)
-
   (defun avy-action-lookup-documentation (pt)
     (save-excursion
       (goto-char pt)
@@ -139,8 +133,7 @@
 
 (after! (:and evil dired)
   (setq dirvish-attributes '(file-time file-size)
-        dirvish-hide-details nil
-        dired-omit-files "\\`[.]?#\\|\\`[.][.]?\\'")
+        dirvish-hide-details nil)
 
   (setq dirvish-quick-access-entries
         '(
@@ -150,13 +143,12 @@
           ("o" "~/Documents")
           ("p" "/p")
           ("q" "/q")
+          ("t" "/t")
           ("x" "/x")))
 
   (map! :map dirvish-mode-map
         :n "?" 'dirvish-dispatch
         :n "a" 'dirvish-quick-access
-        :n "s" 'dirvish-quicksort
-        :n "-" 'find-file
         :n "h" 'dired-up-directory
         :n "l" 'dired-find-file
         :n "\\" 'dirvish-narrow
@@ -183,46 +175,7 @@
                       (lambda ()
                         (setq ediff-after-quit-hook-internal nil)
                         (set-window-configuration wnd))))
-        (error "no more than 2 files should be marked"))))
-
-  ;; TODO https://github.com/alexluigit/dirvish/pull/251
-  (defun dirvish--mode-line-fmt-setter (left right &optional header)
-    "Set the `dirvish--mode-line-fmt'.
-LEFT and RIGHT are segments aligned to left/right respectively.
-If HEADER, set the `dirvish--header-line-fmt' instead."
-    (cl-labels ((expand (segments)
-                  (cl-loop for s in segments collect
-                           (if (stringp s) s
-                             `(:eval (,(intern (format "dirvish-%s-ml" s)) (dirvish-curr))))))
-                (get-font-scale ()
-                  (let* ((face (if header 'header-line 'mode-line-inactive))
-                         (defualt (face-attribute 'default :height))
-                         (ml-height (face-attribute face :height)))
-                    (cond ((floatp ml-height) ml-height)
-                          ((integerp ml-height) (/ (float ml-height) defualt))
-                          (t 1)))))
-      `((:eval
-         (let* ((dv (dirvish-curr))
-                (buf (and (car (dv-layout dv)) (cdr (dv-index dv))))
-                (scale ,(get-font-scale))
-                (win-width (floor (/ (window-width) scale)))
-                (str-l (format-mode-line
-                        ',(or (expand left) mode-line-format) nil nil buf))
-                (str-r (format-mode-line ',(expand right) nil nil buf))
-                (len-r (string-width str-r)))
-           (concat
-            (dirvish--bar-image (car (dv-layout dv)) ,header)
-            (if (< (+ (string-width str-l) len-r) win-width)
-                str-l
-              (let ((trim (1- (- win-width len-r))))
-                (if (>= trim 0)
-                    (substring str-l 0 (min trim (1- (length str-l))))
-                  "")))
-            (propertize
-             " " 'display
-             `((space :align-to (- (+ right right-fringe right-margin)
-                                   ,(ceiling (* scale (string-width str-r)))))))
-            str-r)))))))
+        (error "no more than 2 files should be marked")))))
 
 ;; -----------------------------------------------------------------------------
 ;; doom
@@ -425,11 +378,16 @@ If HEADER, set the `dirvish--header-line-fmt' instead."
 ;; -----------------------------------------------------------------------------
 ;; indent-bars
 
-(use-package indent-bars
-  :custom
-  (indent-bars-color '(highlight :face-bg t :blend 0.2))
-  (indent-bars-width-frac 0.12)
-  :hook ((emacs-lisp-mode rustic-mode) . indent-bars-mode))
+;; TODO
+;; (use-package indent-bars
+;;   :custom
+;;   (indent-bars-color '(highlight :face-bg t :blend 0.2))
+;;   (indent-bars-width-frac 0.12)
+;;   :hook ((emacs-lisp-mode
+;;           rustic-mode
+;;           typescript-mode
+;;           web-mode)
+;;          . indent-bars-mode))
 
 ;; -----------------------------------------------------------------------------
 ;; ion-mode

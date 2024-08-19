@@ -61,7 +61,8 @@
 
                     in
                     {
-                      vue-language-server = nixpkgs-latest'.vue-language-server;
+                      easyeffects = nixpkgs-latest'.easyeffects;
+                      lorri = nixpkgs-latest'.lorri;
                     })
                 ];
               };

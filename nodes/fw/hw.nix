@@ -74,6 +74,10 @@
   hardware = {
     enableRedistributableFirmware = true;
 
+    graphics = {
+      enable = true;
+    };
+
     cpu = {
       amd = {
         updateMicrocode = true;
