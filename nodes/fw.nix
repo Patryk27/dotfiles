@@ -1,5 +1,3 @@
-# TODO swap
-
 { pkgs, ... }: {
   imports = [
     ../apps/cpp.nix
