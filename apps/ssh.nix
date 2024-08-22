@@ -68,25 +68,32 @@ in
           };
 
           ubu = {
-            hostname = "192.168.1.113";
             user = "pwy";
           };
 
-          ubu-wg = {
+          ubu--local = {
+            match = ''OriginalHost ubu Exec "${wifi-check}"'';
+            hostname = "192.168.1.113";
+          };
+
+          ubu--wg = lib.hm.dag.entryAfter [ "ubu--local" ] {
+            match = "OriginalHost ubu";
             hostname = "10.24.1.3";
-            user = "pwy";
           };
 
           warp = {
-            hostname = "192.168.1.200";
             port = 33000;
             user = "pwy";
           };
 
-          warp-wg = {
+          warp--local = {
+            match = ''OriginalHost warp Exec "${wifi-check}"'';
+            hostname = "192.168.1.200";
+          };
+
+          warp--wg = lib.hm.dag.entryAfter [ "warp--local" ] {
+            match = "OriginalHost warp";
             hostname = "10.24.1.2";
-            port = 33000;
-            user = "pwy";
           };
 
           # --- #
