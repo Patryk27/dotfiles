@@ -671,6 +671,9 @@
 ;; vterm
 (map! :leader "d" '+vterm/toggle)
 
+(map! :map vterm-mode-map
+      "S-C-v" 'vterm-yank)
+
 (add-hook 'vterm-mode-hook
           (lambda ()
             (display-fill-column-indicator-mode -1)))
