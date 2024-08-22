@@ -1,4 +1,4 @@
-all:
+switch:
     sudo nixos-rebuild switch --flake .#fw
 
 boot:
