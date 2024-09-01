@@ -61,8 +61,7 @@
 
                     in
                     {
-                      easyeffects = nixpkgs-latest'.easyeffects;
-                      lorri = nixpkgs-latest'.lorri;
+                      #
                     })
                 ];
               };
