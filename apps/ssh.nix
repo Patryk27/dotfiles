@@ -102,48 +102,7 @@ in
             port = 47000;
             user = "git";
           };
-
-          # --- #
-
-          anx-wrop-aclr8-p1 = {
-            hostname = "192.168.194.232";
-            user = "patryk.wychowaniec";
-          };
-
-          anx-wrop-aclr8-p2 = {
-            hostname = "192.168.194.132";
-            user = "patryk.wychowaniec";
-          };
-
-          anx-wrop-aclr8-p3 = {
-            hostname = "192.168.194.137";
-            user = "patryk.wychowaniec";
-          };
-
-          anx-gcpa = {
-            hostname = "34.107.119.213";
-            user = "patryk.wychowaniec";
-          };
-
-          anx-gcpp = {
-            hostname = "34.76.100.205";
-            user = "patryk.wychowaniec";
-          };
-
-          anx-lv = {
-            hostname = "10.33.25.12";
-            user = "patryk.wychowaniec";
-          };
-
-          anx-pozpdariv1 = {
-            hostname = "pozpdariv1.hrc.lan";
-            user = "patryk.wychowaniec";
-          };
         };
-
-        extraConfig = ''
-          PubkeyAcceptedKeyTypes +ssh-rsa
-        '';
       };
     };
   };
