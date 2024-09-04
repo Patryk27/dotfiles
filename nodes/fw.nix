@@ -31,7 +31,6 @@
       bzip2
       chromium
       dbeaver-bin
-      dig
       discord
       ectool
       fd
@@ -76,10 +75,6 @@
   networking = {
     hostId = "c7a81ba2";
     hostName = "pfw";
-
-    networkmanager = {
-      dns = "systemd-resolved";
-    };
   };
 
   programs = {
@@ -90,10 +85,6 @@
 
   services = {
     fwupd = {
-      enable = true;
-    };
-
-    resolved = {
       enable = true;
     };
   };

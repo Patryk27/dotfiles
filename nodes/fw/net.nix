@@ -4,20 +4,28 @@
       aria
       bmon
       curl
+      dig
       nmap
       rsync
-      snx-rs
       wget
       wrk
     ];
   };
 
   networking = {
-    firewall = {
-      allowedUDPPorts = [ 51820 ];
+    networkmanager = {
+      dns = "systemd-resolved";
+    };
+  };
+
+  services = {
+    mullvad-vpn = {
+      enable = true;
+      package = pkgs.mullvad-vpn;
     };
 
-
+    resolved = {
+      enable = true;
     };
   };
 }
