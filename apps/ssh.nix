@@ -14,6 +14,13 @@ in
             port = 33002;
             user = "pwy";
             hostname = "10.24.1.2";
+            proxyJump = "gateway";
+          };
+
+          gateway = {
+            hostname = "142.132.178.21";
+            port = 33000;
+            user = "pwy";
           };
         };
       };
@@ -45,9 +52,10 @@ in
             hostname = "192.168.1.200";
           };
 
-          archive--wg = lib.hm.dag.entryAfter [ "archive--local" ] {
+          archive--gateway = lib.hm.dag.entryAfter [ "archive--local" ] {
             match = "OriginalHost archive";
             hostname = "10.24.1.2";
+            proxyJump = "gateway";
           };
 
           gateway = {
@@ -67,20 +75,6 @@ in
             user = "pi";
           };
 
-          ubu = {
-            user = "pwy";
-          };
-
-          ubu--local = {
-            match = ''OriginalHost ubu Exec "${wifi-check}"'';
-            hostname = "192.168.1.113";
-          };
-
-          ubu--wg = lib.hm.dag.entryAfter [ "ubu--local" ] {
-            match = "OriginalHost ubu";
-            hostname = "10.24.1.3";
-          };
-
           warp = {
             port = 33000;
             user = "pwy";
@@ -91,9 +85,10 @@ in
             hostname = "192.168.1.200";
           };
 
-          warp--wg = lib.hm.dag.entryAfter [ "warp--local" ] {
+          warp--gateway = lib.hm.dag.entryAfter [ "warp--local" ] {
             match = "OriginalHost warp";
             hostname = "10.24.1.2";
+            proxyJump = "gateway";
           };
 
           # --- #
