@@ -6,6 +6,7 @@
           export PATH="$PATH:${pkgs.borgbackup}/bin"
           export PATH="$PATH:${pkgs.openssh}/bin"
           export PATH="$PATH:${pkgs.rsync}/bin"
+          export PATH="$PATH:${pkgs.util-linux}/bin"
           export PATH="$PATH:${pkgs.zfs}/bin"
           export PATH="$PATH:/run/wrappers/bin"
 

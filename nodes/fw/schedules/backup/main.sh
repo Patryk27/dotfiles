@@ -20,8 +20,13 @@ echo "preparing temporary directory"
 echo
 
 if [[ -d "${tmp}" ]]; then
-  echo "error: temporary directory already exists: ${tmp}"
-  exit 1
+  echo "warn: temporary directory already exists, cleaning up"
+
+  if mountpoint -q "${tmp}"; then
+    umount "${tmp}"
+  fi
+
+  rm -d "${tmp}"
 fi
 
 mkdir "${tmp}"
@@ -34,6 +39,11 @@ for dataset in "${DATASETS[@]}"; do
 
   dataset_id="${dataset//\//-}"
   dataset_snapshot="${dataset}@backup"
+
+  if zfs list -t snapshot -o name -H "${dataset_snapshot}" &> /dev/null; then
+    echo "warn: temporary snapshot already exists, cleaning up"
+    zfs destroy "${dataset_snapshot}"
+  fi
 
   zfs snapshot "${dataset_snapshot}"
   mount -t zfs "${dataset_snapshot}" "${tmp}"
