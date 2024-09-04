@@ -519,7 +519,7 @@
 ;; -----------------------------------------------------------------------------
 ;; projectile
 
-(setq projectile-project-search-path '("/x" "~/.emacs.d")
+(setq projectile-project-search-path '("/x" "/t/projects" "~/.emacs.d")
       projectile-track-known-projects-automatically nil
       projectile-verbose nil)
 
