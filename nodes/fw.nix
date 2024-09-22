@@ -2,6 +2,7 @@
   imports = [
     ../apps/cpp.nix
     ../apps/csharp.nix
+    ../apps/dbg.nix
     ../apps/direnv.nix
     ../apps/emacs.nix
     ../apps/git.nix
@@ -38,7 +39,6 @@
       file
       firefox
       fzf
-      gdb
       gimp
       google-cloud-sdk
       htop
@@ -49,7 +49,6 @@
       killall
       libreoffice-qt
       libxml2
-      linuxPackages.perf
       lld
       lm_sensors
       moonlight-qt
@@ -65,7 +64,6 @@
       sqlite
       unnethack
       unzip
-      valgrind
       vlc
       watch
       zip
