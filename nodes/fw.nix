@@ -17,6 +17,7 @@
 
     ./fw/gui.nix
     ./fw/hw.nix
+    ./fw/iphone.nix
     ./fw/net.nix
     ./fw/schedules.nix
     ./fw/user.nix
