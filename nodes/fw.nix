@@ -36,7 +36,6 @@
       colmap
       dbeaver-bin
       discord
-      ectool
       ffmpeg-full
       file
       firefox
