@@ -21,8 +21,8 @@
         '';
       })
 
-      # For vterm
       libtool
+      fd
     ];
 
     sessionVariables = {

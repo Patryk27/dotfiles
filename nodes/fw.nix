@@ -33,7 +33,6 @@
       dbeaver-bin
       discord
       ectool
-      fd
       ffmpeg-full
       file
       firefox
