@@ -75,6 +75,11 @@ in
             user = "pi";
           };
 
+          ubu = {
+            hostname = "192.168.122.227";
+            user = "pwy";
+          };
+
           warp = {
             port = 33000;
             user = "pwy";
@@ -89,6 +94,11 @@ in
             match = "OriginalHost warp";
             hostname = "10.24.1.2";
             proxyJump = "gateway";
+
+          warp-ubu = {
+            hostname = "192.168.122.92";
+            user = "pwy";
+            proxyJump = "warp";
           };
 
           # --- #
