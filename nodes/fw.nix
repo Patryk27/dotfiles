@@ -28,6 +28,7 @@
   environment = {
     systemPackages = with pkgs; [
       anki-bin
+      asciinema
       audacity
       borgbackup
       bzip2
