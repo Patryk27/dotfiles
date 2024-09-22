@@ -1,5 +1,11 @@
 { pkgs, ... }: {
   environment = {
+    gnome = {
+      excludePackages = with pkgs; [
+        epiphany
+      ];
+    };
+
     systemPackages = with pkgs; [
       easyeffects
       gnome-tweaks
