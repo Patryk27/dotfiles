@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ config, pkgs, ... }: {
   boot = {
     kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
     supportedFilesystems = [ "zfs" ];
@@ -76,6 +76,10 @@
 
     graphics = {
       enable = true;
+
+      extraPackages = with pkgs; [
+        rocmPackages.clr.icd
+      ];
     };
 
     cpu = {
