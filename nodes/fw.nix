@@ -33,6 +33,7 @@
       borgbackup
       bzip2
       chromium
+      colmap
       dbeaver-bin
       discord
       ectool
@@ -55,6 +56,7 @@
       moonlight-qt
       ncdu
       nethack
+      opensplat
       postgresql
       powertop
       python3
@@ -74,6 +76,14 @@
   networking = {
     hostId = "c7a81ba2";
     hostName = "pfw";
+  };
+
+  nixpkgs = {
+    config = {
+      permittedInsecurePackages = [
+        "freeimage-unstable-2021-11-01"
+      ];
+    };
   };
 
   programs = {
