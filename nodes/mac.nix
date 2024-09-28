@@ -1,14 +1,12 @@
-{ emacs-mac, home-manager, nix-darwin, ... }:
+{ home-manager, nix-darwin, ... } @ inputs:
 
 nix-darwin.lib.darwinSystem {
   system = "aarch64-darwin";
 
   specialArgs = {
-    user = "pwychowaniec";
+    inherit inputs;
 
-    inputs = {
-      inherit emacs-mac;
-    };
+    user = "pwychowaniec";
   };
 
   modules = [
@@ -26,9 +24,6 @@ nix-darwin.lib.darwinSystem {
       };
 
       home-manager = {
-        useUserPackages = true;
-        useGlobalPkgs = true;
-
         users = {
           pwychowaniec = {
             home = {
@@ -63,6 +58,12 @@ nix-darwin.lib.darwinSystem {
               };
             };
           };
+        };
+      };
+
+      services = {
+        nix-daemon = {
+          enable = true;
         };
       };
 

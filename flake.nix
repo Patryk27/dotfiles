@@ -39,6 +39,8 @@
       "MacBook-Pro-Patryk" = import ./nodes/mac.nix inputs;
     };
 
-    nixosConfigurations = { };
+    nixosConfigurations = {
+      fw = import ./nodes/fw.nix inputs;
+    };
   };
 }

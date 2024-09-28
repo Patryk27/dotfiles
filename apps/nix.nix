@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, ... }: {
   environment = {
     systemPackages = with pkgs; [
       nil
@@ -9,6 +9,16 @@
 
   nix = {
     distributedBuilds = true;
+
+    nixPath = [
+      "nixpkgs=${inputs.nixpkgs}"
+    ];
+
+    registry = {
+      nixpkgs = {
+        flake = inputs.nixpkgs;
+      };
+    };
 
     settings = {
       builders-use-substitutes = true;
@@ -31,10 +41,6 @@
 
   services = {
     lorri = {
-      enable = true;
-    };
-
-    nix-daemon = {
       enable = true;
     };
   };

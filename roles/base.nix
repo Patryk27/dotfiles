@@ -16,6 +16,11 @@
     ../apps/zsh.nix
   ];
 
+  home-manager = {
+    useUserPackages = true;
+    useGlobalPkgs = true;
+  };
+
   environment = {
     systemPackages = with pkgs; [
       asciinema

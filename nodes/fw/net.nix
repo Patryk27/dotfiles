@@ -1,5 +1,8 @@
 { pkgs, ... }: {
   networking = {
+    hostId = "c7a81ba2";
+    hostName = "pfw";
+
     networkmanager = {
       dns = "systemd-resolved";
     };

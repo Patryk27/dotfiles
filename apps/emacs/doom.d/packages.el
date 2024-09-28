@@ -11,7 +11,7 @@
 
 (package! indent-bars
   :recipe (:host github :repo "jdtsmith/indent-bars")
-  :pin "2d1d854ddaa5b0e19b69e73553675c2aaaed1641")
+  :pin "8a1252ff36f6a41e51861cf03e95d52181d38ea6")
 
 (package! lsp-mode
   :pin "12befaabe4a1bf8a548bc820faa192be8ee89533")

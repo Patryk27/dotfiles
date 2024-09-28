@@ -1,5 +1,0 @@
-{
-  imports = [
-    ./schedules/backup.nix
-  ];
-}
