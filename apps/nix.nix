@@ -33,5 +33,9 @@
     lorri = {
       enable = true;
     };
+
+    nix-daemon = {
+      enable = true;
+    };
   };
 }

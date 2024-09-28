@@ -1,17 +1,4 @@
 { pkgs, ... }: {
-  environment = {
-    systemPackages = with pkgs; [
-      aria
-      bmon
-      curl
-      dig
-      nmap
-      rsync
-      wget
-      wrk
-    ];
-  };
-
   networking = {
     networkmanager = {
       dns = "systemd-resolved";

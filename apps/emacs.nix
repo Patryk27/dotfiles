@@ -1,51 +1,50 @@
-{ pkgs, ... }: {
-  environment = {
-    systemPackages = with pkgs; [
-      emacs29-pgtk
-
-      (aspellWithDicts (dicts: with dicts; [
-        en
-        en-computers
-        en-science
-        pl
-        sv
-      ]))
-
-      (pkgs.stdenv.mkDerivation {
-        name = "epdfinfo";
-        phases = "installPhase";
-
-        installPhase = ''
-          mkdir -p $out/bin
-          ln -s $(${pkgs.findutils}/bin/find ${pkgs.emacsPackages.pdf-tools}/ -name epdfinfo) $out/bin/
-        '';
-      })
-
-      libtool
-      fd
-    ];
-
-    sessionVariables = {
-      LSP_USE_PLISTS = "true";
-    };
-  };
-
+{ pkgs, inputs, user, ... }: {
   fonts = {
     packages = with pkgs; [
       emacs-all-the-icons-fonts
     ];
   };
 
-  home-manager.users.pwy = {
+  home-manager.users."${user}" = {
     home = {
+      packages =
+        with pkgs; [
+          (if pkgs.stdenv.isLinux then
+            emacs29-pgtk
+          else
+            emacs29-macport.overrideAttrs (old: {
+              src = inputs.emacs-mac;
+              version = "29.4";
+            }))
+
+          (aspellWithDicts (dicts: with dicts; [
+            en
+            en-computers
+            en-science
+            pl
+            sv
+          ]))
+
+          (pkgs.stdenv.mkDerivation {
+            name = "epdfinfo";
+            phases = "installPhase";
+
+            installPhase = ''
+              mkdir -p $out/bin
+              ln -s $(${pkgs.findutils}/bin/find ${pkgs.emacsPackages.pdf-tools}/ -name epdfinfo) $out/bin/
+            '';
+          })
+
+          libtool
+          fd
+        ];
+
       file =
         let
           render = path:
             builtins.replaceStrings [
-              "%ion-mode%"
               "%llvm-mode%"
             ] [
-              (toString ./emacs/vendor/ion-mode.el)
               (toString "${pkgs.llvm.src}/llvm/utils/emacs/llvm-mode.el")
             ]
               (builtins.readFile path);
@@ -64,6 +63,10 @@
             text = render ./emacs/doom.d/packages.el;
           };
         };
+
+      sessionVariables = {
+        LSP_USE_PLISTS = "true";
+      };
     };
   };
 }

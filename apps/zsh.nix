@@ -1,11 +1,11 @@
-{ pkgs, ... }: {
+{ pkgs, user, ... }: {
   programs = {
     zsh = {
       enable = true;
     };
   };
 
-  home-manager.users.pwy = {
+  home-manager.users."${user}" = {
     home = {
       packages = with pkgs; [
         autojump
@@ -83,7 +83,7 @@
 
   users = {
     users = {
-      pwy = {
+      "${user}" = {
         shell = pkgs.zsh;
       };
     };

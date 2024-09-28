@@ -1,8 +1,11 @@
 ;;; -*- lexical-binding: t; -*-
 
-(load "%ion-mode%")
 (load "%llvm-mode%")
 (toggle-frame-fullscreen)
+
+(when (eq system-type 'darwin)
+  (setq insert-directory-program "/opt/homebrew/bin/gls"
+        mac-command-modifier 'control))
 
 (defun no-op () nil)
 
@@ -180,7 +183,7 @@
 ;; -----------------------------------------------------------------------------
 ;; doom
 
-(setq doom-font (font-spec :family "Berkeley Mono" :size 16.5)
+(setq doom-font (font-spec :family "Berkeley Mono" :size 15)
       doom-theme 'doom-gruvbox
       +doom-dashboard-functions '(doom-dashboard-widget-banner))
 
@@ -378,23 +381,15 @@
 ;; -----------------------------------------------------------------------------
 ;; indent-bars
 
-;; TODO
-;; (use-package indent-bars
-;;   :custom
-;;   (indent-bars-color '(highlight :face-bg t :blend 0.2))
-;;   (indent-bars-width-frac 0.12)
-;;   :hook ((emacs-lisp-mode
-;;           rustic-mode
-;;           typescript-mode
-;;           web-mode)
-;;          . indent-bars-mode))
-
-;; -----------------------------------------------------------------------------
-;; ion-mode
-
-(map! :map ion-mode-map
-      :localleader
-      :desc "reformat region" "f" 'ion-reformat-region)
+(use-package indent-bars
+  :custom
+  (indent-bars-color '(highlight :face-bg t :blend 0.2))
+  (indent-bars-width-frac 0.12)
+  :hook ((emacs-lisp-mode
+          rustic-mode
+          typescript-mode
+          web-mode)
+         . indent-bars-mode))
 
 ;; -----------------------------------------------------------------------------
 ;; json
@@ -519,7 +514,7 @@
 ;; -----------------------------------------------------------------------------
 ;; projectile
 
-(setq projectile-project-search-path '("/x" "/t/projects" "~/.emacs.d")
+(setq projectile-project-search-path '("~/.emacs.d" "~/x/")
       projectile-track-known-projects-automatically nil
       projectile-verbose nil)
 

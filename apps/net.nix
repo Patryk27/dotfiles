@@ -2,16 +2,15 @@
   home-manager.users."${user}" = {
     home = {
       packages = with pkgs; [
-        gnupg
+        aria
+        bmon
+        curl
+        dig
+        nmap
+        rsync
+        wget
+        wrk
       ];
-    };
-  };
-
-  programs = {
-    gnupg = {
-      agent = {
-        enable = true;
-      };
     };
   };
 }

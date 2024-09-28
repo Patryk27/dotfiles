@@ -1,5 +1,5 @@
-{ pkgs, ... }: {
-  home-manager.users.pwy = {
+{ pkgs, user, ... }: {
+  home-manager.users."${user}" = {
     home = {
       packages = with pkgs; [
         nodePackages.prettier

@@ -21,10 +21,12 @@
     ./fw/iphone.nix
     ./fw/net.nix
     ./fw/schedules.nix
+    ./fw/ssh.nix
     ./fw/user.nix
     ./fw/virt.nix
   ];
 
+  # TODO remove extra
   environment = {
     systemPackages = with pkgs; [
       anki-bin
@@ -70,6 +72,29 @@
       watch
       zip
     ];
+  };
+
+  home-manager.users.root = {
+    programs = {
+      ssh = {
+        enable = true;
+
+        matchBlocks = {
+          archive = {
+            port = 33002;
+            user = "pwy";
+            hostname = "10.24.1.2";
+            proxyJump = "gateway";
+          };
+
+          gateway = {
+            hostname = "142.132.178.21";
+            port = 33000;
+            user = "pwy";
+          };
+        };
+      };
+    };
   };
 
   networking = {

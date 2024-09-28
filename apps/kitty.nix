@@ -1,5 +1,5 @@
-{ ... }: {
-  home-manager.users.pwy = {
+{ user, ... }: {
+  home-manager.users."${user}" = {
     programs = {
       kitty = {
         enable = true;

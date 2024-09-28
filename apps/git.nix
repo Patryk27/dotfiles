@@ -1,12 +1,12 @@
-{ pkgs, ... }: {
-  environment = {
-    systemPackages = with pkgs; [
-      git
-      github-cli
-    ];
-  };
+{ pkgs, user, ... }: {
+  home-manager.users."${user}" = {
+    home = {
+      packages = with pkgs; [
+        git
+        github-cli
+      ];
+    };
 
-  home-manager.users.pwy = {
     programs = {
       git = {
         enable = true;

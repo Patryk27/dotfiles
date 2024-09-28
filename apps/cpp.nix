@@ -1,10 +1,10 @@
-{ pkgs, ... }: {
-  home-manager.users.pwy = {
+{ pkgs, user, ... }: {
+  home-manager.users."${user}" = {
     home = {
       packages = with pkgs; [
+        clang
         clang-tools
         cmake
-        gcc
         gnumake
         ninja
       ];
