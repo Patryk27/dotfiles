@@ -2,9 +2,6 @@
   :recipe (:host github :repo "alpha22jp/atomic-chrome")
   :pin "f1b077be7e414f457191d72dcf5eedb4371f9309")
 
-(package! company
-  :pin "c67946d6e32060a046543411ce93d1656c2c882c")
-
 (package! focus
   :recipe (:host github :repo "larstvei/Focus")
   :pin "17c471544f540f2cf9a05fd6cd87e52e5de317e2")
