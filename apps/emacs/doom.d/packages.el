@@ -20,5 +20,8 @@
   :recipe (:host github :repo "emacs-rustic/rustic")
   :pin "30f0d393057e96e7d6b7bd927f2a010f627ea910")
 
+(package! transient
+  :pin "683e5104a0dd724b080043af078030db521858b1")
+
 (package! vlf
   :pin "cc02f2533782d6b9b628cec7e2dcf25b2d05a27c")
