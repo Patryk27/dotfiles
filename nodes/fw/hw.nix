@@ -3,6 +3,7 @@
     supportedFilesystems = [ "zfs" ];
 
     kernelParams = [
+      "amdgpu.abmlevel=0"
       "mitigations=off"
     ];
 
