@@ -14,7 +14,7 @@
     ];
 
     sessionVariables = {
-      NIXOS_OZONE_WL = "1";
+      MOZ_USE_XINPUT2 = "1";
     };
   };
 
@@ -59,7 +59,7 @@
       displayManager = {
         gdm = {
           enable = true;
-          wayland = true;
+          wayland = false;
         };
       };
 
