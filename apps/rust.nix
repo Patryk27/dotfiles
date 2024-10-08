@@ -9,6 +9,7 @@
     home = {
       packages = with pkgs; [
         avrdude
+        cargo-nextest
         pkgsCross.avr.buildPackages.gcc
         rust-analyzer
         simavr
