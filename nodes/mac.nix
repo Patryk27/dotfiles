@@ -31,6 +31,9 @@ nix-darwin.lib.darwinSystem {
               stateVersion = "24.05";
 
               sessionVariables = {
+                CPPFLAGS = "-I/opt/homebrew/opt/libiconv/include";
+                LDFLAGS = "-L/opt/homebrew/opt/libiconv/lib";
+                PKG_CONFIG_PATH = "/opt/homebrew/opt/libpq/lib/pkgconfig";
                 SSH_ASKPASS = "/usr/local/bin/ssh-askpass";
               };
             };
