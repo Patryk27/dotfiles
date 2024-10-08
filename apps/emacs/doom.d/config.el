@@ -1,10 +1,13 @@
 ;;; -*- lexical-binding: t; -*-
 
 (load "%llvm-mode%")
-(toggle-frame-fullscreen)
+
+(when (eq system-type 'gnu/linux)
+  (toggle-frame-fullscreen))
 
 (when (eq system-type 'darwin)
   (setq insert-directory-program "/opt/homebrew/bin/gls"
+        lsp-clangd-binary-path "/opt/homebrew/opt/llvm/bin/clangd"
         mac-command-modifier 'control))
 
 (defun no-op () nil)
@@ -188,9 +191,6 @@
                  :size (if (eq system-type 'gnu/linux) 20 15))
       doom-theme 'doom-gruvbox
       +doom-dashboard-functions '(doom-dashboard-widget-banner))
-
-(map! "C-{" '+workspace/switch-left
-      "C-}" '+workspace/switch-right)
 
 (map! :leader
       "b a" 'rename-buffer
@@ -516,9 +516,16 @@
 ;; -----------------------------------------------------------------------------
 ;; projectile
 
-(setq projectile-project-search-path '("~/.emacs.d" "~/x/")
-      projectile-track-known-projects-automatically nil
+(setq projectile-track-known-projects-automatically nil
       projectile-verbose nil)
+
+(when (eq system-type 'gnu/linux)
+  (setq projectile-project-search-path
+        '("/t/projects/" "/x/" "~/.emacs.d")))
+
+(when (eq system-type 'darwin)
+  (setq projectile-project-search-path
+        '("~/x/" "~/.emacs.d")))
 
 (map! :leader
       :prefix "p"
@@ -666,7 +673,7 @@
 (require 'vlf-setup)
 
 ;; vterm
-(map! :leader "d" '+vterm/toggle)
+(map! :nvim "…" '+vterm/toggle)
 
 (map! :map vterm-mode-map
       "S-C-v" 'vterm-yank)
