@@ -55,6 +55,18 @@ nixpkgs.lib.nixosSystem {
         ];
       };
 
+      home-manager = {
+        users = {
+          pwy = {
+            programs = {
+              git = {
+                userEmail = "pwychowaniec@pm.me";
+              };
+            };
+          };
+        };
+      };
+
       nixpkgs = {
         config = {
           permittedInsecurePackages = [

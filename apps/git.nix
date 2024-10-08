@@ -11,7 +11,6 @@
       git = {
         enable = true;
         userName = "Patryk Wychowaniec";
-        userEmail = "pwychowaniec@pm.me";
 
         signing = {
           key = "196ABFEC6A1DD1EC7594F8D1F62547D075E09767";

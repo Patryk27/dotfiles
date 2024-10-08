@@ -39,6 +39,10 @@ nix-darwin.lib.darwinSystem {
             };
 
             programs = {
+              git = {
+                userEmail = "p.wychowaniec@fudosecurity.com";
+              };
+
               ssh = {
                 matchBlocks = {
                   builder = {
