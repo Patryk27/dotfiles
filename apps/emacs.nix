@@ -10,11 +10,7 @@
       packages =
         with pkgs; [
           (if pkgs.stdenv.isLinux then
-            (emacs29-pgtk.overrideAttrs (old: {
-              patches = old.patches ++ [
-                ./emacs/patches/fix-stiple-support-on-pgtk.patch
-              ];
-            }))
+            emacs29
           else
             (emacs29-macport.overrideAttrs (old: {
               src = inputs.emacs-mac;
