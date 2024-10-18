@@ -32,6 +32,7 @@
       gimp
       glibtool
       htop
+      inetutils
       jq
       just
       killall
