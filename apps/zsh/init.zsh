@@ -15,7 +15,11 @@ zstyle :zle:backward-kill-bash-word word-style bash
 # ---
 
 s() {
-    TERM=xterm ssh "$1" -t byobu
+    TERM=xterm ssh "$1" -t tmux
+}
+
+sa() {
+    TERM=xterm ssh "$1" -t tmux a
 }
 
 share() {
