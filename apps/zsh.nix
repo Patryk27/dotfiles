@@ -45,6 +45,8 @@
             FZF_BASE="$(fzf-share)"
             ZSH_CUSTOM="${./zsh/custom}"
 
+            export LANG=en_US.UTF-8
+
             eval "$(direnv hook zsh)"
 
             ${pkgs.any-nix-shell}/bin/any-nix-shell zsh --info-right | source /dev/stdin
