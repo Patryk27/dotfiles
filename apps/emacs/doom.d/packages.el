@@ -11,17 +11,14 @@
   :pin "8a1252ff36f6a41e51861cf03e95d52181d38ea6")
 
 (package! lsp-mode
-  :pin "12befaabe4a1bf8a548bc820faa192be8ee89533")
+  :pin "1063d2d8838fb26a83a77070dcf1ad0573308723")
 
 (package! pdf-tools
   :built-in 'prefer)
 
 (package! rustic
   :recipe (:host github :repo "emacs-rustic/rustic")
-  :pin "30f0d393057e96e7d6b7bd927f2a010f627ea910")
-
-(package! transient
-  :pin "683e5104a0dd724b080043af078030db521858b1")
+  :pin "fb41de581684d38ebab2c714163cb983506f16b1")
 
 (package! vlf
   :pin "cc02f2533782d6b9b628cec7e2dcf25b2d05a27c")

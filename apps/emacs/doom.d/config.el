@@ -229,11 +229,12 @@
 (defun open-diary (&rest _)
   "Open the diary."
   (interactive)
+  (require 'tramp)
 
   (tramp-cleanup-connection
    (tramp-dissect-file-name "/scp:warp:"))
 
-  (unless (file-exists-p "/scp:warp:/mnt/diary/.mounted")
+  (unless (file-exists-p "/scp:warp:/mnt/diary/pwy")
     (progn
       (eshell-command
        (format
@@ -246,11 +247,12 @@
 (defun close-diary (&rest _)
   "Close the diary."
   (interactive)
+  (require 'tramp)
 
   (tramp-cleanup-connection
    (tramp-dissect-file-name "/scp:warp:"))
 
-  (if (file-exists-p "/scp:warp:/mnt/diary/.mounted")
+  (if (file-exists-p "/scp:warp:/mnt/diary/pwy")
       (progn
         (eshell-command "ssh warp -- 'umount /mnt/diary'"))))
 
@@ -673,7 +675,7 @@
 (require 'vlf-setup)
 
 ;; vterm
-(map! :nvim "…" '+vterm/toggle)
+(map! :leader "d" '+vterm/toggle)
 
 (map! :map vterm-mode-map
       "S-C-v" 'vterm-yank)
