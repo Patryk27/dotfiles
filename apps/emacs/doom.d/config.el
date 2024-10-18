@@ -640,6 +640,8 @@
 ;; -----------------------------------------------------------------------------
 ;; spell-fu
 
+(setq ispell-dictionary "en")
+
 (after! spell-fu
   (spell-fu-dictionary-add (spell-fu-get-ispell-dictionary "en"))
   (spell-fu-dictionary-add (spell-fu-get-ispell-dictionary "pl"))
@@ -674,15 +676,29 @@
 
 (require 'vlf-setup)
 
+;; -----------------------------------------------------------------------------
 ;; vterm
+
+(require 'vterm)
+
 (map! :leader "d" '+vterm/toggle)
 
 (map! :map vterm-mode-map
-      "S-C-v" 'vterm-yank)
+      "S-C-v" 'vterm-yank
+      :i "C-<left>" 'vterm--self-insert
+      :i "C-<right>" 'vterm--self-insert)
 
 (add-hook 'vterm-mode-hook
           (lambda ()
             (display-fill-column-indicator-mode -1)))
+
+(defun +vterm/refresh-cursor (&rest _args)
+  (if (bound-and-true-p evil-collection-vterm-send-escape-to-vterm-p)
+      (set-cursor-color "#ffffff")
+    (evil-refresh-cursor evil-state)))
+
+(advice-add 'vterm--redraw :after '+vterm/refresh-cursor)
+(advice-add 'evil-collection-vterm-toggle-send-escape :after '+vterm/refresh-cursor)
 
 ;; -----------------------------------------------------------------------------
 ;; web-mode
