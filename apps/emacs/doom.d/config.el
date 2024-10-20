@@ -81,21 +81,12 @@
 ;; -----------------------------------------------------------------------------
 ;; calc
 
+(setq calc-kill-line-numbering nil)
+
 (map! :leader
       :desc "calc" "=" 'calc)
 
 (map! :v "=" 'calc-eval-region)
-
-(map! :map calc-mode-map
-      :desc "yank" "s-y" 'calc-copy-top)
-
-(defun calc-copy-top ()
-  "Copy the thing at the top of the calc stack."
-  (interactive)
-  (let ((val (calc-top)))
-    (kill-new (if (Math-scalarp val)
-                  (math-format-number val)
-                (math-format-flat-expr-fancy val 0)))))
 
 (defun calc-eval-region (_arg beg end)
   "Calculate region and replace it with the result."
@@ -685,6 +676,7 @@
 
 (map! :map vterm-mode-map
       "S-C-v" 'vterm-yank
+      "M-RET" 'evil-collection-vterm-toggle-send-escape
       :i "C-<left>" 'vterm--self-insert
       :i "C-<right>" 'vterm--self-insert)
 
