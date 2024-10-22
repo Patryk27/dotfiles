@@ -1,4 +1,28 @@
-{ pkgs, ... }: {
+{ pkgs, user, ... }: {
+  home-manager.users."${user}" = {
+    home = {
+      packages = [
+        (pkgs.writeShellScriptBin "backup-borg" ''
+          BORG_REPO="ssh://archive/home/pwy/backup-fw" \
+          BORG_PASSPHRASE="nastily-simile-dingy" \
+          ${pkgs.borgbackup}/bin/borg $@
+        '')
+
+        (pkgs.writeShellScriptBin "gateway-borg" ''
+          BORG_REPO="ssh://glacier/home/gateway" \
+          BORG_PASSPHRASE="dolphin-rejoicing-collide" \
+          ${pkgs.borgbackup}/bin/borg $@
+        '')
+
+        (pkgs.writeShellScriptBin "warp-borg" ''
+          BORG_REPO="ssh://glacier/home/warp" \
+          BORG_PASSPHRASE="pluck-cattishly-vertebrae" \
+          ${pkgs.borgbackup}/bin/borg $@
+        '')
+      ];
+    };
+  };
+
   systemd = {
     services = {
       backup = {
