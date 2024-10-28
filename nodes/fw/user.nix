@@ -54,7 +54,13 @@
     users = {
       pwy = {
         home = "/home/pwy";
-        extraGroups = [ "docker" "libvirtd" "wheel" ];
+
+        extraGroups = [
+          "docker"
+          "libvirtd"
+          "wheel"
+        ];
+
         isNormalUser = true;
       };
     };

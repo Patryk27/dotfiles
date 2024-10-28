@@ -1,9 +1,10 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, inputs, ... }:
+{
   environment = {
     systemPackages = with pkgs; [
       nil
       nix-index
-      nixpkgs-fmt
+      nixfmt-rfc-style
     ];
   };
 
@@ -22,7 +23,13 @@
 
     settings = {
       builders-use-substitutes = true;
-      experimental-features = [ "ca-derivations" "flakes" "nix-command" ];
+
+      experimental-features = [
+        "ca-derivations"
+        "flakes"
+        "nix-command"
+      ];
+
       sandbox = true;
 
       trusted-users = [

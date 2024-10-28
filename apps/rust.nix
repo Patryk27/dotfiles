@@ -1,4 +1,5 @@
-{ pkgs, user, ... }: {
+{ pkgs, user, ... }:
+{
   environment = {
     systemPackages = with pkgs; [
       rustup

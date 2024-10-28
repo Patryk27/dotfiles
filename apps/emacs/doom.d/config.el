@@ -424,7 +424,7 @@
   (use-package lsp-nix
     :demand t
     :custom
-    (lsp-nix-nil-formatter ["nixpkgs-fmt"]))
+    (lsp-nix-nil-formatter ["nixfmt"]))
 
   (use-package nix-mode
     :hook (nix-mode . lsp-deferred)))

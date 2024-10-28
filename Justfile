@@ -31,4 +31,4 @@ boot-mac:
     nix run nix-darwin -- boot --flake .
 
 fmt:
-    nixpkgs-fmt .
+    nixfmt .

@@ -1,4 +1,10 @@
-{ pkgs, inputs, user, ... }: {
+{
+  pkgs,
+  inputs,
+  user,
+  ...
+}:
+{
   fonts = {
     packages = with pkgs; [
       emacs-all-the-icons-fonts
@@ -7,9 +13,9 @@
 
   home-manager.users."${user}" = {
     home = {
-      packages =
-        with pkgs; [
-          (if pkgs.stdenv.isLinux then
+      packages = with pkgs; [
+        (
+          if pkgs.stdenv.isLinux then
             (emacs29-pgtk.overrideAttrs (old: {
               patches = old.patches ++ [
                 ./emacs/patches/fix-stiple-support-on-pgtk.patch
@@ -19,38 +25,44 @@
             (emacs29-macport.overrideAttrs (old: {
               src = inputs.emacs-mac;
               version = "29.4";
-            })))
+            }))
+        )
 
-          (aspellWithDicts (dicts: with dicts; [
+        (aspellWithDicts (
+          dicts: with dicts; [
             en
             en-computers
             en-science
             pl
             sv
-          ]))
+          ]
+        ))
 
-          (pkgs.stdenv.mkDerivation {
-            name = "epdfinfo";
-            phases = "installPhase";
+        (pkgs.stdenv.mkDerivation {
+          name = "epdfinfo";
+          phases = "installPhase";
 
-            installPhase = ''
-              mkdir -p $out/bin
-              ln -s $(${pkgs.findutils}/bin/find ${pkgs.emacsPackages.pdf-tools}/ -name epdfinfo) $out/bin/
-            '';
-          })
+          installPhase = ''
+            mkdir -p $out/bin
+            ln -s $(${pkgs.findutils}/bin/find ${pkgs.emacsPackages.pdf-tools}/ -name epdfinfo) $out/bin/
+          '';
+        })
 
-          libtool
-          fd
-        ];
+        libtool
+        fd
+      ];
 
       file =
         let
-          render = path:
-            builtins.replaceStrings [
-              "%llvm-mode%"
-            ] [
-              (toString "${pkgs.llvm.src}/llvm/utils/emacs/llvm-mode.el")
-            ]
+          render =
+            path:
+            builtins.replaceStrings
+              [
+                "%llvm-mode%"
+              ]
+              [
+                (toString "${pkgs.llvm.src}/llvm/utils/emacs/llvm-mode.el")
+              ]
               (builtins.readFile path);
 
         in

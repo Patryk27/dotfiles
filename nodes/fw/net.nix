@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   networking = {
     hostId = "c7a81ba2";
     hostName = "pfw";

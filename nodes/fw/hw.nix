@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   boot = {
     supportedFilesystems = [ "zfs" ];
 
@@ -62,7 +63,10 @@
     "/boot" = {
       device = "/dev/disk/by-uuid/3F33-58F9";
       fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
+      options = [
+        "fmask=0022"
+        "dmask=0022"
+      ];
     };
 
     "/nix" = {
