@@ -51,6 +51,12 @@ nix-darwin.lib.darwinSystem {
                     forwardAgent = true;
                   };
 
+                  callhome = {
+                    hostname = "10.0.0.10";
+                    user = "pwychowaniec#root#178.33.6.1";
+                    forwardAgent = true;
+                  };
+
                   jail-pl-0 = {
                     hostname = "10.0.0.10";
                     user = "pwychowaniec#pwychowaniec#fudojail-pl-0";
