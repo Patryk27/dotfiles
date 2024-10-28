@@ -476,8 +476,7 @@
 
 (setq org-agenda-files '("~/Documents/org/")
       org-directory "~/Documents/org/"
-      org-log-into-drawer t
-      org-hide-emphasis-markers t)
+      org-log-into-drawer t)
 
 (map! :leader
       "e" 'org-agenda-list
