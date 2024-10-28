@@ -2,12 +2,13 @@
   home-manager.users."${user}" = {
     home = {
       packages = with pkgs; [
-        clang
-        clang-tools
         cmake
         gnumake
         ninja
-      ];
+      ] ++ (if pkgs.stdenv.isLinux then [
+        clang
+        clang-tools
+      ] else [ ]);
     };
   };
 }
