@@ -138,10 +138,9 @@
           ("f" "/scp:gateway:/var/lib/nixos-containers/nginx/var/www/files")
           ("h" "~")
           ("o" "~/Documents")
-          ("p" "/p")
-          ("q" "/q")
-          ("t" "/t")
-          ("x" "/x")))
+          ("q" "~/q")
+          ("t" "~/t")
+          ("x" "~/x")))
 
   (map! :map dirvish-mode-map
         :n "?" 'dirvish-dispatch
@@ -513,7 +512,7 @@
 
 (when (eq system-type 'gnu/linux)
   (setq projectile-project-search-path
-        '("/t/projects/" "/x/" "~/.emacs.d")))
+        '("~/t/projects/" "~/x/" "~/.emacs.d")))
 
 (when (eq system-type 'darwin)
   (setq projectile-project-search-path

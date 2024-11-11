@@ -3,8 +3,6 @@ set -e
 DATASETS=(
   "rpool"
   "rpool/home"
-  "rpool/q"
-  "rpool/x"
 )
 
 tmp="/run/backup"
