@@ -38,7 +38,6 @@ nixpkgs.lib.nixosSystem {
         environment = {
           systemPackages = with pkgs; [
             anki-bin
-            borgbackup
             chromium
             colmap
             dbeaver-bin
