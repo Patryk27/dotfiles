@@ -38,6 +38,7 @@ nixpkgs.lib.nixosSystem {
         environment = {
           systemPackages = with pkgs; [
             anki-bin
+            btop
             chromium
             colmap
             dbeaver-bin
