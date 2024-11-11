@@ -32,6 +32,7 @@
       fzf
       gimp
       glibtool
+      gocryptfs
       htop
       inetutils
       jq
