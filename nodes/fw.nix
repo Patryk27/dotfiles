@@ -34,7 +34,6 @@ nixpkgs.lib.nixosSystem {
           ./fw/virt.nix
         ];
 
-        # TODO remove extra
         environment = {
           systemPackages = with pkgs; [
             anki-bin
