@@ -631,7 +631,7 @@
 
 (setq ispell-dictionary "en")
 
-(after! spell-fu
+(after! ispell
   (spell-fu-dictionary-add (spell-fu-get-ispell-dictionary "en"))
   (spell-fu-dictionary-add (spell-fu-get-ispell-dictionary "pl"))
   (spell-fu-dictionary-add (spell-fu-get-ispell-dictionary "sv")))
