@@ -50,6 +50,7 @@ nixpkgs.lib.nixosSystem {
             lm_sensors
             moonlight-qt
             nethack
+            nixpkgs-review
             opensplat
             powertop
             slack
