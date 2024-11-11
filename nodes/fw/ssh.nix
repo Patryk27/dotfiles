@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  wifi-check = "${pkgs.iw}/bin/iw dev wlp1s0 info | grep -q Dziupla";
+  if-outside-home = "! ${pkgs.iw}/bin/iw dev wlp1s0 info | grep -q Dziupla";
 
 in
 {
@@ -11,19 +11,16 @@ in
         ssh = {
           matchBlocks = {
             archive = {
+              hostname = "192.168.1.200";
               port = 33002;
               user = "pwy";
             };
 
-            archive--local = {
-              match = ''OriginalHost archive Exec "${wifi-check}"'';
-              hostname = "192.168.1.200";
-            };
-
-            archive--gateway = lib.hm.dag.entryAfter [ "archive--local" ] {
-              match = "OriginalHost archive";
+            archive--ext = lib.hm.dag.entryAfter [ "archive" ] {
+              match = ''OriginalHost archive Exec "${if-outside-home}"'';
               hostname = "10.24.1.2";
               proxyJump = "gateway";
+              forwardAgent = true;
             };
 
             gateway = {
@@ -49,32 +46,22 @@ in
             };
 
             warp = {
+              hostname = "192.168.1.200";
               port = 33000;
               user = "pwy";
             };
 
-            warp--local = {
-              match = ''OriginalHost warp Exec "${wifi-check}"'';
-              hostname = "192.168.1.200";
-            };
-
-            warp--gateway = lib.hm.dag.entryAfter [ "warp--local" ] {
-              match = "OriginalHost warp";
+            warp--ext = lib.hm.dag.entryAfter [ "warp" ] {
+              match = ''OriginalHost warp Exec "${if-outside-home}"'';
               hostname = "10.24.1.2";
               proxyJump = "gateway";
+              forwardAgent = true;
             };
 
             warp-ubu = {
               hostname = "192.168.122.92";
               user = "pwy";
               proxyJump = "warp";
-            };
-
-            # --- #
-
-            "gitlab.pwy.io" = {
-              port = 47000;
-              user = "git";
             };
           };
         };
