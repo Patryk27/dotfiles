@@ -10,6 +10,7 @@
     home = {
       packages = with pkgs; [
         avrdude
+        cargo-license
         cargo-nextest
         pkgsCross.avr.buildPackages.gcc
         rust-analyzer
