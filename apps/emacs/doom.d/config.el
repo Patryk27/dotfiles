@@ -135,12 +135,13 @@
   (setq dirvish-quick-access-entries
         '(
           ("d" "~/Downloads")
-          ("f" "/scp:gateway:/var/lib/nixos-containers/nginx/var/www/files")
           ("h" "~")
           ("o" "~/Documents")
           ("q" "~/q")
           ("t" "~/t")
-          ("x" "~/x")))
+          ("x" "~/x")
+          ("F" "/scp:gateway:/var/lib/nixos-containers/nginx/var/www/files")
+          ("K" "/scp:gateway:/var/lib/nixos-containers/kartoffels/var/lib/kartoffels")))
 
   (map! :map dirvish-mode-map
         :n "?" 'dirvish-dispatch
@@ -506,6 +507,10 @@
 
 ;; -----------------------------------------------------------------------------
 ;; projectile
+
+(advice-add 'projectile-project-root :before-while
+  (lambda (&optional dir)
+    (not (file-remote-p (or dir default-directory)))))
 
 (setq projectile-track-known-projects-automatically nil
       projectile-verbose nil)
