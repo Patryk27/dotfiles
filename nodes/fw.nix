@@ -50,6 +50,7 @@ nixpkgs.lib.nixosSystem {
             moonlight-qt
             nethack
             nixpkgs-review
+            obs-studio
             opensplat
             powertop
             slack
