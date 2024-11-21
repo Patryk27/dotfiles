@@ -650,6 +650,17 @@
       "C-<f1>" 'global-subword-mode)
 
 ;; -----------------------------------------------------------------------------
+;; tramp
+
+(after! tramp
+  (add-to-list 'tramp-methods
+               `("fudo"
+                 (tramp-login-program     "fj")
+                 (tramp-login-args        (("console") ("%h")))
+                 (tramp-remote-shell      "/bin/sh")
+                 (tramp-remote-shell-args ("-i" "-c")))))
+
+;; -----------------------------------------------------------------------------
 ;; typescript-mode
 
 (setq-default typescript-indent-level 2)
