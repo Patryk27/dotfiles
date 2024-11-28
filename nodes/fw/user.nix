@@ -12,27 +12,6 @@
           username = "root";
           stateVersion = "24.05";
         };
-
-        programs = {
-          ssh = {
-            enable = true;
-
-            matchBlocks = {
-              archive = {
-                port = 33002;
-                user = "pwy";
-                hostname = "10.24.1.2";
-                proxyJump = "gateway";
-              };
-
-              gateway = {
-                hostname = "142.132.178.21";
-                port = 33000;
-                user = "pwy";
-              };
-            };
-          };
-        };
       };
 
       pwy = {
