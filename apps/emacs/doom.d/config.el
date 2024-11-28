@@ -136,10 +136,10 @@
         '(
           ("d" "~/Downloads")
           ("h" "~")
+          ("i" "~/diary")
           ("o" "~/Documents")
-          ("q" "/diary.queue")
-          ("t" "/t")
-          ("x" "/x")
+          ("t" "~/t")
+          ("x" "~/x")
           ("F" "/scp:gateway:/var/lib/nixos-containers/nginx/var/www/files")
           ("K" "/scp:gateway:/var/lib/nixos-containers/kartoffels/var/lib/kartoffels")))
 
