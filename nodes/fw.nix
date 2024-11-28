@@ -44,6 +44,7 @@ nixpkgs.lib.nixosSystem {
             discord
             firefox
             inkscape
+            iw
             kdenlive
             libreoffice-qt
             lm_sensors
