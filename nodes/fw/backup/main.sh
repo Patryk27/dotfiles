@@ -2,9 +2,9 @@ set -e
 
 DATASETS=(
   "rpool"
-  "rpool/diary"
   "rpool/home"
-  "rpool/x"
+  "rpool/home/diary"
+  "rpool/home/x"
 )
 
 # ------------------------------------------------------------------------------
