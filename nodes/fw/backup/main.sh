@@ -2,10 +2,10 @@ set -e
 
 DATASETS=(
   "rpool"
+  "rpool/diary"
   "rpool/home"
+  "rpool/x"
 )
-
-tmp="/run/backup"
 
 # ------------------------------------------------------------------------------
 
@@ -17,17 +17,17 @@ borg info
 echo "preparing temporary directory"
 echo
 
-if [[ -d "${tmp}" ]]; then
+if [[ -d /run/backup ]]; then
   echo "warn: temporary directory already exists, cleaning up"
 
-  if mountpoint -q "${tmp}"; then
-    umount "${tmp}"
+  if mountpoint -q /run/backup; then
+    umount /run/backup
   fi
 
-  rm -d "${tmp}"
+  rm -d /run/backup
 fi
 
-mkdir "${tmp}"
+mkdir /run/backup
 
 # ---
 
@@ -44,8 +44,8 @@ for dataset in "${DATASETS[@]}"; do
   fi
 
   zfs snapshot "${dataset_snapshot}"
-  mount -t zfs "${dataset_snapshot}" "${tmp}"
-  cd "${tmp}"
+  mount -t zfs "${dataset_snapshot}" /run/backup
+  cd /run/backup
 
   borg create \
     --stats \
@@ -58,13 +58,13 @@ for dataset in "${DATASETS[@]}"; do
     -P "${dataset_id}|" \
     -v \
     --list \
-    --keep-daily 14 \
-    --keep-weekly 8 \
-    --keep-monthly 6 \
-    --keep-yearly 2
+    --keep-daily 8 \
+    --keep-weekly 6 \
+    --keep-monthly 4 \
+    --keep-yearly 1
 
   cd -
-  umount "${tmp}"
+  umount /run/backup
   zfs destroy "${dataset_snapshot}"
 done
 
@@ -77,4 +77,4 @@ borg compact \
   --verbose \
   --progress
 
-rm -d "${tmp}"
+rm -d /run/backup

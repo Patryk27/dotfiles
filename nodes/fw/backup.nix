@@ -3,21 +3,15 @@
   home-manager.users."${user}" = {
     home = {
       packages = [
-        (pkgs.writeShellScriptBin "backup-borg" ''
-          BORG_REPO="ssh://archive/home/pwy/backup-fw" \
+        (pkgs.writeShellScriptBin "borg.archive.backup-pfw" ''
+          BORG_REPO="ssh://archive/home/pwy/backup-pfw" \
           BORG_PASSPHRASE="nastily-simile-dingy" \
           ${pkgs.borgbackup}/bin/borg $@
         '')
 
-        (pkgs.writeShellScriptBin "gateway-borg" ''
+        (pkgs.writeShellScriptBin "borg.glacier.gateway" ''
           BORG_REPO="ssh://glacier/home/gateway" \
           BORG_PASSPHRASE="dolphin-rejoicing-collide" \
-          ${pkgs.borgbackup}/bin/borg $@
-        '')
-
-        (pkgs.writeShellScriptBin "warp-borg" ''
-          BORG_REPO="ssh://glacier/home/warp" \
-          BORG_PASSPHRASE="pluck-cattishly-vertebrae" \
           ${pkgs.borgbackup}/bin/borg $@
         '')
       ];
@@ -35,7 +29,7 @@
           export PATH="$PATH:${pkgs.zfs}/bin"
           export PATH="$PATH:/run/wrappers/bin"
 
-          export BORG_REPO="ssh://archive/home/pwy/backup-fw"
+          export BORG_REPO="ssh://archive/home/pwy/backup-pfw"
           export BORG_PASSPHRASE="nastily-simile-dingy"
 
           ${./backup/main.sh}
