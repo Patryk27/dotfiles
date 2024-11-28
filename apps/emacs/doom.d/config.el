@@ -137,9 +137,9 @@
           ("d" "~/Downloads")
           ("h" "~")
           ("o" "~/Documents")
-          ("q" "~/q")
-          ("t" "~/t")
-          ("x" "~/x")
+          ("q" "/diary.queue")
+          ("t" "/t")
+          ("x" "/x")
           ("F" "/scp:gateway:/var/lib/nixos-containers/nginx/var/www/files")
           ("K" "/scp:gateway:/var/lib/nixos-containers/kartoffels/var/lib/kartoffels")))
 
@@ -220,32 +220,24 @@
 (defun open-diary (&rest _)
   "Open the diary."
   (interactive)
-  (require 'tramp)
 
-  (tramp-cleanup-connection
-   (tramp-dissect-file-name "/scp:warp:"))
-
-  (unless (file-exists-p "/scp:warp:/mnt/diary/pwy")
+  (unless (file-exists-p "~/diary/mnt/pwy")
     (progn
       (eshell-command
        (format
-        "echo %s | ssh warp -- 'gocryptfs /var/lib/storages/diary /mnt/diary'"
+        "echo %s | gocryptfs ~/diary/src ~/diary/mnt"
         (read-passwd "Password: ")))))
 
   (evil-normal-state)
-  (dired "/scp:warp:/mnt/diary"))
+  (dired "~/diary/mnt"))
 
 (defun close-diary (&rest _)
   "Close the diary."
   (interactive)
-  (require 'tramp)
 
-  (tramp-cleanup-connection
-   (tramp-dissect-file-name "/scp:warp:"))
-
-  (if (file-exists-p "/scp:warp:/mnt/diary/pwy")
+  (if (file-exists-p "~/diary/mnt/pwy")
       (progn
-        (eshell-command "ssh warp -- 'umount /mnt/diary'"))))
+        (eshell-command "umount ~/diary/mnt"))))
 
 ;; -----------------------------------------------------------------------------
 ;; doom-modeline
@@ -517,7 +509,7 @@
 
 (when (eq system-type 'gnu/linux)
   (setq projectile-project-search-path
-        '("~/t/projects/" "~/x/" "~/.emacs.d")))
+        '("~/t/" "~/x/" "~/.emacs.d")))
 
 (when (eq system-type 'darwin)
   (setq projectile-project-search-path
