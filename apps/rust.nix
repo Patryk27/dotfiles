@@ -13,6 +13,7 @@
         cargo-license
         cargo-nextest
         pkgsCross.avr.buildPackages.gcc
+        pkgsCross.avr.buildPackages.gdb
         rust-analyzer
         simavr
       ];
