@@ -61,6 +61,7 @@ nixpkgs.lib.nixosSystem {
             vlc
             wineWowPackages.waylandFull
             winetricks
+            yt-dlp
           ];
         };
 
