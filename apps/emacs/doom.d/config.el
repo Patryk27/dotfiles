@@ -188,7 +188,6 @@
       "b p" 'copy-buffer-relative-path
       "b P" 'copy-buffer-absolute-path
       "w P" '+popup/raise
-      "o s" '+vterm/here
       "[" '+workspace/switch-left
       "]" '+workspace/switch-right
       "{" '+workspace/swap-left
@@ -244,6 +243,48 @@
 
 (after! doom-modeline
   (advice-add 'doom-modeline-segment--vcs :override 'no-op))
+
+;; -----------------------------------------------------------------------------
+;; eat
+
+(add-hook 'eshell-load-hook 'eat-eshell-mode)
+
+(add-hook 'eat-mode-hook
+          (lambda ()
+            (display-fill-column-indicator-mode -1)))
+
+(map! :map eat-eshell-semi-char-mode-map
+      :g "M-RET" 'eat-eshell-char-mode)
+
+(map! :map eat-eshell-char-mode-map
+      :g "<escape>" 'eat-self-input)
+
+(defun +eat/evil-setup ()
+  (map! :map eat-eshell-char-mode-map
+        :g "C-V" 'eat-yank)
+
+  (if (bound-and-true-p eat--eshell-char-mode)
+      (progn
+        (turn-off-evil-mode)
+        (evil-refresh-cursor))
+    (turn-on-evil-mode)))
+
+(add-hook 'eat--eshell-char-mode-hook '+eat/evil-setup)
+
+(defun +eat/evil-initialize-a (fn &rest args)
+  (unless (bound-and-true-p eat--eshell-char-mode)
+    (apply fn args)))
+
+(advice-add 'evil-initialize :around '+eat/evil-initialize-a)
+
+(defun +eat/evil-refresh-cursor-a (fn &rest args)
+  (if (bound-and-true-p eat--eshell-char-mode)
+      (progn
+        (set-cursor-color "#ffffff")
+        (setq cursor-type 'box)))
+  (apply fn args))
+
+(advice-add 'evil-refresh-cursor :around '+eat/evil-refresh-cursor-a)
 
 ;; -----------------------------------------------------------------------------
 ;; ediff
@@ -324,6 +365,188 @@
       (with-current-buffer buffer
         (compilation-next-file 1)
         (compile-goto-error)))))
+
+;; -----------------------------------------------------------------------------
+;; eshell
+
+(advice-add 'eshell-did-you-mean-setup :override 'no-op)
+(advice-add 'setup-esh-help-eldoc :override 'no-op)
+
+(add-hook 'eshell-mode-hook
+          (lambda ()
+            (display-fill-column-indicator-mode -1)))
+
+(add-hook 'eshell-post-command-hook 'evil-insert-state)
+
+(map! :leader
+      "d" '+eshell/toggle
+      "o s" '+eshell/here)
+
+(map! :map eshell-mode-map
+      :n "RET" '+eshell/goto-end-of-prompt
+      :n "p" '+eshell/yank)
+
+(map! :map eshell-mode-map
+      :ni "C-c C-c" '+eshell/interrupt
+      :ni "C-r" '+eshell/history
+      :ni "C-v" '+eshell/yank)
+
+(defun +eshell/interrupt ()
+  (interactive)
+  (if eat-terminal
+      (eat-self-input 1 3)
+    (eshell-interrupt-process)))
+
+(defun +eshell/history ()
+  (interactive)
+  (if eat-terminal
+      (eat-self-input 1 18)
+    (consult-history)))
+
+(defun +eshell/yank ()
+  (interactive)
+  (if eat-terminal
+      (eat-yank)
+    (yank)))
+
+;; ---
+
+(setq eshell-save-history-on-exit nil)
+
+(defun eshell-append-history ()
+  "Call `eshell-write-history' with the `append' parameter set to `t'."
+  (when eshell-history-ring
+    (let ((ring (make-ring 1)))
+      (ring-insert ring (car (ring-elements eshell-history-ring)))
+
+      (setq eshell-history-ring--prev (ring-copy eshell-history-ring)
+            eshell-history-ring ring
+            eshell-hist--new-items 1)
+
+      (eshell-write-history eshell-history-file-name t)
+
+      (setq eshell-history-ring eshell-history-ring--prev
+            eshell-history-ring--prev nil))))
+
+(add-hook 'eshell-pre-command-hook 'eshell-append-history)
+
+;; ---
+
+(after! eshell
+  (defvar +eshell--id nil)
+
+  (setq eshell-bad-command-tolerance 999
+        eshell-banner-message ""
+        eshell-buffer-maximum-lines 32768
+        eshell-history-size 32768
+        eshell-prompt-function '+eshell/prompt
+        eshell-prompt-regexp "; ")
+
+  (add-to-list 'eshell-modules-list 'eshell-elecslash)
+
+  (set-eshell-alias!
+   ;; docker
+   "d" "docker $*"
+   "dc" "docker-compose $*"
+
+   ;; eshell
+   "cdp" "eshell/cd (projectile-project-root)"
+   "cds" "eshell/cd /scp:$1:/"
+
+   ;; rust
+   "ca" "clear && cargo $*"
+   "cab" "clear && cargo build $*"
+   "cabr" "clear && cargo build --release $*"
+   "cac" "clear && cargo check $*"
+   "cacw" "clear && cargo check --workspace --tests $*"
+   "caf" "clear && cargo fmt $*"
+   "car" "clear && cargo run $*"
+   "carb" "clear && RUST_BACKTRACE=1 cargo run $*"
+   "carr" "clear && cargo run --release $*"
+   "carrb" "clear && RUST_BACKTRACE=1 cargo run --release $*"
+   "cate" "clear && cargo test --quiet $*"
+   "cateb" "clear && RUST_BACKTRACE=1 cargo test $*"
+   "cater" "clear && cargo test --quiet --release $*"
+   "catew" "clear && cargo test --quiet --workspace $*"
+   "catewr" "clear && cargo test --quiet --workspace --release $*"
+   "catewb" "clear && RUST_BACKTRACE=1 cargo test --workspace $*"
+   "catewf" "clear && cargo test --all-features --quiet --workspace $*"
+   "catewfb" "clear && RUST_BACKTRACE=1 cargo test --all-features --workspace $*"
+   "cau" "clear && cargo update $*"
+   "caup" "clear && cargo update --package $*"
+
+   ;; ssh
+   "s" "TERM=xterm ssh $1 -t tmux"
+   "sa" "TERM=xterm ssh $1 -t tmux a"
+   "ssh-copy-terminfo" "infocmp | ssh $1 tic -")
+
+  (defun +eshell/toggle (&rest _)
+    "Toggle eshell popup window."
+    (interactive "P")
+    (let ((buffer-name
+           (get-buffer-create
+            (format "*doom:eshell-popup:%s*"
+                    (if (bound-and-true-p persp-mode)
+                        (safe-persp-name (get-current-persp))
+                      "main")))))
+      (if-let (win (get-buffer-window buffer-name))
+          (delete-window win)
+        (let ((buffer (or (cl-loop for buf in (doom-buffers-in-mode 'eshell-mode)
+                                   if (equal (buffer-local-value '+eshell--id buf)
+                                             buffer-name)
+                                   return buf)
+                          (get-buffer-create buffer-name))))
+          (with-current-buffer buffer
+            (setq-local +eshell--id buffer-name)
+            (unless (eq major-mode 'eshell-mode)
+              (progn
+                (setq-local default-directory (or (doom-project-root) default-directory))
+                (eshell-mode))))
+          (pop-to-buffer buffer)))
+      (get-buffer buffer-name)))
+
+  (defun +eshell/prompt ()
+    (require 'shrink-path)
+    (concat (if (bobp) "" "\n")
+            (let ((pwd (eshell/pwd)))
+              (propertize (if (or (file-remote-p pwd) (equal pwd "~"))
+                              pwd
+                            (abbreviate-file-name pwd))
+                          'face '+eshell-prompt-pwd))
+            "\n"
+            (propertize ";" 'face (if (zerop eshell-last-command-status) 'success 'error))
+            " "))
+
+  (defun +eshell--unused-buffer (&optional new-p)
+    (or (unless new-p
+          (cl-loop for buf in (+eshell-buffers)
+                   if (and (buffer-live-p buf)
+                           (not (get-buffer-window buf t))
+                           (not (with-current-buffer buf +eshell--id)))
+                   return buf))
+        (generate-new-buffer eshell-buffer-name)))
+
+  (defun eshell/bcat (&rest args)
+    "Output the contents of one or more buffers as a string. "
+    (let ((buffers (mapcar 'get-buffer args)))
+      (mapconcat (lambda (buf)
+                   (save-window-excursion
+                     (switch-to-buffer buf)
+                     (buffer-substring-no-properties (point-min) (point-max))))
+                 buffers "\n")))
+
+  (defun eshell/ccat (file)
+    "Like `cat' but output with Emacs syntax highlighting."
+    (with-temp-buffer
+      (insert-file-contents file)
+      (let ((buffer-file-name file))
+        (delay-mode-hooks
+          (set-auto-mode)
+          (if (fboundp 'font-lock-ensure)
+              (font-lock-ensure)
+            (with-no-warnings
+              (font-lock-fontify-buffer)))))
+      (buffer-string))))
 
 ;; -----------------------------------------------------------------------------
 ;; evil
@@ -501,8 +724,8 @@
 ;; projectile
 
 (advice-add 'projectile-project-root :before-while
-  (lambda (&optional dir)
-    (not (file-remote-p (or dir default-directory)))))
+            (lambda (&optional dir)
+              (not (file-remote-p (or dir default-directory)))))
 
 (setq projectile-track-known-projects-automatically nil
       projectile-verbose nil)
@@ -674,31 +897,6 @@
 ;; vlf
 
 (require 'vlf-setup)
-
-;; -----------------------------------------------------------------------------
-;; vterm
-
-(require 'vterm)
-
-(map! :leader "d" '+vterm/toggle)
-
-(map! :map vterm-mode-map
-      "S-C-v" 'vterm-yank
-      "M-RET" 'evil-collection-vterm-toggle-send-escape
-      :i "C-<left>" 'vterm--self-insert
-      :i "C-<right>" 'vterm--self-insert)
-
-(add-hook 'vterm-mode-hook
-          (lambda ()
-            (display-fill-column-indicator-mode -1)))
-
-(defun +vterm/refresh-cursor (&rest _args)
-  (if (bound-and-true-p evil-collection-vterm-send-escape-to-vterm-p)
-      (set-cursor-color "#ffffff")
-    (evil-refresh-cursor evil-state)))
-
-(advice-add 'vterm--redraw :after '+vterm/refresh-cursor)
-(advice-add 'evil-collection-vterm-toggle-send-escape :after '+vterm/refresh-cursor)
 
 ;; -----------------------------------------------------------------------------
 ;; web-mode
