@@ -384,30 +384,45 @@
 
 (map! :map eshell-mode-map
       :n "RET" '+eshell/goto-end-of-prompt
-      :n "p" '+eshell/yank)
+      :n "p" '+eshell/ctrl-v)
 
 (map! :map eshell-mode-map
-      :ni "C-c C-c" '+eshell/interrupt
-      :ni "C-r" '+eshell/history
-      :ni "C-v" '+eshell/yank)
+      :ni "C-a" '+eshell/ctrl-a
+      :ni "C-c C-c" '+eshell/ctrl-c
+      :ni "C-r" '+eshell/ctrl-r
+      :ni "C-v" '+eshell/ctrl-v
+      :ni "C-w" '+eshell/ctrl-w)
 
-(defun +eshell/interrupt ()
+(defun +eshell/ctrl-a ()
+  (interactive)
+  (if eat-terminal
+      (eat-self-input 1 1)
+    (goto-char eshell-last-output-end)
+    (beginning-of-line)))
+
+(defun +eshell/ctrl-c ()
   (interactive)
   (if eat-terminal
       (eat-self-input 1 3)
     (eshell-interrupt-process)))
 
-(defun +eshell/history ()
+(defun +eshell/ctrl-r ()
   (interactive)
   (if eat-terminal
       (eat-self-input 1 18)
     (consult-history)))
 
-(defun +eshell/yank ()
+(defun +eshell/ctrl-v ()
   (interactive)
   (if eat-terminal
       (eat-yank)
     (yank)))
+
+(defun +eshell/ctrl-w ()
+  (interactive)
+  (if eat-terminal
+      (eat-self-input 1 23)
+    (evil-delete-backward-word)))
 
 ;; ---
 
@@ -429,6 +444,70 @@
             eshell-history-ring--prev nil))))
 
 (add-hook 'eshell-pre-command-hook 'eshell-append-history)
+
+;; ---
+
+(defun eshell/bcat (&rest args)
+  (let ((buffers (mapcar 'get-buffer args)))
+    (mapconcat (lambda (buf)
+                 (save-window-excursion
+                   (switch-to-buffer buf)
+                   (buffer-substring-no-properties (point-min) (point-max))))
+               buffers "\n")))
+
+(defun eshell/ccat (file)
+  (with-temp-buffer
+    (insert-file-contents file)
+    (let ((buffer-file-name file))
+      (delay-mode-hooks
+        (set-auto-mode)
+        (if (fboundp 'font-lock-ensure)
+            (font-lock-ensure)
+          (with-no-warnings
+            (font-lock-fontify-buffer)))))
+    (buffer-string)))
+
+(defun eshell/nix-develop ()
+  (make-local-variable 'process-environment)
+  (eshell/nix-unload)
+  (setq eshell-nix-original-env process-environment)
+
+  (setq process-environment
+        (with-temp-buffer
+          (let ((exit-code
+                 (call-process "nix" nil (current-buffer) nil "develop" "--command" "sh" "-c" "'export'")))
+            (when (not (= 0 exit-code))
+              (error
+               "Error: `nix develop' returned a non-zero exit code:\n\n%s"
+               (buffer-string)))
+
+            (let ((env '())
+                  (regex
+                   (rx "export "
+                       (group (one-or-more (or alpha ?_)))
+                       "=\""
+                       (group (zero-or-more (not "\""))))))
+              (save-match-data
+                (goto-char (point-min))
+                (while (search-forward-regexp regex nil t 1)
+                  (let ((env-name (match-string 1))
+                        (env-value (match-string 2)))
+                    (setq env (setenv-internal env env-name env-value nil)))))
+              env))))
+
+  (eshell-refresh-envs)
+
+  nil)
+
+(defun eshell/nix-unload ()
+  (when (boundp 'eshell-nix-original-env)
+    (setq process-environment eshell-nix-original-env)
+    (eshell-refresh-envs))
+
+  nil)
+
+(defun eshell-refresh-envs ()
+  (eshell-set-path (getenv "PATH")))
 
 ;; ---
 
@@ -524,29 +603,7 @@
                            (not (get-buffer-window buf t))
                            (not (with-current-buffer buf +eshell--id)))
                    return buf))
-        (generate-new-buffer eshell-buffer-name)))
-
-  (defun eshell/bcat (&rest args)
-    "Output the contents of one or more buffers as a string. "
-    (let ((buffers (mapcar 'get-buffer args)))
-      (mapconcat (lambda (buf)
-                   (save-window-excursion
-                     (switch-to-buffer buf)
-                     (buffer-substring-no-properties (point-min) (point-max))))
-                 buffers "\n")))
-
-  (defun eshell/ccat (file)
-    "Like `cat' but output with Emacs syntax highlighting."
-    (with-temp-buffer
-      (insert-file-contents file)
-      (let ((buffer-file-name file))
-        (delay-mode-hooks
-          (set-auto-mode)
-          (if (fboundp 'font-lock-ensure)
-              (font-lock-ensure)
-            (with-no-warnings
-              (font-lock-fontify-buffer)))))
-      (buffer-string))))
+        (generate-new-buffer eshell-buffer-name))))
 
 ;; -----------------------------------------------------------------------------
 ;; evil
