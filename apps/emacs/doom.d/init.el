@@ -59,6 +59,7 @@
        (markdown +grip)
        (nix +tree-sitter)
        org
+       (python +lsp +tree-sitter)
        rest
        (rust +lsp +tree-sitter)
        (sh +tree-sitter)

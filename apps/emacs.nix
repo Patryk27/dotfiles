@@ -34,7 +34,7 @@
           ]
         ))
 
-        (pkgs.stdenv.mkDerivation {
+        (stdenv.mkDerivation {
           name = "epdfinfo";
           phases = "installPhase";
 
@@ -44,8 +44,15 @@
           '';
         })
 
-        libtool
+        (python3.withPackages (
+          p:
+          (with p; [
+            python-lsp-server
+          ])
+        ))
+
         fd
+        libtool
       ];
 
       file =
