@@ -34,6 +34,19 @@ nixpkgs.lib.nixosSystem {
           ./fw/virt.nix
         ];
 
+        boot = {
+          binfmt = {
+            emulatedSystems = [
+              "aarch64-linux"
+              "armv6l-linux"
+              "armv7l-linux"
+              "powerpc64le-linux"
+              "riscv64-linux"
+              "s390x-linux"
+            ];
+          };
+        };
+
         environment = {
           systemPackages = with pkgs; [
             anki-bin
