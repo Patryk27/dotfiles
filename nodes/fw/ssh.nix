@@ -38,6 +38,11 @@ let
       user = "pwy";
     };
 
+    ubu-arm64 = {
+      hostname = "192.168.122.62";
+      user = "pwy";
+    };
+
     warp = {
       hostname = "192.168.1.200";
       port = 33000;
