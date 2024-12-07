@@ -56,6 +56,7 @@ nixpkgs.lib.nixosSystem {
             dbeaver-bin
             discord
             firefox
+            httm
             inkscape
             iw
             kdenlive
