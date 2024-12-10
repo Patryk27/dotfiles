@@ -10,6 +10,7 @@
     home = {
       packages = with pkgs; [
         avrdude
+        cargo-expand
         cargo-license
         cargo-nextest
         pkgsCross.avr.buildPackages.gcc
