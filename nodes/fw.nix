@@ -53,6 +53,7 @@ nixpkgs.lib.nixosSystem {
             btop
             chromium
             colmap
+            darktable
             dbeaver-bin
             discord
             firefox
