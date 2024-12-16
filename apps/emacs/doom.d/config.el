@@ -646,6 +646,13 @@
       global-hl-line-sticky-flag nil)
 
 ;; -----------------------------------------------------------------------------
+;; ibuffer
+
+(after! ibuffer
+  (define-key ibuffer-mode-map [remap ibuffer-visit-buffer] nil)
+  (define-key ibuffer-mode-map (kbd "M-RET") '+ibuffer/visit-workspace-buffer))
+
+;; -----------------------------------------------------------------------------
 ;; indent-bars
 
 (use-package indent-bars
