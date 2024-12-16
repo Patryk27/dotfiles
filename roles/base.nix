@@ -40,6 +40,7 @@
       killall
       libxml2
       lld
+      magic-wormhole
       ncdu
       postgresql
       python3
