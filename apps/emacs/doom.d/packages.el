@@ -27,5 +27,8 @@
   :recipe (:host github :repo "emacs-rustic/rustic")
   :pin "9fdf5c76b20cfc2985d518b3a4ae7b9634b39999")
 
+(package! tree-sitter-langs
+  :pin "365a4f7bf5184d04b5cc48175d93d7af7b8bbeb4")
+
 (package! vlf
   :pin "cc02f2533782d6b9b628cec7e2dcf25b2d05a27c")

@@ -509,9 +509,6 @@
 (defun eshell-refresh-envs ()
   (eshell-set-path (getenv "PATH")))
 
-(defun eshell/st (server &rest args)
-  (eshell-command (format "ssh %s -t tmux %s" server (string-join args " "))))
-
 ;; ---
 
 (after! eshell
@@ -558,6 +555,8 @@
    "caup" "clear && cargo update --package $*"
 
    ;; ssh
+   "st" "TERM=xterm ssh $1 -t tmux"
+   "sta" "TERM=xterm ssh $1 -t tmux a"
    "ssh-copy-terminfo" "infocmp | ssh $1 tic -")
 
   (defun +eshell/toggle (&rest _)
