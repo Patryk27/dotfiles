@@ -467,47 +467,70 @@
             (font-lock-fontify-buffer)))))
     (buffer-string)))
 
-(defun eshell/nix-develop ()
+;; ---
+
+(after! eshell
+  (push "nix" eshell-complex-commands))
+
+(defun eshell/nix (&rest args)
+  (let ((cmd (car args)))
+    (if (or (string= "develop" cmd) (string= "shell" cmd))
+        (progn (eshell-nix args) nil)
+      (throw 'eshell-replace-command
+             (eshell-parse-command
+              (concat (char-to-string eshell-explicit-command-char) "nix") args)))))
+
+(defun eshell-nix (args)
   (make-local-variable 'process-environment)
-  (eshell/nix-unload)
-  (setq eshell-nix-original-env process-environment)
+  (eshell-nix-leave)
+  (eshell-nix-enter (eshell-nix-eval args)))
 
-  (setq process-environment
-        (with-temp-buffer
-          (let ((exit-code
-                 (call-process "nix" nil (current-buffer) nil "develop" "--command" "sh" "-c" "'export'")))
-            (when (not (= 0 exit-code))
-              (error
-               "Error: `nix develop' returned a non-zero exit code:\n\n%s"
-               (buffer-string)))
+(defun eshell-nix-enter (env)
+  (setq eshell-nix-prev-env process-environment
+        process-environment env)
 
-            (let ((env '())
-                  (regex
-                   (rx "export "
-                       (group (one-or-more (or alpha ?_)))
-                       "=\""
-                       (group (zero-or-more (not "\""))))))
-              (save-match-data
-                (goto-char (point-min))
-                (while (search-forward-regexp regex nil t 1)
-                  (let ((env-name (match-string 1))
-                        (env-value (match-string 2)))
-                    (setq env (setenv-internal env env-name env-value nil)))))
-              env))))
+  (eshell-nix-refresh-env))
 
-  (eshell-refresh-envs)
+(defun eshell-nix-eval (args)
+  (with-temp-buffer
+    (let ((call-process-args (list "nix" nil (current-buffer) nil)))
+      (nconc call-process-args args)
+      (nconc call-process-args '("--command" "sh" "-c" "export"))
 
+      (let ((exit-code (apply 'call-process call-process-args)))
+        (when (not (= 0 exit-code))
+          (error (buffer-string)))
+
+        (let ((env '())
+              (env-regex
+               (rx "export "
+                   (group (one-or-more (or alpha ?_)))
+                   "=\""
+                   (group (zero-or-more (not "\""))))))
+          (save-match-data
+            (goto-char (point-min))
+            (while (search-forward-regexp env-regex nil t 1)
+              (let ((env-name (match-string 1))
+                    (env-value (match-string 2)))
+                (setq env (setenv-internal env env-name env-value nil)))))
+          env)))))
+
+(defun eshell-nix-leave ()
+  (when (boundp 'eshell-nix-prev-env)
+    (setq process-environment eshell-nix-prev-env)
+    (makunbound 'eshell-nix-prev-env)
+    (eshell-nix-refresh-env)))
+
+(defun eshell-nix-leave-a (fn &rest args)
+  (if (boundp 'eshell-nix-prev-env)
+      (eshell-nix-leave)
+    (apply fn args)))
+
+(advice-add 'eshell/exit :around 'eshell-nix-leave-a)
+
+(defun eshell-nix-refresh-env ()
+  (eshell-set-path (getenv "PATH"))
   nil)
-
-(defun eshell/nix-unload ()
-  (when (boundp 'eshell-nix-original-env)
-    (setq process-environment eshell-nix-original-env)
-    (eshell-refresh-envs))
-
-  nil)
-
-(defun eshell-refresh-envs ()
-  (eshell-set-path (getenv "PATH")))
 
 ;; ---
 
@@ -555,8 +578,8 @@
    "caup" "clear && cargo update --package $*"
 
    ;; ssh
-   "st" "TERM=xterm ssh $1 -t tmux"
-   "sta" "TERM=xterm ssh $1 -t tmux a"
+   "st" "ssh $1 -t tmux"
+   "sta" "ssh $1 -t tmux a"
    "ssh-copy-terminfo" "infocmp | ssh $1 tic -")
 
   (defun +eshell/toggle (&rest _)
@@ -586,12 +609,14 @@
 
   (defun +eshell/prompt ()
     (require 'shrink-path)
+
     (concat (if (bobp) "" "\n")
             (let ((pwd (eshell/pwd)))
               (propertize (if (or (file-remote-p pwd) (equal pwd "~"))
                               pwd
                             (abbreviate-file-name pwd))
                           'face '+eshell-prompt-pwd))
+            (if (boundp 'eshell-nix-prev-env) " | nix" "")
             "\n"
             (propertize ";" 'face (if (zerop eshell-last-command-status) 'success 'error))
             " "))
