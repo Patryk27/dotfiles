@@ -82,10 +82,6 @@
             text = render ./emacs/doom.d/packages.el;
           };
         };
-
-      sessionVariables = {
-        LSP_USE_PLISTS = "true";
-      };
     };
   };
 }

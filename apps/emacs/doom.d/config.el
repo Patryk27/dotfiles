@@ -7,7 +7,6 @@
 
 (when (eq system-type 'darwin)
   (setq insert-directory-program "/opt/homebrew/bin/gls"
-        lsp-clangd-binary-path "/opt/homebrew/opt/llvm/bin/clangd"
         mac-command-modifier 'control))
 
 (defun no-op () nil)
@@ -702,38 +701,6 @@
   (advice-add '+format--buffer :around '+format--buffer-maybe-json-a))
 
 ;; -----------------------------------------------------------------------------
-;; lsp
-
-(setq lsp-file-watch-threshold 5000
-      lsp-lens-enable nil
-      lsp-rust-all-features t
-      lsp-signature-auto-activate nil
-      lsp-ui-doc-show-with-cursor nil
-      lsp-ui-sideline-enable nil
-      lsp-use-plists t)
-
-(after! lsp-mode
-  (defun +format-with-lsp-mode--maybe-disable-a (fn &rest args)
-    (let ((file (buffer-file-name)))
-      (unless (or (string-suffix-p ".vue" file)
-                  (string-suffix-p ".ts" file))
-        (apply fn args))))
-
-  (advice-add '+format-with-lsp-mode :around '+format-with-lsp-mode--maybe-disable-a))
-
-;; -----------------------------------------------------------------------------
-;; lsp-nix
-
-(after! lsp-mode
-  (use-package lsp-nix
-    :demand t
-    :custom
-    (lsp-nix-nil-formatter ["nixfmt"]))
-
-  (use-package nix-mode
-    :hook (nix-mode . lsp-deferred)))
-
-;; -----------------------------------------------------------------------------
 ;; magit
 
 (after! magit
@@ -903,9 +870,6 @@
   (map! :map rustic-mode-map
         :localleader
         "b" nil
-        "h" 'lsp-rust-analyzer-inlay-hints-mode
-        "m" 'lsp-rust-analyzer-expand-macro
-        "p" 'lsp-rust-find-parent-module
         "r" 'rustic-rerun-shell-command
         "s" 'rustic-run-shell-command
         "t" nil)
@@ -914,8 +878,7 @@
         :localleader
         :prefix ("o" . "open")
         :desc "main.rs" "m" 'rustic-open-main-rs
-        :desc "lib.rs" "l" 'rustic-open-lib-rs
-        :desc "Cargo.toml" "c" 'lsp-rust-analyzer-open-cargo-toml)
+        :desc "lib.rs" "l" 'rustic-open-lib-rs)
 
   (map! :map rustic-mode-map
         :localleader
@@ -1002,12 +965,4 @@
   (defun web-run-vue-tsc ()
     "Run `vue-tsc' on current project."
     (interactive)
-    (compile "npm exec vue-tsc"))
-
-  ;; ---
-
-  (defun lsp-vue-activate ()
-    (when (string-suffix-p ".vue" (buffer-file-name))
-      (lsp)))
-
-  (add-hook 'web-mode-hook 'lsp-vue-activate))
+    (compile "npm exec vue-tsc")))
