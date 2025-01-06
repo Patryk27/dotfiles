@@ -64,7 +64,6 @@ nixpkgs.lib.nixosSystem {
             libreoffice-qt
             lm_sensors
             moonlight-qt
-            nethack
             nixpkgs-review
             obs-studio
             opensplat
@@ -72,7 +71,6 @@ nixpkgs.lib.nixosSystem {
             slack
             spirv-tools
             spotify
-            unnethack
             vlc
             wineWowPackages.waylandFull
             winetricks
