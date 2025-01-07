@@ -630,6 +630,11 @@
         (generate-new-buffer eshell-buffer-name))))
 
 ;; -----------------------------------------------------------------------------
+;; eglot
+
+(setq eglot-extend-to-xref t)
+
+;; -----------------------------------------------------------------------------
 ;; evil
 
 (setq evil-want-fine-undo t
@@ -647,7 +652,7 @@
       :n "ga" '+lookup/references
       :n "gD" nil
       :n "gt" '+lookup/type-definition
-      :n "gh" '+lookup/domentation)
+      :n "gh" '+lookup/documentation)
 
 ;; -----------------------------------------------------------------------------
 ;; evil-numbers
