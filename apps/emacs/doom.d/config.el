@@ -485,8 +485,8 @@
   (eshell-nix-enter (eshell-nix-eval args)))
 
 (defun eshell-nix-enter (env)
-  (setq eshell-nix-prev-env process-environment
-        process-environment env)
+  (setq-local eshell-nix-prev-env process-environment
+              process-environment env)
 
   (eshell-nix-refresh-env))
 
@@ -516,7 +516,7 @@
 
 (defun eshell-nix-leave ()
   (when (boundp 'eshell-nix-prev-env)
-    (setq process-environment eshell-nix-prev-env)
+    (setq-local process-environment eshell-nix-prev-env)
     (makunbound 'eshell-nix-prev-env)
     (eshell-nix-refresh-env)))
 
