@@ -643,6 +643,19 @@
       evil-visual-state-cursor '(hollow "#00ff00")
       evil-replace-state-cursor '(hbar "#00ff00"))
 
+(defun +lookup/parent ()
+  (interactive)
+  (cond
+   ((eq major-mode 'nix-mode) (+lookup/parent-naive "nix"))
+   (t (error "don't know how to lookup the parent here"))))
+
+(defun +lookup/parent-naive (ext)
+  (find-file-existing
+   (format
+    "%s.%s"
+    (directory-file-name (file-name-directory buffer-file-name))
+    ext)))
+
 (map! :ni "C-<tab>" 'evil-write-all
       :nv "C-e" 'evil-scroll-up
       :nv "C-u" 'evil-scroll-line-down
@@ -652,7 +665,7 @@
       :n "ga" '+lookup/references
       :n "gD" nil
       :n "gt" '+lookup/type-definition
-      :n "gh" '+lookup/documentation)
+      :n "gp" '+lookup/parent)
 
 ;; -----------------------------------------------------------------------------
 ;; evil-numbers
