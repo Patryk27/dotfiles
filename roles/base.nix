@@ -47,6 +47,7 @@
       python3
       ripgrep
       sqlite
+      unrar
       unzip
       watch
       zip
