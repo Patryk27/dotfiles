@@ -43,7 +43,7 @@
         partOf = [ "backup.service" ];
 
         timerConfig = {
-          OnCalendar = "12:00:00";
+          OnCalendar = "18:00:00";
         };
       };
     };
