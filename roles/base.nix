@@ -42,6 +42,7 @@
       lld
       magic-wormhole
       ncdu
+      p7zip
       postgresql
       python3
       ripgrep
