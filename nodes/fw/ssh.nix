@@ -9,11 +9,9 @@ let
       user = "pwy";
     };
 
-    archive--ext = lib.hm.dag.entryAfter [ "archive" ] {
-      match = ''OriginalHost archive Exec "${if-outside-home}"'';
+    archive--wg = lib.hm.dag.entryBefore [ "archive" ] {
+      match = ''Host archive Exec "${if-outside-home}"'';
       hostname = "10.24.1.2";
-      proxyJump = "gateway";
-      forwardAgent = true;
     };
 
     gateway = {
@@ -49,11 +47,9 @@ let
       user = "pwy";
     };
 
-    warp--ext = lib.hm.dag.entryAfter [ "warp" ] {
-      match = ''OriginalHost warp Exec "${if-outside-home}"'';
+    warp--wg = lib.hm.dag.entryBefore [ "warp" ] {
+      match = ''Host warp Exec "${if-outside-home}"'';
       hostname = "10.24.1.2";
-      proxyJump = "gateway";
-      forwardAgent = true;
     };
 
     warp-ubu = {
@@ -75,10 +71,10 @@ in
           matchBlocks = {
             inherit (matchBlocks lib)
               archive
-              archive--ext
+              archive--wg
               gateway
               warp
-              warp--ext
+              warp--wg
               ;
           };
         };
