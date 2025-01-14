@@ -882,6 +882,13 @@
       (when file
         (find-file (concat file "src/lib.rs")))))
 
+  (defun rustic-open-cargo-toml ()
+    "Open closest `Cargo.toml'"
+    (interactive)
+    (let ((file (locate-dominating-file "." "Cargo.toml")))
+      (when file
+        (find-file (concat file "Cargo.toml")))))
+
   ;; TODO https://github.com/brotzeit/rustic/issues/450
   (defun rustic-save-some-buffers-advice (orig-fun &rest args)
     (apply orig-fun args))
@@ -897,7 +904,8 @@
         :localleader
         :prefix ("o" . "open")
         :desc "main.rs" "m" 'rustic-open-main-rs
-        :desc "lib.rs" "l" 'rustic-open-lib-rs)
+        :desc "lib.rs" "l" 'rustic-open-lib-rs
+        :desc "Cargo.toml" "c" 'rustic-open-cargo-toml)
 
   (map! :map rustic-mode-map
         :localleader
