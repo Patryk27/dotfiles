@@ -634,6 +634,67 @@
 
 (setq eglot-extend-to-xref t)
 
+;; ---
+;; Thanks to:
+;; https://github.com/lina-bh/.emacs.d/blob/main/lisp/eglot-resops.el
+
+(after! eglot
+  (nconc eglot--lsp-interface-alist
+         '((CreateFile (:kind :uri) (:options))
+           (CreateFileOptions nil (:overwrite :ignoreIfExists))
+           (DeleteFile (:kind :uri) (:options))
+           (DeleteFileOptions nil (:recursive :ignoreIfNotExists))
+           (RenameFile (:kind :oldUri :newUri) (:options))
+           (RenameFileOptions nil (:overwrite :ignoreIfExists))))
+
+  (cl-defmethod eglot-client-capabilities :around (server)
+    (map-merge 'plist
+               (cl-call-next-method server)
+               '(:workspace
+                 (:workspaceEdit
+                  (:documentChanges
+                   t
+                   :resourceOperations
+                   ["create"  "delete" "rename"])))))
+
+  (advice-add 'eglot--apply-workspace-edit :around
+              'eglot--apply-workspace-edit-fs-a))
+
+(defun eglot--apply-workspace-edit-fs-a (fn wedit &rest args)
+  (let ((edits+ops
+         (seq-group-by
+          (lambda (edit)
+            (if (seq-every-p
+                 (apply-partially 'plist-member edit)
+                 '(:textDocument :edits))
+                'TextDocumentEdit
+              'resource-operation))
+          (plist-get wedit :documentChanges))))
+    (plist-put wedit :documentChanges (cdr (assq 'TextDocumentEdit edits+ops)))
+    (if-let ((resops (cdr (assq 'resource-operation edits+ops))))
+        (dolist (resop resops) (eglot--apply-workspace-edit-fs resop)))
+    (apply fn wedit args)))
+
+(defun eglot--apply-workspace-edit-fs (op)
+  (eglot--dcase op
+    (((CreateFile) uri)
+     (let ((path (eglot-uri-to-path uri)))
+       (unless (file-exists-p path)
+         (make-empty-file path))))
+
+    (((DeleteFile) uri)
+     (let ((path (eglot-uri-to-path uri)))
+       (delete-file path)))
+
+    (((RenameFile) oldUri newUri)
+     (let ((oldPath (eglot-uri-to-path oldUri))
+           (newPath (eglot-uri-to-path newUri)))
+       (when (file-exists-p newPath)
+         (if (file-directory-p newPath)
+             (delete-directory newPath))
+         (delete-file newPath))
+       (rename-file oldPath newPath)))))
+
 ;; -----------------------------------------------------------------------------
 ;; evil
 
