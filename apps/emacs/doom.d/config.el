@@ -647,6 +647,7 @@
   (interactive)
   (cond
    ((eq major-mode 'nix-mode) (+lookup/parent-naive "nix"))
+   ((eq major-mode 'rustic-mode) (+lookup/parent-naive "rs"))
    (t (error "don't know how to lookup the parent here"))))
 
 (defun +lookup/parent-naive (ext)
