@@ -43,7 +43,7 @@
        docker
        (eval +overlay)
        (lookup +dictionary +offline)
-       (lsp +eglot)
+       lsp
        magit
        make
        pdf
