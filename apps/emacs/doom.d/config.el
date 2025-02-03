@@ -469,12 +469,14 @@
 ;; ---
 
 (after! eshell
+  ;; `eshell-nix-spawn' does `(throw 'eshell-defer)' which requires for `nix' to
+  ;; be put inside `eshell-complex-commands'.
   (push "nix" eshell-complex-commands))
 
 (defun eshell/nix (&rest args)
   (let ((cmd (car args)))
     (if (or (string= "develop" cmd) (string= "shell" cmd))
-        (progn (eshell-nix args) nil)
+        (eshell-nix args)
       (throw 'eshell-replace-command
              (eshell-parse-command
               (concat (char-to-string eshell-explicit-command-char) "nix") args)))))
@@ -482,54 +484,79 @@
 (defun eshell-nix (args)
   (make-local-variable 'process-environment)
   (eshell-nix-leave)
-  (eshell-nix-enter (eshell-nix-eval args)))
+  (eshell-nix-spawn args))
 
-(defun eshell-nix-enter (env)
+(defun eshell-nix-spawn (args)
+  (let* ((temp-file
+          (make-temp-file "nix"))
+         (command
+          (append '("nix") args (list "--command" "sh" "-c" (format "export > %s" temp-file))))
+         (proc
+          (make-process
+           :name "nix"
+           :buffer (current-buffer)
+           :command command
+           :filter 'eshell-interactive-process-filter
+           :sentinel 'eshell-nix-spawn--sentinel)))
+    (process-put proc 'temp-file temp-file)
+    (throw 'eshell-defer (list proc))))
+
+(defun eshell-nix-spawn--sentinel (proc status)
+  (when (string-match (rx line-start (or "finished" "exited")) status)
+    (let ((command (car (eshell-commands-for-process proc)))
+          (buffer (process-buffer proc))
+          (temp-file (process-get proc 'temp-file)))
+      (when (and command (buffer-live-p buffer))
+        (with-current-buffer buffer
+          (when (eq 0 (process-exit-status proc))
+            (eshell-nix-spawn--enter (eshell-nix-spawn--parse temp-file)))
+          (delete-file temp-file)
+          (eshell-remove-command command)
+          (eshell-reset))))))
+
+(defun eshell-nix-spawn--parse (path)
+  (let ((env '())
+        (env-regex
+         (rx "export "
+             (group (one-or-more (or alpha ?_)))
+             "=\""
+             (group (zero-or-more (not "\""))))))
+
+    (with-temp-buffer
+      (insert-file-contents path)
+      (while (search-forward-regexp env-regex nil t 1)
+        (let ((env-name (match-string 1))
+              (env-value (match-string 2)))
+          (setq env (setenv-internal env env-name env-value nil)))))
+
+    env))
+
+(defun eshell-nix-spawn--enter (env)
   (setq-local eshell-nix-prev-env process-environment
               process-environment env)
-
-  (eshell-nix-refresh-env))
-
-(defun eshell-nix-eval (args)
-  (with-temp-buffer
-    (let ((call-process-args (list "nix" nil (current-buffer) nil)))
-      (nconc call-process-args args)
-      (nconc call-process-args '("--command" "sh" "-c" "export"))
-
-      (let ((exit-code (apply 'call-process call-process-args)))
-        (when (not (= 0 exit-code))
-          (error (buffer-string)))
-
-        (let ((env '())
-              (env-regex
-               (rx "export "
-                   (group (one-or-more (or alpha ?_)))
-                   "=\""
-                   (group (zero-or-more (not "\""))))))
-          (save-match-data
-            (goto-char (point-min))
-            (while (search-forward-regexp env-regex nil t 1)
-              (let ((env-name (match-string 1))
-                    (env-value (match-string 2)))
-                (setq env (setenv-internal env env-name env-value nil)))))
-          env)))))
+  (eshell-nix-refresh))
 
 (defun eshell-nix-leave ()
   (when (boundp 'eshell-nix-prev-env)
     (setq-local process-environment eshell-nix-prev-env)
     (makunbound 'eshell-nix-prev-env)
-    (eshell-nix-refresh-env)))
+    (eshell-nix-refresh)))
 
 (defun eshell-nix-leave-a (fn &rest args)
   (if (boundp 'eshell-nix-prev-env)
-      (eshell-nix-leave)
+      (progn (eshell-nix-leave) ())
     (apply fn args)))
 
+;; Advice `eshell/exit` so that running `exit' disables the Nix environment
+;; first and only the next `exit' actually closes the shell - this simulates a
+;; nested shell.
 (advice-add 'eshell/exit :around 'eshell-nix-leave-a)
 
-(defun eshell-nix-refresh-env ()
-  (eshell-set-path (getenv "PATH"))
-  nil)
+;; Most envvars get overwritten by doing `(setq-local process-environment ...)',
+;; but some envvars are "virtual" and require special treatment to be understood
+;; by eshell.
+(defun eshell-nix-refresh ()
+  (eshell-set-path (getenv "PATH")))
 
 ;; ---
 
