@@ -4,6 +4,10 @@
     hostId = "c7a81ba2";
     hostName = "pfw";
 
+    extraHosts = ''
+      10.24.1.2 diary.lan
+    '';
+
     networkmanager = {
       dns = "systemd-resolved";
     };
