@@ -65,7 +65,6 @@ nixpkgs.lib.nixosSystem {
             moonlight-qt
             nixpkgs-review
             obs-studio
-            opensplat
             powertop
             slack
             spirv-tools
