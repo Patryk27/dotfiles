@@ -3,7 +3,6 @@ set -e
 DATASETS=(
   "rpool"
   "rpool/home"
-  "rpool/home/diary"
   "rpool/home/x"
 )
 

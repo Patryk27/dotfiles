@@ -5,7 +5,7 @@
     hostName = "pfw";
 
     extraHosts = ''
-      10.24.1.2 diary.lan
+      10.24.1.2 archive.lan
     '';
 
     networkmanager = {
