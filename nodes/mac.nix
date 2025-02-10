@@ -22,7 +22,6 @@ nix-darwin.lib.darwinSystem {
         environment = {
           systemPackages = with pkgs; [
             fontconfig
-            redis
           ];
         };
 
@@ -31,44 +30,6 @@ nix-darwin.lib.darwinSystem {
             pwychowaniec = {
               home = {
                 stateVersion = "24.05";
-
-                sessionVariables = {
-                  SSH_ASKPASS = "/usr/local/bin/ssh-askpass";
-                };
-              };
-
-              programs = {
-                git = {
-                  userEmail = "p.wychowaniec@fudosecurity.com";
-                };
-
-                ssh = {
-                  matchBlocks = {
-                    builder = {
-                      hostname = "10.0.0.10";
-                      user = "pwychowaniec#root#10.0.9.153";
-                      forwardAgent = true;
-                    };
-
-                    callhome = {
-                      hostname = "10.0.0.10";
-                      user = "pwychowaniec#root#178.33.6.1";
-                      forwardAgent = true;
-                    };
-
-                    jail-pl-0 = {
-                      hostname = "10.0.0.10";
-                      user = "pwychowaniec#pwychowaniec#fudojail-pl-0";
-                      forwardAgent = true;
-                    };
-
-                    jail-pl-1 = {
-                      hostname = "10.0.0.10";
-                      user = "pwychowaniec#pwychowaniec#fudojail-pl-1";
-                      forwardAgent = true;
-                    };
-                  };
-                };
               };
             };
           };
