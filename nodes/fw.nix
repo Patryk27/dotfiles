@@ -52,7 +52,6 @@ nixpkgs.lib.nixosSystem {
             anki-bin
             btop
             chromium
-            colmap
             darktable
             dbeaver-bin
             discord
