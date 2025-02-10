@@ -20,6 +20,10 @@
   :recipe (:host github :repo "jdtsmith/indent-bars")
   :pin "8a1252ff36f6a41e51861cf03e95d52181d38ea6")
 
+(package! nix-mode
+  :recipe (:host github :repo "Patryk27/nix-mode")
+  :pin "d0622e205793d5e1556d43a3a19f537bc357f1a4")
+
 (package! pdf-tools
   :built-in 'prefer)
 
