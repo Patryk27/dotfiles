@@ -66,6 +66,7 @@ nixpkgs.lib.nixosSystem {
             nixpkgs-review
             obs-studio
             powertop
+            protonvpn-gui
             slack
             spirv-tools
             spotify
@@ -85,6 +86,12 @@ nixpkgs.lib.nixosSystem {
                 };
               };
             };
+          };
+        };
+
+        networking = {
+          firewall = {
+            enable = false;
           };
         };
 
