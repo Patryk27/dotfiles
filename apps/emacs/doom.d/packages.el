@@ -2,8 +2,13 @@
   :recipe (:host github :repo "alpha22jp/atomic-chrome")
   :pin "f1b077be7e414f457191d72dcf5eedb4371f9309")
 
+(package! dirvish
+  :recipe (:host github :repo "Patryk27/dirvish")
+  :pin "f986123a4d3247c9c3a8186ee51d797c8fda820f")
+
 (package! eat
   :recipe (:type git
+           :host nil
            :repo "ssh://gitlab@gitlab.pwy.io:47000/pwy/emacs-eat.git"
            :files ("*.el" ("term" "term/*.el") "*.texi"
                    "*.ti" ("terminfo/e" "terminfo/e/*")
@@ -22,7 +27,7 @@
 
 (package! nix-mode
   :recipe (:host github :repo "Patryk27/nix-mode")
-  :pin "d0622e205793d5e1556d43a3a19f537bc357f1a4")
+  :pin "e370e7d58748aad57aea10d8d61ee39478211aed")
 
 (package! pdf-tools
   :built-in 'prefer)

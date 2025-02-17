@@ -139,6 +139,7 @@
           ("o" "~/Documents")
           ("t" "~/t")
           ("x" "~/x")
+          ("D" "/dav:pwy@archive.lan:/remote.php/webdav/diary-pwy")
           ("F" "/scp:gateway:/var/lib/nixos-containers/nginx/var/www/files")
           ("K" "/scp:gateway:/var/lib/nixos-containers/kartoffels/var/lib/kartoffels")))
 
@@ -211,31 +212,6 @@
   "Copy buffer's absolute path to the kill ring."
   (interactive)
   (kill-new buffer-file-name))
-
-;; -----------------------------------------------------------------------------
-;; diary
-
-(defun open-diary (&rest _)
-  "Open the diary."
-  (interactive)
-
-  (unless (file-exists-p "~/diary/mnt/pwy")
-    (progn
-      (eshell-command
-       (format
-        "echo %s | gocryptfs ~/diary/src ~/diary/mnt"
-        (read-passwd "Password: ")))))
-
-  (evil-normal-state)
-  (dired "~/diary/mnt"))
-
-(defun close-diary (&rest _)
-  "Close the diary."
-  (interactive)
-
-  (if (file-exists-p "~/diary/mnt/pwy")
-      (progn
-        (eshell-command "umount ~/diary/mnt"))))
 
 ;; -----------------------------------------------------------------------------
 ;; doom-modeline
@@ -654,7 +630,10 @@
 ;; -----------------------------------------------------------------------------
 ;; lsp
 
-(setq lsp-lens-enable nil
+(setq lsp-eldoc-enable-hover nil
+      lsp-lens-enable nil
+      lsp-signature-auto-activate nil
+      lsp-signature-render-documentation nil
       lsp-ui-doc-show-with-cursor nil
       lsp-ui-sideline-enable nil)
 
@@ -694,6 +673,42 @@
         :localleader
         :prefix ("t" . "table")
         :desc "align" "a" 'markdown-table-align))
+
+;; -----------------------------------------------------------------------------
+;; notifications
+
+(require 'notifications)
+
+(defun stand-up ()
+  (notifications-notify
+   :title "stand-up"
+   :body "time to stand-up!"
+   :actions '("Confirm" "yess")))
+
+(defun stand-up--schedule ()
+  (let*
+      ((time (decode-time (current-time)))
+       (time-m (nth 1 time))
+       (time-h (nth 2 time))
+       (scheduled-at
+        (if (>= time-m 50)
+            (format "%d:%d" (+ 1 time-h) 50)
+          (format "%d:%d" time-h 50))))
+    (message (format "Scheduling a stand-up notification at %s" scheduled-at))
+    (run-at-time scheduled-at nil 'stand-up--notify)))
+
+(defun stand-up--notify-p ()
+  (let ((idle-time (current-idle-time)))
+    (if idle-time
+        (<= (time-to-seconds idle-time) 600)
+      t)))
+
+(defun stand-up--notify ()
+  (when (stand-up--notify-p)
+    (stand-up))
+  (stand-up--schedule))
+
+(stand-up--schedule)
 
 ;; -----------------------------------------------------------------------------
 ;; nxml-mode
@@ -893,17 +908,6 @@
 
 (map! "<f1>" 'subword-mode
       "C-<f1>" 'global-subword-mode)
-
-;; -----------------------------------------------------------------------------
-;; tramp
-
-(after! tramp
-  (add-to-list 'tramp-methods
-               `("fudo"
-                 (tramp-login-program     "fj")
-                 (tramp-login-args        (("console") ("%h")))
-                 (tramp-remote-shell      "/bin/sh")
-                 (tramp-remote-shell-args ("-i" "-c")))))
 
 ;; -----------------------------------------------------------------------------
 ;; typescript-mode
