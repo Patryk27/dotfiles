@@ -27,7 +27,7 @@
 
 (package! nix-mode
   :recipe (:host github :repo "Patryk27/nix-mode")
-  :pin "e370e7d58748aad57aea10d8d61ee39478211aed")
+  :pin "2ff9d0958de5512e8a5c5cba63448c880fa71c91")
 
 (package! pdf-tools
   :built-in 'prefer)
@@ -38,6 +38,3 @@
 
 (package! tree-sitter-langs
   :pin "365a4f7bf5184d04b5cc48175d93d7af7b8bbeb4")
-
-(package! vlf
-  :pin "cc02f2533782d6b9b628cec7e2dcf25b2d05a27c")

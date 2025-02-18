@@ -36,7 +36,7 @@
 
   outputs = inputs: {
     darwinConfigurations = {
-      "MacBook-Pro-Patryk" = import ./nodes/mac.nix inputs;
+      "Patryks-MacBook-Pro" = import ./nodes/mac.nix inputs;
     };
 
     nixosConfigurations = {

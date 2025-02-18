@@ -46,6 +46,7 @@
       postgresql
       python3
       ripgrep
+      slack
       sqlite
       unrar
       unzip

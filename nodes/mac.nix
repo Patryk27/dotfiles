@@ -6,7 +6,7 @@ nix-darwin.lib.darwinSystem {
   specialArgs = {
     inherit inputs;
 
-    user = "pwychowaniec";
+    user = "pwy";
   };
 
   modules = [
@@ -27,7 +27,7 @@ nix-darwin.lib.darwinSystem {
 
         home-manager = {
           users = {
-            pwychowaniec = {
+            pwy = {
               home = {
                 stateVersion = "24.05";
               };
@@ -47,8 +47,8 @@ nix-darwin.lib.darwinSystem {
 
         users = {
           users = {
-            pwychowaniec = {
-              home = "/Users/pwychowaniec";
+            pwy = {
+              home = "/Users/pwy";
             };
           };
         };

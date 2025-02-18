@@ -66,8 +66,6 @@ nixpkgs.lib.nixosSystem {
             nixpkgs-review
             obs-studio
             powertop
-            protonvpn-gui
-            slack
             spirv-tools
             spotify
             vlc
