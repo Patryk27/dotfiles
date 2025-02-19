@@ -75,18 +75,6 @@ nixpkgs.lib.nixosSystem {
           ];
         };
 
-        home-manager = {
-          users = {
-            pwy = {
-              programs = {
-                git = {
-                  userEmail = "pwychowaniec@pm.me";
-                };
-              };
-            };
-          };
-        };
-
         networking = {
           firewall = {
             enable = false;
