@@ -1,9 +1,4 @@
-{
-  pkgs,
-  inputs,
-  user,
-  ...
-}:
+{ pkgs, inputs, ... }:
 {
   fonts = {
     packages = with pkgs; [
@@ -11,7 +6,7 @@
     ];
   };
 
-  home-manager.users."${user}" = {
+  home-manager.users.pwy = {
     home = {
       packages = with pkgs; [
         (

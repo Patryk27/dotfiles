@@ -10,8 +10,6 @@ nixpkgs.lib.nixosSystem {
 
   specialArgs = {
     inherit inputs;
-
-    user = "pwy";
   };
 
   modules = [

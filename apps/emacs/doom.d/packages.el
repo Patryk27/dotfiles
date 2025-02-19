@@ -27,7 +27,7 @@
 
 (package! nix-mode
   :recipe (:host github :repo "Patryk27/nix-mode")
-  :pin "2ff9d0958de5512e8a5c5cba63448c880fa71c91")
+  :pin "f1d588051d4fdd54c88eb7fb4a92b8352fb24f83")
 
 (package! pdf-tools
   :built-in 'prefer)

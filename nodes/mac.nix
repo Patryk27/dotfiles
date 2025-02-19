@@ -5,8 +5,6 @@ nix-darwin.lib.darwinSystem {
 
   specialArgs = {
     inherit inputs;
-
-    user = "pwy";
   };
 
   modules = [

@@ -1,6 +1,6 @@
-{ user, ... }:
+{ ... }:
 {
-  home-manager.users."${user}" = {
+  home-manager.users.pwy = {
     programs = {
       direnv = {
         enable = true;

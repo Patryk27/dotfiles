@@ -1,4 +1,4 @@
-{ pkgs, user, ... }:
+{ pkgs, ... }:
 {
   environment = {
     systemPackages = with pkgs; [
@@ -6,7 +6,7 @@
     ];
   };
 
-  home-manager.users."${user}" = {
+  home-manager.users.pwy = {
     home = {
       packages = with pkgs; [
         avrdude

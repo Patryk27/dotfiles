@@ -1,4 +1,4 @@
-{ pkgs, user, ... }:
+{ pkgs, ... }:
 {
   programs = {
     zsh = {
@@ -6,7 +6,7 @@
     };
   };
 
-  home-manager.users."${user}" = {
+  home-manager.users.pwy = {
     programs = {
       zsh = {
         enable = true;
@@ -29,7 +29,7 @@
 
   users = {
     users = {
-      "${user}" = {
+      pwy = {
         shell = pkgs.zsh;
       };
     };

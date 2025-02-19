@@ -1,6 +1,6 @@
-{ pkgs, user, ... }:
+{ pkgs, ... }:
 {
-  home-manager.users."${user}" =
+  home-manager.users.pwy =
     { lib, ... }:
     {
       home = {

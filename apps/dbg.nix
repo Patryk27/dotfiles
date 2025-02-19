@@ -1,11 +1,6 @@
+{ pkgs, lib, ... }:
 {
-  pkgs,
-  lib,
-  user,
-  ...
-}:
-{
-  home-manager.users."${user}" = {
+  home-manager.users.pwy = {
     home = {
       packages = lib.mkIf pkgs.stdenv.isLinux (
         with pkgs;
