@@ -6,7 +6,7 @@
         with pkgs;
         [
           gdb
-          kcachegrind
+          kdePackages.kcachegrind
           linuxPackages.perf
           valgrind
           wireshark

@@ -57,7 +57,7 @@ nixpkgs.lib.nixosSystem {
             httm
             inkscape
             iw
-            kdenlive
+            kdePackages.kdenlive
             libreoffice-qt
             lm_sensors
             moonlight-qt
