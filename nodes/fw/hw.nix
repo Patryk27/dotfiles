@@ -60,13 +60,14 @@
 
   fileSystems = {
     "/" = {
-      device = "rpool";
       fsType = "zfs";
+      device = "rpool";
     };
 
     "/boot" = {
-      device = "/dev/disk/by-uuid/3F33-58F9";
       fsType = "vfat";
+      device = "/dev/disk/by-uuid/3F33-58F9";
+
       options = [
         "fmask=0022"
         "dmask=0022"
@@ -74,8 +75,8 @@
     };
 
     "/nix" = {
-      device = "rpool/nix";
       fsType = "zfs";
+      device = "rpool/nix";
     };
   };
 

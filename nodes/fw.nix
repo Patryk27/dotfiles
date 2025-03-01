@@ -94,6 +94,10 @@ nixpkgs.lib.nixosSystem {
         };
 
         services = {
+          davfs2 = {
+            enable = true;
+          };
+
           fwupd = {
             enable = true;
           };
@@ -104,6 +108,16 @@ nixpkgs.lib.nixosSystem {
         };
 
         systemd = {
+          mounts = [
+            {
+              what = "http://archive.lan/remote.php/webdav";
+              where = "/mnt/archive";
+              type = "davfs";
+              options = "uid=1000,gid=100";
+              description = "archive.lan";
+            }
+          ];
+
           services = {
             disable-led = {
               script = ''
