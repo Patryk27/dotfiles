@@ -1,4 +1,5 @@
 {
+  agenix,
   home-manager,
   nixpkgs,
   nixos-hardware,
@@ -13,6 +14,7 @@ nixpkgs.lib.nixosSystem {
   };
 
   modules = [
+    agenix.nixosModules.default
     home-manager.nixosModules.home-manager
     nixos-hardware.nixosModules.framework-16-7040-amd
 
@@ -32,6 +34,12 @@ nixpkgs.lib.nixosSystem {
           ./fw/virt.nix
         ];
 
+        age = {
+          identityPaths = [
+            "/var/secrets/age/key"
+          ];
+        };
+
         boot = {
           binfmt = {
             emulatedSystems = [
@@ -47,6 +55,7 @@ nixpkgs.lib.nixosSystem {
 
         environment = {
           systemPackages = with pkgs; [
+            agenix.packages.x86_64-linux.default
             anki-bin
             btop
             chromium
