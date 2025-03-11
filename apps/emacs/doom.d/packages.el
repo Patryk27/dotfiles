@@ -4,7 +4,7 @@
 
 (package! dirvish
   :recipe (:host github :repo "Patryk27/dirvish")
-  :pin "f986123a4d3247c9c3a8186ee51d797c8fda820f")
+  :pin "c3363b77cb7fee1c0e0c95118c71312650cf402e")
 
 (package! eat
   :recipe (:type git
@@ -34,7 +34,7 @@
 
 (package! rustic
   :recipe (:host github :repo "emacs-rustic/rustic")
-  :pin "9fdf5c76b20cfc2985d518b3a4ae7b9634b39999")
+  :pin "22a5ef8bfd5a34ced945c2722938eb29632371d4")
 
 (package! track-changes
   :built-in t)
