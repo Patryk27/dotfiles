@@ -34,12 +34,6 @@ nix-darwin.lib.darwinSystem {
           };
         };
 
-        services = {
-          nix-daemon = {
-            enable = true;
-          };
-        };
-
         system = {
           stateVersion = 5;
         };
