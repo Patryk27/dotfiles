@@ -19,6 +19,7 @@ nix-darwin.lib.darwinSystem {
 
         environment = {
           systemPackages = with pkgs; [
+            devenv
             fontconfig
           ];
         };
