@@ -49,10 +49,6 @@
       };
     };
 
-    tmp = {
-      useTmpfs = true;
-    };
-
     zfs = {
       devNodes = "/dev/mapper";
     };
