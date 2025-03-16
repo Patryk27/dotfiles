@@ -26,6 +26,7 @@
 
       experimental-features = [
         "ca-derivations"
+        "cgroups"
         "flakes"
         "nix-command"
       ];
