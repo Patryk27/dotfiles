@@ -410,27 +410,6 @@
 
 ;; ---
 
-(setq eshell-save-history-on-exit nil)
-
-(defun eshell-append-history ()
-  "Call `eshell-write-history' with the `append' parameter set to `t'."
-  (when eshell-history-ring
-    (let ((ring (make-ring 1)))
-      (ring-insert ring (car (ring-elements eshell-history-ring)))
-
-      (setq eshell-history-ring--prev (ring-copy eshell-history-ring)
-            eshell-history-ring ring
-            eshell-hist--new-items 1)
-
-      (eshell-write-history eshell-history-file-name t)
-
-      (setq eshell-history-ring eshell-history-ring--prev
-            eshell-history-ring--prev nil))))
-
-(add-hook 'eshell-pre-command-hook 'eshell-append-history)
-
-;; ---
-
 (after! eshell
   (require 'nix-command-eshell)
 
@@ -439,6 +418,7 @@
   (setq eshell-bad-command-tolerance 999
         eshell-banner-message ""
         eshell-buffer-maximum-lines 32768
+        eshell-history-append t
         eshell-history-size 32768
         eshell-prompt-function '+eshell/prompt
         eshell-prompt-regexp "; ")
