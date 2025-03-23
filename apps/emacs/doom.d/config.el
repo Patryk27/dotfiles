@@ -431,28 +431,6 @@
 
 ;; ---
 
-(defun eshell/bcat (&rest args)
-  (let ((buffers (mapcar 'get-buffer args)))
-    (mapconcat (lambda (buf)
-                 (save-window-excursion
-                   (switch-to-buffer buf)
-                   (buffer-substring-no-properties (point-min) (point-max))))
-               buffers "\n")))
-
-(defun eshell/ccat (file)
-  (with-temp-buffer
-    (insert-file-contents file)
-    (let ((buffer-file-name file))
-      (delay-mode-hooks
-        (set-auto-mode)
-        (if (fboundp 'font-lock-ensure)
-            (font-lock-ensure)
-          (with-no-warnings
-            (font-lock-fontify-buffer)))))
-    (buffer-string)))
-
-;; ---
-
 (after! eshell
   (require 'nix-command-eshell)
 
