@@ -13,10 +13,7 @@
           if pkgs.stdenv.isLinux then
             emacs30-pgtk
           else
-            (emacs29-macport.overrideAttrs (old: {
-              src = inputs.emacs-mac;
-              version = "29.4";
-            }))
+            emacs30
         )
 
         (aspellWithDicts (
