@@ -2,10 +2,6 @@
   :recipe (:host github :repo "alpha22jp/atomic-chrome")
   :pin "f1b077be7e414f457191d72dcf5eedb4371f9309")
 
-(package! dirvish
-  :recipe (:host github :repo "alexluigit/dirvish")
-  :pin "1d8de07f4e1b24b2dbe1435263d84a7864b1ef47")
-
 (package! eat
   :recipe (:type git
            :host nil
