@@ -89,14 +89,6 @@ nixpkgs.lib.nixosSystem {
           };
         };
 
-        nixpkgs = {
-          config = {
-            permittedInsecurePackages = [
-              "freeimage-unstable-2021-11-01"
-            ];
-          };
-        };
-
         programs = {
           steam = {
             enable = true;
