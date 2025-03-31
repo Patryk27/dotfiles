@@ -758,7 +758,8 @@
             (lambda (&optional dir)
               (not (file-remote-p (or dir default-directory)))))
 
-(setq projectile-track-known-projects-automatically nil
+(setq projectile-enable-caching nil
+      projectile-track-known-projects-automatically nil
       projectile-verbose nil)
 
 (when (eq system-type 'gnu/linux)
