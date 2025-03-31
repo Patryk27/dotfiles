@@ -34,9 +34,10 @@
       sandbox = true;
 
       trusted-users = [
-        "builder"
-        "root"
         "@wheel"
+        "builder"
+        "pwy"
+        "root"
       ];
     };
   };
