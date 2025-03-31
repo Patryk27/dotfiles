@@ -43,19 +43,6 @@
         "type": "github"
       }
     },
-    "emacs-mac": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1719109644,
-        "narHash": "sha256-Uv0AX0d5JLgxHlBD70OIDOO/ImMA6hH1fs5hCuMxw7c=",
-        "type": "tarball",
-        "url": "https://bitbucket.org/mituharu/emacs-mac/get/7cc5e67629363d9e98f65e4e652f83bb4e0ee674.zip"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://bitbucket.org/mituharu/emacs-mac/get/7cc5e67629363d9e98f65e4e652f83bb4e0ee674.zip"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
