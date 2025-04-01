@@ -197,6 +197,8 @@
       "b p" 'copy-buffer-relative-path
       "b P" 'copy-buffer-absolute-path
       "w P" '+popup/raise
+      "(" '+workspace/switch-left
+      ")" '+workspace/switch-right
       "[" '+workspace/switch-left
       "]" '+workspace/switch-right
       "{" '+workspace/swap-left
