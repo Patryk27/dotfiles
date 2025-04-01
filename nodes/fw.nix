@@ -74,8 +74,6 @@ nixpkgs.lib.nixosSystem {
             obs-studio
             powertop
             spirv-tools
-            spotify
-            spotify-player
             vlc
             wineWowPackages.waylandFull
             winetricks
