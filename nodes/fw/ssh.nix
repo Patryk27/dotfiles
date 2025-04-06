@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  if-outside-home = "! ${pkgs.iw}/bin/iw dev wlp1s0 info | grep -q Dziupla";
+  if-outside-home = "! ${pkgs.iw}/bin/iw dev wlp1s0 info | grep -q DafnesHus";
 
   matchBlocks = lib: {
     archive = {
