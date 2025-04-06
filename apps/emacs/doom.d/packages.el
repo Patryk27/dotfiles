@@ -13,6 +13,9 @@
                    (:exclude ".dir-locals.el" "*-tests.el")))
   :pin "c0193e0e4f429a3f95e63a4afea678593f4a096b")
 
+(package! evil-escape
+  :disable t)
+
 (package! focus
   :recipe (:host github :repo "larstvei/Focus")
   :pin "29b412b209c3542a7932c201f0166e48c9fd7fee")
