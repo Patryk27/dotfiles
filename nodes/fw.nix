@@ -88,6 +88,12 @@ nixpkgs.lib.nixosSystem {
           };
         };
 
+        nixpkgs = {
+          config = {
+            rocmSupport = true;
+          };
+        };
+
         programs = {
           steam = {
             enable = true;
