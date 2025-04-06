@@ -65,6 +65,7 @@ nixpkgs.lib.nixosSystem {
             firefox
             httm
             inkscape
+            iperf3
             iw
             kdePackages.kdenlive
             libreoffice-qt
