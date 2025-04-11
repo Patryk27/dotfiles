@@ -96,6 +96,10 @@ nixpkgs.lib.nixosSystem {
         };
 
         programs = {
+          firejail = {
+            enable = true;
+          };
+
           steam = {
             enable = true;
           };
