@@ -189,7 +189,7 @@
 (setq doom-font (font-spec
                  :family "Berkeley Mono"
                  :size (if (eq system-type 'gnu/linux) 22 15))
-      doom-theme 'doom-gruvbox
+      doom-theme 'modus-vivendi-tinted
       +doom-dashboard-functions '(doom-dashboard-widget-banner))
 
 (map! :leader
