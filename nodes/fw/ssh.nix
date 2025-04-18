@@ -53,7 +53,7 @@ let
     };
 
     warp-ubu = {
-      hostname = "192.168.122.92";
+      hostname = "192.168.2.92";
       user = "pwy";
       proxyJump = "warp";
     };
