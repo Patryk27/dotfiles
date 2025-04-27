@@ -9,6 +9,9 @@
   (setq insert-directory-program "/opt/homebrew/bin/gls"
         mac-command-modifier 'control))
 
+(unless (display-graphic-p)
+  (global-kkp-mode))
+
 (defun no-op () nil)
 
 ;; -----------------------------------------------------------------------------

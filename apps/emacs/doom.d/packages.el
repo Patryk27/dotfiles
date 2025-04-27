@@ -2,6 +2,10 @@
   :recipe (:host github :repo "alpha22jp/atomic-chrome")
   :pin "f1b077be7e414f457191d72dcf5eedb4371f9309")
 
+(package! dirvish
+  :recipe (:host github :repo "alexluigit/dirvish")
+  :pin "f85a88216dfc6e952854595281b56c5b7b716557")
+
 (package! eat
   :recipe (:type git
            :host nil
@@ -23,6 +27,10 @@
 (package! indent-bars
   :recipe (:host github :repo "jdtsmith/indent-bars")
   :pin "8a1252ff36f6a41e51861cf03e95d52181d38ea6")
+
+(package! kkp
+  :recipe (:host github :repo "benjaminor/kkp")
+  :pin "ad23d961c3a5dce83b1c9a6b4c65b48809c7af9a")
 
 (package! nix-mode
   :recipe (:host github :repo "Patryk27/nix-mode")

@@ -49,6 +49,9 @@
        pdf
        tree-sitter
 
+       :os
+       tty
+
        :lang
        (cc +lsp +tree-sitter)
        (csharp +lsp +tree-sitter)
