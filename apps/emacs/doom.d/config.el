@@ -93,16 +93,15 @@
 (defun calc-eval-region (_arg beg end)
   "Calculate region and replace it with the result."
   (interactive "P\nr")
-  (let* ((expr (buffer-substring-no-properties beg end))
+  (let* ((inline (eq ?= (char-before end)))
+         (expr (if inline
+                   (buffer-substring-no-properties beg (1- end))
+                 (buffer-substring-no-properties beg end)))
          (result (calc-eval expr)))
-    (if (equal current-prefix-arg nil)
-        (progn
-          (kill-region beg end)
-          (insert result))
-      (progn
-        (goto-char end)
-        (insert "\n= ")
-        (insert result)))))
+    (cond
+     ((listp result) (message (nth 1 result)))
+     (inline (goto-char end) (insert result))
+     ('t (kill-region beg end) (insert result)))))
 
 ;; -----------------------------------------------------------------------------
 ;; csharp-mode
