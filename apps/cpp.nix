@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   home-manager.users.pwy = {
     home = {
@@ -9,15 +9,10 @@
           gnumake
           ninja
         ]
-        ++ (
-          if pkgs.stdenv.isLinux then
-            [
-              clang
-              clang-tools
-            ]
-          else
-            [ ]
-        );
+        ++ (lib.optionals pkgs.stdenv.isLinux [
+          clang
+          clang-tools
+        ]);
     };
   };
 }
