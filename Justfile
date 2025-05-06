@@ -19,16 +19,12 @@ boot:
     if [[ "{{ host }}" == "pfw" ]]; then \
         just boot-pfw; \
     else \
-        just boot-mac; \
+        echo "not supported"; \
     fi
 
 [private]
 boot-pfw:
     sudo nixos-rebuild boot --flake .#fw
-
-[private]
-boot-mac:
-    nix run nix-darwin -- boot --flake .
 
 fmt:
     nixfmt .
