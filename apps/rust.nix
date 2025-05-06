@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   environment = {
     systemPackages = with pkgs; [
@@ -8,16 +8,20 @@
 
   home-manager.users.pwy = {
     home = {
-      packages = with pkgs; [
-        avrdude
-        cargo-expand
-        cargo-license
-        cargo-nextest
-        pkgsCross.avr.buildPackages.gcc
-        pkgsCross.avr.buildPackages.gdb
-        rust-analyzer
-        simavr
-      ];
+      packages =
+        with pkgs;
+        [
+          cargo-expand
+          cargo-license
+          cargo-nextest
+          rust-analyzer
+          simavr
+        ]
+        ++ (lib.optionals pkgs.stdenv.isLinux [
+          avrdude
+          pkgsCross.avr.buildPackages.gcc
+          pkgsCross.avr.buildPackages.gdb
+        ]);
 
       file = {
         ".cargo/config.toml".text = ''
