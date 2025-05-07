@@ -640,6 +640,12 @@
                          (append ignored-files-regex-list gitignored-files-regex-list)
                          (append ignored-directories-regex-list gitignored-directories-regex-list)))))
 
+;; https://github.com/emacs-lsp/lsp-mode/issues/4768#issuecomment-2848530322
+(defcustom lsp-rust-analyzer-cargo-extra-env #s(hash-table)
+   "Extra environment variables that will be set when running cargo, rustc or
+ other commands within the workspace.  Useful for setting RUSTFLAGS."
+  :type 'alist)
+
 ;; -----------------------------------------------------------------------------
 ;; lsp-nix
 
