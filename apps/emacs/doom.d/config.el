@@ -154,6 +154,7 @@
             ("d" "~/Downloads")
             ("h" "~")
             ("o" "~/Documents")
+            ("t" "~/t")
             ("x" "~/x"))))
 
   (map! :map dirvish-mode-map
