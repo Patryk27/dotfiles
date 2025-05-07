@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 {
   fonts = {
     packages = with pkgs; [
@@ -11,7 +11,9 @@
       packages = with pkgs; [
         (
           if pkgs.stdenv.isLinux then
-            emacs30-pgtk
+            (emacs-igc-pgtk.overrideAttrs (old: {
+              src = inputs.emacs;
+            }))
           else
             emacs30
         )

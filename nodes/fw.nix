@@ -1,5 +1,6 @@
 {
   agenix,
+  emacs-overlay,
   home-manager,
   nixpkgs,
   nixos-hardware,
@@ -93,6 +94,10 @@ nixpkgs.lib.nixosSystem {
           config = {
             rocmSupport = true;
           };
+
+          overlays = [
+            emacs-overlay.overlays.default
+          ];
         };
 
         programs = {

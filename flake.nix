@@ -4,6 +4,15 @@
       url = "github:ryantm/agenix";
     };
 
+    emacs = {
+      url = "github:emacs-mirror/emacs/feature/igc";
+      flake = false;
+    };
+
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
 
