@@ -65,6 +65,7 @@ nixpkgs.lib.nixosSystem {
             discord
             firefox
             httm
+            imagemagick
             inkscape
             iperf3
             iw
