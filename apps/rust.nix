@@ -11,9 +11,11 @@
       packages =
         with pkgs;
         [
+          cargo-duplicates
           cargo-expand
           cargo-license
           cargo-nextest
+          cargo-outdated
           rust-analyzer
           simavr
         ]
