@@ -556,6 +556,43 @@
       :n "gt" '+lookup/type-definition
       :n "gp" '+lookup/parent)
 
+;; ---
+
+(defun random-from (alphabet)
+  (let ((i (% (abs (random)) (length alphabet))))
+    (substring alphabet i (1+ i))))
+
+(defun random-aln ()
+  (random-from "0123456789abcdefghihklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+
+(defun random-dig ()
+  (random-from "0123456789"))
+
+(defun random-hex ()
+  (random-from "0123456789abcdef"))
+
+(defun insert-random-token (gen)
+  (when (use-region-p)
+    (kill-region (region-beginning) (region-end)))
+  (dotimes (_ 8)
+    (insert (funcall gen))))
+
+(defun insert-random-aln-token ()
+  (interactive)
+  (insert-random-token 'random-aln))
+
+(defun insert-random-dig-token ()
+  (interactive)
+  (insert-random-token 'random-dig))
+
+(defun insert-random-hex-token ()
+  (interactive)
+  (insert-random-token 'random-hex))
+
+(map! :n "zia" 'insert-random-aln-token
+      :n "zid" 'insert-random-dig-token
+      :n "zih" 'insert-random-hex-token)
+
 ;; -----------------------------------------------------------------------------
 ;; evil-numbers
 
