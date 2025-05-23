@@ -67,6 +67,7 @@
        rest
        (rust +lsp +tree-sitter)
        (sh +tree-sitter)
+       (swift +lsp +tree-sitter)
        (web +tree-sitter)
        yaml
 
