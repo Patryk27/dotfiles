@@ -39,6 +39,12 @@
           safe = {
             directory = "*";
           };
+
+          url = {
+            "git@gitlab.protontech.ch:" = {
+              insteadOf = "https://gitlab.protontech.ch";
+            };
+          };
         };
       };
     };
