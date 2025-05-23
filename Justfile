@@ -13,7 +13,7 @@ switch-pfw:
 
 [private]
 switch-mac:
-    nix run nix-darwin -- switch --flake .
+    sudo darwin-rebuild switch --flake .
 
 boot:
     if [[ "{{ host }}" == "pfw" ]]; then \

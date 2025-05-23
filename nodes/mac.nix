@@ -36,6 +36,7 @@ nix-darwin.lib.darwinSystem {
         };
 
         system = {
+          primaryUser = "pwy";
           stateVersion = 5;
         };
 
