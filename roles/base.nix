@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
+    ../apps/avr.nix
     ../apps/cpp.nix
     ../apps/dbg.nix
     ../apps/direnv.nix
@@ -47,6 +48,7 @@
       python3
       ripgrep
       slack
+      sourcekit-lsp
       sqlite
       unrar
       unzip
