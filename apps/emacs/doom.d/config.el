@@ -560,7 +560,7 @@
 
 (defun random-from (alphabet)
   (let ((i (% (abs (random)) (length alphabet))))
-    (substring alphabet i (1+ i))))
+    (aref alphabet i)))
 
 (defun random-aln ()
   (random-from "0123456789abcdefghihklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"))
@@ -679,7 +679,7 @@
 
 ;; https://github.com/emacs-lsp/lsp-mode/issues/4768#issuecomment-2848530322
 (defcustom lsp-rust-analyzer-cargo-extra-env #s(hash-table)
-   "Extra environment variables that will be set when running cargo, rustc or
+  "Extra environment variables that will be set when running cargo, rustc or
  other commands within the workspace.  Useful for setting RUSTFLAGS."
   :type 'alist)
 
