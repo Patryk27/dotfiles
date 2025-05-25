@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 {
   fonts = {
     packages = with pkgs; [
@@ -9,14 +9,7 @@
   home-manager.users.pwy = {
     home = {
       packages = with pkgs; [
-        (
-          if pkgs.stdenv.isLinux then
-            (emacs-igc-pgtk.overrideAttrs (old: {
-              src = inputs.emacs;
-            }))
-          else
-            emacs30
-        )
+        (if pkgs.stdenv.isLinux then emacs30-pgtk else emacs30)
 
         (aspellWithDicts (
           dicts: with dicts; [
