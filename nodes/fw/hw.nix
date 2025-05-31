@@ -2,9 +2,9 @@
 {
   boot = {
     supportedFilesystems = [ "zfs" ];
+    kernelPackages = pkgs.linuxPackages_6_14;
 
     kernelParams = [
-      "amdgpu.abmlevel=0"
       "mitigations=off"
     ];
 

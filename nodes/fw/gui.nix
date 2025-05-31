@@ -46,10 +46,20 @@
   };
 
   services = {
+    desktopManager = {
+      gnome = {
+        enable = true;
+      };
+    };
+
     displayManager = {
       autoLogin = {
         enable = true;
         user = "pwy";
+      };
+
+      gdm = {
+        enable = true;
       };
     };
 
@@ -63,18 +73,6 @@
 
     xserver = {
       enable = true;
-
-      displayManager = {
-        gdm = {
-          enable = true;
-        };
-      };
-
-      desktopManager = {
-        gnome = {
-          enable = true;
-        };
-      };
     };
   };
 
