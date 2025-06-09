@@ -17,7 +17,7 @@
         wg-fort = {
           ips = [ "10.24.1.10/24" ];
           listenPort = 51820;
-          privateKeyFile = "/var/secrets/wg-fort/private.key";
+          privateKeyFile = "/secrets/wg-fort/private.key";
 
           peers = [
             # gateway

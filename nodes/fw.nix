@@ -36,7 +36,7 @@ nixpkgs.lib.nixosSystem {
 
         age = {
           identityPaths = [
-            "/var/secrets/age/key"
+            "/secrets/age/key"
           ];
         };
 

@@ -74,6 +74,14 @@
       fsType = "zfs";
       device = "rpool/nix";
     };
+
+    # Secrets need to be mounted explicitly, otherwise zfs auto-imports them too
+    # late for agenix to pick up
+    "/secrets" = {
+      fsType = "zfs";
+      device = "rpool/secrets";
+      neededForBoot = true;
+    };
   };
 
   hardware = {

@@ -44,7 +44,7 @@
           export PATH="$PATH:/run/wrappers/bin"
 
           export BORG_REPO="ssh://archive/home/pwy/backup-pfw"
-          export BORG_PASSPHRASE="nastily-simile-dingy"
+          export BORG_PASSPHRASE="$(sudo cat ${config.age.secrets.fw-backup.path})"
 
           ${./backup/main.sh}
         '';
