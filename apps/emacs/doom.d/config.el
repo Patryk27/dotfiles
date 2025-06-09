@@ -142,7 +142,6 @@
             ("h" "~")
             ("i" "~/diary")
             ("o" "~/Documents")
-            ("t" "~/t")
             ("x" "~/x")
             ("D" "/dav:pwy@archive.lan:/remote.php/webdav/diary-pwy")
             ("F" "/scp:gateway:/var/lib/nixos-containers/nginx/var/www/files")
@@ -154,7 +153,6 @@
             ("d" "~/Downloads")
             ("h" "~")
             ("o" "~/Documents")
-            ("t" "~/t")
             ("x" "~/x"))))
 
   (map! :map dirvish-mode-map
@@ -820,7 +818,7 @@
 
 (when (eq system-type 'gnu/linux)
   (setq projectile-project-search-path
-        '("~/t/" "~/x/" "~/.emacs.d")))
+        '("~/x/" "~/.emacs.d")))
 
 (when (eq system-type 'darwin)
   (setq projectile-project-search-path
