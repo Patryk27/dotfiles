@@ -939,14 +939,11 @@
 ;; -----------------------------------------------------------------------------
 ;; spell-fu
 
-(require 'ispell)
-(require 'spell-fu)
-
-(setq ispell-dictionary "en")
-
-(spell-fu-dictionary-add (spell-fu-get-ispell-dictionary "en"))
-(spell-fu-dictionary-add (spell-fu-get-ispell-dictionary "pl"))
-(spell-fu-dictionary-add (spell-fu-get-ispell-dictionary "sv"))
+(advice-add 'spell-fu--mode-enable :before
+            (lambda ()
+              (spell-fu-dictionary-add (spell-fu-get-ispell-dictionary "en"))
+              (spell-fu-dictionary-add (spell-fu-get-ispell-dictionary "pl"))
+              (spell-fu-dictionary-add (spell-fu-get-ispell-dictionary "sv"))))
 
 ;; -----------------------------------------------------------------------------
 ;; subword-mode
