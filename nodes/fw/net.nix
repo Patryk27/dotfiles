@@ -16,7 +16,6 @@
       interfaces = {
         wg-fort = {
           ips = [ "10.24.1.10/24" ];
-          listenPort = 51820;
           privateKeyFile = "/secrets/wg-fort/private.key";
 
           peers = [
@@ -24,7 +23,7 @@
             {
               publicKey = "GwhWP0DClVw9fY7PJidPuZfOzBhxhcnjTnO+8i1Z50w=";
               allowedIPs = [ "10.24.1.0/24" ];
-              endpoint = "142.132.178.21:51820";
+              endpoint = "142.132.178.21:53";
               persistentKeepalive = 10;
             }
           ];
