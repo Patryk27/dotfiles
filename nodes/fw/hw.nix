@@ -116,7 +116,6 @@
       autoSnapshot = {
         enable = true;
         flags = "-k -p --utc";
-        monthly = 0;
       };
     };
   };
