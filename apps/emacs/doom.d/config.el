@@ -143,8 +143,9 @@
             ("i" "~/diary")
             ("o" "~/Documents")
             ("x" "~/x")
-            ("D" "/dav:pwy@archive.lan:/remote.php/webdav/diary-pwy")
+            ("A" "/ssh:warp|sudo:sshd@warp:/var/lib/nixos-containers/archive/var/lib/nextcloud/data")
             ("F" "/scp:gateway:/var/lib/nixos-containers/nginx/var/www/files")
+            ("I" "/ssh:warp|sudo:sshd@warp:/var/lib/nixos-containers/archive/var/lib/nextcloud/data/pwy/files/diary-pwy")
             ("K" "/scp:gateway:/var/lib/nixos-containers/kartoffels/var/lib/kartoffels"))))
 
   (when (eq system-type 'darwin)
