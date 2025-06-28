@@ -2,7 +2,7 @@
 {
   boot = {
     supportedFilesystems = [ "zfs" ];
-    kernelPackages = pkgs.linuxPackages_6_14;
+    kernelPackages = pkgs.linuxPackages_6_15;
 
     kernelParams = [
       "mitigations=off"
