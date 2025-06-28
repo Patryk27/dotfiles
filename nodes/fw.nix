@@ -143,7 +143,7 @@ nixpkgs.lib.nixosSystem {
         };
 
         time = {
-          timeZone = "Europe/Warsaw";
+          timeZone = "Europe/Stockholm";
         };
       }
     )
