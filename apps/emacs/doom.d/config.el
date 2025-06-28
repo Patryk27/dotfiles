@@ -847,7 +847,7 @@
     "Run `cargo check' on current crate."
     (interactive)
     (rustic-run-cargo-command
-     "cargo check --tests --benches --all-features"
+     "cargo check --benches --examples --tests --all-features"
      (list :mode 'rustic-cargo-run-mode
            :directory (rustic-buffer-crate))))
 
@@ -863,14 +863,14 @@
     "Run `cargo clippy' on current workspace."
     (interactive)
     (rustic-run-cargo-command
-     "cargo clippy --workspace --tests --benches --all-features"
+     "cargo clippy --workspace --benches --examples --tests --all-features"
      (list :mode 'rustic-cargo-clippy-mode)))
 
   (defun rustic-cargo-check-workspace ()
     "Run `cargo check' on current workspace."
     (interactive)
     (rustic-run-cargo-command
-     "cargo check --workspace --tests --benches --all-features"
+     "cargo check --workspace --benches --examples --tests --all-features"
      (list :mode 'rustic-cargo-run-mode)))
 
   (defun rustic-cargo-test-workspace ()
