@@ -6,6 +6,7 @@
 
     extraHosts = ''
       10.24.1.2 archive.lan
+      10.254.1.2 grafana.local
     '';
 
     networkmanager = {

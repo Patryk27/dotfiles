@@ -25,6 +25,7 @@ nixpkgs.lib.nixosSystem {
           ../roles/base.nix
 
           ./fw/backup.nix
+          ./fw/containers.nix
           ./fw/gui.nix
           ./fw/hw.nix
           ./fw/iphone.nix
@@ -113,6 +114,19 @@ nixpkgs.lib.nixosSystem {
 
           fwupd = {
             enable = true;
+          };
+
+          prometheus = {
+            exporters = {
+              node = {
+                enable = true;
+                enabledCollectors = [ "systemd" ];
+              };
+
+              zfs = {
+                enable = true;
+              };
+            };
           };
         };
 
