@@ -76,8 +76,10 @@ nixpkgs.lib.nixosSystem {
             nixpkgs-review
             obs-studio
             powertop
+            s-tui
             spirv-tools
             spotify
+            stress
             vlc
             wineWowPackages.waylandFull
             winetricks
