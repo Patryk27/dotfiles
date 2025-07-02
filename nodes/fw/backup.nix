@@ -2,8 +2,8 @@
 {
   age = {
     secrets = {
-      fw-backup.file = ../../secrets/fw-backup;
       gateway-backup.file = ../../secrets/gateway-backup;
+      pwy-backup.file = ../../secrets/pwy-backup;
       warp-backup.file = ../../secrets/warp-backup;
     };
   };
@@ -11,9 +11,9 @@
   home-manager.users.pwy = {
     home = {
       packages = [
-        (pkgs.writeShellScriptBin "borg.archive.fw" ''
-          BORG_REPO="ssh://archive/home/pwy/backup-pfw" \
-          BORG_PASSPHRASE="$(sudo cat ${config.age.secrets.fw-backup.path})" \
+        (pkgs.writeShellScriptBin "borg.archive.pwy" ''
+          BORG_REPO="ssh://archive/home/pwy/backup" \
+          BORG_PASSPHRASE="$(sudo cat ${config.age.secrets.pwy-backup.path})" \
           ${pkgs.borgbackup}/bin/borg $@
         '')
 
@@ -43,8 +43,8 @@
           export PATH="$PATH:${pkgs.zfs}/bin"
           export PATH="$PATH:/run/wrappers/bin"
 
-          export BORG_REPO="ssh://archive/home/pwy/backup-pfw"
-          export BORG_PASSPHRASE="$(sudo cat ${config.age.secrets.fw-backup.path})"
+          export BORG_REPO="ssh://archive/home/pwy/backup"
+          export BORG_PASSPHRASE="$(sudo cat ${config.age.secrets.pwy-backup.path})"
 
           ${./backup/main.sh}
         '';

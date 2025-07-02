@@ -3,7 +3,7 @@ let
 
 in
 {
-  "secrets/fw-backup".publicKeys = [ fw ];
   "secrets/gateway-backup".publicKeys = [ fw ];
+  "secrets/pwy-backup".publicKeys = [ fw ];
   "secrets/warp-backup".publicKeys = [ fw ];
 }
