@@ -292,6 +292,7 @@
 
 (setq calendar-week-start-day 1
       display-line-numbers-type nil
+      next-error-recenter 20
       user-full-name "Patryk Wychowaniec"
       user-mail-address "pwychowaniec@pm.me"
       warning-minimum-level :error)
