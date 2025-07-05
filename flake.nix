@@ -4,6 +4,16 @@
       url = "github:ryantm/agenix";
     };
 
+    fw-fanctrl = {
+      url = "github:TamtamHero/fw-fanctrl/packaging/nix";
+
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
 
