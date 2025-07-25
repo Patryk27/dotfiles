@@ -1,6 +1,5 @@
 {
   agenix,
-  fw-fanctrl,
   home-manager,
   nixpkgs,
   nixos-hardware,
@@ -16,7 +15,6 @@ nixpkgs.lib.nixosSystem {
 
   modules = [
     agenix.nixosModules.default
-    fw-fanctrl.nixosModules.default
     home-manager.nixosModules.home-manager
     nixos-hardware.nixosModules.framework-16-7040-amd
 
@@ -105,28 +103,6 @@ nixpkgs.lib.nixosSystem {
         programs = {
           firejail = {
             enable = true;
-          };
-
-          fw-fanctrl = {
-            enable = true;
-
-            config = {
-              defaultStrategy = "quiet";
-
-              strategies = {
-                quiet = {
-                  fanSpeedUpdateFrequency = 5;
-                  movingAverageInterval = 30;
-
-                  speedCurve = [
-                    {
-                      temp = 0;
-                      speed = 15;
-                    }
-                  ];
-                };
-              };
-            };
           };
 
           steam = {
