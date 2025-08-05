@@ -15,7 +15,7 @@
                    ("terminfo/65" "terminfo/65/*")
                    ("integration" "integration/*")
                    (:exclude ".dir-locals.el" "*-tests.el")))
-  :pin "c0193e0e4f429a3f95e63a4afea678593f4a096b")
+  :pin "0c40af384b733eef989cdafc7c211d334ed20cb3")
 
 (package! evil-escape
   :disable t)
