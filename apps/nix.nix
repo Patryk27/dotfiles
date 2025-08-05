@@ -45,6 +45,11 @@
   nixpkgs = {
     config = {
       allowUnfree = true;
+
+      # TODO
+      permittedInsecurePackages = [
+        "libsoup-2.74.3"
+      ];
     };
   };
 

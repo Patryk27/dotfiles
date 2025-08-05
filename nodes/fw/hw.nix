@@ -5,6 +5,7 @@
     kernelPackages = pkgs.linuxPackages_6_15;
 
     kernelParams = [
+      "amdgpu.dcdebugmask=0x410"
       "mitigations=off"
     ];
 
