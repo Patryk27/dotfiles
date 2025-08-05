@@ -796,9 +796,9 @@
   (setq projectile-switch-project-action 'projectile-commander))
 
 ;; -----------------------------------------------------------------------------
-;; rainbow-delimeters
+;; rainbow-mode
 
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'prog-mode-hook 'rainbow-mode)
 
 ;; -----------------------------------------------------------------------------
 ;; rustic-mode
