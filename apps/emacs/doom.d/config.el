@@ -720,42 +720,6 @@
         :desc "align" "a" 'markdown-table-align))
 
 ;; -----------------------------------------------------------------------------
-;; notifications
-
-(require 'notifications)
-
-(defun stand-up ()
-  (notifications-notify
-   :title "stand-up"
-   :body "time to stand-up!"
-   :actions '("Confirm" "yess")))
-
-(defun stand-up--schedule ()
-  (let*
-      ((time (decode-time (current-time)))
-       (time-m (nth 1 time))
-       (time-h (nth 2 time))
-       (scheduled-at
-        (if (>= time-m 50)
-            (format "%d:%d" (+ 1 time-h) 50)
-          (format "%d:%d" time-h 50))))
-    (message (format "Scheduling a stand-up notification at %s" scheduled-at))
-    (run-at-time scheduled-at nil 'stand-up--notify)))
-
-(defun stand-up--notify-p ()
-  (let ((idle-time (current-idle-time)))
-    (if idle-time
-        (<= (time-to-seconds idle-time) 600)
-      t)))
-
-(defun stand-up--notify ()
-  (when (stand-up--notify-p)
-    (stand-up))
-  (stand-up--schedule))
-
-(stand-up--schedule)
-
-;; -----------------------------------------------------------------------------
 ;; nxml-mode
 
 (after! nxml-mode
