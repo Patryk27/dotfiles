@@ -939,6 +939,30 @@
 (require 'vlf-setup)
 
 ;; -----------------------------------------------------------------------------
+;; vterm
+
+(require 'vterm)
+
+(add-hook 'vterm-mode-hook
+          (lambda ()
+            (display-fill-column-indicator-mode -1)))
+
+(map! :leader
+      "o t" '+vterm/here
+      "o T" nil)
+
+(map! :map vterm-mode-map
+      :g "M-RET" 'evil-collection-vterm-toggle-send-escape)
+
+(defun +vterm/refresh-cursor (&rest _args)
+  (if (bound-and-true-p evil-collection-vterm-send-escape-to-vterm-p)
+      (set-cursor-color "#ffffff")
+    (evil-refresh-cursor evil-state)))
+
+(advice-add 'vterm--redraw :after '+vterm/refresh-cursor)
+(advice-add 'evil-collection-vterm-toggle-send-escape :after '+vterm/refresh-cursor)
+
+;; -----------------------------------------------------------------------------
 ;; web-mode
 
 (after! web-mode
