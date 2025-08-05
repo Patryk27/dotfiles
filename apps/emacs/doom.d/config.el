@@ -28,7 +28,8 @@
 
 (setq avy-keys '(?a ?s ?d ?j ?k ?l))
 
-(map! :n "=" 'evil-avy-goto-char-timer)
+(map! :n
+      "=" 'evil-avy-goto-char-timer)
 
 (after! avy
   (defun avy-action-lookup-documentation (pt)
@@ -88,9 +89,10 @@
 (setq calc-kill-line-numbering nil)
 
 (map! :leader
-      :desc "calc" "=" 'calc)
+      "=" 'calc)
 
-(map! :v "=" 'calc-eval-region)
+(map! :v
+      "=" 'calc-eval-region)
 
 (defun calc-eval-region (_arg beg end)
   "Calculate region and replace it with the result."
@@ -129,7 +131,8 @@
 ;; -----------------------------------------------------------------------------
 ;; dired / dirvish
 
-(map! :leader "j" 'dired-jump)
+(map! :leader
+      "j" 'dired-jump)
 
 (after! (:and evil dired)
   (setq dirvish-attributes '(file-time file-size)
@@ -280,8 +283,7 @@
 ;; ediff
 
 (map! :leader
-      :prefix "b"
-      :desc "ediff" "=" 'ediff-buffers)
+      "b =" 'ediff-buffers)
 
 ;; -----------------------------------------------------------------------------
 ;; emacs
@@ -699,7 +701,7 @@
 
 (after! magit
   (map! :map magit-status-mode-map
-        :n "yn" 'magit-copy-buffer-name)
+        :n "y n" 'magit-copy-buffer-name)
 
   (defun magit-copy-buffer-name ()
     "Show the current branch in the echo-area and add it to the `kill-ring'."
