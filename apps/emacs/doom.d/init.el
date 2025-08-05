@@ -45,7 +45,7 @@
        (eval +overlay)
        (lookup +dictionary +offline)
        lsp
-       magit
+       (magit +forge)
        make
        pdf
        tree-sitter
