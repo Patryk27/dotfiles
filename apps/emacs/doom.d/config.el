@@ -295,6 +295,7 @@
       next-error-recenter 20
       user-full-name "Patryk Wychowaniec"
       user-mail-address "pwychowaniec@pm.me"
+      large-file-warning-threshold 33554432
       warning-minimum-level :error)
 
 (setq-default major-mode 'text-mode)
