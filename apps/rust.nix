@@ -11,6 +11,7 @@
       packages = with pkgs; [
         cargo-duplicates
         cargo-expand
+        cargo-fuzz
         cargo-insta
         cargo-license
         cargo-nextest
